@@ -1,4 +1,4 @@
-export const apiPath = (path) => { return `https://recruit-ai-backend.herokuapp.com/api${path}` }
+export const apiPath = (path) => { return `http://localhost:4001/api${path}` }
 
 //Component paths
 export const userPath = (path = "") => { return apiPath(`/users${path}`) }

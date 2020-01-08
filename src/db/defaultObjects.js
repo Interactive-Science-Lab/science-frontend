@@ -22,56 +22,8 @@ const defaultObjects = {
         support_ticket_state: "pending",
         public_notes_text: "The ticket has been created and is awaiting an open staff member.",
         private_notes_text: ""
-    },
-    athlete: {
-        preferred_name: "",
-        first_name: "",
-        last_name: "",
-        email: "",
-        phone: "",
-        recruiting_personnel_id: 0,
-        city: "",
-        state: "",
-        high_school_name: "",
-        school_year: "12- Senior",
-        height: 60,
-        weight: 100,
-        notes: "",
-        application_process: {
-            school_application: false,
-            test_scores: false,
-            transcripts: false,
-            fafsa: false,
-            scholarship_offer: false,
-            visited_school: false,
-            accepted_offer: false,
-            classes_scheduled: false,
-            housing_selected: false,
-            financial_aid_accepted: false,
-        },
-    },
-    team: {
-        team_name: "",
-        admissions_email_address: "",
-        visit_reporting_address: "",
-        visit_reporting_instructions: ""
-    },
-    visit: {
-        visit_team_id: 0,
-        visit_athlete_id: 0,
-        visit_personnel_id: 0,
-        time_options: [null, null, null],
-        visit_status: "pending",
-        reporting_address: "",
-        reporting_instructions: "",
-    },
-    message: {
-        message_team_id: 0,
-        message_athlete_id: 0,
-        message_personnel_id: 0,
-        message_type: "outgoing",
-        message_text: ""
     }
+    
 
 }
 
