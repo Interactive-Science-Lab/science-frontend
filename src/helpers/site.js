@@ -1,2 +1,2 @@
-export const siteTitle = "RecruitAI"
-export const logoURL = "https://www.pinclipart.com/picdir/big/410-4104798_racing-clipart-transparent-running-man-silhouette-png-download.png"
+export const siteTitle = "SimpleBlog"
+export const logoURL = "https://image.freepik.com/vetores-gratis/logotipo-abstrato-e-colorido_23-2147504722.jpg"

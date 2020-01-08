@@ -1,54 +1,13 @@
-$ll-primary-color: #f9d6d1;
-$l-primary-color: #ed897b;
-$primary-color: #e13c25;
-$d-primary-color: #902314;
-$dd-primary-color: #3a0e08;
-
-$ll-secondary-color: #b9d2f3;
-$l-secondary-color: #659ce5;
-$secondary-color: #2168c7;
-$d-secondary-color: #133c73;
-$dd-secondary-color: #05101f;
-
-$ll-highlight-color: #ffffff;
-$l-highlight-color: #fccbc4;
-$highlight-color: #f67968;
-$d-highlight-color: #ee290e;
-$dd-highlight-color: #911909;
-
-$ll-light-color: #ffffff;
-$l-light-color: #ffffff;
-$light-color: #fdf0ee;
-$d-light-color: #f3a396;
-$dd-light-color: #e8553f;
-
-$ll-grey-color: #eae1e0;
-$l-grey-color: #c2a9a6;
-$grey-color: #9a716c;
-$d-grey-color: #614643;
-$dd-grey-color: #271c1b;
-
-$ll-dark-color: #df3824;
-$l-dark-color: #8c2114;
-$dark-color: #370d08;
-$d-dark-color: #000000;
-$dd-dark-color: #000000;
-
-
-
-
-
-
 /* THEME COLORS */
 
 //PAGE
 //MAIN BACKGROUND OPACITY
-$backgroundOpacityColor: lighten($ll-secondary-color, 10%);
+$backgroundOpacityColor: $ll-grey-color;
 
 //HEADER & MENUS
-$headerMenuColor: $d-secondary-color;
-$menuLinkColor: $ll-secondary-color;
-$menuHoverColor: $secondary-color;
+$headerMenuColor: $d-primary-color;
+$menuLinkColor: $ll-primary-color;
+$menuHoverColor: $primary-color;
 $menuAccentColor: $dark-color;
 
 //FOOTER
@@ -62,8 +21,8 @@ $topFontColor: $d-highlight-color;
 
 //LINKS
 $linkColor: $d-dark-color;
-$linkBackground: $l-secondary-color;
-$linkHoverColor: $ll-light-color;
+$linkBackground: $l-highlight-color;
+$linkHoverColor: $ll-highlight-color;
 $linkHoverBackground: $d-primary-color;
 
 

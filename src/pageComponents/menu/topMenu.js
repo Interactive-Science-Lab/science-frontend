@@ -43,14 +43,15 @@ class Menu extends React.Component {
     let dropdownOptions = []
     this.siteBlogTypes.map(name => dropdownOptions.push({name: name[0], view: 'all', link: `/posts?category=${name[0]}`, symbol: name[1] }))
     returnStructure.links = dropdownOptions
-    return returnStructure
+    
+    return dropdownOptions // or return returnStructure to have them collapsed
   }
 
 
 
   render = () => {
 
-    const menuStructure = [/*this.siteContentStructure(),*/ ...customMenuStructure, ...this.sitePagesStructure(), ]
+    const menuStructure = [...this.siteContentStructure(), ...customMenuStructure, ...this.sitePagesStructure(), ]
 
     return <div className={`${this.props.showMenu ? "mobile-menu-show" : "mobile-menu-hide"}`}>
       {menuStructure.map(item => 

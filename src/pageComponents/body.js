@@ -11,11 +11,6 @@ import SupportComponent from '../components/support_tickets/controller';
 import PageController from '../components/pages/page-controller'
 import PostController from '../components/posts/controller'
 
-import AthleteController from '../components/athletes/controller'
-import TeamController from '../components/teams/controller'
-import VisitController from '../components/visits/controller'
-import MessageController from '../components/messages/controller'
-import AlertController from '../components/alerts/controller'
 
 
 import UserProfile from '../components/user/userProfile'
@@ -26,11 +21,8 @@ const curr_user = localStorage.user ? JSON.parse(localStorage.user) : false
 function Body(props) {
     return <div className="body"><div className="page-container">
         <Switch>
-            {curr_user ? 
-            <Route path="/" exact component={UserProfile} />
-            : 
             <Route path="/" exact component={Home} />
-            }           
+            
 
             <Route path="/feedback" component={FeedbackComponent} />
             <Route path="/support_tickets" component={SupportComponent} />
@@ -39,14 +31,9 @@ function Body(props) {
 
             {/* Some protected routes, protect individully in controller */}
             <Route path="/users" render={() => <UserComponent {...props} auth={props.auth} />} />
-            <Route path="/teams" component={TeamController} />
-            <Route path="/athletes" component={AthleteController} />
-            <Route path="/visits" component={VisitController} />
 
             { //Completely protected
                 curr_user ? <div>
-                    <Route path="/messages" component={MessageController} />
-                    <Route path="/alerts" component={AlertController} />
                     <Route path="/admin" component={AdminComponent} />
                 </div> : ""
             }

@@ -23,12 +23,6 @@ export default  [
         {name: "Login", view: "all", link: '/users/login', symbol: ""},
         {name: "Forgot My Password", view: "all", link: '/users/forgottenPassword', symbol: ""},
     ]}, 
-    {name: "Messages", view: "end_user", link: '/messages', symbol: "comments"},
-    {name: "Alerts", view: "end_user", link: '/alerts', symbol: "exclamation"},
-    {name: "Athletes", view: "end_user", link: '/athletes', symbol: "running"},
-    {name: "Visits", view: "end_user", link: '/visits', symbol: "calendar-alt"},
-    {name: "Team and Staff", view: "end_user", link: `/teams/${curr_user && curr_user.userInfo ? curr_user.userInfo.team_id : ""}`, symbol: "users"},
-    {name: "Dashboard", view: "end_user", link: '/users/dashboard', symbol: "user-circle"},
     {name: "Account", view: "logged_in", symbol: "user", links: [   
         {name: "User List", view: 'admin', link: '/admin/users', symbol: "users"},
         {name: "Logs", view: 'admin', link: '/admin/logs', symbol: "cogs"},
