@@ -36,10 +36,14 @@
 	}
 }
 
+.mobile-menu-show > .hmenu-item:first-child {
+	
+	border-top: 2px solid $menuAccentColor;
+	
+}
 .hmenu-item {
 
 	border-bottom: 2px solid $menuAccentColor;
-	padding: 10px;
 	margin:0;
 	width:100%;
 	display:inline-block;
@@ -54,9 +58,9 @@
 .hmenu-dropdown-toggle {
 	display: inline-block;
 	cursor: pointer;
+	padding:5px;
 }
 .hmenu-dropdown-options {
-	border-radius:4px;
 	width:100%;
 	background-color: $headerMenuColor;
 	a {

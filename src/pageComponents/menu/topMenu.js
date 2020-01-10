@@ -20,7 +20,7 @@ class Menu extends React.Component {
   }
 
   sitePagesCategories = [['Features', 'exclamation', 'no_user'], ['About', 'question', 'all']]
-  siteBlogTypes = [["News", 'newspaper'], ["Blog", 'pencil-alt']]
+  siteBlogTypes = [["Blogging & SEO Tips", 'Blog', 'pencil-alt'], ["News & Updates", 'News', 'newspaper'], ]
 
   sitePagesStructure = () => {
     let returnStructure = []
@@ -41,17 +41,17 @@ class Menu extends React.Component {
   siteContentStructure = () => {
     let returnStructure = { name: "Content", view: "all", symbol: "star" }
     let dropdownOptions = []
-    this.siteBlogTypes.map(name => dropdownOptions.push({name: name[0], view: 'all', link: `/posts?category=${name[0]}`, symbol: name[1] }))
+    this.siteBlogTypes.map(name => dropdownOptions.push({name: name[0], view: 'all', link: `/posts?category=${name[1]}`, symbol: name[2] }))
     returnStructure.links = dropdownOptions
     
-    return dropdownOptions // or return returnStructure to have them collapsed
+    return [returnStructure] // or return dropdownOptions OR [returnStructure] 
   }
 
 
 
   render = () => {
 
-    const menuStructure = [...this.siteContentStructure(), ...customMenuStructure, ...this.sitePagesStructure(), ]
+    const menuStructure = [...this.siteContentStructure(), ...this.sitePagesStructure(),  ...customMenuStructure, ]
 
     return <div className={`${this.props.showMenu ? "mobile-menu-show" : "mobile-menu-hide"}`}>
       {menuStructure.map(item => 

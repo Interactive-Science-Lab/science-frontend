@@ -8,9 +8,11 @@ const defaultObjects = {
         page_order: 0
     },
     post: {
-        blog_title: "",
-        blog_text: "",
+        blog_status: "draft",
         blog_category: "Blog",
+        blog_title: "",
+        blog_description: "",
+        blog_text: "",
         blog_tags: []
     },
     support_ticket: {
@@ -20,7 +22,7 @@ const defaultObjects = {
         support_ticket_email: "",
         require_update: true,
         support_ticket_state: "pending",
-        public_notes_text: "The ticket has been created and is awaiting an open staff member.",
+        public_notes_text: "",
         private_notes_text: ""
     }
     

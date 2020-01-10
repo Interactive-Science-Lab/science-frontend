@@ -81,7 +81,7 @@ ul { list-style:none;padding:0;}
 
 .pageDarkSection {
 	text-align: center;
-	background: $dark-color;
+	background: $d-highlight-color;
 	padding: 40px 20px 80px;
 }
 
@@ -251,9 +251,14 @@ ul { list-style:none;padding:0;}
 	}
 }
 
+.search-helper-box {
+	border: 2px solid black;
+	padding:5px;
+	margin:5px;
+}
 
 .user-list-card {
-	background:$dark-color;
+	background:$l-secondary-color;
 	padding:10px;
 	border-top:4px solid $l-dark-color;
 	border-bottom: 4px solid $primary-color;

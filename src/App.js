@@ -5,7 +5,8 @@ import './App.scss';
 import Helmet from 'react-helmet'
 import Header from './pageComponents/header';
 import Body from './pageComponents/body';
-import Footer from './pageComponents/footer';
+
+import {siteTitle, siteTagline} from './helpers/site'
 
 class App extends React.Component {
 	constructor(props) {
@@ -37,7 +38,7 @@ class App extends React.Component {
 
 				<div className="main-screen">
 					<Helmet>
-                		<title>{`RecruitAI- For Coaches & Recruiters- Track & Message Athletes`}</title>
+                		<title>{`${siteTitle}- ${siteTagline}`}</title>
         			</Helmet>
 					<Body auth={{ curr_user: this.state, logout: this.logout, login: this.login }} />
 					

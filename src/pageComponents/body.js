@@ -2,18 +2,15 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 
 import Home from '../views/home';
-import UserComponent from '../views/misc/user';
-import AdminComponent from '../views/misc/admin';
+import UserComponent from '../components/core/users/controller';
 
-import FeedbackComponent from '../views/misc/feedback';
-import SupportComponent from '../components/support_tickets/controller';
+import FeedbackComponent from '../components/core/admin/feedback/controller';
+import SupportComponent from '../components/core/admin/support_tickets/controller';
 
-import PageController from '../components/pages/page-controller'
-import PostController from '../components/posts/controller'
-
+import PageController from '../components/content/pages/controller'
+import PostController from '../components/content/posts/controller'
 
 
-import UserProfile from '../components/user/userProfile'
 
 
 const curr_user = localStorage.user ? JSON.parse(localStorage.user) : false
@@ -22,21 +19,13 @@ function Body(props) {
     return <div className="body"><div className="page-container">
         <Switch>
             <Route path="/" exact component={Home} />
-            
-
+        
+            {/* Some protected routes, protect individully in controller */}
             <Route path="/feedback" component={FeedbackComponent} />
             <Route path="/support_tickets" component={SupportComponent} />
             <Route path="/pages" component={PageController} />
             <Route path="/posts" component={PostController} />
-
-            {/* Some protected routes, protect individully in controller */}
             <Route path="/users" render={() => <UserComponent {...props} auth={props.auth} />} />
-
-            { //Completely protected
-                curr_user ? <div>
-                    <Route path="/admin" component={AdminComponent} />
-                </div> : ""
-            }
 
             <Route path="/" render={() => <div className="controller"><div className="tpBlackBg">
                 <h2>We're Sorry</h2>

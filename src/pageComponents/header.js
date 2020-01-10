@@ -45,7 +45,7 @@ class Header extends React.Component {
             <NavLink to="/" style={{background:'none'}}><img alt="logo" height="50px" src={logoURL} /><br />
             <h3 style={{color:"white"}}>{siteTitle}</h3>
             </NavLink>
-         
+            
             <Menu auth={this.props.auth} showMenu={this.state.showMenu} toggleDropdown={this.toggleDropdown} />
        
 
