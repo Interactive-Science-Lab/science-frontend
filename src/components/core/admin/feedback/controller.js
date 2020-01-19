@@ -14,7 +14,7 @@ class Feedback extends React.Component {
     render() {
         return <div>
           <Switch>
-            <Route path="/feedback/provide" exact component={FeedbackProvide} />
+            <Route path="/feedback/new" exact component={FeedbackProvide} />
             <Route path="/feedback" exact component={FeedbackIndex} />
           </Switch>
         </div>

@@ -32,7 +32,7 @@ class Pagination extends React.Component {
                 {tagInfo[0]} ({tagInfo[1]})
             </p>)}
 
-        <Link to={`/posts?category=${this.props.component.state.loader.params.get('category')}`} > Clear Tags </Link>
+        <span className="format-link" onClick={this.handleTag} data-tag={""}> Clear Tags </span>
       </div>
     }
 }

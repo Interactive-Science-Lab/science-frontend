@@ -1,6 +1,8 @@
 import React from 'react'
 import axios from 'axios'
-import api from '../../../../helpers/api'
+import api from 'helpers/api'
+import {Link} from 'react-router-dom'
+import { curr_user, headers } from 'helpers/api'
 
 class Page extends React.Component {
     constructor(props) {
@@ -19,9 +21,8 @@ class Page extends React.Component {
     }
 
     loadPage = (props = this.props) => {
-        const headers = { headers: {'authorization': localStorage.token} }
         axios
-            .get(api.apiPath(`/support-tickets/${props.match.params.id}`), headers)
+            .get(api.apiPath(`/support_tickets/${props.match.params.id}`), headers)
             .then(res =>
               this.setState({support_ticket: res.data})
             )
@@ -40,6 +41,8 @@ class Page extends React.Component {
           {support_ticket.support_ticket_message}
           <h3>Steps & Progress:</h3>
           {support_ticket.public_notes_text}
+          
+          <Link to={`/support_tickets/${support_ticket.support_ticket_id}/edit`}>Edit</Link> 
         </div>
     }
 }

@@ -1,11 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom'
-import api from '../../../../helpers/api'
-
-import HandleForm from '../../../shared/forms/handler'
-
-import defaults from  '../../../../db/defaultObjects'
+import api from 'helpers/api'
+import HandleForm from 'components/shared/forms/handler'
+import defaults from  'db/defaultObjects'
+import { curr_user, headers } from 'helpers/api'
 
 class PageEdit extends React.Component {
   constructor(props) {
@@ -20,10 +19,9 @@ class PageEdit extends React.Component {
 
 
   updateInfo = (props = this.props) => {
-      const headers = { headers: {'authorization': localStorage.token} }
       const id = props.match.params.id
       axios
-          .get(api.apiPath(`/support-tickets/${id}`), headers)
+          .get(api.apiPath(`/support_tickets/${id}`), headers)
           .then(res =>
             this.setState({support_ticket: res.data})
           )

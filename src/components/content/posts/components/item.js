@@ -15,6 +15,7 @@ class Page extends React.Component {
         const { post } = this.props
 
         return <Link to={`/posts/${post.site_blog_id}`} style={{ display: "block" }}>
+            <img src={post.image_url} style={{width:'100px'}} /> 
             <h4>{post.blog_title}</h4>
             By {post.author_username} {stringifyDate(post.created_at)}
             <p>{post.blog_description}</p>

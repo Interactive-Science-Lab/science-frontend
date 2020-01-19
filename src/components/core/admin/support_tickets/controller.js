@@ -8,7 +8,7 @@ import New from './new.js'
 
 
 function PageController(props) {
-    return <div className="body"><div className="support_ticket-container">
+    return <div className="support_ticket-container">
         <Switch>
             <Route path="/support_tickets/" exact component={Index} />
             <Route path="/support_tickets/new" exact component={New} />
@@ -22,7 +22,7 @@ function PageController(props) {
             </div></div>} />
 
         </Switch>
-    </div></div>
+    </div>
 }
 
 export default PageController;

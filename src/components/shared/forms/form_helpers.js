@@ -6,7 +6,7 @@ const printifyName = (name) => {
 const checkBasicText = (pair) => {
     return valueIsType(pair, 'string') &&     
     fieldDoesNotContain(pair, ['_id',  '_text', '_url', 'foreign_class'] ) &&
-    fieldIsNot(pair, ['id', 'blog_status', 'blog_category'])
+    fieldIsNot(pair, ['id', 'blog_status', 'blog_category', 'page_status', 'page_category'])
 }
 
 const checkTextField = (pair) => {

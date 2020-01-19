@@ -36,8 +36,8 @@ export const Protect = (props) => {
     //If the type is "and"- the default value should be true, to prevent a false negative.
     let checkResult = join === 'or' ? false : true
 
-    const checks = [[kind, curr_user.user_kind === kind], [role, curr_user.user_role >= role], [custom, custom]]
-    checks.map(c => c[0] || c[0] === false ? checkResult = check(join, checkResult, c[1]) : "")
+    const checks = curr_user && [[kind, curr_user.user_kind === kind], [role, curr_user.user_role >= role], [custom, custom]]
+    if(checks){ checks.map(c => c[0] || c[0] === false ? checkResult = check(join, checkResult, c[1]) : "") }
 
     return <div>{checkResult ? props.children : ""}</div>
 }

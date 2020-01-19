@@ -15,12 +15,17 @@ class Menu extends React.Component {
   }
 
   componentDidMount = async () => {
-    const pages = await axios.get(apiPath('/pages'))
+    const pages = await axios.get(apiPath('/pages/menu'))
+    console.log(pages)
     this.setState({site_pages: pages.data})
   }
 
   sitePagesCategories = [['Features', 'exclamation', 'no_user'], ['About', 'question', 'all']]
-  siteBlogTypes = [["Blogging & SEO Tips", 'Blog', 'pencil-alt'], ["News & Updates", 'News', 'newspaper'], ]
+  siteBlogTypes = [
+    ["Blogging & SEO Tips", 'Blog', 'pencil-alt'], 
+    ["News & Updates", 'News', 'newspaper'], 
+    //["My Pretty Thingys", 'Gallery', 'palette']
+  ]
 
   sitePagesStructure = () => {
     let returnStructure = []

@@ -30,8 +30,8 @@ class Pagination extends React.Component {
         </select>
         <select onChange={this.handleOrder} value={this.props.component.state.loader.params.get('sortdir')} >
           
-            <option value={'asc'}>Asc.</option>
-            <option value={'desc'}>Desc.</option>
+            <option value={'ASC'}>Asc.</option>
+            <option value={'DESC'}>Desc.</option>
         </select>
       </div>
     }

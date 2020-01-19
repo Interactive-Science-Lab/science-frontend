@@ -1,11 +1,12 @@
 
 const defaultObjects = {
     page: {
-        page_title: "",
-        page_body_text: "",
+        page_status: "draft",
         page_category: "About",
         page_symbol: "star",
-        page_order: 0
+        page_title: "",
+        page_body_text: "",
+        page_order: 0,
     },
     post: {
         blog_status: "draft",

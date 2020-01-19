@@ -1,4 +1,4 @@
-export const defaultLoader = (def) => {
+export const defaultLoader = (def = {}) => {
     const params = new URLSearchParams(window.location.search)
     //Set incoming defaults to the params
     Object.entries(def).map(incomingDefault => params.set(incomingDefault[0], incomingDefault[1]))
@@ -14,13 +14,14 @@ export const defaultLoader = (def) => {
     const options = ['search', 'filter', 'sort', 'sortdir', 'tag']
     options.map(o => params.get(o) ? retParams[o] = params.get(o) : "")
     console.log(retParams)
+    window.history.replaceState({}, "", window.location.pathname + '?' + params.toString()) 
     return retParams
 }
 
 export const checkParams = (component) => {
     let params = component.state.loader.params
     if (params.toString() !== new URLSearchParams(window.location.search)) {
-        params = new URLSearchParams(window.location.search)
+         params = new URLSearchParams(window.location.search)
     }
 
     if (component.state.loader.update) { component.setState({ loader: {...component.state.loader, update: false, loading: true }}) }

@@ -3,17 +3,17 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 
 //API Related
-import api from '../../../helpers/api'
-import {curr_user, headers, Protect} from '../../../helpers/api'
+import api from 'helpers/api'
+import {curr_user, headers, Protect} from 'helpers/api'
 
 //Related to search, sort, filter 
-import {defaultLoader, checkParams, updatePage, checkLoad} from '../../shared/search_helpers/search_helpers'
+import {defaultLoader, checkParams, updatePage, checkLoad} from 'components/shared/search_helpers/search_helpers'
 
-import Pagination from '../../shared/search_helpers/pagination'
-import Search from '../../shared/search_helpers/search'
-import Tags from '../../shared/search_helpers/tag'
-import Filter from '../../shared/search_helpers/filter'
-import Sort from '../../shared/search_helpers/sort'
+import Pagination from 'components/shared/search_helpers/pagination'
+import Search from 'components/shared/search_helpers/search'
+import Tags from 'components/shared/search_helpers/tag'
+import Filter from 'components/shared/search_helpers/filter'
+import Sort from 'components/shared/search_helpers/sort'
 
 //Related to this component
 import List from './components/list'
@@ -26,7 +26,7 @@ class Page extends React.Component {
         this.state = {
             posts: [],
             tags: [],
-            loader: defaultLoader({filter: 'public'})
+            loader: defaultLoader({filter: 'public', sort: "created_at", sortdir: "DESC"})
         }
     }
 

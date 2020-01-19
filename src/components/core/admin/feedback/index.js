@@ -1,61 +1,72 @@
 import React from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
-import FeedbackCard from './card.js'
-import {apiPath} from '../../../../helpers/api'
+//API Related
+import api from '../../../../helpers/api'
+import {curr_user, headers, Protect} from '../../../../helpers/api'
 
-const curr_user = localStorage.user ?  JSON.parse(localStorage.user) : false
-const headers = { headers: {'authorization': localStorage.token} }
+//Related to search, sort, filter 
+import {defaultLoader, checkParams, updatePage, checkLoad} from '../../../shared/search_helpers/search_helpers'
 
-class FeedbackIndex extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      feedbacks: [],
-      filter: "unlogged",
-      lastFilter: "",
-      loading: true,
-    }
-  }
+import Pagination from '../../../shared/search_helpers/pagination'
+import Search from '../../../shared/search_helpers/search'
+import Filter from '../../../shared/search_helpers/filter'
 
-  componentDidMount = () => {
-    this.loadPage();
-  }
+//Related to this component
+import List from './components/list'
 
-  componentDidUpdate = () => {
-    if(this.state.filter !== this.state.lastFilter) {
-      this.loadPage();
-    }
-  }
 
-  loadPage = () => {
-    axios
-        .get(apiPath(`/feedback`), headers)
-        .then(res =>
-          this.setState({feedbacks: res.data.pageOfItems, loading: false, lastFilter: this.state.filter})
-        )
-        .catch(err => console.log(err) );
-  }
 
-  toggleFilter = () => {
-    this.setState({filter: this.state.filter === 'unlogged' ? 'all' : 'unlogged'})
-  }
-
-  render() {
-      return <div>
-        <h2>{this.state.filter === 'unlogged' ? 'Unseen Feedback' : 'All Feedback'}</h2>
-        <span onClick={this.toggleFilter}>See {this.state.filter === 'unlogged' ? 'All Feedback' : 'Only Unseen Feedback'}</span><br />
-        {
-          this.state.feedbacks.length > 0 ?
-          this.state.feedbacks.map(feedback => <div>
-              <FeedbackCard feedback={feedback} update={this.loadPage}/><hr />
-            </div>
-          )
-          : <div>{this.state.loading  ? "Loading." : "No Results."}</div>
+class Page extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            feedback: [],
+            loader: defaultLoader({filter: '', sort: "created_at", sortdir: "DESC"})
         }
-      </div>
-  }
+    }
+
+    componentDidMount = () => {
+        this.loadPage()
+    }
+
+    componentDidUpdate = (pProps, pState) => {
+        //This make sures there a reason to call the api before doing so.
+        checkLoad(this, pState)
+    }
+
+    loadPage = async (props = this.props) => {
+        //Makes sure we have the correct params and sets update to false.
+        const params = checkParams(this)
+        const res = await axios.get(api.apiPath(`/feedback` + '?' + params.toString()), headers)
+        updatePage(this, res, params, {feedback: res.data.pageOfItems})
+    }
+          
+
+    render() {
+        const { feedback } = this.state
+
+        return <div>
+            <h1>{feedback[0] ? feedback[0].blog_category : (this.state.loader.loading ? "LOADING" : "")}</h1>
+
+            <div>
+                <Protect role={3} kind={'admin_user'} join={'or'}>
+                    Admin Filter: <Filter component={this} options={['unlogged', 'logged']} />
+                </Protect>
+                <div className='search-helper-box'>
+                    <Search component={this} />
+                </div>
+
+                <List feedback={feedback} update={this.loadPage} />
+                
+                <Pagination component={this} />
+                <Protect role={3} kind={'admin_user'} join={'or'}>
+                    <Link to={`/posts/new`}>Add New Item +</Link>
+                </Protect>
+            </div>
+        </div>
+    }
 }
 
-
-export default FeedbackIndex
+export default Page

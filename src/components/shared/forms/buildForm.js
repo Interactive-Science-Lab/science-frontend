@@ -143,7 +143,7 @@ class FormHandler extends React.Component {
                 }
 
                 {
-                    itemField[0] === 'blog_status' ? 
+                    itemField[0] === 'blog_status' || itemField[0] === 'page_status' ? 
                     <div>
                         View Status<br />
                         <select  onChange={this.handleChange} name={itemField[0]} value={itemField[1]}>
@@ -161,6 +161,18 @@ class FormHandler extends React.Component {
                         <select onChange={this.handleChange} name={itemField[0]} value={itemField[1]}>
                             <option value="News">News</option>
                             <option value="Blog">Blog</option>
+                            <option value="Gallery">Gallery</option>
+                        </select>
+                    </div> : ""
+                }
+
+{
+                    itemField[0] === 'page_category' ? 
+                    <div>
+                        Page Category<br />
+                        <select onChange={this.handleChange} name={itemField[0]} value={itemField[1]}>
+                            <option value="News">About</option>
+                            <option value="Blog">Features</option>
                         </select>
                     </div> : ""
                 }
