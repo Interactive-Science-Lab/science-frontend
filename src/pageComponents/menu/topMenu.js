@@ -20,9 +20,12 @@ class Menu extends React.Component {
     this.setState({site_pages: pages.data})
   }
 
-  sitePagesCategories = [['Features', 'exclamation', 'no_user'], ['About', 'question', 'all']]
+  sitePagesCategories = [
+    ['Features', 'exclamation', 'all'], 
+    ['About', 'question', 'all']
+  ]
   siteBlogTypes = [
-    ["Blogging & SEO Tips", 'Blog', 'pencil-alt'], 
+    ["Blog", 'Blog', 'pencil-alt'], 
     ["News & Updates", 'News', 'newspaper'], 
     //["My Pretty Thingys", 'Gallery', 'palette']
   ]
@@ -44,7 +47,7 @@ class Menu extends React.Component {
   }
 
   siteContentStructure = () => {
-    let returnStructure = { name: "Content", view: "all", symbol: "star" }
+    let returnStructure = { name: "Content", view: "all", symbol: "box" }
     let dropdownOptions = []
     this.siteBlogTypes.map(name => dropdownOptions.push({name: name[0], view: 'all', link: `/posts?category=${name[1]}`, symbol: name[2] }))
     returnStructure.links = dropdownOptions

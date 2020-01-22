@@ -5,8 +5,8 @@
 /* The general settings that aren't fonts & colors. */
 @import '/stylesheets/settings';
 /* The color palette and what goes on each page */
-@import '/stylesheets/theme-colors/theme-colors2';
-@import '/stylesheets/theme-designs/theme-design2';
+@import '/stylesheets/theme-colors/greenField';
+@import '/stylesheets/theme-designs/v-light-theme';
 /* Font-families & sizes for all fonts */
 @import '/stylesheets/fonts';
 /* Reusable components- Buttons, Links, Dividers */
@@ -42,7 +42,7 @@ ul { list-style:none;padding:0;}
 .form-group {margin-bottom:25px !important;text-align:left;}
 
 .main-bg {
-	background-color: $ll-light-color;
+	background-color: $mainBgColor;
 	$weights: "https://images.pexels.com/photos/703016/pexels-photo-703016.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940";
 	background-size: cover;
 	background-attachment: fixed;
@@ -50,10 +50,9 @@ ul { list-style:none;padding:0;}
 }
 .main-screen {
 	background: linear-gradient(
-		rgba(255,255,255, 1) 0%,
 		rgba($backgroundOpacityColor, 1) 10%,
 		rgba($backgroundOpacityColor, .75) 20%,
-		rgba($backgroundOpacityColor, .15) 40%,
+		rgba($backgroundOpacityColor, .55) 40%,
 		rgba($backgroundOpacityColor, .5) 70%,
 		rgba($backgroundOpacityColor, 1) 100%
 	);

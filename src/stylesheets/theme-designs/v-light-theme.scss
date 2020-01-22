@@ -1,0 +1,53 @@
+/* THEME COLORS */
+
+//PAGE
+//MAIN BACKGROUND OPACITY
+$backgroundOpacityColor: lighten($ll-secondary-color, 10%);
+$mainBgColor: $ll-light-color;
+
+//HEADER & MENUS
+$headerMenuColor: $d-secondary-color;
+$menuLinkColor: $ll-secondary-color;
+$menuHoverColor: $secondary-color;
+$menuAccentColor: $dark-color;
+
+//FOOTER
+$footerBackgroundColor: $d-secondary-color;
+$footerAccentColor: $dark-color;
+
+//DEFAULT TEXT
+$textFontColor: $dark-color;
+$headerFontColor: $d-secondary-color;
+$topFontColor: $d-highlight-color;
+
+//LINKS
+$linkColor: $d-dark-color;
+$linkBackground: $l-secondary-color;
+$linkHoverColor: $ll-light-color;
+$linkHoverBackground: $d-primary-color;
+
+
+
+//DIVIDERS
+$dividerColor: $secondary-color;
+$d-dividerColor: $dd-secondary-color;
+$l-dividerColor: $ll-secondary-color;
+
+//COLOR SECTION COMPONENT
+$colorSectionBackground: $ll-light-color;
+$colorSectionHeaderBackground: $l-primary-color;
+
+//BUTTONS
+$defaultNiceButtonTextColor: $light-color;
+$defaultNiceButtonColor: $d-secondary-color;
+$defaultNiceButtonBorder: 2px solid $d-grey-color;
+$defaultNiceButtonHighlightColor: $l-light-color;
+$defaultNiceButtonHighlightTextColor: $l-light-color;
+
+$primaryNiceButtonTextColor: $l-light-color;
+$primaryNiceButtonBorderColor: $grey-color;
+$primaryNiceButtonColor: $l-light-color;
+$primaryNiceButtonHighlightColor: $l-light-color;
+$primaryNiceButtonHighlightTextColor: $l-light-color;
+
+

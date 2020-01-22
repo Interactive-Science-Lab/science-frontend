@@ -2,12 +2,13 @@
 
 //PAGE
 //MAIN BACKGROUND OPACITY
-$backgroundOpacityColor: lighten($ll-secondary-color, 10%);
+$backgroundOpacityColor: $dark-color;
+$mainBgColor: $dd-primary-color;
 
 //HEADER & MENUS
-$headerMenuColor: $d-secondary-color;
-$menuLinkColor: $ll-secondary-color;
-$menuHoverColor: $secondary-color;
+$headerMenuColor: $dd-primary-color;
+$menuLinkColor: $ll-light-color;
+$menuHoverColor: $primary-color;
 $menuAccentColor: $dark-color;
 
 //FOOTER
@@ -15,14 +16,14 @@ $footerBackgroundColor: $d-secondary-color;
 $footerAccentColor: $dark-color;
 
 //DEFAULT TEXT
-$textFontColor: $dark-color;
-$headerFontColor: $d-secondary-color;
-$topFontColor: $d-highlight-color;
+$textFontColor: $ll-light-color;
+$headerFontColor: $light-color;
+$topFontColor: $l-primary-color;
 
 //LINKS
-$linkColor: $d-dark-color;
-$linkBackground: $l-secondary-color;
-$linkHoverColor: $ll-light-color;
+$linkColor: $ll-light-color;
+$linkBackground: $l-highlight-color;
+$linkHoverColor: $ll-highlight-color;
 $linkHoverBackground: $d-primary-color;
 
 

@@ -39,7 +39,7 @@ class Header extends React.Component {
 
     const user = localStorage.user ? JSON.parse(localStorage.user) : null
 
-    return <div><div className={`header ${this.state.showMenu ? "show-menu" : "hide-menu"} `} >
+    return <div style={{height:"0px"}}><div className={`header ${this.state.showMenu ? "show-menu" : "hide-menu"} `} >
 
             <br /><h1 className='fas fa-window-close hmenu-mobile-toggle d-lg-none' onClick={this.toggleMenu}></h1><br />
             <NavLink to="/" style={{background:'none'}}><img alt="logo" height="50px" src={logoURL} /><br />

@@ -13,11 +13,11 @@ const curr_user = localStorage.user ?  JSON.parse(localStorage.user) : false
 
 
 export default  [
-    {name: "Sign Up", view: "no_user", symbol: "user", links: [
-        {name: "Register", view: "all", link: '/users/register', symbol: ""},
-        {name: "Login", view: "all", link: '/users/login', symbol: ""},
-        {name: "Forgot My Password", view: "all", link: '/users/forgottenPassword', symbol: ""},
-    ]}, 
+    // {name: "Sign Up", view: "no_user", symbol: "user", links: [
+    //     {name: "Register", view: "all", link: '/users/register', symbol: ""},
+    //     {name: "Login", view: "all", link: '/users/login', symbol: ""},
+    //     {name: "Forgot My Password", view: "all", link: '/users/forgottenPassword', symbol: ""},
+    // ]}, 
     {name: "Account", view: "logged_in", symbol: "user", links: [   
         {name: "User List", view: 'admin', link: '/users/list', symbol: "users"},
         {name: "Logs", view: 'admin', link: '/logs', symbol: "cogs"},
@@ -26,7 +26,7 @@ export default  [
         {name: "Logout", view: 'all', link: '/users/logout', symbol: "sign-out-alt"}
     ]},
     {name: "Help", view: "all", symbol: "info-circle", links: [
-        {name: "Feedback/Contact", view: "all", link: '/feedback/provide', symbol: "comments"},
-        {name: "Support/Bug Report", view: "all", link: '/support_tickets/new', symbol: "bug"},
+        {name: "Contact", view: "all", link: '/feedback/new', symbol: "comment-slash"},
+        //{name: "Support/Bug Report", view: "all", link: '/support_tickets/new', symbol: "bug"},
     ]},
 ]

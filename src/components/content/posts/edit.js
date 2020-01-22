@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import api from '../../../helpers/api'
 
 import HandleForm from '../../shared/forms/handler'
+import RelationshipForm from '../../shared/forms/relationship'
 
 import defaults from  '../../../db/defaultObjects'
 
@@ -38,6 +39,9 @@ class PageEdit extends React.Component {
         <Link to={`/posts/${item.site_blog_id}?title=${item.blog_title}`}>Back to Page</Link>
 
         <HandleForm item={formFields} formClass={"posts"} update={this.updateInfo} />
+
+        <RelationshipForm item={item} formClass={"thumbnail"} update={this.updateInfo} info={ {id: item.site_blog_id, class: "SiteBlog"}  } />
+            
         
       </div>
   }

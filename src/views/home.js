@@ -7,25 +7,21 @@ function Home(props) {
 	const squares = [
 		{
 			title: "See Features",
-			link: "/users/register"
+			link: "/pages/1"
 		},
 		{
-			title: "Contact Developer For Install",
-			link: "/users/login"
+			title: "Sign Up",
+			link: "/users/register"
 		},
 	]
 
 	return <div style={{maxWidth:'800px',margin:'40px auto',textAlign:'center'}}>
 		
 		
-		<h4>SimpleBlog is a...</h4>
+		<h4>Simple blog is a </h4>
 		<h1>{siteTitle}</h1>
-		<h3>-functionality comparable to WordPress</h3>
-		<h3>-easier to use</h3>
-		<h3>-faster for the end user</h3>
-
-		built on node/react<br />
-
+		<h3>Making blogging easy & fast</h3>
+		<h3>Ability to extend custom functionality</h3>
 
 			{squares.map(({title, link}) => 
 			<div>
