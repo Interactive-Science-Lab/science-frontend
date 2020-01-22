@@ -10,23 +10,21 @@ import {defaultLoader, checkParams, updatePage, checkLoad} from 'components/shar
 
 //Related to this component
 import DefaultIndex from 'components/shared/ui_helpers/defaultIndex'
-import ItemComponent from './components/item'
-
-
+import ItemComponent from './components/card'
 
 class Page extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             items: [],
-            loader: defaultLoader({filter: '', sort: "created_at", sortdir: "DESC"}),
+            loader: defaultLoader({ filter: 'unlogged'}),
             settings: {
                 resource: {
-                    urlPath: '/feedback',
-                    title: "Provided Feedback",
+                    urlPath: '/logs',
+                    title: "Logs",
                 },
                 filter: {
-                    options: ['unlogged', 'logged'],
+                    options: ['all', 'confirmed', 'unconfirmed'],
                     protection: "admin",
                 },
                 search: {},
@@ -62,5 +60,3 @@ class Page extends React.Component {
 }
 
 export default Page
-
-

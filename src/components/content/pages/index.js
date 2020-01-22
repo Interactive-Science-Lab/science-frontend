@@ -1,23 +1,44 @@
 import React from 'react'
 import axios from 'axios'
-import api from '../../../helpers/api'
-import { curr_user, headers, Protect } from '../../../helpers/api'
-import { Link } from 'react-router-dom'
-import List from './components/list'
+
+//API Related
+import api from 'helpers/api'
+import { curr_user, headers } from 'helpers/api'
+
+//Related to search, sort, filter 
+import { defaultLoader, checkParams, updatePage, checkLoad } from 'components/shared/search_helpers/search_helpers'
+
+//Related to this component
+import DefaultIndex from 'components/shared/ui_helpers/defaultIndex'
+import ItemComponent from './components/item'
 
 
-import { defaultLoader, checkParams, updatePage, checkLoad } from '../../shared/search_helpers/search_helpers'
-import Pagination from '../../shared/search_helpers/pagination'
-import Search from '../../shared/search_helpers/search'
-import Filter from '../../shared/search_helpers/filter'
-import Sort from '../../shared/search_helpers/sort'
 
 class Page extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            pages: [],
-            loader: defaultLoader({ filter: 'public' })
+            items: [],
+            loader: defaultLoader({ filter: 'public' }),
+            settings: {
+                resource: {
+                    urlPath: '/pages',
+                    title: "Page List",
+                },
+                filter: {
+                    options: ['draft', 'public', 'private'],
+                    protection: "admin",
+                },
+                sort: {
+                    options: [['page_title', 'Alphabetical'], ['page_category', 'Category'], ['page_order', 'Order']],
+                },
+                search: {},
+                paginate: {},
+                newLink: {
+                    protection: "admin",
+                    options: "Add New +",
+                },
+            }
         }
     }
 
@@ -33,31 +54,16 @@ class Page extends React.Component {
     loadPage = async (props = this.props) => {
         //Makes sure we have the correct params and sets update to false.
         const params = checkParams(this)
-        const res = await axios.get(api.apiPath(`/pages` + '?' + params.toString()))
-        updatePage(this, res, params, { pages: res.data.pageOfItems })
+        const res = await axios.get(api.apiPath(`${this.state.settings.resource.urlPath}` + '?' + params.toString()), headers)
+        updatePage(this, res, params, { items: res.data.pageOfItems })
     }
 
+
     render() {
-        const pages = this.state.pages
-        return <div className="tpBlackBg">
-            <h1>Site Page List</h1>
-            <Protect role={3} kind={'admin_user'} join={'or'}>
-                Admin Filter: <Filter component={this} options={['draft', 'public', 'private']} />
-            </Protect>
-            <div className='search-helper-box'>
-                <Search component={this} />
-                <Sort component={this} options={[['page_title', 'Alphabetical'], ['page_category', 'Category'], ['page_order', 'Order']]} />
-            </div>
+        const { items, settings } = this.state
 
-
-            <List items={pages} />
-
-
-            <Pagination component={this} />
-            <Protect role={3} kind={'admin_user'} join={'or'}>
-                <Link to={`/pages/new`}>Add New +</Link>
-            </Protect>
-
+        return <div>
+            <DefaultIndex Item={ItemComponent} items={items} settings={settings} mainState={this} />
         </div>
     }
 }

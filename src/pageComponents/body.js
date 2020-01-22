@@ -6,6 +6,7 @@ import UserComponent from '../components/core/users/controller';
 
 import FeedbackComponent from '../components/core/admin/feedback/controller';
 import SupportComponent from '../components/core/admin/support_tickets/controller';
+import LogController from '../components/core/admin/logComponents/controller'
 
 import PageController from '../components/content/pages/controller'
 import PostController from '../components/content/posts/controller'
@@ -25,6 +26,7 @@ function Body(props) {
             <Route path="/support_tickets" component={SupportComponent} />
             <Route path="/pages" component={PageController} />
             <Route path="/posts" component={PostController} />
+            <Route path="/logs" component={LogController} />
             <Route path="/users" render={() => <UserComponent {...props} auth={props.auth} />} />
 
             <Route path="/" render={() => <div className="controller"><div className="tpBlackBg">

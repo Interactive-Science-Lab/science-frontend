@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
-import api from '../../../../../helpers/api'
-import { curr_user, headers } from '../../../../../helpers/api'
+import api from 'helpers/api'
+import { curr_user, headers } from 'helpers/api'
 
 class Page extends React.Component {
     constructor(props) {

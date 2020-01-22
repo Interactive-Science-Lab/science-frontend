@@ -9,6 +9,8 @@ import ForgottenPassword from './auth/forgottenPassword'
 import ResetPassword from './auth/resetPassword'
 
 import UserPage from './userPage'
+import UserList from './userList'
+ 
  
 import UserProfile from './userProfile'
 import EditUser from './userForm'
@@ -36,16 +38,14 @@ class User extends React.Component {
         <Route path="/users/resetPassword/:username/:verify_hash" exact component={ResetPassword} />
 
 
-        { //Completely protected
-          curr_user ? <div>
             <Route path="/users/dashboard" exact component={UserProfile} />
             <Route path="/users/edit" exact component={EditUser} />
             <Route path="/users/logout" exact render={() => <Logout {...this.props} auth={this.props.auth} />} />
 
-            <Route path="/users/profile/:id" exact component={UserPage} />
+            <Route path="/users/list" exact component={UserList} />
+            <Route path="/users/:id" exact component={UserPage} />
 
-          </div> : ""
-        }
+        
 
         <Route path="/" render={() => <div className="controller"><div className="tpBlackBg">
           <h2>We're Sorry</h2>

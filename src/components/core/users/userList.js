@@ -1,57 +1,63 @@
 import React from 'react'
 import axios from 'axios'
-import api from '../../helpers/api'
 
-import UserCard from './userList/userCard'
+//API Related
+import api from 'helpers/api'
+import {curr_user, headers} from 'helpers/api'
 
-const curr_user = localStorage.user ?  JSON.parse(localStorage.user) : false
-const headers = { headers: {'authorization': localStorage.token} }
+//Related to search, sort, filter 
+import {defaultLoader, checkParams, updatePage, checkLoad} from 'components/shared/search_helpers/search_helpers'
+
+//Related to this component
+import DefaultIndex from 'components/shared/ui_helpers/defaultIndex'
+import ItemComponent from './userList/userCard'
 
 class Page extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            users: [],
-            searchTerm: "",
-            searching: true
+            items: [],
+            loader: defaultLoader(),
+            settings: {
+                resource: {
+                    urlPath: '/users',
+                    title: "Manage Users",
+                },
+                filter: {
+                    options: ['all', '1', '2', '3'],
+                    protection: "admin",
+                },
+                search: {},
+                paginate: {},
+            }
         }
     }
 
     componentDidMount = () => {
-      this.loadPage();
+        this.loadPage()
     }
 
-    loadPage = () => {
-      axios
-          .get(api.adminPath(`/user-list/${ this.searchTerm !== '' ? `?search=${this.state.searchTerm}` : ''}`), headers)
-          .then(res =>
-            this.setState({users: res.data, searching: false})
-          )
-          .catch(err => console.log(err) );
+    componentDidUpdate = (pProps, pState) => {
+        //This make sures there a reason to call the api before doing so.
+        checkLoad(this, pState)
     }
 
-    handleChange = async (e) => {
-      await this.setState({searchTerm: e.target.value, searching: true})
-      this.loadPage();
+    loadPage = async (props = this.props) => {
+        //Makes sure we have the correct params and sets update to false.
+        const params = checkParams(this)
+        const res = await axios.get(api.apiPath(`${this.state.settings.resource.urlPath}` + '?' + params.toString()), headers)
+        updatePage(this, res, params, {items: res.data.pageOfItems})
     }
+          
 
     render() {
-        const user = this.state.user
+        const { items, settings } = this.state
+
         return <div>
-
-          <h2>Manage Users</h2>
-          <h5>Total Users: {this.state.users.length}</h5>
-
-          Search By Username: <input value={this.state.searchTerm} onChange={this.handleChange} />
-
-          {
-            this.state.users.length === 0 ? (this.state.searching ? "Loading" : "There are no results") : this.state.users.map((user, i) => <div>
-                <UserCard key={user.user_id} user={user} number={i} update={this.loadPage}/>
-              </div>
-            )
-          }
+            <DefaultIndex Item={ItemComponent} items={items} settings={settings} mainState={this} />
         </div>
     }
 }
 
 export default Page
+

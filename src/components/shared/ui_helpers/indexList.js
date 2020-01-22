@@ -1,7 +1,6 @@
 import React from 'react'
-import Item from './item'
 
-import {curr_user, headers} from '../../../../../helpers/api'
+import {curr_user, headers} from 'helpers/api'
 
 class Page extends React.Component {
     constructor(props) {
@@ -11,13 +10,13 @@ class Page extends React.Component {
     }
 
     render() {
-        const { items } = this.props
+        const { items, Item } = this.props
 
         return <div>
                 {items.map(
                     (item) => <Item item={item} update={this.props.update} />
                 )}
-                { items.length === 0 ? (this.props.loader.loading ? "Loading" : "No Results.") : "" }
+                { items.length === 0 ? (this.props.loader.loading ? "Loading" : "No Results.") : "" } 
             </div>
 
     }

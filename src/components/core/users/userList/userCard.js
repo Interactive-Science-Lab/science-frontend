@@ -2,11 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { Row, Col } from 'reactstrap'
-import api from '../../../helpers/api'
-
-
-const curr_user = localStorage.user ? JSON.parse(localStorage.user) : false
-const headers = { headers: { 'authorization': localStorage.token } }
+import api from 'helpers/api'
+import {curr_user, headers, Protect} from 'helpers/api'
 
 class UserCard extends React.Component {
   constructor(props) {
@@ -47,9 +44,9 @@ class UserCard extends React.Component {
   }
 
   render() {
-    const user = this.props.user
+    const user = this.props.item
 
-    return <Row className="user-list-card">
+    return <Row className="">
       <Col xs={12} lg={4}>{user.username} (
             {user.user_verified === true ? ['', 'User', 'Mod', 'Admin'][user.user_role] : ""}
         {user.user_verified === false ? "Banned" : ""}

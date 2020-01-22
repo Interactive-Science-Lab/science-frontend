@@ -1,10 +1,5 @@
 //Menu Structure
 
-
-
-
-
-
 //Array of objects
 //Top level items can be dropdown or link
 //Second level items must be a link
@@ -24,8 +19,8 @@ export default  [
         {name: "Forgot My Password", view: "all", link: '/users/forgottenPassword', symbol: ""},
     ]}, 
     {name: "Account", view: "logged_in", symbol: "user", links: [   
-        {name: "User List", view: 'admin', link: '/admin/users', symbol: "users"},
-        {name: "Logs", view: 'admin', link: '/admin/logs', symbol: "cogs"},
+        {name: "User List", view: 'admin', link: '/users/list', symbol: "users"},
+        {name: "Logs", view: 'admin', link: '/logs', symbol: "cogs"},
         {name: "Feedback", view: 'admin', link: '/feedback', symbol: "comments"},
         {name: "Support Tickets", view: 'admin', link: '/support_tickets', symbol: "comments"},
         {name: "Logout", view: 'all', link: '/users/logout', symbol: "sign-out-alt"}

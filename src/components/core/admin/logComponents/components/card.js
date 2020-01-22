@@ -1,9 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 import {Row, Col} from 'reactstrap'
-
-const curr_user = localStorage.user ?  JSON.parse(localStorage.user) : false
-const headers = { headers: {'authorization': localStorage.token} }
+import api from 'helpers/api'
+import {curr_user, headers, Protect} from 'helpers/api'
 
 
 class LogCard extends React.Component {
@@ -18,7 +17,7 @@ class LogCard extends React.Component {
 
   verifyChange = (e) => {
     axios
-        .put(`https://grimwire.herokuapp.com/api/logs/${this.props.logItem.log_id}/confirm`, {notes: this.state.notes}, headers)
+        .put(api.apiPath(`/logs/${this.props.item.log_id}/confirm`), {notes: this.state.notes}, headers)
         .then(res => {
           this.setState({logs: res.data})
           this.props.update();
@@ -29,7 +28,7 @@ class LogCard extends React.Component {
 
     undoChange = (e) => {
       axios
-          .put(`https://grimwire.herokuapp.com/api/logs/${this.props.logItem.log_id}/undo`, {notes: this.state.notes}, headers)
+          .put(api.apiPath(`/logs/${this.props.item.log_id}/undo`), {notes: this.state.notes}, headers)
           .then(res => {
             this.setState({logs: res.data})
             this.props.update();
@@ -48,7 +47,7 @@ class LogCard extends React.Component {
     }
 
   readableAction = () => {
-    const log = this.props.logItem
+    const log = this.props.item
 
     const actions = ['Create', 'Edit', 'Delete']
     const options = ['POST', 'PUT', 'DELETE']
@@ -63,7 +62,7 @@ class LogCard extends React.Component {
   }
 
   readableRequest = () => {
-    const log = this.props.logItem
+    const log = this.props.item
     return log.method + " " + log.route + (log.object_id ? ('/' + log.object_id) : '')
   }
 
@@ -72,7 +71,7 @@ class LogCard extends React.Component {
   }
 
   render = () => {
-    const log = this.props.logItem
+    const log = this.props.item
     return <Row>
       <Col>
         Submitter: { log.submitter_username }

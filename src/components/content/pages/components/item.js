@@ -13,6 +13,7 @@ class Item extends React.Component {
 
     render() {
         const { item } = this.props
+        console.log(item)
 
         return <div>
         <span className={`fas fa-${item.page_symbol}`}></span> {item.page_title} ({item.page_category})

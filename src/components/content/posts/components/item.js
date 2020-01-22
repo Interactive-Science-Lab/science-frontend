@@ -12,7 +12,7 @@ class Page extends React.Component {
     }
 
     render() {
-        const { post } = this.props
+        const post  = this.props.item
 
         return <Link to={`/posts/${post.site_blog_id}`} style={{ display: "block" }}>
             <img src={post.image_url} style={{width:'100px'}} /> 

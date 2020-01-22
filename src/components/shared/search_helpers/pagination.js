@@ -14,6 +14,7 @@ class Pagination extends React.Component {
 
     render() {
       const {pager} = this.props.component.state.loader
+      if(!pager) { throw "Trying to paginate but no pager found. Check result from backend." }
       const {pages, currentPage, totalPages} = pager
       const callback = this.handlePage
 
