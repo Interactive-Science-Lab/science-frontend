@@ -118,7 +118,8 @@ class defaultIndex extends React.Component {
             items={items}
             Item={Item}
             update={mainState.loadPage}
-            loader={mainState.state.loader} />
+            loader={mainState.state.loader} 
+            settings={settings} />
         const optionSettings = settings.name
         if (optionSettings) { return this.displayOption(component, optionSettings) }
         else { return "" }

@@ -29,7 +29,6 @@ export default {
             protection: "admin",
             options: "Add New +",
         },
-        thumbnail: {},
     },
     loader: { filter: 'public' },
     idField: 'site_page_id',

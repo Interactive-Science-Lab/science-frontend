@@ -35,32 +35,29 @@ export default (props) => {
       break;
 
     case "thumbnail":
-      if(props.item.thumbnail){
-        const records = props.item.thumbnail
+      
+        const records = props.item.thumbnail ?  [props.item.thumbnail] : []
         return {
           default_item: {
             foreign_id: props.info.id,
             foreign_class: props.info.class,
-            thumbnail: true,
             image_url: "",
             image_title: "",
-            image_description: ""
+            image_description: "",
+            image_kind: 'thumbnail',
           },
-          records: [{
-            update_id: records.image_id,
+          records: records.map(item => ({
+            update_id: item.image_id,
             record: {
-              id: records.image_id,
-              image_url: records.image_url,
-              image_title: records.image_title,
-              image_description: records.image_description
+              id: item.image_id,
+              image_url: item.image_url,
+              image_title: item.image_title,
+              image_description: item.image_description
             }
-          }],
+          })),
           title: "Thumbnail (Main Image)",
           url: "images"
         }
-      } else {
-        return []
-      }
       break;
 
     }

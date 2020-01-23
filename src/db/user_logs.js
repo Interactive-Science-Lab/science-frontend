@@ -29,7 +29,7 @@ export default {
         paginate: {},
     },
     loader: { filter: 'unlogged'},
-    idField: 'site_page_id',
+    idField: 'log_id',
     fields: {
     }
 }

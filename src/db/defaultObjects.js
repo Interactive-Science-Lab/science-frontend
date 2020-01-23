@@ -5,6 +5,24 @@ import support_ticket from './support_ticket'
 import feedback from './feedback'
 import log from './user_logs'
 
+export const findResourceSettings = (search) => {
+    switch(search) {
+        case "posts": 
+            return site_blog
+        case "pages":
+            return site_page
+        case "support_tickets":
+            return support_ticket
+        case "logs":
+            return log
+        case "users":
+            return user
+        case "feedback":
+            return feedback
+        
+    }
+}
+
 export const allResourceSettings = {
     user,
     site_page,
@@ -23,7 +41,7 @@ const defaultObjects = {
         ban_notes: "",
         mailing_list: true
     },
-    page: {
+    site_page: {
         page_status: "draft",
         page_category: "About",
         page_symbol: "star",
@@ -31,7 +49,7 @@ const defaultObjects = {
         page_body_text: "",
         page_order: 0,
     },
-    post: {
+    site_blog: {
         blog_status: "draft",
         blog_category: "Blog",
         blog_title: "",

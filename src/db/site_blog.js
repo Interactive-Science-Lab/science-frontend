@@ -2,8 +2,8 @@ export default  {
     name: {
         lp: "site_blogs",
         ls: "site_blog",
-        up: "site_blog",
-        us: "site_blog",
+        up: "SiteBlogs",
+        us: "SiteBlog",
         urlPath: "/posts",
         folderPath: "/content",
         index_title: "Post List"
@@ -15,10 +15,6 @@ export default  {
         edit: "mod"
     },
     features: {
-            resource: {
-                urlPath: '/posts',
-                title: "Posts",
-            },
             filter: {
                 options: ['draft', 'public', 'private'],
                 protection: "admin",
@@ -32,10 +28,11 @@ export default  {
             newLink: {
                 protection: "admin",
                 options: "Add New +",
-            }
+            },
+            thumbnail: {},
         },
     loader: { filter: 'public' },
-    idField: 'site_page_id',
+    idField: 'site_blog_id',
     fields: {
     }
 }

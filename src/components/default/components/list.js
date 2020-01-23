@@ -1,4 +1,5 @@
 import React from 'react'
+import Item from './item'
 
 import {curr_user, headers} from 'helpers/api'
 
@@ -10,11 +11,11 @@ class Page extends React.Component {
     }
 
     render() {
-        const { items, Item, settings } = this.props
+        const { items } = this.props
 
         return <div>
                 {items.map(
-                    (item) => <Item item={item} update={this.props.update} settings={settings} />
+                    (item) => <Item post={item} />
                 )}
                 { items.length === 0 ? (this.props.loader.loading ? "Loading" : "No Results.") : "" } 
             </div>

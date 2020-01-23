@@ -74,7 +74,7 @@ class FormHandler extends React.Component {
   submitForm = async (bulkAdd = false) => {
     let item = this.state.item
     
-    const postURL = api.apiPath(`/${this.state.formClass}`)
+    const postURL = api.apiPath(this.props.settings.name.urlPath || `/${this.state.formClass}`)
     const putURL = `${postURL}/${this.state.editId}`
 
     var apiCall, redirect;

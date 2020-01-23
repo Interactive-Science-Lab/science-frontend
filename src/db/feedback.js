@@ -28,7 +28,7 @@ export default {
         paginate: {},
     },
     loader: {filter: '', sort: "created_at", sortdir: "DESC"},
-    idField: 'site_page_id',
+    idField: 'feedback_id',
     fields: {
     }
 }
