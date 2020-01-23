@@ -161,7 +161,7 @@ class FormHandler extends React.Component {
                         <select onChange={this.handleChange} name={itemField[0]} value={itemField[1]}>
                             <option value="News">News</option>
                             <option value="Blog">Blog</option>
-                            <option value="Gallery">Gallery</option>
+                            <option value="Project">Project</option>
                         </select>
                     </div> : ""
                 }

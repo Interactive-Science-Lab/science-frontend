@@ -1,8 +1,8 @@
 import React from 'react'
 import {Switch, Route} from 'react-router-dom'
 
-import UserList from '../admin/userList'
-import LogComponent from '../admin/logComponent'
+import UserList from './userList'
+import LogComponent from '../admin/logComponents/index'
 class User extends React.Component {
     constructor(props) {
         super(props)

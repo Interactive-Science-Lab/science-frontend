@@ -12,6 +12,9 @@ import DefaultIndex from 'components/shared/ui_helpers/defaultIndex'
 import ItemComponent from './components/item'
 
 
+import {allResourceSettings} from 'db/defaultObjects'
+const resourceSettings = allResourceSettings.site_blog
+
 
 class Page extends React.Component {
     constructor(props) {
@@ -19,27 +22,8 @@ class Page extends React.Component {
         this.state = {
             items: [],
             tags: [],
-            loader: defaultLoader({filter: 'public', sort: "created_at", sortdir: "DESC"}),
-            settings: {
-                resource: {
-                    urlPath: '/posts',
-                    title: "Posts",
-                },
-                filter: {
-                    options: ['draft', 'public', 'private'],
-                    protection: "admin",
-                },
-                sort: {
-                    options: [['created_at', 'Post Date'], ['blog_title', 'Alphabetical']],
-                },
-                search: {},
-                paginate: {},
-                tags: {},
-                newLink: {
-                    protection: "admin",
-                    options: "Add New +",
-                }
-            }
+            loader: defaultLoader(resourceSettings.loader),
+            settings:  resourceSettings
         }
     }
 

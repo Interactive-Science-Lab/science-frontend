@@ -13,32 +13,16 @@ import DefaultIndex from 'components/shared/ui_helpers/defaultIndex'
 import ItemComponent from './components/item'
 
 
+import {allResourceSettings} from 'db/defaultObjects'
+const resourceSettings = allResourceSettings.site_page
 
 class Page extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             items: [],
-            loader: defaultLoader({ filter: 'public' }),
-            settings: {
-                resource: {
-                    urlPath: '/pages',
-                    title: "Page List",
-                },
-                filter: {
-                    options: ['draft', 'public', 'private'],
-                    protection: "admin",
-                },
-                sort: {
-                    options: [['page_title', 'Alphabetical'], ['page_category', 'Category'], ['page_order', 'Order']],
-                },
-                search: {},
-                paginate: {},
-                newLink: {
-                    protection: "admin",
-                    options: "Add New +",
-                },
-            }
+            loader: defaultLoader(resourceSettings.loader),
+            settings: resourceSettings
         }
     }
 
@@ -54,7 +38,7 @@ class Page extends React.Component {
     loadPage = async (props = this.props) => {
         //Makes sure we have the correct params and sets update to false.
         const params = checkParams(this)
-        const res = await axios.get(api.apiPath(`${this.state.settings.resource.urlPath}` + '?' + params.toString()), headers)
+        const res = await axios.get(api.apiPath(`${this.state.settings.name.urlPath}` + '?' + params.toString()), headers)
         updatePage(this, res, params, { items: res.data.pageOfItems })
     }
 

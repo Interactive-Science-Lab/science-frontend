@@ -3,33 +3,26 @@ import axios from 'axios'
 
 //API Related
 import api from 'helpers/api'
-import {curr_user, headers} from 'helpers/api'
+import { curr_user, headers } from 'helpers/api'
+import {allResourceSettings} from 'db/defaultObjects'
 
 //Related to search, sort, filter 
-import {defaultLoader, checkParams, updatePage, checkLoad} from 'components/shared/search_helpers/search_helpers'
+import { defaultLoader, checkParams, updatePage, checkLoad } from 'components/shared/search_helpers/search_helpers'
 
 //Related to this component
 import DefaultIndex from 'components/shared/ui_helpers/defaultIndex'
-import ItemComponent from './userList/userCard'
+import ItemComponent from './components/item'
+
+
+const resourceSettings = allResourceSettings.user
 
 class Page extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             items: [],
-            loader: defaultLoader(),
-            settings: {
-                resource: {
-                    urlPath: '/users',
-                    title: "Manage Users",
-                },
-                filter: {
-                    options: ['all', '1', '2', '3'],
-                    protection: "admin",
-                },
-                search: {},
-                paginate: {},
-            }
+            loader: defaultLoader(resourceSettings.loader),
+            settings: resourceSettings
         }
     }
 
@@ -45,10 +38,10 @@ class Page extends React.Component {
     loadPage = async (props = this.props) => {
         //Makes sure we have the correct params and sets update to false.
         const params = checkParams(this)
-        const res = await axios.get(api.apiPath(`${this.state.settings.resource.urlPath}` + '?' + params.toString()), headers)
-        updatePage(this, res, params, {items: res.data.pageOfItems})
+        const res = await axios.get(api.apiPath(`${this.state.settings.name.urlPath}` + '?' + params.toString()), headers)
+        updatePage(this, res, params, { items: res.data.pageOfItems })
     }
-          
+
 
     render() {
         const { items, settings } = this.state
@@ -60,4 +53,3 @@ class Page extends React.Component {
 }
 
 export default Page
-

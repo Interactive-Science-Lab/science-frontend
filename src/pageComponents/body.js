@@ -2,31 +2,23 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 
 import Home from '../views/home';
+
+import {allResourceSettings} from 'db/defaultObjects'
+
 import UserComponent from '../components/core/users/controller';
-
-import FeedbackComponent from '../components/core/admin/feedback/controller';
-import SupportComponent from '../components/core/admin/support_tickets/controller';
-import LogController from '../components/core/admin/logComponents/controller'
-
-import PageController from '../components/content/pages/controller'
-import PostController from '../components/content/posts/controller'
-
-
-
-
-const curr_user = localStorage.user ? JSON.parse(localStorage.user) : false
 
 function Body(props) {
     return <div className="body"><div className="page-container">
         <Switch>
             <Route path="/" exact component={Home} />
+
+            {Object.values(allResourceSettings).map(resource => 
+                <Route 
+                    path={resource.name.urlPath} 
+                    component={ require(`../components${resource.name.folderPath}${resource.name.folderName || resource.name.urlPath}/controller.js`).default } 
+                />)
+            }
         
-            {/* Some protected routes, protect individully in controller */}
-            <Route path="/feedback" component={FeedbackComponent} />
-            <Route path="/support_tickets" component={SupportComponent} />
-            <Route path="/pages" component={PageController} />
-            <Route path="/posts" component={PostController} />
-            <Route path="/logs" component={LogController} />
             <Route path="/users" render={() => <UserComponent {...props} auth={props.auth} />} />
 
             <Route path="/" render={() => <div className="controller"><div className="tpBlackBg">

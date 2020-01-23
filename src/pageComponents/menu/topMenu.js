@@ -27,7 +27,7 @@ class Menu extends React.Component {
   siteBlogTypes = [
     ["Blog", 'Blog', 'pencil-alt'], 
     ["News & Updates", 'News', 'newspaper'], 
-    //["My Pretty Thingys", 'Gallery', 'palette']
+    ["Projects Built", 'Project', 'star'], 
   ]
 
   sitePagesStructure = () => {

@@ -13,25 +13,16 @@ import DefaultIndex from 'components/shared/ui_helpers/defaultIndex'
 import ItemComponent from './components/item'
 
 
+import {allResourceSettings} from 'db/defaultObjects'
+const resourceSettings = allResourceSettings.feedback
 
 class Page extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             items: [],
-            loader: defaultLoader({filter: '', sort: "created_at", sortdir: "DESC"}),
-            settings: {
-                resource: {
-                    urlPath: '/feedback',
-                    title: "Provided Feedback",
-                },
-                filter: {
-                    options: ['unlogged', 'logged'],
-                    protection: "admin",
-                },
-                search: {},
-                paginate: {},
-            }
+            loader: defaultLoader(resourceSettings.loader),
+            settings: resourceSettings
         }
     }
 
@@ -47,7 +38,7 @@ class Page extends React.Component {
     loadPage = async (props = this.props) => {
         //Makes sure we have the correct params and sets update to false.
         const params = checkParams(this)
-        const res = await axios.get(api.apiPath(`${this.state.settings.resource.urlPath}` + '?' + params.toString()), headers)
+        const res = await axios.get(api.apiPath(`${this.state.settings.name.urlPath}` + '?' + params.toString()), headers)
         updatePage(this, res, params, {items: res.data.pageOfItems})
     }
           

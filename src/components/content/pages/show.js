@@ -41,7 +41,7 @@ class Page extends React.Component {
     render() {
         const page = this.state.page
         return <div className="tpBlackBg">
-          <div> <Link to="/pages/1">{page.page_category}</Link> > </div>
+          <div> <Link to={`/pages/${this.state.page.site_page_id}/edit`}>Edit</Link> </div>
           <h1>{page.page_title}</h1>
           <div dangerouslySetInnerHTML={{__html: page.page_body_text}} />
         </div>

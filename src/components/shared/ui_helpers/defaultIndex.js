@@ -54,9 +54,9 @@ class defaultIndex extends React.Component {
 
     displayFilter = () => {
         const { settings, mainState } = this.props
-        const optionSettings = settings.filter
+        const optionSettings = settings.features.filter
         if (optionSettings) { 
-            const component = <Filter component={mainState} options={settings.filter.options} />
+            const component = <Filter component={mainState} options={settings.features.filter.options} />
             return this.displayOption(component, optionSettings) 
         }
         else { return "" }
@@ -64,7 +64,7 @@ class defaultIndex extends React.Component {
 
     displaySearch = () => {
         const { settings, mainState } = this.props
-        const optionSettings = settings.search
+        const optionSettings = settings.features.search
         if (optionSettings) { 
             const component = <Search component={mainState} />
             return this.displayOption(component, optionSettings) 
@@ -74,9 +74,9 @@ class defaultIndex extends React.Component {
 
     displaySort = () => {
         const { settings, mainState } = this.props
-        const optionSettings = settings.sort
+        const optionSettings = settings.features.sort
         if (optionSettings) { 
-            const component = <Sort component={mainState} options={settings.sort.options} />
+            const component = <Sort component={mainState} options={settings.features.sort.options} />
             return this.displayOption(component, optionSettings) 
         }
         else { return "" }
@@ -84,7 +84,7 @@ class defaultIndex extends React.Component {
 
     displayPagination = () => {
         const { settings, mainState } = this.props
-        const optionSettings = settings.paginate
+        const optionSettings = settings.features.paginate
         if (optionSettings) { 
             const component = <Pagination component={mainState} />
             return this.displayOption(component, optionSettings) 
@@ -94,7 +94,7 @@ class defaultIndex extends React.Component {
 
     displayTags = () => {
         const { settings, mainState } = this.props
-        const optionSettings = settings.tags
+        const optionSettings = settings.features.tags
         if (optionSettings) { 
             const component = <Tags component={mainState} tags={mainState.state.tags} />
             return this.displayOption(component, optionSettings) 
@@ -104,9 +104,9 @@ class defaultIndex extends React.Component {
 
     displayNewLink = () => {
         const { settings, mainState } = this.props
-        const optionSettings = settings.newLink
+        const optionSettings = settings.features.newLink
         if (optionSettings) { 
-            const component = <Link to={`${settings.urlPath}/new`}>{settings.newLink.options || "Add New +"}</Link>
+            const component = <Link to={`${settings.features.urlPath}/new`}>{settings.features.newLink.options || "Add New +"}</Link>
             return this.displayOption(component, optionSettings) 
         }
         else { return "" }
@@ -119,7 +119,7 @@ class defaultIndex extends React.Component {
             Item={Item}
             update={mainState.loadPage}
             loader={mainState.state.loader} />
-        const optionSettings = settings.resource
+        const optionSettings = settings.name
         if (optionSettings) { return this.displayOption(component, optionSettings) }
         else { return "" }
     }
@@ -128,7 +128,7 @@ class defaultIndex extends React.Component {
         const { settings } = this.props
 
         return <div>
-            <h1>{settings.resource.title}</h1>
+            <h1>{settings.name.index_title}</h1>
 
             <div>
                 {this.displayFilter()}
