@@ -33,5 +33,11 @@ export default {
     loader: { filter: 'public' },
     idField: 'site_page_id',
     fields: {
+        page_status: {default: "draft", fieldType: ["select-draft"] },
+        page_category: {default: "About", fieldType: ["select-custom", ["About", "Features"]], validations: ["required"]  },
+        page_symbol: {default: "star", fieldType: "icon" },
+        page_title: {default: "", fieldType: "string", validations: ["unique", "required"], titleField: true },
+        page_body_text: {default: "", fieldType: "html", validations: ["required"] }, 
+        page_order: {default: 0, fieldType: 'number', permissions: ["hidden"], validations: ["required"]}
     }
 }

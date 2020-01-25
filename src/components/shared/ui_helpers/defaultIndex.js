@@ -106,7 +106,7 @@ class defaultIndex extends React.Component {
         const { settings, mainState } = this.props
         const optionSettings = settings.features.newLink
         if (optionSettings) { 
-            const component = <Link to={`${settings.features.urlPath}/new`}>{settings.features.newLink.options || "Add New +"}</Link>
+            const component = <Link to={`${settings.name.urlPath}/new`}>{settings.features.newLink.options || "Add New +"}</Link>
             return this.displayOption(component, optionSettings) 
         }
         else { return "" }

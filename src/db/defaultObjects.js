@@ -23,6 +23,23 @@ export const findResourceSettings = (search) => {
     }
 }
 
+export const resourceDefaultFields = (search) => {
+    const settings = findResourceSettings(search)
+    const all_fields = []
+    const base_fields = Object.entries(settings.fields).map(field => all_fields.push({name: field[0], value: field[1].default, settings: field}))
+    const tags = settings.features.tags
+    if(tags) { all_fields.push({name: settings.features.tags.field, value: [], settings: [settings.features.tags.field, {fieldType: 'array', feature: 'tags'}]})}
+
+    return all_fields
+}
+
+export const resourceFullFields = (search, item) => {
+    let defaultFields = resourceDefaultFields(search)
+    let returnFields = []
+    defaultFields.map(field => returnFields.push(item[field.name] ? {...field, value: item[field.name]} : field ))
+    return returnFields
+}
+
 export const allResourceSettings = {
     user,
     site_page,
@@ -32,6 +49,17 @@ export const allResourceSettings = {
     log
 }
 
+//Permissions
+//auto- No set/edit/show
+//Default- no set
+//Static- No edit
+//Hidden- No show
+//None- do not do anything
+//All- logged in & out 
+//no_user- logged out
+//User, Mod, Admin
+//edit-user, edit-mod, edit-admin
+//set-user, ..., view-admin
 
 const defaultObjects = {
     user: {
@@ -66,7 +94,9 @@ const defaultObjects = {
         support_ticket_state: "pending",
         public_notes_text: "",
         private_notes_text: ""
-    }
+    },
+    feedback: {},
+    log: {}
     
 
 }

@@ -13,15 +13,19 @@ function Home(props) {
 			title: "Sign Up",
 			link: "/users/register"
 		},
+		{
+			title: "Student Log In",
+			link: "/users/login"
+		},
 	]
 
 	return <div style={{maxWidth:'800px',margin:'40px auto',textAlign:'center'}}>
 		
 		
-		<h4>Simple blog is a </h4>
+		<h4>College Prep Science Presents</h4>
 		<h1>{siteTitle}</h1>
-		<h3>Making blogging easy & fast</h3>
-		<h3>Ability to extend custom functionality</h3>
+		<h2>Coming Soon</h2>
+		<h3>Online, interactive science lab allowing you to perform experiments in your browser</h3>
 
 			{squares.map(({title, link}) => 
 			<div>

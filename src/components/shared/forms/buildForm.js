@@ -5,6 +5,8 @@ import { withRouter } from "react-router-dom";
 
 import formHelpers from './form_helpers'
 
+import { resourceFullFields } from 'db/defaultObjects'
+
 import BasicTextField from './fieldTypes/basicText'
 import TextAreaField from './fieldTypes/textArea'
 import BasicNumberField from './fieldTypes/basicNumber'
@@ -67,7 +69,7 @@ class FormHandler extends React.Component {
 
         if (res.status === 200 || res.status === 201) {
             this.formStatus('success');
-            this.setState({"error":""})
+            this.setState({ "error": "" })
             if (redirectPath && !this.state.bulkAdd) { this.props.history.push(redirectPath) }
         } else {
             this.formStatus('error');
@@ -77,6 +79,18 @@ class FormHandler extends React.Component {
         }
 
         setTimeout(() => { this.formStatus('complete') }, 250);
+    }
+
+    checkView = (settings) => {
+        let ret = true
+
+        if(settings[1].permissions) {
+            const p = settings[1].permissions
+            ret = ret && p.indexOf('static') < 0 && p.indexOf('background') < 0
+
+        }
+
+        return ret
     }
 
 
@@ -91,106 +105,122 @@ class FormHandler extends React.Component {
                 <div style={{ backgroundColor: 'rgba(200,0,0,.4)', padding: '10px' }}>{this.state.error}</div>
                 : ""}
 
-            {Object.entries(this.props.item).map(itemField => <div key={itemField[0]}>
+            {
+                resourceFullFields(this.props.settings.name.urlPath.substring(1), this.props.item).map(field => <div>
+                    { this.checkView(field.settings) ? <div>
+                    {
+                        field.settings[1].fieldType === 'string' ? 
+                        <BasicTextField field={[field.name, field.value]} callback={this.handleChange} item={this.props.item} /> : ""
+                    }
+                    {
+                        //Text areas with large boxes to write articles
+                        field.settings[1].fieldType === 'text' ?
+                            <TextAreaField field={[field.name, field.value]} callback={this.handleChange} item={this.props.item} /> : ""
+                    }
+                    {
+                        //Text areas with large boxes to write articles
+                        field.settings[1].fieldType === 'html' ?
+                            <TextAreaField field={[field.name, field.value]} callback={this.handleChange} item={this.props.item} /> : ""
+                    }
 
-                {
-                    //Basic text fields that don't wrap
-                    formHelpers.checkBasicText(itemField) ?
-                        <BasicTextField field={itemField} callback={this.handleChange} item={this.props.item} /> : ""
-                }
+                    {
+                        //The forms that create a select field
+                        formHelpers.checkIdSelectField([field.name, field.value]) ?
+                            <IdSelectField item={this.props.item} field={[field.name, field.value][0]} value={[field.name, field.value][1]} handleChange={this.handleChangeCb} /> : ""
+                    }
+                    {
+                        field.settings[1].fieldType === 'icon' ? 
+                        <BasicTextField settings={field.settings} field={[field.name, field.value]} callback={this.handleChange} item={this.props.item} /> : ""
+                    }
 
-                {
-                    //Text areas with large boxes to write articles
-                    formHelpers.checkTextField(itemField) ?
-                        <TextAreaField field={itemField} callback={this.handleChange} item={this.props.item} /> : ""
-                }
+                    {
+                        //Special array handling UI
+                        field.settings[1].fieldType === 'array'  ?
+                            <ArrayField item={this.props.item} field={[field.name, field.value][0]} array={[field.name, field.value][1]} handleArrayChange={this.handleArrayChange} /> : ""
+                    }
 
-                {
-                    //The forms that create a select field
-                    formHelpers.checkIdSelectField(itemField) ?
-                        <IdSelectField item={this.props.item} field={itemField[0]} value={itemField[1]} handleChange={this.handleChangeCb} /> : ""
-                }
+                    {
+                        //For numbers
+                        field.settings[1].fieldType === 'number'  ?
+                            <BasicNumberField field={[field.name, field.value]} callback={this.handleChange} item={this.props.item} /> : ""
+                    }
 
-                {
-                    //Special array handling UI
-                    formHelpers.checkArrayOptionsField(itemField) ?
-                        <ArrayField item={this.props.item} field={itemField[0]} array={itemField[1]} handleArrayChange={this.handleArrayChange} /> : ""
-                }
+                    {
+                        //Booleans create a checkbox
+                        field.settings[1].fieldType === 'boolean'  ?
+                            <BasicBooleanField field={[field.name, field.value]} callback={this.handleCheck} item={this.props.item} /> : ""
+                    }
 
-                {
-                    //For numbers
-                    formHelpers.checkBasicNumber(itemField) ?
-                        <BasicNumberField field={itemField} callback={this.handleChange} item={this.props.item} /> : ""
-                }
-
-                {
-                    //Booleans create a checkbox
-                    typeof itemField[1] === 'boolean' && itemField[0] != 'duplicateConnection' ?
-                        <BasicBooleanField field={itemField} callback={this.handleCheck} item={this.props.item} /> : ""
-                }
-
-                {
-                    //Displays the fields for an image
-                    itemField[0] === 'image_url' ?
-                        <ImageField field={itemField} callback={this.handleFileChange} item={this.props.item} /> : ""
-                }
-
-
-                {
-                    //Verification for a phone number
-                    itemField[0] === 'phone' ?
-                        <VerifyPhone field={itemField} callback={this.handleChange} item={this.props.item} /> : ""
-                }
-
-                {
-                    itemField[0] === 'blog_status' || itemField[0] === 'page_status' ? 
-                    <div>
-                        View Status<br />
-                        <select  onChange={this.handleChange} name={itemField[0]} value={itemField[1]}>
-                            <option value="draft">Draft</option>
-                            <option value="public">Public</option>
-                            <option value="private">Private</option>
-                        </select>
-                    </div> : ""
-                }
-                
-                {
-                    itemField[0] === 'blog_category' ? 
-                    <div>
-                        Blog Category<br />
-                        <select onChange={this.handleChange} name={itemField[0]} value={itemField[1]}>
-                            <option value="News">News</option>
-                            <option value="Blog">Blog</option>
-                            <option value="Project">Project</option>
-                        </select>
-                    </div> : ""
-                }
-
-{
-                    itemField[0] === 'page_category' ? 
-                    <div>
-                        Page Category<br />
-                        <select onChange={this.handleChange} name={itemField[0]} value={itemField[1]}>
-                            <option value="News">About</option>
-                            <option value="Blog">Features</option>
-                        </select>
-                    </div> : ""
-                }
-
-                { /* ADD hidden fields here */}
-                {itemField[0] === 'foreign_id' ? <Input type="hidden" name="foreign_id" value={this.props.item.foreign_id} /> : ""}
-                {itemField[0] === 'foreign_key' ? <Input type="hidden" name="foreign_key" value={this.props.item.foreign_key} /> : ""}
-                {itemField[0] === 'foreign_class' ? <Input type="hidden" name="foreign_class" value={this.props.item.foreign_class} /> : ""}
-
-            </div>)}
+                    {
+                        //Displays the fields for an image
+                        [field.name, field.value][0] === 'image_url' ?
+                            <ImageField field={[field.name, field.value]} callback={this.handleFileChange} item={this.props.item} /> : ""
+                    }
 
 
-            <button type='submit'>{this.props.existing ? 
-            (this.props.editButtonText ? this.props.editButtonText : `Edit`) : "Add"}
+                    {
+                        //Verification for a phone number
+                        [field.name, field.value][0] === 'phone' ?
+                            <VerifyPhone field={[field.name, field.value]} callback={this.handleChange} item={this.props.item} /> : ""
+                    }
+
+                    {
+                       field.settings[1].fieldType && field.settings[1].fieldType[0] === 'select-draft' ?
+                            <div>
+                                View Status<br />
+                                <select onChange={this.handleChange} name={[field.name, field.value][0]} value={[field.name, field.value][1]}>
+                                    <option value="draft">Draft</option>
+                                    <option value="public">Public</option>
+                                    <option value="private">Private</option>
+                                </select>
+                            </div> : ""
+                    }
+
+                    {
+                       field.settings[1].fieldType && field.settings[1].fieldType[0] === 'select-open' ?
+                            <div>
+                                View Status<br />
+                                <select onChange={this.handleChange} name={[field.name, field.value][0]} value={[field.name, field.value][1]}>
+                                    <option value="draft">Pending</option>
+                                    <option value="public">Open</option>
+                                    <option value="private">Closed</option>
+                                    <option value="private">Solved</option>
+                                    <option value="private">Re-Opened</option>
+                                </select>
+                            </div> : ""
+                    }
+
+                    {
+                        field.settings[1].fieldType && field.settings[1].fieldType[0] === 'select-custom' ?
+                            <div>
+                                {field.name}<br />
+                                <select onChange={this.handleChange} name={[field.name, field.value][0]} value={[field.name, field.value][1]}>
+                                    {field.settings[1].fieldType[1].map(option => <option value={option}>{option}</option>)}
+                                </select>
+                            </div> : ""
+                    }
+
+                    { /* ADD hidden fields here */}
+                    {[field.name, field.value][0] === 'foreign_id' ? <Input type="hidden" name="foreign_id" value={this.props.item.foreign_id} /> : ""}
+                    {[field.name, field.value][0] === 'foreign_key' ? <Input type="hidden" name="foreign_key" value={this.props.item.foreign_key} /> : ""}
+                    {[field.name, field.value][0] === 'foreign_class' ? <Input type="hidden" name="foreign_class" value={this.props.item.foreign_class} /> : ""}
+
+
+                    { /* Validations */ }
+                    {field.settings[1].validations ? field.settings[1].validations.map(val => <div>
+                        { val === 'required' ? (!field.value || field.value === "" ? "Field is required." : "") : ""}    
+                    </div>) : ""}
+
+
+                </div> : "" }</div>)}
+
+
+            <button type='submit'>{this.props.existing ?
+                (this.props.editButtonText ? this.props.editButtonText : `Edit`) : "Add"}
 
             </button>
-            { this.props.existing && !this.props.hideDeleteButton ? 
-            <button onClick={this.props.deleteItem}>Delete</button> : "" }
+            {this.props.existing && !this.props.hideDeleteButton ?
+                <button onClick={this.props.deleteItem}>Delete</button> : ""}
 
         </Form>
     }
@@ -233,7 +263,7 @@ class FormHandler extends React.Component {
     }
 
     handleDateArrayChange = (field, array) => {
-        array = array.map(a => a ? new Date(a).toUTCString() : null )
+        array = array.map(a => a ? new Date(a).toUTCString() : null)
         this.props.updateItem({
             ...this.props.item,
             [field]: array

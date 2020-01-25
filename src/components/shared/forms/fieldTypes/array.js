@@ -62,11 +62,12 @@ class ArrayField extends React.Component {
 
   render() {
     const {field, array, item} = this.props
+    console.log(field, item)
     return <div>
     <Form.Group>
         <Form.Label>{ this.printifyName(field) }</Form.Label>
         
-        { item[field].length > 0 ?
+        { item[field] && item[field].length > 0 ?
             item[ field ].map( (i, index) => <div key={index}>
               
               {this.props.datearray === true ? ( i ? this.stringifyDate(i) : "Option " + (index + 1)) : ""}

@@ -14,7 +14,6 @@ function Body(props) {
         <Switch>
             <Route path="/" exact component={Home} />
         
-            <Route path="/users" render={() => <UserComponent {...props} auth={props.auth} />} />
             
             <Route path="/:urlPath" component={DefaultComponent} />
 
@@ -35,4 +34,9 @@ export default withRouter(Body);
                     path={resource.name.urlPath} 
                     component={ require(`../components${resource.name.folderPath}${resource.name.folderName || resource.name.urlPath}/controller.js`).default } 
                 />)
+
+            <Route path="/users" render={() => <UserComponent {...props} auth={props.auth} />} />
+
+
+
             */

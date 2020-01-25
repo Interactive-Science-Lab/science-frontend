@@ -27,16 +27,16 @@ export default {
     loader: {},
     idField: 'user_id',
     fields: {
-        username: {default: "", dataType: "string", validations: ["unique", "required"] },
-        user_email: {default: "", dataType: "string", validations: ["unique", "required"] },
-        password: {default: "", dataType: "string", validations: ["required"], permissions: ['self'] },
-        ban_notes: {default: "", dataType: "text", permissions: ['mod']},
-        mailing_list:{default: false, dataType: "boolean",},
-        user_role: {default: 1, dataType: "integer", permissions: ['edit-admin']},
-        user_kind: {permissions: ['static']},
-        user_verified: {permissions: ['static']},
-        last_login_attempt: {permissions: ['static', 'hidden']},
-        login_attempts: {permissions: ['static', 'hidden']},
-        forgotten_password_reset_time:{permissions: ['static', 'hidden']}
+        username: {default: "", fieldType: "string", validations: ["unique", "required"] },
+        user_email: {default: "", fieldType: "string", validations: ["unique", "required"] },
+        password: {default: "", fieldType: "string", validations: ["required"], permissions: ['self'] },
+        ban_notes: {default: "", fieldType: "text", permissions: ['mod']},
+        mailing_list:{default: false, fieldType: "boolean",},
+        user_role: {default: 1, fieldType: "number", permissions: ['default', 'edit-admin']},
+        user_kind: {permissions: ['static', 'auto'], fieldType: "string"},
+        user_verified: {permissions: ['static', 'default'], fieldType: "hidden"},
+        last_login_attempt: {permissions: ['background'], fieldType: "hidden"},
+        login_attempts: {permissions: ['background'], fieldType: "hidden"},
+        forgotten_password_reset_time:{permissions: ['background'], fieldType: "hidden"}
     }
 }

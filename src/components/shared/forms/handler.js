@@ -120,6 +120,7 @@ class FormHandler extends React.Component {
           submitForm={this.submitForm} 
           deleteItem={this.deleteItem}
           existing={this.state.existing} 
+          settings={this.props.settings}
           formClass={this.state.formClass} /> 
       </div>
     : ""

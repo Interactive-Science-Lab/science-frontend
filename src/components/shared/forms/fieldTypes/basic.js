@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap'
 import formHelpers from '../form_helpers'
 
 export default (props) => {
-    const { field, item, callback, type, label, as_setting } = props
+    const { field, item, callback, type, label, as_setting, settings } = props
 
     return <Form.Group>
 
@@ -13,6 +13,7 @@ export default (props) => {
             { /* Add any notes for any fields here */}
             {field[0] === 'height' ? "- In inches" : ""}
             {field[0] === 'weight' ? "- In pounds" : ""}
+            {settings && settings[1].fieldType === 'icon' ? <span className={`fas fa-${field[1]}`}></span> : ""}
         </Form.Label>
 
         <Form.Control

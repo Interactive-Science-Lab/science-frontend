@@ -12,8 +12,8 @@ export default {
     },
     permissions: {
         index: "mod",
-        view: "all",
-        create: "mod",
+        view: "mod",
+        create: "none",
         edit: "mod"
     },
     features: {
@@ -27,9 +27,20 @@ export default {
         },
         search: {},
         paginate: {},
+        user: [
+            {field: "log_submitting_user_id", name: "Submitting User", permissions: ["static"]},
+            {field: "log_confirming_user_id", name: "Confirming User", permissions: ["static"]},
+        ]
     },
     loader: { filter: 'unlogged'},
     idField: 'log_id',
     fields: {
+        route: {permissions: ['static'], fieldType: 'string' },
+        method: {permissions: ['static'], fieldType: 'string'},
+        changes: {permissions: ['static'], fieldType: 'object'},
+        previous: {permissions: ['static'], fieldType: 'object'},
+        notes: {default: "", fieldType: "text"},
+        log_confirmed: {permissions: ['static'], fieldType: 'boolean'},
+        object_id: {permissions: ['static'], fieldType: 'reference'},
     }
 }

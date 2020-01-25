@@ -30,5 +30,10 @@ export default {
     loader: {filter: '', sort: "created_at", sortdir: "DESC"},
     idField: 'feedback_id',
     fields: {
+        feedback_kind: {default: "", },
+        feedback_message: {default: "", },
+        feedback_name: {default: "", },
+        feedback_email: {default: "", },
+        logged: {default: false}
     }
 }
