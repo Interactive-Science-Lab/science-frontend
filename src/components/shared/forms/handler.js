@@ -110,7 +110,7 @@ class FormHandler extends React.Component {
 
 
   render() {
-    const show = curr_user || this.props.public
+    const show = true //change this to actually check settings
     return show ?
       <div className='full-form'>
         <BuildForm 

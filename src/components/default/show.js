@@ -37,22 +37,42 @@ class Page extends React.Component {
         if (settings[1].permissions) {
             const p = settings[1].permissions
             ret = p.indexOf('background') < 0 && p.indexOf('hidden') < 0 && p.indexOf('view-hidden') < 0
+            if(p.indexOf('mod') >=0 || p.indexOf('admin') >=0 || p.indexOf('user') >=0 ||
+                p.indexOf('view-mod') >=0 || p.indexOf('view-admin') >=0 || p.indexOf('view-user') >=0  ){
+                ret = ret && curr_user ? true : false
+            }
         }
 
         return ret
     }
 
+    checkRender = (kind, settings) => {
+        let ret = true
+        ret = ret && settings.permissions[kind] !== 'none'
+        if(['mod','user','admin'].indexOf(settings.permissions[kind]) >= 0) {
+            ret = ret && curr_user ? true : false
+        }
+        return ret
+        
+    }
+
     render() {
         const item = this.state.item
         const settings = this.props.resourceSettings
-        const fields = resourceFullFields(settings.name.urlPath.substring(1), item)
+        const friendlyName = settings.name.urlPath.substring(1)
+        const fields = resourceFullFields(friendlyName, item)
 
         return <div>
-            {Object.values(fields).map(field => <div>
+            { this.checkRender('index', settings) ?
+                <Link to={`${settings.name.urlPath}`}>Back To All</Link>
+            : "" }
+
+            { this.checkRender('view', settings) ? Object.values(fields).map(field =>  <div>
 
                 {this.checkView(field.settings) ? <div>
                     {field.settings[1].label ? <div>{field.name} :</div> : ""}
 
+                
                     {field.settings[1].fieldType === 'string' ? <div>
                         {field.settings[1].titleField ? <h1>{field.value}</h1> : field.value}
                     </div> : ""}
@@ -60,6 +80,7 @@ class Page extends React.Component {
                     {field.settings[1].fieldType === 'text' ? field.value : ""}
                     {field.settings[1].fieldType === 'html' ? <div dangerouslySetInnerHTML={{ __html: field.value }} /> : ""}
                     {field.settings[1].fieldType[0] === 'select-draft' ? (field.value !== 'public' ? field.value : "") : ""}
+                    {field.settings[1].fieldType[0] === 'select-open' ? field.value  : ""}
                     {field.settings[1].fieldType[0] === 'select-custom' ? field.value : ""}
                     {field.settings[1].fieldType === 'boolean' ? field.name + ": " + field.value : ""}
                     {field.settings[1].fieldType === 'object' ? <div>
@@ -74,9 +95,13 @@ class Page extends React.Component {
 
                     </div> : ""}
 
-                </div>)}
+                </div>) : ""}
     
-            <Link to={`${this.props.resourceSettings.name.urlPath}/${this.props.match.params.id}/edit`}>Edit</Link>
+                {settings.features.user_info ? JSON.stringify(item.info) : ""}
+
+                { this.checkRender('edit', settings) ?
+                <Link to={`${this.props.resourceSettings.name.urlPath}/${this.props.match.params.id}/edit`}>Edit</Link>
+                : "" }
             </div>
     }
             }

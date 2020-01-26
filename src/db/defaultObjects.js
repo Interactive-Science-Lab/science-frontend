@@ -4,6 +4,10 @@ import site_blog from './site_blog'
 import support_ticket from './support_ticket'
 import feedback from './feedback'
 import log from './user_logs'
+import admin_user from './admin_user'
+import end_user from './end_user'
+import thumbnail from './thumbnail'
+
 
 export const findResourceSettings = (search) => {
     switch(search) {
@@ -19,6 +23,12 @@ export const findResourceSettings = (search) => {
             return user
         case "feedback":
             return feedback
+        case 'end_user':
+            return end_user
+        case 'admin_user':
+            return admin_user
+        case 'thumbnail':
+            return thumbnail
         
     }
 }

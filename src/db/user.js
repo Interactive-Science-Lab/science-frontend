@@ -7,8 +7,7 @@ export default {
         urlPath: "/users",
         folderPath: "/core",
         index_title: "Users List",
-        view_title: "User Profile",
-        override_router: true
+        view_title: "User Profile"
     },
     permissions: {
         index: "mod",
@@ -23,6 +22,8 @@ export default {
         },
         search: {},
         paginate: {},
+        thumbnail: {},
+        user_info: {}
     },
     loader: {},
     idField: 'user_id',

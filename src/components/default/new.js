@@ -2,10 +2,10 @@ import React from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom'
 import api from 'helpers/api'
+import {withRouter} from 'react-router'
 
 import HandleForm from 'components/shared/forms/handler'
 
-import defaults from  'db/defaultObjects'
 
 class NewPage extends React.Component {
   constructor(props) {
@@ -31,14 +31,15 @@ class NewPage extends React.Component {
 
   render() {
     const item = this.state.post
-    const formFields = defaults.defaultFullFields('post', item)
+    const settings = this.props.resourceSettings
+    const formFields = {} //defaults.defaultFullFields('post', item)
 
     return <div  className="tpBlackBg">
 
-        <HandleForm item={formFields} formClass={"posts"} update={this.updateInfo} redirectIdField={"site_blog_id"}/>
+        <HandleForm item={formFields} settings={settings} formClass={"posts"} update={this.updateInfo} redirectIdField={"site_blog_id"}/>
         
       </div>
   }
 }
 
-export default NewPage;
+export default withRouter(NewPage);

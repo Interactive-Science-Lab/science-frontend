@@ -23,7 +23,7 @@ class DefaultController extends React.Component {
             
             <Route path="/:urlPath" exact render={() => <Index resourceSettings={resourceSettings} />} />
 
-            <Route path="/:urlPath/new" exact component={New} />
+            <Route path="/:urlPath/new" exact render={() => <New resourceSettings={resourceSettings} />} />
 
             <Route path="/:urlPath/:id" exact render={() => <Show resourceSettings={resourceSettings} />} />
 

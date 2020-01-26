@@ -49,21 +49,20 @@ class FormHandler extends React.Component {
     const postURL = api.apiPath(`/${this.props.info.url}`)
     const putURL = `${postURL}/${id}`
     var apiCall;
-
-    console.log(id)
+    let override = api.apiPath(this.props.settings.name.override_api_path)
 
     if(this.state.formClass === "images" || this.state.formClass === "thumbnail"){
       if(this.state.existing) {
-        apiCall = this.updateAPI('put', putURL, this.formData(id), bulkAdd)
+        apiCall = this.updateAPI('put', override || putURL, this.formData(id), bulkAdd)
       } else {
-        apiCall = this.updateAPI('post', postURL, this.formData(id), bulkAdd)
+        apiCall = this.updateAPI('post', override ||  postURL, this.formData(id), bulkAdd)
       }
     } else{
       if(this.state.existing) {
-        apiCall = this.updateAPI('put', putURL, item, bulkAdd)
+        apiCall = this.updateAPI('put',  override || putURL, item, bulkAdd)
       } else {
         if(this.state.formClass === 'symbol_connections') { item.duplicateConnection = this.state.duplicateConnection }
-        apiCall = this.updateAPI('post', postURL, item, bulkAdd)
+        apiCall = this.updateAPI('post',  override || postURL, item, bulkAdd)
       }
     }
 
@@ -105,6 +104,7 @@ class FormHandler extends React.Component {
           submitForm={this.submitForm} 
           deleteItem={this.deleteItem}
           existing={this.state.existing} 
+          settings={this.props.settings}
           formClass={this.state.formClass} /> 
       </div>
     : (this.state.existing ? <DisplayPreview {...this.props}  /> : "")

@@ -19,7 +19,7 @@ class RelationshipForm extends React.Component {
   render() {
     const rConfig = relationshipConfig(this.props)
     console.log(rConfig, this.props)
-    return <div>
+    return rConfig ? <div>
       <h3>{ rConfig.title }</h3>
       <div>
         <DisplayExisting rConfig={rConfig} formClass={this.props.formClass} update={this.props.update} />
@@ -27,13 +27,13 @@ class RelationshipForm extends React.Component {
 
       <div>
           {rConfig.default_item ? <div>
-            <HandleForm item={ rConfig.default_item } formClass={this.props.formClass} existing={false} info={rConfig} update={this.props.update} />
+            <HandleForm item={ rConfig.resourceSettings.fields } formClass={this.props.formClass} existing={false} info={rConfig} update={this.props.update} />
           </div>
           :""}
       </div>
       
 
-    </div>
+    </div> : ""
   }
 
 

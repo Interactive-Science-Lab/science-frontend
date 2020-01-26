@@ -13,7 +13,7 @@ class PageEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        post: {}
+        item: {}
     }
   }
 
@@ -26,15 +26,16 @@ class PageEdit extends React.Component {
       axios
           .get(api.apiPath(`${props.resourceSettings.name.urlPath}/${id}`))
           .then(res =>
-            this.setState({post: res.data})
+            this.setState({item: res.data})
           )
           .catch(err => console.log(err) );
   }
 
   render() {
-    const item = this.state.post
+    const item = this.state.item
     const settings = this.props.resourceSettings
     const formFields = defaults.defaultFullFields(settings.name.ls, item)
+    console.log(item, item.user_kind)
 
     return <div  className="tpBlackBg">
 
@@ -44,6 +45,12 @@ class PageEdit extends React.Component {
 
         { settings.features.thumbnail ? 
         <RelationshipForm item={item} formClass={"thumbnail"} settings={settings} update={this.updateInfo} info={ {id: item[settings.idField], class: settings.name.us}  } />
+        : "" }
+
+        
+        { settings.features.user_info && item.info ? 
+        
+        <RelationshipForm item={item} formClass={item.user_kind} settings={settings} update={this.updateInfo} info={ {id: item[settings.idField], class: settings.name.us}  } />
         : "" }
         
       </div>

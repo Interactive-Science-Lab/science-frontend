@@ -21,13 +21,13 @@ class Menu extends React.Component {
   }
 
   sitePagesCategories = [
-    ['Features', 'exclamation', 'all'], 
-    ['About', 'question', 'all']
+    //['Features', '', 'all'], 
+    ['About', 'exclamation', 'all']
   ]
   siteBlogTypes = [
-    ["Blog", 'Blog', 'pencil-alt'], 
     ["News & Updates", 'News', 'newspaper'], 
-    ["Projects Built", 'Project', 'star'], 
+    // ["News & Updates", 'News', 'newspaper'], 
+    // ["Projects Built", 'Project', 'star'], 
   ]
 
   sitePagesStructure = () => {
@@ -43,7 +43,8 @@ class Menu extends React.Component {
       categoryDropdown.links = dropdownOptions
       returnStructure.push(categoryDropdown)
     })
-    return returnStructure
+    console.log(returnStructure[0])
+    return returnStructure[0].links //if only one category, you can use "[0].links" to display the pages directly in the bar
   }
 
   siteContentStructure = () => {
@@ -52,14 +53,14 @@ class Menu extends React.Component {
     this.siteBlogTypes.map(name => dropdownOptions.push({name: name[0], view: 'all', link: `/posts?category=${name[1]}`, symbol: name[2] }))
     returnStructure.links = dropdownOptions
     
-    return [returnStructure] // or return dropdownOptions OR [returnStructure] 
+    return dropdownOptions // or return dropdownOptions OR [returnStructure] 
   }
 
 
 
   render = () => {
 
-    const menuStructure = [...this.siteContentStructure(), ...this.sitePagesStructure(),  ...customMenuStructure, ]
+    const menuStructure = [...this.sitePagesStructure(), ...this.siteContentStructure(),  ...customMenuStructure, ]
 
     return <div className={`${this.props.showMenu ? "mobile-menu-show" : "mobile-menu-hide"}`}>
       {menuStructure.map(item => 

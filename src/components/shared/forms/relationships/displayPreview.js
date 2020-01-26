@@ -14,6 +14,8 @@ class IdList extends React.Component {
       case "images":
       case "thumbnail":
         return <img src={item.image_url} width="200px" />
+      case "admin_user": 
+        return <div>{JSON.stringify(item)}</div>
       default:
         return <p>{JSON.stringify(this.props)}</p>
     }

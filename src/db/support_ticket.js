@@ -10,7 +10,7 @@ export default {
         view_title: "User Profile"
     },
     permissions: {
-        index: "mod",
+        index: "all",
         view: "all",
         create: "all",
         edit: "mod"
@@ -18,7 +18,6 @@ export default {
     features: {
         filter: {
             options: ['all', 'pending', 'open', 'closed'],
-            protection: "admin",
         },
         search: {},
         paginate: {},
@@ -32,7 +31,7 @@ export default {
         support_ticket_email: {default: "", fieldType: "string", permissions: ['static', 'view-mod']},
         require_update: {default: true, fieldType: "boolean", permissions: ['static', 'view-mod']},
         support_ticket_state: {default: "pending", fieldType: ["select-open"], permissions: ['edit-mod']},
-        public_notes_text: {default: "", fieldType: "text", permissions: ['mod']},
-        private_notes_text: {default: "", fieldType: "text", permissions: ['mod']}
+        public_notes_text: {default: "", fieldType: "text", permissions: ['edit-mod'], label: true},
+        private_notes_text: {default: "", fieldType: "text", permissions: ['mod'], label: true}
     }
 }

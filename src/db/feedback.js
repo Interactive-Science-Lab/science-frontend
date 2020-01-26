@@ -30,10 +30,10 @@ export default {
     loader: {filter: '', sort: "created_at", sortdir: "DESC"},
     idField: 'feedback_id',
     fields: {
-        feedback_kind: {default: "", },
-        feedback_message: {default: "", },
-        feedback_name: {default: "", },
-        feedback_email: {default: "", },
-        logged: {default: false}
+        feedback_kind: {default: "", fieldType: ['select-custom', ['Comment', 'Question', 'Concern']], permissions: ['static']},
+        feedback_message: {default: "", fieldType: 'text', permissions: ['static'] },
+        feedback_name: {default: "", fieldType: 'string', permissions: ['static'] },
+        feedback_email: {default: "", fieldType: 'string', permissions: ['static'] },
+        logged: {default: false, fieldType: 'boolean'}
     }
 }

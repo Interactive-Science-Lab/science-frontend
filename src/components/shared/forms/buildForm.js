@@ -65,8 +65,6 @@ class FormHandler extends React.Component {
         const res = results.apiCall
         const redirectPath = results.redirect
 
-        console.log(res)
-
         if (res.status === 200 || res.status === 201) {
             this.formStatus('success');
             this.setState({ "error": "" })
@@ -86,7 +84,19 @@ class FormHandler extends React.Component {
 
         if(settings[1].permissions) {
             const p = settings[1].permissions
-            ret = ret && p.indexOf('static') < 0 && p.indexOf('background') < 0
+            if(this.props.existing) {
+                ret = ret && p.indexOf('static') < 0
+            } else {
+                ret = ret && p.indexOf('auto') < 0 
+            }
+            
+            p.map(perm => {
+                if(['mod','user','admin', 'edit-mod', 'edit-admin'].indexOf(perm) >= 0) {
+                    ret = ret && curr_user ? true : false
+                }
+            })
+            
+            ret = ret &&  p.indexOf('background') < 0
 
         }
 
@@ -95,7 +105,6 @@ class FormHandler extends React.Component {
 
 
     render() {
-
         return <Form
             style={{ backgroundColor: this.state.formColor }}
             onSubmit={this.submitForm}
@@ -106,7 +115,7 @@ class FormHandler extends React.Component {
                 : ""}
 
             {
-                resourceFullFields(this.props.settings.name.urlPath.substring(1), this.props.item).map(field => <div>
+                this.props.settings ? resourceFullFields(this.props.settings.name.urlPath.substring(1), this.props.item).map(field => <div>
                     { this.checkView(field.settings) ? <div>
                     {
                         field.settings[1].fieldType === 'string' ? 
@@ -212,7 +221,7 @@ class FormHandler extends React.Component {
                     </div>) : ""}
 
 
-                </div> : "" }</div>)}
+                </div> : "" }</div>): ""}
 
 
             <button type='submit'>{this.props.existing ?

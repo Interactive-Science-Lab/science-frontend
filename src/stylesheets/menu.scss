@@ -7,6 +7,7 @@
 	position: fixed;
 	width: 280px;
 	height:100vh;
+	overflow-y:scroll;
 	z-index: 10;
 	border-right:5px solid $menuAccentColor;
 	top: 0;

@@ -6,7 +6,7 @@ import Home from '../views/home';
 
 import {allResourceSettings} from 'db/defaultObjects'
 
-import UserComponent from '../components/core/users/controller';
+import UserComponent from '../components/core/auth/controller';
 import DefaultComponent from 'components/default/controller'
 
 function Body(props) {
@@ -15,6 +15,8 @@ function Body(props) {
             <Route path="/" exact component={Home} />
         
             
+
+            <Route path="/auth" render={() => <UserComponent {...props} auth={props.auth} />} />
             <Route path="/:urlPath" component={DefaultComponent} />
 
             <Route path="/" render={() => <div className="controller"><div className="tpBlackBg">
@@ -35,7 +37,7 @@ export default withRouter(Body);
                     component={ require(`../components${resource.name.folderPath}${resource.name.folderName || resource.name.urlPath}/controller.js`).default } 
                 />)
 
-            <Route path="/users" render={() => <UserComponent {...props} auth={props.auth} />} />
+            
 
 
 

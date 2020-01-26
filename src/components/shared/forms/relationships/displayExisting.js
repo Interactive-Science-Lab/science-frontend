@@ -11,10 +11,10 @@ class Existing extends React.Component {
 
   render() {
     const {rConfig, info, update, formClass} = this.props
-
+    console.log(rConfig)
     return rConfig.records.length > 0 ?
             rConfig.records.map(item => <div>
-                <HandleForm item={item.record} formClass={formClass} existing={true} info={rConfig} update={update} />
+                <HandleForm item={item.record} settings={rConfig.resourceSettings} formClass={formClass} existing={true} info={rConfig} update={update} />
             </div> 
             )
             : ""
