@@ -18,6 +18,7 @@
 /*---Page Components---*/
 /*Styling for menu*/
 @import '/stylesheets/menu';
+@import '/stylesheets/lab';
 /*Styling that is used on every page.*/
 @import '/stylesheets/page';
 
@@ -249,6 +250,14 @@ ul { list-style:none;padding:0;}
 		}
 	}
 }
+
+.DDcontainer {
+	display:flex;
+	flex-wrap:wrap;
+	height:100%;
+	width:100%;
+}
+
 
 .search-helper-box {
 	border: 2px solid black;

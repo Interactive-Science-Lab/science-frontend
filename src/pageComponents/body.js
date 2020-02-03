@@ -8,6 +8,7 @@ import {allResourceSettings} from 'db/defaultObjects'
 
 import UserComponent from '../components/core/auth/controller';
 import DefaultComponent from 'components/default/controller'
+import ExperimentComponent from 'components/experiments/open'
 
 function Body(props) {
     return <div className="body"><div className="page-container">
@@ -15,6 +16,7 @@ function Body(props) {
             <Route path="/" exact component={Home} />
         
             
+            <Route path="/experiments" component={ExperimentComponent} />
 
             <Route path="/auth" render={() => <UserComponent {...props} auth={props.auth} />} />
             <Route path="/:urlPath" component={DefaultComponent} />
