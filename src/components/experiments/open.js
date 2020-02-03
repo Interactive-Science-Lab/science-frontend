@@ -241,14 +241,6 @@ class ExperimentLab extends React.Component {
 
         return <LabContext.Provider value={{ ...labDefaults, itemsState: this.state.itemsState }} >
 
-            <div style={{ width: '200px' }}>{
-                Object.entries(this.state).map(stateObj => <div>
-                    <h5>{stateObj[0]}</h5>
-                    <p>{JSON.stringify(stateObj[1]).split('},{').map(i => <div>{i}</div>)}</p>
-                </div>)
-
-            }</div>
-
             <div id="labScreen">
                 <div id="topHalf">
                     <Tray />
@@ -259,6 +251,17 @@ class ExperimentLab extends React.Component {
                     <Table />
                 </div>
             </div>
+
+
+            <h3>Developer Output for Testing:</h3>
+            
+            <div style={{ width: '200px' }}>{
+                Object.entries(this.state).map(stateObj => <div>
+                    <h5>{stateObj[0]}</h5>
+                    <p>{JSON.stringify(stateObj[1]).split('},{').map(i => <div>{i}</div>)}</p>
+                </div>)
+
+            }</div>
         </LabContext.Provider>
     }
 

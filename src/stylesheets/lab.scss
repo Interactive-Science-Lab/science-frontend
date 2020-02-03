@@ -34,8 +34,8 @@ $floorTexture: linear-gradient(darken($floorColor, $contrast/2), $floorColor), u
 
 $metal: '/images/texture_metalplate.png';
 
-$displayBox: rgba(130, 170, 172, .6);
-$displayBorder: 4px outset lighten($displayBox, $contrast/2);
+$displayBox: rgba(130, 170, 172, .8);
+$displayBorder: 4px inset darken($displayBox, $contrast/2);
 
 #labScreen { 
     width: 100%;
