@@ -110,15 +110,15 @@ class ExperimentLab extends React.Component {
         const name = e.target.getAttribute('data-itemType')
         const instance = this.newInstanceId(this.state.itemsState)
 
-        
-            this.setState({
-                dragItem: {
-                    instance,
-                    itemType,
-                    id,
-                    name
-                }
-            })
+
+        this.setState({
+            dragItem: {
+                instance,
+                itemType,
+                id,
+                name
+            }
+        })
     }
 
     dragInventoryEnd = (e) => {
@@ -240,7 +240,6 @@ class ExperimentLab extends React.Component {
     render() {
 
         return <LabContext.Provider value={{ ...labDefaults, itemsState: this.state.itemsState }} >
-
             <div id="labScreen">
                 <div id="topHalf">
                     <Tray />
@@ -251,10 +250,8 @@ class ExperimentLab extends React.Component {
                     <Table />
                 </div>
             </div>
-
-
             <h3>Developer Output for Testing:</h3>
-            
+
             <div style={{ width: '200px' }}>{
                 Object.entries(this.state).map(stateObj => <div>
                     <h5>{stateObj[0]}</h5>
@@ -262,6 +259,9 @@ class ExperimentLab extends React.Component {
                 </div>)
 
             }</div>
+
+
+
         </LabContext.Provider>
     }
 

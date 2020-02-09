@@ -41,11 +41,12 @@ export const updatePage = (component, res, params, object) => {
     })
 }
 
-export const checkLoad = (component, pState) => {
+export const checkLoad = (component, pState, pProps) => {
     const differentPages = component.state.loader.params.toString() !== new URLSearchParams(window.location.search).toString()
     const changingUpdate = pState.loader.update !== component.state.loader.update
+    const changeComponent = !(component.props.match.params.urlPath === pProps.match.params.urlPath)
 
-    if (component.state.loader.update || (differentPages && !changingUpdate)) {
+    if (component.state.loader.update || (differentPages && !changingUpdate) || changeComponent) {
         component.loadPage()
     }
 }

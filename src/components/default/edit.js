@@ -37,7 +37,7 @@ class PageEdit extends React.Component {
     const formFields = defaults.defaultFullFields(settings.name.ls, item)
     console.log(item, item.user_kind)
 
-    return <div  className="tpBlackBg">
+    return <div  className="tpBlackBg color-box">
 
         <Link to={`${settings.name.urlPath}/${item[settings.idField]}`}>Back to Page</Link>
 

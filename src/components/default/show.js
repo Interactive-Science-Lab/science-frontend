@@ -67,7 +67,9 @@ class Page extends React.Component {
                 <Link to={`${settings.name.urlPath}`}>Back To All</Link>
             : "" }
 
-            { this.checkRender('view', settings) ? Object.values(fields).map(field =>  <div>
+            { this.checkRender('view', settings) ? (settings.display.page ? 
+                settings.display.page(item) : 
+                Object.values(fields).map(field =>  <div>
 
                 {this.checkView(field.settings) ? <div>
                     {field.settings[1].label ? <div>{field.name} :</div> : ""}
@@ -77,6 +79,8 @@ class Page extends React.Component {
                         {field.settings[1].titleField ? <h1>{field.value}</h1> : field.value}
                     </div> : ""}
                     {field.settings[1].fieldType === 'icon' ? <span className={`fas fa-${field.value}`}></span> : ""}
+                    {field.settings[1].fieldType === 'local-image' ? <img src={`/images/${field.value}`} /> : ""}
+                    {field.settings[1].fieldType === 'number' ? field.value : ""}
                     {field.settings[1].fieldType === 'text' ? field.value : ""}
                     {field.settings[1].fieldType === 'html' ? <div dangerouslySetInnerHTML={{ __html: field.value }} /> : ""}
                     {field.settings[1].fieldType[0] === 'select-draft' ? (field.value !== 'public' ? field.value : "") : ""}
@@ -84,18 +88,18 @@ class Page extends React.Component {
                     {field.settings[1].fieldType[0] === 'select-custom' ? field.value : ""}
                     {field.settings[1].fieldType === 'boolean' ? field.name + ": " + field.value : ""}
                     {field.settings[1].fieldType === 'object' ? <div>
-                        {field.name}<br />
                         {Object.entries(field.value || {}).map(f => <div>
                             {f[0]}: {JSON.stringify(f[1])}
                         </div>)}
                     </div> : ""}
 
                     {field.settings[1].fieldType === 'reference' ? "Reference " + field.name + ": " + field.value : ""}
-
+                    
+                    {field.settings[1].suffix}
 
                     </div> : ""}
 
-                </div>) : ""}
+                </div>)) : ""}
     
                 {settings.features.user_info ? JSON.stringify(item.info) : ""}
 

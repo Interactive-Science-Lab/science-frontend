@@ -2,8 +2,8 @@
 
 //PAGE
 //MAIN BACKGROUND OPACITY
-$backgroundOpacityColor: lighten($ll-primary-color, 10%);
-$mainBgColor: $ll-secondary-color;
+$backgroundOpacityColor: $primary-color;
+$mainBgColor: $ll-primary-color;
 
 //HEADER & MENUS
 $headerMenuColor: $d-primary-color;

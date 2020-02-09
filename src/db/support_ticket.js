@@ -33,5 +33,6 @@ export default {
         support_ticket_state: {default: "pending", fieldType: ["select-open"], permissions: ['edit-mod']},
         public_notes_text: {default: "", fieldType: "text", permissions: ['edit-mod'], label: true},
         private_notes_text: {default: "", fieldType: "text", permissions: ['mod'], label: true}
-    }
+    },
+    display: {}
 }

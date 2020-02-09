@@ -40,5 +40,6 @@ export default {
         page_title: {default: "", fieldType: "string", validations: ["unique", "required"], titleField: true },
         page_body_text: {default: "", fieldType: "html", validations: ["required"] }, 
         page_order: {default: 0, fieldType: 'number', permissions: ["hidden"], validations: ["required"]}
-    }
+    },
+    display: {}
 }

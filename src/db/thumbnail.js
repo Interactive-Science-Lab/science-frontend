@@ -19,5 +19,6 @@ export default {
         image_title: {default: 'Thumbnail Image',},
         image_description: {default: 'An image uploaded by this user',},
         image_source: {default: "Original Upload"}
-    }
+    },
+    display: {}
 }

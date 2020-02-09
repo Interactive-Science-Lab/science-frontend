@@ -45,6 +45,7 @@ class Page extends React.Component {
                     {field.settings[1].fieldType === 'html' ? <div dangerouslySetInnerHTML={{ __html: field.value }} /> : ""}
                     {field.settings[1].fieldType[0] === 'select-draft' ? (field.value !== 'public' ? field.value : "") : ""}
                     {field.settings[1].fieldType[0] === 'select-custom' ? field.value : ""}
+                    {field.settings[1].fieldType[0] === 'select-custom-int' ? field.settings[1].fieldType[1][field.value] : ""}
                     {field.settings[1].fieldType === 'boolean' ? field.name + ": " + field.value : ""}
                     {field.settings[1].fieldType === 'object' ? <div>
                         {field.name}<br />

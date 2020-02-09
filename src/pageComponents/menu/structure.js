@@ -13,21 +13,32 @@ const curr_user = localStorage.user ?  JSON.parse(localStorage.user) : false
 
 
 export default  [
-    {name: "Sign Up", view: "no_user", symbol: "user", links: [
+    {name: "Visit The Lab", view: "logged_in", symbol: "star", link: "/lab"}, 
+    
+    
+    {name: "Contact", view: "all", link: '/feedback/new', symbol: "comment-slash"},
+    {name: "Sign Up / Login", view: "no_user", symbol: "user", links: [
         {name: "Register", view: "all", link: '/auth/register', symbol: ""},
         {name: "Login", view: "all", link: '/auth/login', symbol: ""},
         {name: "Forgot My Password", view: "all", link: '/auth/forgottenPassword', symbol: ""},
     ]}, 
-    {name: "Account", view: "logged_in", symbol: "user", links: [   
+    {name: "Logout", view: 'logged_in', link: '/auth/logout', symbol: "sign-out-alt"},
+    // {name: "Account", view: "logged_in", symbol: "user", links: [   
+    //     {name: "Logout", view: 'logged_in', link: '/auth/logout', symbol: "sign-out-alt"}
+    // ]},
+    // {name: "Help", view: "all", symbol: "info-circle", links: [
+    //     {name: "Support/Bug Report", view: "all", link: '/support_tickets/new', symbol: "bug"},
+    // ]},
+    {name: "Site Settings [ADMIN]", view: "admin", symbol: "user-cog", links: [   
         {name: "User List", view: 'admin', link: '/users', symbol: "users"},
-        {name: "Page List", view: 'admin', link: '/pages', symbol: "cogs"},
-        {name: "Logs", view: 'admin', link: '/logs', symbol: "cogs"},
         {name: "Feedback", view: 'admin', link: '/feedback', symbol: "comments"},
-        {name: "Support Tickets", view: 'admin', link: '/support_tickets', symbol: "comments"},
-        {name: "Logout", view: 'all', link: '/auth/logout', symbol: "sign-out-alt"}
+        //{name: "Page List", view: 'admin', link: '/pages', symbol: "cogs"},
+        //{name: "Support Tickets", view: 'admin', link: '/support_tickets', symbol: "comments"},
     ]},
-    {name: "Help", view: "all", symbol: "info-circle", links: [
-        {name: "Contact", view: "all", link: '/feedback/new', symbol: "comment-slash"},
-        {name: "Support/Bug Report", view: "all", link: '/support_tickets/new', symbol: "bug"},
+    {name: "Lab Settings [ADMIN]", view: "admin", symbol: "tools", links: [   
+        {name: "Experiments", view: 'admin', link: '/experiments', symbol: "microscope"},
+        {name: "Containers", view: 'admin', link: '/containers', symbol: "flask"},
+        {name: "Objects", view: 'admin', link: '/objects', symbol: "magnet"},
+        {name: "Substances", view: 'admin', link: '/substances', symbol: "atom"},
     ]},
 ]

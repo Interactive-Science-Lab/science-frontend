@@ -42,5 +42,6 @@ export default {
         notes: {default: "", fieldType: "text"},
         log_confirmed: {permissions: ['static'], fieldType: 'boolean'},
         object_id: {permissions: ['static'], fieldType: 'reference'},
-    }
+    },
+    display: {}
 }

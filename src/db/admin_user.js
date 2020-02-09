@@ -17,5 +17,6 @@ export default {
     fields: {
         "public-email": {default: "", fieldType: "string", validations: ["unique", "required"] },
         "phone-number": {default: "", fieldType: "string", validations: ["unique", "required"] },
-    }
+    },
+    display: {}
 }

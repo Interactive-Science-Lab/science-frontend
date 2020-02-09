@@ -44,5 +44,6 @@ export default  {
         blog_description: { default: "", fieldType: "string", validations: ["required"] },
         blog_text: { default: "", fieldType: "html", validations: ["required"], permissions: ['list-hidden'] },
         
-    }
+    },
+    display: {}
 }

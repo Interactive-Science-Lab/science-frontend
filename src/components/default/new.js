@@ -34,8 +34,8 @@ class NewPage extends React.Component {
     const settings = this.props.resourceSettings
     const formFields = {} //defaults.defaultFullFields('post', item)
 
-    return <div  className="tpBlackBg">
-
+    return <div  className="tpBlackBg color-box">
+        <h1>{settings.name.new_title}</h1>
         <HandleForm item={formFields} settings={settings} formClass={"posts"} update={this.updateInfo} redirectIdField={"site_blog_id"}/>
         
       </div>

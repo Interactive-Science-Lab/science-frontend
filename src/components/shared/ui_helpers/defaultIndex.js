@@ -133,15 +133,17 @@ class defaultIndex extends React.Component {
 
             <div>
                 {this.displayFilter()}
-                <div className='search-helper-box'>
+                {settings.features.search || settings.features.sort ? <div className='color-box'>
                     {this.displaySearch()}
                     {this.displaySort()}
+                </div> : <hr /> }
+
+                <div className='color-box'>
+                    {this.displayList()}
+                    {this.displayPagination()}
+                    {this.displayNewLink()}
                 </div>
 
-                {this.displayList()}
-
-                {this.displayPagination()}
-                {this.displayNewLink()}
             </div>
             <div>
                 {this.displayTags()}

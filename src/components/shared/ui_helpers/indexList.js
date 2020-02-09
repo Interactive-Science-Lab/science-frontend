@@ -14,7 +14,8 @@ class Page extends React.Component {
 
         return <div>
                 {items.map(
-                    (item) => <Item item={item} update={this.props.update} settings={settings} />
+                    (item) => settings.display.list ? settings.display.list(item)
+                    : <Item item={item} update={this.props.update} settings={settings} />
                 )}
                 { items.length === 0 ? (this.props.loader.loading ? "Loading" : "No Results.") : "" } 
             </div>

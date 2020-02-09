@@ -17,7 +17,7 @@ class Pagination extends React.Component {
       const {tags} = this.props
       const hiTag = tags[0] ? tags[0][1] : 1
       
-      return <div className="search-helper-box">
+      return <div className="color-box">
         <h3>Tag Cloud</h3>
         {tags.map(tagInfo => 
             <p style={{ 

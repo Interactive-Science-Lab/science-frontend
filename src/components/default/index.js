@@ -1,6 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 
+import {withRouter} from 'react-router-dom'
+
 //API Related
 import api from 'helpers/api'
 
@@ -29,7 +31,7 @@ class Page extends React.Component {
 
     componentDidUpdate = (pProps, pState) => {
         //This make sures there a reason to call the api before doing so.
-        checkLoad(this, pState)
+        checkLoad(this, pState, pProps)
     }
 
     loadPage = async (props = this.props) => {
@@ -59,4 +61,4 @@ class Page extends React.Component {
     }
 }
 
-export default Page
+export default withRouter(Page)

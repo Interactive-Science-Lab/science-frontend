@@ -16,7 +16,7 @@ function Body(props) {
             <Route path="/" exact component={Home} />
         
             
-            <Route path="/experiments" component={ExperimentComponent} />
+            <Route path="/lab" component={ExperimentComponent} />
 
             <Route path="/auth" render={() => <UserComponent {...props} auth={props.auth} />} />
             <Route path="/:urlPath" component={DefaultComponent} />

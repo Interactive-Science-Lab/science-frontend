@@ -1,10 +1,12 @@
 import React from 'react'
 import Menu from './menu/topMenu.js'
 import { NavLink } from 'react-router-dom'
-import { Container, Row, Col, NavItem, Dropdown } from 'react-bootstrap'
+import { Switch, Route } from 'react-router-dom'
 import { withRouter } from 'react-router-dom'
 
-import {siteTitle, logoURL} from '../helpers/site'
+import { siteTitle, logoURL } from '../helpers/site'
+
+import ExperimentSidebar from '../components/experiments/sidebar'
 
 
 class Header extends React.Component {
@@ -29,7 +31,7 @@ class Header extends React.Component {
   }
 
   toggleDropdown = (value) => {
-    this.setState({showDropdown: value})
+    this.setState({ showDropdown: value })
   }
 
 
@@ -39,18 +41,25 @@ class Header extends React.Component {
 
     const user = localStorage.user ? JSON.parse(localStorage.user) : null
 
-    return <div style={{height:"0px"}}><div className={`header ${this.state.showMenu ? "show-menu" : "hide-menu"} `} >
+    return <div style={{ height: "0px" }}><div className={`header ${this.state.showMenu ? "show-menu" : "hide-menu"} `} >
 
-            <br /><h1 className='fas fa-window-close hmenu-mobile-toggle d-lg-none' onClick={this.toggleMenu}></h1><br />
-            <NavLink to="/" style={{background:'none'}}><img alt="logo" height="50px" src={logoURL} /><br />
-            <h3 style={{color:"white"}}>{siteTitle}</h3>
-            </NavLink>
-            
-            <Menu auth={this.props.auth} showMenu={this.state.showMenu} toggleDropdown={this.toggleDropdown} />
-       
+      <Switch>
+        <Route path="/lab/:id?" >
+          <ExperimentSidebar />
+        </Route>
+
+        <Route path="/">
+          <br /><h1 className='fas fa-window-close hmenu-mobile-toggle d-lg-none' onClick={this.toggleMenu}></h1><br />
+          <NavLink to="/" style={{ background: 'none' }}><img alt="logo" height="150px" src={logoURL} /><br />
+            <h3 style={{ color: "white" }}>{siteTitle}</h3>
+          </NavLink>
+
+          <Menu auth={this.props.auth} showMenu={this.state.showMenu} toggleDropdown={this.toggleDropdown} />
+        </Route>
+      </Switch>
 
     </div>
-    <br /><h2 className='fas fa-bars hmenu-mobile-toggle d-inline d-lg-none' onClick={this.toggleMenu}></h2></div>
+      <br /><h2 className='fas fa-bars hmenu-mobile-toggle d-inline d-lg-none' onClick={this.toggleMenu}></h2></div>
   }
 
 }

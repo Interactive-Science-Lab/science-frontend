@@ -26,6 +26,15 @@
 /*---Individual Components---*/
 @import '/stylesheets/components/homeLinks';
 
+.color-box {
+	margin: 20px auto;
+	padding: 20px;
+	background: linear-gradient(rgba(255,255,255,.6),rgba(255,255,255,.8),rgba(255,255,255,.4));
+	border-radius: 20px;
+	border: 1px outset #333;
+	max-width: 800px;
+}
+
 * {
 	box-sizing: border-box;
 }
