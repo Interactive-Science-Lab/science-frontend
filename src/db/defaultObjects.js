@@ -117,14 +117,42 @@ const defaultObjects = {
         public_notes_text: "",
         private_notes_text: ""
     },
-    feedback: {},
+    feedback: {
+        feedback_kind: 0,
+        feedback_message: "",
+        feedback_email: "",
+        feedback_name: "",
+        logged: false
+    },
     log: {},
 
 
-    experiment: {},
-    substance: {},
-    object_item: {},
-    container: {},
+    experiment: {
+        experiment_name: "",
+        experiment_description: "",
+        experiment_steps: "",
+        experiment_start: []
+    },
+    substance: {
+        substance_name: "",
+        substance_state_of_matter: "liquid",
+        substance_density: 0,
+        substance_dispense_volume: 0,
+        substance_scientific_name: ""
+    },
+    object_item: {
+        object_name: "",
+        object_weight: 0,
+        object_volume: 0,
+        object_description: "",
+        object_image: ""
+    },
+    container: {
+        container_name: "",
+        container_mass: 0,
+        container_volume: 0,
+        container_image: ""
+    },
 
 
 }

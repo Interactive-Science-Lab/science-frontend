@@ -36,7 +36,12 @@ class NewPage extends React.Component {
 
     return <div  className="tpBlackBg color-box">
         <h1>{settings.name.new_title}</h1>
-        <HandleForm item={formFields} settings={settings} formClass={"posts"} update={this.updateInfo} redirectIdField={"site_blog_id"}/>
+        <HandleForm 
+          item={formFields} 
+          settings={settings} 
+          formClass={settings.name.lp} 
+          update={this.updateInfo} 
+          redirectIdField={settings.idField} />
         
       </div>
   }

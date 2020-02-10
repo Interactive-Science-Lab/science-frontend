@@ -4,6 +4,7 @@ import { Input } from 'reactstrap'
 import { withRouter } from "react-router-dom";
 
 import formHelpers from './form_helpers'
+import listReactFiles from 'list-react-files'
 
 import { resourceFullFields } from 'db/defaultObjects'
 
@@ -11,6 +12,7 @@ import BasicTextField from './fieldTypes/basicText'
 import TextAreaField from './fieldTypes/textArea'
 import BasicNumberField from './fieldTypes/basicNumber'
 import BasicBooleanField from './fieldTypes/basicBoolean'
+import ObjectField from './fieldTypes/objectField'
 
 import ArrayField from './fieldTypes/array'
 import IdSelectField from './fieldTypes/idSelect'
@@ -82,21 +84,21 @@ class FormHandler extends React.Component {
     checkView = (settings) => {
         let ret = true
 
-        if(settings[1].permissions) {
+        if (settings[1].permissions) {
             const p = settings[1].permissions
-            if(this.props.existing) {
+            if (this.props.existing) {
                 ret = ret && p.indexOf('static') < 0
             } else {
-                ret = ret && p.indexOf('auto') < 0 
+                ret = ret && p.indexOf('auto') < 0
             }
-            
+
             p.map(perm => {
-                if(['mod','user','admin', 'edit-mod', 'edit-admin'].indexOf(perm) >= 0) {
+                if (['mod', 'user', 'admin', 'edit-mod', 'edit-admin'].indexOf(perm) >= 0) {
                     ret = ret && curr_user ? true : false
                 }
             })
-            
-            ret = ret &&  p.indexOf('background') < 0
+
+            ret = ret && p.indexOf('background') < 0
 
         }
 
@@ -116,112 +118,139 @@ class FormHandler extends React.Component {
 
             {
                 this.props.settings ? resourceFullFields(this.props.settings.name.urlPath.substring(1), this.props.item).map(field => <div>
-                    { this.checkView(field.settings) ? <div>
-                    {
-                        field.settings[1].fieldType === 'string' ? 
-                        <BasicTextField field={[field.name, field.value]} callback={this.handleChange} item={this.props.item} /> : ""
-                    }
-                    {
-                        //Text areas with large boxes to write articles
-                        field.settings[1].fieldType === 'text' ?
-                            <TextAreaField field={[field.name, field.value]} callback={this.handleChange} item={this.props.item} /> : ""
-                    }
-                    {
-                        //Text areas with large boxes to write articles
-                        field.settings[1].fieldType === 'html' ?
-                            <TextAreaField field={[field.name, field.value]} callback={this.handleChange} item={this.props.item} /> : ""
-                    }
+                    {this.checkView(field.settings) ? <div>
+                        {
+                            field.settings[1].fieldType === 'string' ?
+                                <BasicTextField field={[field.name, field.value]} callback={this.handleChange} item={this.props.item} /> : ""
+                        }
 
-                    {
-                        //The forms that create a select field
-                        formHelpers.checkIdSelectField([field.name, field.value]) ?
-                            <IdSelectField item={this.props.item} field={[field.name, field.value][0]} value={[field.name, field.value][1]} handleChange={this.handleChangeCb} /> : ""
-                    }
-                    {
-                        field.settings[1].fieldType === 'icon' ? 
-                        <BasicTextField settings={field.settings} field={[field.name, field.value]} callback={this.handleChange} item={this.props.item} /> : ""
-                    }
-
-                    {
-                        //Special array handling UI
-                        field.settings[1].fieldType === 'array'  ?
-                            <ArrayField item={this.props.item} field={[field.name, field.value][0]} array={[field.name, field.value][1]} handleArrayChange={this.handleArrayChange} /> : ""
-                    }
-
-                    {
-                        //For numbers
-                        field.settings[1].fieldType === 'number'  ?
-                            <BasicNumberField field={[field.name, field.value]} callback={this.handleChange} item={this.props.item} /> : ""
-                    }
-
-                    {
-                        //Booleans create a checkbox
-                        field.settings[1].fieldType === 'boolean'  ?
-                            <BasicBooleanField field={[field.name, field.value]} callback={this.handleCheck} item={this.props.item} /> : ""
-                    }
-
-                    {
-                        //Displays the fields for an image
-                        [field.name, field.value][0] === 'image_url' ?
-                            <ImageField field={[field.name, field.value]} callback={this.handleFileChange} item={this.props.item} /> : ""
-                    }
+                        {
+                            field.settings[1].fieldType === 'object' ?
+                                <ObjectField field={[field.name, field.value]} callback={this.handleObjectChange} item={this.props.item} /> : ""
+                        }
 
 
-                    {
-                        //Verification for a phone number
-                        [field.name, field.value][0] === 'phone' ?
-                            <VerifyPhone field={[field.name, field.value]} callback={this.handleChange} item={this.props.item} /> : ""
-                    }
 
-                    {
-                       field.settings[1].fieldType && field.settings[1].fieldType[0] === 'select-draft' ?
-                            <div>
-                                View Status<br />
-                                <select onChange={this.handleChange} name={[field.name, field.value][0]} value={[field.name, field.value][1]}>
-                                    <option value="draft">Draft</option>
-                                    <option value="public">Public</option>
-                                    <option value="private">Private</option>
-                                </select>
-                            </div> : ""
-                    }
+                        {
+                            //Text areas with large boxes to write articles
+                            field.settings[1].fieldType === 'text' ?
+                                <TextAreaField field={[field.name, field.value]} callback={this.handleChange} item={this.props.item} /> : ""
+                        }
+                        {
+                            //Text areas with large boxes to write articles
+                            field.settings[1].fieldType === 'html' ?
+                                <TextAreaField field={[field.name, field.value]} callback={this.handleChange} item={this.props.item} /> : ""
+                        }
 
-                    {
-                       field.settings[1].fieldType && field.settings[1].fieldType[0] === 'select-open' ?
-                            <div>
-                                View Status<br />
-                                <select onChange={this.handleChange} name={[field.name, field.value][0]} value={[field.name, field.value][1]}>
-                                    <option value="draft">Pending</option>
-                                    <option value="public">Open</option>
-                                    <option value="private">Closed</option>
-                                    <option value="private">Solved</option>
-                                    <option value="private">Re-Opened</option>
-                                </select>
-                            </div> : ""
-                    }
+                        {
+                            //The forms that create a select field
+                            formHelpers.checkIdSelectField([field.name, field.value]) ?
+                                <IdSelectField item={this.props.item} field={[field.name, field.value][0]} value={[field.name, field.value][1]} handleChange={this.handleChangeCb} /> : ""
+                        }
+                        {
+                            field.settings[1].fieldType === 'icon' ?
+                                <BasicTextField settings={field.settings} field={[field.name, field.value]} callback={this.handleChange} item={this.props.item} /> : ""
+                        }
 
-                    {
-                        field.settings[1].fieldType && field.settings[1].fieldType[0] === 'select-custom' ?
-                            <div>
-                                {field.name}<br />
-                                <select onChange={this.handleChange} name={[field.name, field.value][0]} value={[field.name, field.value][1]}>
-                                    {field.settings[1].fieldType[1].map(option => <option value={option}>{option}</option>)}
-                                </select>
-                            </div> : ""
-                    }
-
-                    { /* ADD hidden fields here */}
-                    {[field.name, field.value][0] === 'foreign_id' ? <Input type="hidden" name="foreign_id" value={this.props.item.foreign_id} /> : ""}
-                    {[field.name, field.value][0] === 'foreign_key' ? <Input type="hidden" name="foreign_key" value={this.props.item.foreign_key} /> : ""}
-                    {[field.name, field.value][0] === 'foreign_class' ? <Input type="hidden" name="foreign_class" value={this.props.item.foreign_class} /> : ""}
+                        {
+                            field.settings[1].fieldType === 'local-image' ?<div>
+                                <BasicTextField settings={field.settings} field={[field.name, field.value]} callback={this.handleChange} item={this.props.item} /> 
+                                
+                                </div>: ""
+                        }
 
 
-                    { /* Validations */ }
-                    {field.settings[1].validations ? field.settings[1].validations.map(val => <div>
-                        { val === 'required' ? (!field.value || field.value === "" ? "Field is required." : "") : ""}    
-                    </div>) : ""}
+                        {
+                            //Special array handling UI
+                            field.settings[1].fieldType === 'array' ?
+                                <ArrayField item={this.props.item} field={[field.name, field.value][0]} array={[field.name, field.value][1]} handleArrayChange={this.handleArrayChange} /> : ""
+                        }
+
+                        {
+                            //For numbers
+                            field.settings[1].fieldType === 'number' ?
+                                <BasicNumberField field={[field.name, field.value]} callback={this.handleChange} item={this.props.item} /> : ""
+                        }
+
+                        {
+                            //Booleans create a checkbox
+                            field.settings[1].fieldType === 'boolean' ?
+                                <BasicBooleanField field={[field.name, field.value]} callback={this.handleCheck} item={this.props.item} /> : ""
+                        }
+
+                        {
+                            //Displays the fields for an image
+                            [field.name, field.value][0] === 'image_url' ?
+                                <ImageField field={[field.name, field.value]} callback={this.handleFileChange} item={this.props.item} /> : ""
+                        }
 
 
-                </div> : "" }</div>): ""}
+                        {
+                            //Verification for a phone number
+                            [field.name, field.value][0] === 'phone' ?
+                                <VerifyPhone field={[field.name, field.value]} callback={this.handleChange} item={this.props.item} /> : ""
+                        }
+
+                        {
+                            field.settings[1].fieldType && field.settings[1].fieldType[0] === 'select-draft' ?
+                                <div>
+                                    View Status<br />
+                                    <select onChange={this.handleChange} name={[field.name, field.value][0]} value={[field.name, field.value][1]}>
+                                        <option value="draft">Draft</option>
+                                        <option value="public">Public</option>
+                                        <option value="private">Private</option>
+                                    </select>
+                                </div> : ""
+                        }
+
+                        {
+                            field.settings[1].fieldType && field.settings[1].fieldType[0] === 'select-open' ?
+                                <div>
+                                    View Status<br />
+                                    <select onChange={this.handleChange} name={[field.name, field.value][0]} value={[field.name, field.value][1]}>
+                                        <option value="draft">Pending</option>
+                                        <option value="public">Open</option>
+                                        <option value="private">Closed</option>
+                                        <option value="private">Solved</option>
+                                        <option value="private">Re-Opened</option>
+                                    </select>
+                                </div> : ""
+                        }
+
+                        {
+                            field.settings[1].fieldType && field.settings[1].fieldType[0] === 'select-custom' ?
+                                <div>
+                                    {field.name}<br />
+                                    <select onChange={this.handleChange} name={[field.name, field.value][0]} value={[field.name, field.value][1]}>
+                                        {field.settings[1].fieldType[1].map(option => <option value={option}>{option}</option>)}
+                                    </select>
+                                </div> : ""
+                        }
+
+
+                        {
+                            field.settings[1].fieldType && field.settings[1].fieldType[0] === 'select-custom-int' ?
+                                <div>
+                                    {field.name}<br />
+                                    <select onChange={this.handleSelectIntChange} name={[field.name, field.value][0]} value={[field.name, field.value][1]}>
+                                        {field.settings[1].fieldType[1].map((option, i) => <option value={i}>{option}</option>)}
+                                    </select>
+                                </div> : ""
+                        }
+
+                        { /* ADD hidden fields here */}
+                        {[field.name, field.value][0] === 'foreign_id' ? <Input type="hidden" name="foreign_id" value={this.props.item.foreign_id} /> : ""}
+                        {[field.name, field.value][0] === 'foreign_key' ? <Input type="hidden" name="foreign_key" value={this.props.item.foreign_key} /> : ""}
+                        {[field.name, field.value][0] === 'foreign_class' ? <Input type="hidden" name="foreign_class" value={this.props.item.foreign_class} /> : ""}
+
+
+                        { /* Validations */}
+                        {field.settings[1].validations ? field.settings[1].validations.map(val => <div>
+                            {val === 'required' ? (!field.value || field.value === "" ? "Field is required." : "") : ""}
+                        </div>) : ""}
+
+
+                    </div> : ""}</div>) : ""}
 
 
             <button type='submit'>{this.props.existing ?
@@ -247,6 +276,16 @@ class FormHandler extends React.Component {
         this.props.updateItem({
             ...this.props.item,
             [e.target.name]: e.target.value
+        })
+    }
+
+    handleObjectChange = (e) => {
+        let value = {}
+        try { value = JSON.parse(e.target.value) } 
+        catch { console.log("That is not valid JSON, failed parse.") }
+        this.props.updateItem({
+            ...this.props.item,
+            [e.target.name]: value
         })
     }
 

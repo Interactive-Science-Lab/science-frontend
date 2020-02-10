@@ -1,5 +1,11 @@
 import React from 'react'
 
+import itemsState from './db/list'
+
+import axios from 'axios'
+import api, {curr_user} from 'helpers/api'
+import {withRouter} from 'react-router-dom'
+
 import Tray from './stations/tray/component'
 import Table from './stations/table/component'
 import Cupboard from './stations/cupboard/component'
@@ -11,10 +17,12 @@ class ExperimentLab extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            itemsState: labDefaults.itemsState,
+            itemsState: [],
             hoverPos: {},
             hoverItem: {},
-            dragItem: {}
+            dragItem: {},
+            masterItemList: {objects: [], containers: [], substances: []},
+            experiment: {}
         }
     }
 
@@ -51,7 +59,8 @@ class ExperimentLab extends React.Component {
         delete dragInstance.area
 
         hoverInstance.contents.push(dragInstance)
-        return newState.push(hoverInstance)
+        newState.push(hoverInstance)
+        return newState
     }
 
     checkPositionFree = ({ pos, area }, hoverItem, newState) => {
@@ -107,7 +116,7 @@ class ExperimentLab extends React.Component {
 
         const itemType = e.target.getAttribute('data-itemType')
         const id = Number.parseInt(e.target.getAttribute('data-id'))
-        const name = e.target.getAttribute('data-itemType')
+        const name = e.target.getAttribute('data-name')
         const instance = this.newInstanceId(this.state.itemsState)
 
 
@@ -161,7 +170,7 @@ class ExperimentLab extends React.Component {
         if (this.checkPositionFree(hoverPos, hoverItem, newState)) {
             this.updateItemPosition(inst_id, newState, hoverPos)
         } else if (hoverItem.instance && hoverItem.itemType === 'containers' && dragItem.itemType !== 'containers') {
-            this.addItemToContainer(newState, dragItem, hoverItem)
+            newState = this.addItemToContainer(newState, dragItem, hoverItem)
         }
 
         this.setState({ itemsState: newState, hoverItem: {}, hoverPos: {}, dragItem: {} })
@@ -183,7 +192,16 @@ class ExperimentLab extends React.Component {
             this.setState({ hoverItem: {}, hoverPos: { pos, area } })
         }
         else if (e.target.matches('.drag-item')) {
-            this.setState({ hoverItem: { instance: Number.parseInt(e.target.getAttribute('data-instance')), itemType: e.target.getAttribute('data-itemType') } })
+            const dropzone = e.target.closest('.dropzone')
+            const pos = Number.parseInt(dropzone.getAttribute('data-pos'))
+            const area = Number.parseInt(dropzone.getAttribute('data-area'))
+            this.setState({
+                hoverItem: {
+                    instance: Number.parseInt(e.target.getAttribute('data-instance')),
+                    itemType: e.target.getAttribute('data-itemType')
+                },
+                hoverPos: { pos, area }
+            })
         }
         else {
         }
@@ -200,12 +218,41 @@ class ExperimentLab extends React.Component {
         e.preventDefault();
     }
 
-    componentDidMount = () => {
+    componentDidMount = async () => {
         this.dragListeners();
+
+        let objects = await axios.get(api.apiPath('/objects'), curr_user)
+        let containers = await axios.get(api.apiPath('/containers'), curr_user)
+        let substances = await axios.get(api.apiPath('/substances'), curr_user)
+        
+        objects = objects.data.pageOfItems
+        containers = containers.data.pageOfItems
+        substances = substances.data.pageOfItems
+
+        this.setState({masterItemList: {objects, containers, substances}, itemsState: []})
+        this.setExperiment();
+
+        
     }
 
-    componentDidUpdate = () => {
+    componentDidUpdate = async () => {
         this.dragListeners();
+        this.setExperiment();
+        
+    }
+
+    setExperiment = async () => {
+        const experiment_id = this.props.match.params.id
+        console.log(this.props.match.params)
+
+        if(experiment_id && this.state.experiment.experiment_id !== Number.parseInt(experiment_id)){
+            let experiment = await axios.get(api.apiPath(`/experiments/${experiment_id}`), curr_user)
+            experiment = experiment.data
+
+            console.log(experiment)
+            
+            this.setState({experiment, itemsState: experiment.experiment_start })
+        }
     }
 
     dragListeners = () => {
@@ -238,9 +285,13 @@ class ExperimentLab extends React.Component {
     }
 
     render() {
+        const devMode = true
 
-        return <LabContext.Provider value={{ ...labDefaults, itemsState: this.state.itemsState }} >
-            <div id="labScreen">
+        return <LabContext.Provider value={{ masterItemList: this.state.masterItemList, itemsState: this.state.itemsState }} >
+
+
+
+<div id="labScreen">
                 <div id="topHalf">
                     <Tray />
                     <Cupboard />
@@ -250,15 +301,20 @@ class ExperimentLab extends React.Component {
                     <Table />
                 </div>
             </div>
+
+            {devMode ?<div>
             <h3>Developer Output for Testing:</h3>
 
             <div style={{ width: '200px' }}>{
                 Object.entries(this.state).map(stateObj => <div>
                     <h5>{stateObj[0]}</h5>
-                    <p>{JSON.stringify(stateObj[1]).split('},{').map(i => <div>{i}</div>)}</p>
+                    <p>{JSON.stringify(stateObj[1])}</p>
                 </div>)
 
-            }</div>
+            }</div></div> : null }
+
+
+
 
 
 
@@ -267,6 +323,6 @@ class ExperimentLab extends React.Component {
 
 }
 
-export default ExperimentLab
+export default withRouter(ExperimentLab)
 
 

@@ -45,5 +45,9 @@ export default  {
         blog_text: { default: "", fieldType: "html", validations: ["required"], permissions: ['list-hidden'] },
         
     },
-    display: {}
+    display: {},
+    options: {
+        back_to_all_link: (item) => { return `/posts?category=${item.blog_category}`}
+    }
+
 }

@@ -17,8 +17,8 @@ class Item extends React.Component {
 
         contents.map(c => { 
             masterItemList[c.itemType].map(r => 
-                r.id === c.id ? 
-                    contentCount = this.countContent(contentCount, r.display_name, c.itemType)
+                (r.substance_id === c.id && c.itemType==='substances') || (r.object_item_id === c.id && c.itemType==='objects') ? 
+                    contentCount = this.countContent(contentCount, (r.object_name || r.substance_name), c.itemType)
                     : null
         )})
 
@@ -44,18 +44,21 @@ class Item extends React.Component {
         let totalVolume = 0;
         if(item.contents) {
             { item.contents.map(c => <div>
-                { masterItemList[c.itemType].map(r => r.id === c.id ? totalVolume += r.volume : "")  }
+                { masterItemList[c.itemType].map(r => 
+                    (r.substance_id === c.id && c.itemType==='substances') || (r.object_item_id === c.id && c.itemType==='objects') ? 
+                        totalVolume += (r.object_volume || r.substance_dispense_volume || 0) : "")  }
             </div>) }
         }
         
         if (item.name) {
-            masterItemList[item.itemType].map(r => r.id === item.id ? record = r : "")
+            masterItemList[item.itemType].map(r => (r.container_id === item.id && item.itemType==='containers') || (r.object_item_id === item.id && item.itemType==='objects') ? record = r : "")
+            console.log(record)
             return <span className='drag-item' data-itemType={item.itemType} data-instance={item.instance} draggable >
                 <div>
-                    <div className='item-name'><img draggable={false} src={`/images/${item.image || record.image}`} /></div>
-                    <div className='item-volume'>{item.itemType === 'containers' ? <>Total Vol: {record.volume}mL</> : ""}</div>
-                    <div className='item-description'><i style={{fontSize: '14px'}}>{record.description}</i></div>
-                    <div className="item-properties">{ record.properties ? <div>
+                    <div className='item-name'><img draggable={false} src={`/images/${item.image || record.object_image || record.container_image}`} /></div>
+                    <div className='item-volume'>{item.itemType === 'containers' ? <>Total Vol: {record.container_volume}mL</> : ""}</div>
+                    <div className='item-description'><i style={{fontSize: '14px'}}>{record.object_description || record.container_description }</i></div>
+                    <div className="item-properties">{ record.container_properties ? <div>
                         <hr /> Reading: {totalVolume} mL
                         
                     </div> : ""}    

@@ -1,5 +1,13 @@
 const printifyName = (name) => {
-    return name.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, function(key) { return key.toUpperCase()})
+    return name
+    .replace('container_', '')
+    .replace('object_', '')
+    .replace('experiment_', '')
+    .replace('substance_', '')
+    .replace('feedback_', '')
+    .replace('user_', '')
+    .replace(/_/g, ' ')
+    .replace(/(?: |\b)(\w)/g, function(key) { return key.toUpperCase()})
 }
 
 //CHECK FIELD FUNCTIONS

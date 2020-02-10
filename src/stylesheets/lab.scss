@@ -12,7 +12,7 @@
 
 
 $wood: rgba(#A28065, .75);
-$contrast: 35%;
+$contrast: 40%;
 
 $floorColor: rgba(183, 203, 200, .85);
 $envColor: lighten(desaturate($floorColor, $contrast), $contrast);
@@ -145,22 +145,24 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
     padding-right:60px;
 }
 
-$tableColor: rgba(19, 17, 15, .75);
+$tableColor: rgba(19, 17, 15, .65);
 
 #tableTop {
     height: 85%;
     background: linear-gradient(
         darken($tableColor, $contrast) 0%, 
         $tableColor 20%, 
-        $tableColor 60%, 
+        $tableColor 35%, 
         lighten($tableColor, $contrast/2),
-        $tableColor 80%, 
-        lighten($tableColor, $contrast/6) 100%), url('/images/texture_rock.png');
+        $tableColor 95%, 
+        lighten($tableColor, $contrast/3) 100%), url('/images/texture_rock.png');
     display: flex;
     padding:20px;
     flex-wrap: wrap;
     border: 2px outset lighten($tableColor, $contrast/2);
     border-top-width: 1px;
+    border-bottom-width:32px;
+    border-bottom-color: $tableColor;
     border-radius:10px;
     margin-bottom:-10px;
     z-index:100;

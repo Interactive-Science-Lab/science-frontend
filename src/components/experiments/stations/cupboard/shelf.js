@@ -28,9 +28,9 @@ class ExperimentLab extends React.Component {
                         draggable 
                         className="inventory-item" 
                         data-itemType={itemType} 
-                        data-id={item.id}  
-                        data-name={item.display_name}>
-                            <p style={{cursor:'grab',color:'white'}}>+ {item.display_name}</p>
+                        data-id={item.container_id || item.object_item_id }  
+                        data-name={item.container_name || item.object_name}>
+                            <p style={{cursor:'grab',color:'white'}}>+ {item.container_name || item.object_name}</p>
                     </div>)}
 
                     

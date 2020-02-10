@@ -18,15 +18,17 @@ export default (props) => {
         </Form.Label>
 
         <Form.Control
-            type={type}
-            onChange={callback}
+            type="text"
+            onChange={ callback }
             name={field[0]}
             placeholder={field[0]}
-            value={props.value || item[field[0]]}
+            value={JSON.stringify( props.value || item[field[0]])}
 
-            as={as_setting}
+            as={"textarea"}
             rows={5}
-            checked={props.value || item[field[0]]} />
+            
+            
+            />
 
 
         <div>

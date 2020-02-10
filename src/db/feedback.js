@@ -17,7 +17,7 @@ export default {
         index: "mod",
         view: "mod",
         create: "all",
-        edit: "none"
+        edit: "mod"
     },
     features: {
         resource: {
@@ -57,5 +57,8 @@ export default {
                 {item.logged ? "Logged" : "Unlogged"}
             </div>
         }
+    },
+    options: {
+        submit_message: () => { return <div>Thank You! Your feedback has been recieved.</div> }
     }
 }

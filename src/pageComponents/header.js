@@ -50,7 +50,7 @@ class Header extends React.Component {
 
         <Route path="/">
           <br /><h1 className='fas fa-window-close hmenu-mobile-toggle d-lg-none' onClick={this.toggleMenu}></h1><br />
-          <NavLink to="/" style={{ background: 'none' }}><img alt="logo" height="150px" src={logoURL} /><br />
+          <NavLink to="/" style={{ background: 'none', marginBottom:'25px' }}><img alt="logo" height="100px" src={logoURL} style={{marginBottom:'10px'}} /><br />
             <h3 style={{ color: "white" }}>{siteTitle}</h3>
           </NavLink>
 

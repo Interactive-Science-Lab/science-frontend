@@ -7,6 +7,9 @@ import { curr_user, headers } from 'helpers/api'
 
 import {findResourceSettings} from 'db/defaultObjects'
 
+
+import formHelpers from 'components/shared/forms/form_helpers'
+
 class Page extends React.Component {
     constructor(props) {
         super(props)
@@ -35,7 +38,7 @@ class Page extends React.Component {
             {Object.values(fields).map(field => <div>
 
                 { this.checkView(field.settings) ? <div>
-                    {field.settings[1].label ? <div>{field.name} :</div> : ""}
+                    {field.settings[1].label ? <div>{formHelpers.printifyName(field.name)} :</div> : ""}
 
                     {field.settings[1].fieldType === 'string' ? <div>
                         {field.settings[1].titleField ? <h3>{field.value}</h3> : field.value}

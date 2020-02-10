@@ -5,6 +5,8 @@ import { withRouter } from 'react-router'
 import { Link } from 'react-router-dom'
 import { resourceFullFields } from 'db/defaultObjects'
 
+import formHelpers from 'components/shared/forms/form_helpers'
+
 
 class Page extends React.Component {
     constructor(props) {
@@ -64,7 +66,7 @@ class Page extends React.Component {
 
         return <div>
             { this.checkRender('index', settings) ?
-                <Link to={`${settings.name.urlPath}`}>Back To All</Link>
+                <Link to={`${settings.options?.back_to_all_link(item) || settings.name.urlPath}`}>Back To All</Link>
             : "" }
 
             { this.checkRender('view', settings) ? (settings.display.page ? 
@@ -72,7 +74,7 @@ class Page extends React.Component {
                 Object.values(fields).map(field =>  <div>
 
                 {this.checkView(field.settings) ? <div>
-                    {field.settings[1].label ? <div>{field.name} :</div> : ""}
+                    {field.settings[1].label ? <div>{formHelpers.printifyName(field.name)} :</div> : ""}
 
                 
                     {field.settings[1].fieldType === 'string' ? <div>

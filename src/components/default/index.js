@@ -13,6 +13,8 @@ import {defaultLoader, checkParams, updatePage, checkLoad} from 'components/shar
 import DefaultIndex from 'components/shared/ui_helpers/defaultIndex'
 import ItemComponent from './components/item'
 
+
+
 class Page extends React.Component {
     constructor(props) {
         super(props)
@@ -40,7 +42,7 @@ class Page extends React.Component {
         const res = await axios.get(api.apiPath('/'+ props.resourceSettings.name.urlPath + '?' + params.toString()))
         let updateObj = {
             items: res.data.pageOfItems,
-            loader: defaultLoader(props.resourceSettings.loader),
+            //loader: defaultLoader(props.resourceSettings.loader),
             settings:  props.resourceSettings
         }
         if(props.resourceSettings.features.tags) {

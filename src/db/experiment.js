@@ -31,5 +31,6 @@ export default  {
         experiment_steps: { default: "", fieldType: "string", display_type: "", label: true, permissions: ['list-hidden'] },
         experiment_start: { default: "", fieldType: "object", permissions: ['hidden'] },
         
-    }
+    },
+    display: {}
 }
