@@ -5,14 +5,15 @@ import Helmet from 'react-helmet'
 import Header from './pageComponents/header';
 import Body from './pageComponents/body';
 
-import {siteTitle, siteTagline} from './helpers/site'
-
+import { siteTitle, siteTagline } from './helpers/site'
+import { UserContext, userDefaults } from 'helpers/userContext'
+ 
 class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			user: {},
-			token: null
+			user: userDefaults.user,
+			token: userDefaults.token
 		};
 	}
 
@@ -31,19 +32,15 @@ class App extends React.Component {
 	};
 
 	render() {
-		return (
+		return <UserContext.Provider value={{ ...this.state, logout: this.logout, login: this.login }}>
 			<div className="App main-bg">
-				<Header auth={{ curr_user: this.state, logout: this.logout, login: this.login }} />
-
+				<Header />
 				<div className="main-screen">
-					<Helmet>
-                		<title>{`${siteTitle}- ${siteTagline}`}</title>
-        			</Helmet>
-					<Body auth={{ curr_user: this.state, logout: this.logout, login: this.login }} />
-					
+					<Helmet><title>{`${siteTitle}- ${siteTagline}`}</title></Helmet>
+					<Body />	
 				</div>
 			</div>
-		);
+		</UserContext.Provider>
 	}
 }
 

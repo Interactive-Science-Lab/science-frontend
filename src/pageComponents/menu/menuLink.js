@@ -1,13 +1,13 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
+import {curr_user} from 'helpers/api'
 
 const displayLink = (item) => {
     if (item.link) { return item.link }
     else if (item.linkTo) {
         switch (item.linkTo) {
             case 'user_profile':
-                const user = localStorage.user ? JSON.parse(localStorage.user) : null
-                return `/users/${user.user_id}`
+                return `/users/${curr_user?.user_id}`
         }
     }
 }

@@ -1,7 +1,9 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-const curr_user = localStorage.user ?  JSON.parse(localStorage.user) : false
+
+import { UserContext } from 'helpers/userContext'
+
 
 class Logout extends React.Component {
     constructor(props) {
@@ -11,7 +13,7 @@ class Logout extends React.Component {
     }
 
     componentDidMount = () => {
-        this.props.auth.logout();
+        this.context.logout();
     }
 
     render() {
@@ -22,4 +24,5 @@ class Logout extends React.Component {
     }
 }
 
+Logout.contextType = UserContext
 export default Logout

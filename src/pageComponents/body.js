@@ -1,61 +1,65 @@
-import React from 'react'
-import { Switch, Route } from 'react-router-dom'
-import {withRouter} from 'react-router'
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 import Home from '../views/home';
 
 import UserComponent from '../components/core/auth/controller';
-import DefaultComponent from 'components/default/controller'
-import ExperimentComponent from 'components/experiments/open'
+import DefaultComponent from 'components/default/controller';
+import ExperimentComponent from 'components/experiments/open';
 
 function Body(props) {
-    return <Switch>
-            <Route path="/" exact>
-                <div className=""><div className="page-container">
-                    <Home />
-                </div></div>
-            </Route>
-        
-            
-            <Route path="/lab/:id?">
-                <div className="body"><div className="page-container">
-                    <ExperimentComponent />
-                </div></div>
-            </Route>
+	return (
+		<Switch>
+			<Route path="/" exact>
+				<div className="">
+					<div className="page-container">
+						<Home />
+					</div>
+				</div>
+			</Route>
 
-            
-            <Route path="/auth">
-                <div className="body"><div className="page-container">
-                <UserComponent {...props} auth={props.auth} />
-                </div></div>
-            </Route>
+			<Route path="/lab/:id?">
+				<div className="body">
+					<div className="page-container">
+						<ExperimentComponent />
+					</div>
+				</div>
+			</Route>
 
-            
-            <Route path="/:urlPath">
-                <div className="body"><div className="page-container">
-                <DefaultComponent />
-                </div></div>
-            </Route>
+			<Route path="/auth">
+				<div className="body">
+					<div className="page-container">
+						<UserComponent />
+					</div>
+				</div>
+			</Route>
 
-            <Route path="/" render={() => <div className="controller"><div className="tpBlackBg">
-                <h2>We're Sorry</h2>
-                <h1>ERROR: 404 Page Not Found</h1>
-                <p>This page has been deleted or moved.</p>
-                <p>Error Code: <i>MISSING_COMPONENT</i></p>
-            </div></div>} />
+			<Route path="/:urlPath">
+				<div className="body">
+					<div className="page-container">
+						<DefaultComponent />
+					</div>
+				</div>
+			</Route>
 
-        </Switch>
+			<Route
+				path="/"
+				render={() => (
+					<div className="controller">
+						<div className="tpBlackBg">
+							<h2>We're Sorry</h2>
+							<h1>ERROR: 404 Page Not Found</h1>
+							<p>This page has been deleted or moved.</p>
+							<p>
+								Error Code: <i>MISSING_COMPONENT</i>
+							</p>
+						</div>
+					</div>
+				)}
+			/>
+		</Switch>
+	);
 }
 
 export default withRouter(Body);
- /*Object.values(allResourceSettings).map(resource => 
-                <Route 
-                    path={resource.name.urlPath} 
-                    component={ require(`../components${resource.name.folderPath}${resource.name.folderName || resource.name.urlPath}/controller.js`).default } 
-                />)
-
-            
-
-
-
-            */

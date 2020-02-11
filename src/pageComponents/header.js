@@ -61,7 +61,7 @@ class Header extends React.Component {
             <h3 style={{ color: "white" }}>{siteTitle}</h3>
           </NavLink>
 
-          <Menu auth={this.props.auth} showMenu={this.state.showMenu} toggleDropdown={this.toggleDropdown} />
+          <Menu showMenu={this.state.showMenu} toggleDropdown={this.toggleDropdown} />
           </div>
         </Route>
         

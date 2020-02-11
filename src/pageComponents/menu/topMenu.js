@@ -16,7 +16,6 @@ class Menu extends React.Component {
 
   componentDidMount = async () => {
     const pages = await axios.get(apiPath('/pages/menu'))
-    console.log(pages)
     this.setState({site_pages: pages.data})
   }
 
@@ -43,7 +42,6 @@ class Menu extends React.Component {
       categoryDropdown.links = dropdownOptions
       returnStructure.push(categoryDropdown)
     })
-    console.log(returnStructure[0])
     return returnStructure[0].links //if only one category, you can use "[0].links" to display the pages directly in the bar
   }
 
@@ -64,7 +62,7 @@ class Menu extends React.Component {
 
     return <div className={`${this.props.showMenu ? "mobile-menu-show" : "mobile-menu-hide"}`}>
       {menuStructure.map(item => 
-        <MenuItem auth={this.props.auth} item={item} toggleDropdown={this.props.toggleDropdown} />        
+        <MenuItem item={item} toggleDropdown={this.props.toggleDropdown} />        
       ) } 
     </div>
   }

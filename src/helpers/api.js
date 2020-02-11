@@ -16,6 +16,7 @@ export const resetPasswordPath = (username, hash) => { return authPath(`/resetPa
 
 export const curr_user = localStorage.user ? JSON.parse(localStorage.user) : false
 export const headers = { headers: { 'authorization': localStorage.token } }
+export const token = localStorage.token
 
 const check = (f, def, value) => {
     if (f === 'and') {
