@@ -53,19 +53,23 @@ ul { list-style:none;padding:0;}
 
 .main-bg {
 	background-color: $mainBgColor;
-	$weights: "https://images.pexels.com/photos/703016/pexels-photo-703016.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940";
+	
 	background-size: cover;
 	background-attachment: fixed;
 	background-position:center;
 }
 .main-screen {
+	$weights: "https://previews.123rf.com/images/stockbroker/stockbroker1411/stockbroker141100918/33479655-pupils-carrying-out-experiment-in-science-class.jpg";	
 	background: linear-gradient(
-		rgba($backgroundOpacityColor, 1) 10%,
-		rgba($backgroundOpacityColor, .75) 20%,
-		rgba($backgroundOpacityColor, .55) 40%,
+		rgba($backgroundOpacityColor, .8) 10%,
+		rgba($backgroundOpacityColor, .65) 20%,
+		rgba($backgroundOpacityColor, .45) 40%,
 		rgba($backgroundOpacityColor, .5) 70%,
-		rgba($backgroundOpacityColor, 1) 100%
-	);
+		rgba($backgroundOpacityColor, .7) 100%
+	), url($weights);
+	background-position:right;
+	background-size: cover;
+	background-attachment: fixed;
 }
 
 .staff-square {
@@ -77,6 +81,10 @@ ul { list-style:none;padding:0;}
 
 .main-page {
 	background-color: rgba($secondary-color, .7);
+}
+
+.body {
+	background-color: $primary-color;
 }
 
 .page-field {

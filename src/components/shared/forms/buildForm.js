@@ -4,7 +4,6 @@ import { Input } from 'reactstrap'
 import { withRouter } from "react-router-dom";
 
 import formHelpers from './form_helpers'
-import listReactFiles from 'list-react-files'
 
 import { resourceFullFields } from 'db/defaultObjects'
 
@@ -118,7 +117,10 @@ class FormHandler extends React.Component {
 
             {
                 this.props.settings ? resourceFullFields(this.props.settings.name.urlPath.substring(1), this.props.item).map(field => <div>
-                    {this.checkView(field.settings) ? <div>
+                    {this.checkView(field.settings) ? 
+                    (field.settings[1].customForm ? 
+                    field.settings[1].customForm(field, this.handleChange) : 
+                    <div>
                         {
                             field.settings[1].fieldType === 'string' ?
                                 <BasicTextField field={[field.name, field.value]} callback={this.handleChange} item={this.props.item} /> : ""
@@ -128,8 +130,6 @@ class FormHandler extends React.Component {
                             field.settings[1].fieldType === 'object' ?
                                 <ObjectField field={[field.name, field.value]} callback={this.handleObjectChange} item={this.props.item} /> : ""
                         }
-
-
 
                         {
                             //Text areas with large boxes to write articles
@@ -249,8 +249,10 @@ class FormHandler extends React.Component {
                             {val === 'required' ? (!field.value || field.value === "" ? "Field is required." : "") : ""}
                         </div>) : ""}
 
+                        { field.settings[1].formInfo }
 
-                    </div> : ""}</div>) : ""}
+
+                    </div>) : ""}</div>) : ""}
 
 
             <button type='submit'>{this.props.existing ?

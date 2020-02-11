@@ -7,17 +7,21 @@ export default {
         ls: "feedback",
         up: "Feedbacks",
         us: "Feedback",
+
         urlPath: "/feedback",
         folderPath: "/core/admin",
+
         index_title: "Feedback",
         view_title: "User Profile",
-        new_title: "Submit Feedback"
+        new_title: "Submit Feedback",
+        edit_title: ""
     },
     permissions: {
         index: "mod",
         view: "mod",
         create: "all",
-        edit: "mod"
+        edit: "mod",
+        delete: "admin"
     },
     features: {
         resource: {

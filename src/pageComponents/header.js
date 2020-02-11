@@ -41,24 +41,33 @@ class Header extends React.Component {
 
     const user = localStorage.user ? JSON.parse(localStorage.user) : null
 
-    return <div style={{ height: "0px" }}><div className={`header ${this.state.showMenu ? "show-menu" : "hide-menu"} `} >
+    return <div style={{ height: "0px" }}>
 
       <Switch>
         <Route path="/lab/:id?" >
+        <div className={`header ${this.state.showMenu ? "show-menu" : "hide-menu"} `} >
           <ExperimentSidebar />
+          </div>
+        </Route>
+        
+
+        <Route path="/" exact>
         </Route>
 
         <Route path="/">
+        <div className={`header ${this.state.showMenu ? "show-menu" : "hide-menu"} `} >
           <br /><h1 className='fas fa-window-close hmenu-mobile-toggle d-lg-none' onClick={this.toggleMenu}></h1><br />
           <NavLink to="/" style={{ background: 'none', marginBottom:'25px' }}><img alt="logo" height="100px" src={logoURL} style={{marginBottom:'10px'}} /><br />
             <h3 style={{ color: "white" }}>{siteTitle}</h3>
           </NavLink>
 
           <Menu auth={this.props.auth} showMenu={this.state.showMenu} toggleDropdown={this.toggleDropdown} />
+          </div>
         </Route>
+        
       </Switch>
 
-    </div>
+   
       <br /><h2 className='fas fa-bars hmenu-mobile-toggle d-inline d-lg-none' onClick={this.toggleMenu}></h2></div>
   }
 

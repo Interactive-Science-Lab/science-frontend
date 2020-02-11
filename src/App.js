@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.scss';
 
-
 import Helmet from 'react-helmet'
 import Header from './pageComponents/header';
 import Body from './pageComponents/body';

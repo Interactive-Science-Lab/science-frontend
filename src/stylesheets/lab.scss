@@ -71,14 +71,6 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
     background-size: cover;
 }
 
-.item-weight, .item-volume, .item-description, .item-properties, .item-contents { display: none; }
-
-.item-name { 
-    img {
-        width: 100%;
-        max-width: 60px;
-    }
-}
 
 #studentTray {
     background: linear-gradient($displayBox, $displayBox), url($metal);
@@ -89,10 +81,11 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
     border: $displayBorder;
     padding:10px;
     border-radius: 20px;
+    .item-options { display:none;}
 }
 
 #shelveSection {
-    width: 40%;
+    width: 60%;
     margin-bottom: 20px;
     background-color: darken($wood, $contrast);
     background: $backWoodTexture;
@@ -125,6 +118,17 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
     }
 }
 
+
+
+.item-weight, .item-volume, .item-description, .item-properties, .item-contents, .item-used { display: none; }
+
+.item-name { 
+    img {
+        width: 100%;
+        max-width: 60px;
+    }
+}
+
 #examiner { 
     width: 30%;
     margin: 2%;
@@ -132,38 +136,40 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
     text-align:center;
     border: $displayBorder;
     padding:10px;
-    .item-weight, .item-volume, .item-description, .item-properties, .item-contents { display: block; }
+    .item-weight, .item-volume, .item-description, .item-properties, .item-contents, .item-used { display: block; }
     border-radius: 20px;
-    .item-name { display:none;}
 }
 
 #wholeTable {
     width: 70%;
     margin-top: 2%;
     margin-left: 2%;
-    background:reds;
     padding-right:60px;
+    background: url('/images/desk.png');
+        background-size:100% 100%;
 }
 
 $tableColor: rgba(19, 17, 15, .65);
 
 #tableTop {
     height: 85%;
-    background: linear-gradient(
-        darken($tableColor, $contrast) 0%, 
-        $tableColor 20%, 
-        $tableColor 35%, 
-        lighten($tableColor, $contrast/2),
-        $tableColor 95%, 
-        lighten($tableColor, $contrast/3) 100%), url('/images/texture_rock.png');
+    // background: linear-gradient(
+    //     darken($tableColor, $contrast) 0%, 
+    //     $tableColor 20%, 
+    //     $tableColor 35%, 
+    //     lighten($tableColor, $contrast/2),
+    //     $tableColor 95%, 
+    //     lighten($tableColor, $contrast/3) 100%), url('/images/texture_rock.png');
+        
+
     display: flex;
-    padding:20px;
+    padding:20px 20px 20px 80px;
     flex-wrap: wrap;
-    border: 2px outset lighten($tableColor, $contrast/2);
-    border-top-width: 1px;
-    border-bottom-width:32px;
-    border-bottom-color: $tableColor;
-    border-radius:10px;
+    // border: 2px outset lighten($tableColor, $contrast/2);
+    // border-top-width: 1px;
+    // border-bottom-width:32px;
+    // border-bottom-color: lighten($tableColor, $contrast/2);
+    // border-radius:10px;
     margin-bottom:-10px;
     z-index:100;
 }
@@ -182,17 +188,17 @@ $tableColor: rgba(19, 17, 15, .65);
     padding: 1%;
     height: 18%;
     display: flex;
-    background: $backWoodTexture;
-    border-top:8px solid black;
-    background-repeat: repeat;
+    // background: $backWoodTexture;
+    // border-top:8px solid black;
+    // background-repeat: repeat;
 }
 
 .drawer {
     width: 48%;
     height: 100%;
     margin: 1%;
-    background: $frontWoodTexture;
-    border: $woodBorder;
+    // background: $frontWoodTexture;
+    // border: $woodBorder;
 }
 
 $dropColor: rgba(180,180,180,.1);
@@ -219,12 +225,18 @@ $dropColor: rgba(180,180,180,.1);
     background-color: $dropColor;
     margin-top:50px;
 }
+
 .drop-sink {
     width: 100%;
-    height: 140px;
+    min-height: 140px;
+    height:100%;
     background-color: $dropColor;
-    background: url($metal)
+    background: url('/images/sink.png');
+    background-size: 100% 100%;
+    .item-options {display:none;}
+    .dropzone {border-color:transparent;}
 }
+
 .drop-row {
     width: 98%;
     min-height: 40%;
@@ -265,7 +277,18 @@ $dropColor: rgba(180,180,180,.1);
 .drag-item {
     display: flex;
     padding:20px;
-    border: 4px solid black;
+    border: 2px solid black;
+    height:100%;
+    max-height:100%;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    border-radius:4px;
+}
+.tool-item > .drag-item {
+    display: flex;
+    padding:20px;
+    border: 1px solid #222;
     height:100%;
     max-height:100%;
     align-items: center;
@@ -283,4 +306,39 @@ $dropColor: rgba(180,180,180,.1);
 
 .invisible {
     display: none;
+}
+
+.lab-action {
+    position:relative;
+}
+
+.lab-action > span {
+    display:none;
+    position:absolute;
+    background-color: $d-primary-color;
+    color: $ll-primary-color;
+    padding: 10px;
+    border-radius:4px;
+    top:100%;
+    width:max-content;
+    min-width:100%;
+    border: 2px solid black;
+    border-top-width:1px;
+}
+
+.lab-action:hover > span{
+    display:inline-block;
+}
+
+.lab-action:active > span{
+    display:none;
+}
+
+.content-display {
+    position:absolute;
+    background-color: $d-primary-color;
+    color: $ll-primary-color;
+    padding: 10px;
+    border-bottom-left-radius:4px;
+    right:0;
 }

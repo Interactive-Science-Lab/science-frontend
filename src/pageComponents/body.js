@@ -4,22 +4,38 @@ import {withRouter} from 'react-router'
 
 import Home from '../views/home';
 
-import {allResourceSettings} from 'db/defaultObjects'
-
 import UserComponent from '../components/core/auth/controller';
 import DefaultComponent from 'components/default/controller'
 import ExperimentComponent from 'components/experiments/open'
 
 function Body(props) {
-    return <div className="body"><div className="page-container">
-        <Switch>
-            <Route path="/" exact component={Home} />
+    return <Switch>
+            <Route path="/" exact>
+                <div className=""><div className="page-container">
+                    <Home />
+                </div></div>
+            </Route>
         
             
-            <Route path="/lab/:id?" component={ExperimentComponent} />
+            <Route path="/lab/:id?">
+                <div className="body"><div className="page-container">
+                    <ExperimentComponent />
+                </div></div>
+            </Route>
 
-            <Route path="/auth" render={() => <UserComponent {...props} auth={props.auth} />} />
-            <Route path="/:urlPath" component={DefaultComponent} />
+            
+            <Route path="/auth">
+                <div className="body"><div className="page-container">
+                <UserComponent {...props} auth={props.auth} />
+                </div></div>
+            </Route>
+
+            
+            <Route path="/:urlPath">
+                <div className="body"><div className="page-container">
+                <DefaultComponent />
+                </div></div>
+            </Route>
 
             <Route path="/" render={() => <div className="controller"><div className="tpBlackBg">
                 <h2>We're Sorry</h2>
@@ -29,7 +45,6 @@ function Body(props) {
             </div></div>} />
 
         </Switch>
-    </div></div>
 }
 
 export default withRouter(Body);

@@ -18,14 +18,14 @@ class Dropzone extends React.Component {
             
             <span className="waterButton waterHot">
                     &nbsp;H&nbsp;</span> 
+            <span style={{position:'relative',display:'inline-block',width:'40px',textAlign:'center'}}><img style={{left: '5px', position:'absolute',bottom:0}} src={"/images/faucet.png"} width='40px' height="80px"/></span>
             <span className="waterButton waterCold">
                     &nbsp;C&nbsp;</span>
-            <div style={{ width: '100%', color:'white', backgroundColor: 'black', border: '10px inset grey', borderBottomWidth: '5px', borderRadius: "8px", borderTopWidth: '30px',  }}>
-                <div className={`dropzone ${dropType}`} data-pos={i} data-area={dropInt}>
+            <div style={{ width: '120%', color:'white', border: 'none !important', height: '60%'  }}>
+                <div  style={{ border: 'none'  }} className={`dropzone ${dropType}`} data-pos={i} data-area={dropInt}>
                     <Item {...this.props} />
                 </div>
             </div>
-            <span style={{ color:'white' }}>Sink Station</span>
         </div>
     }
 

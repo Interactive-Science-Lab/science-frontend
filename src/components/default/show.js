@@ -4,6 +4,7 @@ import api, { curr_user, headers, Protect } from 'helpers/api'
 import { withRouter } from 'react-router'
 import { Link } from 'react-router-dom'
 import { resourceFullFields } from 'db/defaultObjects'
+import AutoField from './components/autoField'
 
 import formHelpers from 'components/shared/forms/form_helpers'
 
@@ -39,8 +40,8 @@ class Page extends React.Component {
         if (settings[1].permissions) {
             const p = settings[1].permissions
             ret = p.indexOf('background') < 0 && p.indexOf('hidden') < 0 && p.indexOf('view-hidden') < 0
-            if(p.indexOf('mod') >=0 || p.indexOf('admin') >=0 || p.indexOf('user') >=0 ||
-                p.indexOf('view-mod') >=0 || p.indexOf('view-admin') >=0 || p.indexOf('view-user') >=0  ){
+            if (p.indexOf('mod') >= 0 || p.indexOf('admin') >= 0 || p.indexOf('user') >= 0 ||
+                p.indexOf('view-mod') >= 0 || p.indexOf('view-admin') >= 0 || p.indexOf('view-user') >= 0) {
                 ret = ret && curr_user ? true : false
             }
         }
@@ -51,11 +52,11 @@ class Page extends React.Component {
     checkRender = (kind, settings) => {
         let ret = true
         ret = ret && settings.permissions[kind] !== 'none'
-        if(['mod','user','admin'].indexOf(settings.permissions[kind]) >= 0) {
+        if (['mod', 'user', 'admin'].indexOf(settings.permissions[kind]) >= 0) {
             ret = ret && curr_user ? true : false
         }
         return ret
-        
+
     }
 
     render() {
@@ -65,52 +66,28 @@ class Page extends React.Component {
         const fields = resourceFullFields(friendlyName, item)
 
         return <div>
-            { this.checkRender('index', settings) ?
+            {this.checkRender('index', settings) ?
                 <Link to={`${settings.options?.back_to_all_link(item) || settings.name.urlPath}`}>Back To All</Link>
-            : "" }
+                : ""}
 
-            { this.checkRender('view', settings) ? (settings.display.page ? 
-                settings.display.page(item) : 
-                Object.values(fields).map(field =>  <div>
+            {this.checkRender('view', settings) ? (settings.display.page ?
+                settings.display.page(item) : <div>
 
-                {this.checkView(field.settings) ? <div>
-                    {field.settings[1].label ? <div>{formHelpers.printifyName(field.name)} :</div> : ""}
-
+                    <h1>{settings.name.view_title}</h1>
+                    {Object.values(fields).map(field => <AutoField settings={settings} displayType={'view'} field={field} {...this.props} />)}
                 
-                    {field.settings[1].fieldType === 'string' ? <div>
-                        {field.settings[1].titleField ? <h1>{field.value}</h1> : field.value}
-                    </div> : ""}
-                    {field.settings[1].fieldType === 'icon' ? <span className={`fas fa-${field.value}`}></span> : ""}
-                    {field.settings[1].fieldType === 'local-image' ? <img src={`/images/${field.value}`} /> : ""}
-                    {field.settings[1].fieldType === 'number' ? field.value : ""}
-                    {field.settings[1].fieldType === 'text' ? field.value : ""}
-                    {field.settings[1].fieldType === 'html' ? <div dangerouslySetInnerHTML={{ __html: field.value }} /> : ""}
-                    {field.settings[1].fieldType[0] === 'select-draft' ? (field.value !== 'public' ? field.value : "") : ""}
-                    {field.settings[1].fieldType[0] === 'select-open' ? field.value  : ""}
-                    {field.settings[1].fieldType[0] === 'select-custom' ? field.value : ""}
-                    {field.settings[1].fieldType === 'boolean' ? field.name + ": " + field.value : ""}
-                    {field.settings[1].fieldType === 'object' ? <div>
-                        {Object.entries(field.value || {}).map(f => <div>
-                            {f[0]}: {JSON.stringify(f[1])}
-                        </div>)}
-                    </div> : ""}
+                </div>) : ""}
 
-                    {field.settings[1].fieldType === 'reference' ? "Reference " + field.name + ": " + field.value : ""}
-                    
-                    {field.settings[1].suffix}
 
-                    </div> : ""}
 
-                </div>)) : ""}
-    
-                {settings.features.user_info ? JSON.stringify(item.info) : ""}
+            {settings.features.user_info ? JSON.stringify(item.info) : ""}
 
-                { this.checkRender('edit', settings) ?
+            {this.checkRender('edit', settings) ?
                 <Link to={`${this.props.resourceSettings.name.urlPath}/${this.props.match.params.id}/edit`}>Edit</Link>
-                : "" }
-            </div>
+                : ""}
+        </div>
     }
-            }
-            
-            export default withRouter(Page)
-            
+}
+
+export default withRouter(Page)
+

@@ -6,7 +6,8 @@ export default  {
         us: "Experiment",
         urlPath: "/experiments",
         folderPath: "/experiments",
-        index_title: "Experiments"
+        index_title: "Experiments",
+        view_title: "View Experiment"
     },
     permissions: {
         index: "all",

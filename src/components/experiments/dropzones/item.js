@@ -41,6 +41,7 @@ class Item extends React.Component {
     render() {
         const { item, masterItemList } = this.props
         let record = {}
+
         let totalVolume = 0;
         if(item.contents) {
             { item.contents.map(c => <div>
@@ -49,20 +50,53 @@ class Item extends React.Component {
                         totalVolume += (r.object_volume || r.substance_dispense_volume || 0) : "")  }
             </div>) }
         }
+
+
         
         if (item.name) {
-            masterItemList[item.itemType].map(r => (r.container_id === item.id && item.itemType==='containers') || (r.object_item_id === item.id && item.itemType==='objects') ? record = r : "")
+            masterItemList[item.itemType].map(r => (r.tool_id === item.id && item.itemType==='tools') || (r.container_id === item.id && item.itemType==='containers') || (r.object_item_id === item.id && item.itemType==='objects') ? record = r : "")
             console.log(record)
-            return <span className='drag-item' data-itemType={item.itemType} data-instance={item.instance} draggable >
-                <div>
-                    <div className='item-name'><img draggable={false} src={`/images/${item.image || record.object_image || record.container_image}`} /></div>
-                    <div className='item-volume'>{item.itemType === 'containers' ? <>Total Vol: {record.container_volume}mL</> : ""}</div>
-                    <div className='item-description'><i style={{fontSize: '14px'}}>{record.object_description || record.container_description }</i></div>
-                    <div className="item-properties">{ record.container_properties ? <div>
-                        <hr /> Reading: {totalVolume} mL
+            return <span className='drag-item lab-action' data-itemType={item.itemType} data-instance={item.instance} draggable >
+                <span>{item.name}</span>
+                <div className="">
+                    
+                    <div className='item-name'>
+                        <img 
+                        draggable={false} 
+                        src={`/images/${item.image || record.object_image || record.tool_image || record.container_image}`} 
+                        />
+
                         
-                    </div> : ""}    
+                        { item.contents ? <span className="content-display">{
+                            item.contents.filter(i => i.itemType === 'objects').length 
+                        }</span>
+                            : null }
+                            { item.usedItem ? <span className={`content-display ${
+                            item.usedItem.name ? "far fa-check-circle" : 'far fa-circle' }`}>
+                        </span>
+                            : null }
+                        
                     </div>
+                    <div className='item-volume'>
+                        {item.itemType === 'containers' ? <>Total Vol: {record.container_volume}mL</> : ""}
+                    </div>
+                    <div className='item-description'>
+                        <i style={{fontSize: '14px'}}>{record.object_description || record.container_description }</i>
+                    </div>
+                    <div className="item-properties">
+                        { record.container_properties?.includes('display_volume') ? <div>
+                            <hr /> Reading: {totalVolume} mL
+                        </div> : ""}
+                        { record.tool_properties?.includes('display_mass') ? <div>
+                            <hr /> Reading: 100g
+                        </div> : ""}
+                        {record.tool_properties?.includes('display_temperature')? <div>
+                            <hr /> Reading: 70 deg F
+                        </div> : ""}    
+                    </div>
+
+
+
                     <div className="item-contents">{
                         item.contents ? <div><hr />
                             <div>Contents:</div>
@@ -70,8 +104,42 @@ class Item extends React.Component {
                                 { this.displayContents(item.contents)}
                             </div>
                         </div> : ""
-                    
                     }</div>
+
+  
+                    <div className="item-used">{
+                        item.usedItem ? <div><hr />
+                            <div>Item:</div>
+                            <div style={{overFlowY: "scroll"}} className="tool-item">
+                                <span className='drag-item' 
+                                data-itemType={item.usedItem.itemType} 
+                                data-parent-instance={item.instance} 
+                                data-instance={item.usedItem.instance} draggable >
+                                    {item.usedItem.name}
+                                </span>
+                            </div>
+                        </div> : ""
+                    }</div>
+
+                    <div className="item-options">
+                        {item.itemType === 'containers' ? <div>
+                            <span data-instance={item.instance}  className='format-link lab-action fas fa-backspace empty-item'><span>Empty Contents</span></span>
+                            <span data-instance={item.instance}  className='format-link lab-action fas fa-trash remove-item'><span>Put Away</span></span>
+                            </div> : ""}
+                        {item.itemType === 'tools' ? <div>
+                            <span data-instance={item.instance}  className='format-link lab-action fas fa-trash remove-item'><span>Put Away</span></span>
+                            </div> : ""}
+                        {item.itemType === 'objects' ? <div>
+                            <span data-instance={item.instance}  className='format-link lab-action fas fa-trash remove-item'><span>Put Away</span></span>
+                            </div> : ""}
+                    </div>
+
+
+
+
+
+
+                    
                 </div>
             </span>
         } else {
