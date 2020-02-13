@@ -113,10 +113,9 @@ class defaultIndex extends React.Component {
     }
 
     displayList = () => {
-        const { settings, items, Item, mainState } = this.props
+        const { settings, items, mainState } = this.props
         const component = <DefaultListComponent
             items={items}
-            Item={Item}
             update={mainState.loadPage}
             loader={mainState.state.loader} 
             settings={settings} />

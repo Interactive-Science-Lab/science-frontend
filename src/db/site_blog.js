@@ -90,18 +90,15 @@ const fields = {
         default: "",
         fieldType: "string",
         validations: ["required"],
-        customDisplay: (value) => {
-            return `${value}- THATS THE CUSTOM STUFF`
-        },
-        customForm: (field, callback) => {
-            return <div>CUSTOM ENTRY </div>
-        },
-        customIndex: (value) => {
-            return `${value}- THATS THE CUSTOM INDEX`
-        },
-        customView: (value) => {
-            return `${value}- THATS THE CUSTOM VIEW`
-        },
+        // customDisplay: (value) => {
+        //     return `${value}- THATS THE CUSTOM STUFF`
+        // },
+        // customForm: (field, callback) => {
+        //     return <div>CUSTOM ENTRY </div>
+        // },
+        // customIndex: (value) => {
+        //     return `${value}- THATS THE CUSTOM INDEX`
+        // },
     },
     blog_text: {
         default: "",
@@ -149,6 +146,7 @@ const displayTemplates = {
     //view: (item) => { return JSON.stringify(item) + "WTFITEM"}
     //new: (item) => { return JSON.stringify(item) + "WTFITEM"}
     //edit: (item) => { return JSON.stringify(item) + "WTFITEM"}
+    //listItem: (item) => { return JSON.stringify(item) + "WTFITEM"}
 }
 
 

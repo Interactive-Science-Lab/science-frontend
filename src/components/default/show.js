@@ -15,7 +15,7 @@ class Show extends React.Component {
     constructor(props, context) {
         super(props, context)
         this.settings = this.context
-        this.permission = settingHelper.checkRender('view', this.settings)
+        this.permission = settingHelper.checkResourcePermission('view', this.settings)
         this.state = {
             item: {},
             loading: false
@@ -51,7 +51,7 @@ class Show extends React.Component {
             //Then we see if there is any result pulled back.
             if (Object.entries(item).length > 0) {
                  //Then, see if we have a custom index display.
-                let customDisplay = settingHelper.checkResourceDisplay('view', this.settings)
+                let customDisplay = settingHelper.customResourceDisplay('view', this.settings)
                 if (customDisplay) {
                     //If so, go ahead and do the custom display.
                     return customDisplay(item)

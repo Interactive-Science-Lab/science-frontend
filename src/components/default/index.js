@@ -13,15 +13,14 @@ import { permissionError } from 'helpers/site'
 
 //Related to this component:
 //DefaultIndex takes the items & settings and actually lays out the page. Override this file to change search, paginate, etc. 
-import DefaultIndex from 'components/shared/ui_helpers/defaultIndex'
-//This is the Item Component which will be based down to eventually render.
-import ItemComponent from './components/item'
+import DefaultIndex from 'components/default/components/defaultIndex'
+
 //This component is responsible for controlling the state & api for the index route.
 class Index extends React.Component {
     constructor(props, context) {
         super(props, context)
         this.settings = this.context
-        this.permission = settingHelper.checkRender('index', this.settings)
+        this.permission = settingHelper.checkResourcePermission('index', this.settings)
         this.state = {
             items: [],
             tags: [],
@@ -72,13 +71,13 @@ class Index extends React.Component {
         //Very first, check the permissions.
         if (this.permission) {
             //Then, see if we have a custom index display.
-            let customDisplay = settingHelper.checkResourceDisplay('index', this.settings)
+            let customDisplay = settingHelper.customResourceDisplay('index', this.settings)
             if (customDisplay) {
                 //If so, go ahead and do it.
                 return customDisplay(items)
             } else {
                 //If not, do the default index.
-                return <DefaultIndex Item={ItemComponent} settings={this.settings} items={items} mainState={this} />
+                return <DefaultIndex settings={this.settings} items={items} mainState={this} />
             }
         } else {
             //Error display

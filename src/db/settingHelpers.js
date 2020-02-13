@@ -1,29 +1,46 @@
 import { curr_user } from 'helpers/api'
 
-//permission contains NO information about the resource/route, just the user.
-const resourcePermissionDefault = {
-    name: 'all', //Shortcut of sorts.
+/*
+Functionality: Helpers regarding permissions, fields, and settings.
+
+------------------------------------
+---Functions---
+checkPermission(permission)
+
+checkFieldPermission(action, fieldPermissions)
+checkResourcePermission(action, settings)
+
+customResourceDisplay(action, settings)
+customFieldDisplay(action, settings)
+-------------------------------------
+
+
+----------------------------------------
+--Data-Types---
+a) "Permission" pseudo-class contains NO information about the resource/route, just the user.
+permission = {
+    name: 'all', //Shortcut of sorts- available: all, logged_in, user, no_user, none, webmaster, admin, mod
     role: null,
     kind: null,
     join: 'or',
     custom: null //Plug in a custom computated true/false value for special cases.
 }
 
-//Field permissions have an "all" field for ease of use, and then the four display variations.
-//The all 5 are resourcePermissions.
-const fieldPermissionDefault = {
-    all: { name: 'all' },
-    index: { name: 'all' },
-    view: { name: 'all' },
-    new: { name: 'all' },
-    edit: { name: 'all' }
+b) fieldPermissions have an "all" field for ease of use, and then the four display variations. 
+fieldPermissions = {
+    all: Permission{name: 'all'},
+    index: Permission{},
+    view: Permission{},
+    new: Permission{},
+    edit: Permission{},
 }
+----------------------------------------
 
-//-------------------------
-//PERMISSION MAGIC FUNCTION 
-//-------------------------
+*/
+
+
 //This function goes through the permission, comparing it to the current user.
-const checkResourcePermission = (permission) => {
+const checkPermission = (permission) => {
     let ret = true
     let roleCheck = null, kindCheck = null
     if (permission.name === 'all') { ret = true }
@@ -52,23 +69,23 @@ const checkResourcePermission = (permission) => {
 // These functions check a field and a resource, respectively.
 // - - -
 //This function takes in an action (index, view, edit, new), and the field permissions.
-const checkFieldView = (action, fieldPermissions) => {
+const checkFieldPermission = (action, fieldPermissions) => {
     let ret = true
     if (fieldPermissions) {
         if (fieldPermissions['all']) {
-            ret = checkResourcePermission(fieldPermissions['all'])
+            ret = checkPermission(fieldPermissions['all'])
         }
         //A specific actions should override an all.
         if (fieldPermissions[action]) {
-            ret = checkResourcePermission(fieldPermissions[action])
+            ret = checkPermission(fieldPermissions[action])
         }
     }
     return ret
 }
 
 //This is just a small helper function which takes in an action and settings.
-const checkRender = (action, settings) => {
-    return checkResourcePermission(settings.permissions[action])
+const checkResourcePermission = (action, settings) => {
+    return checkPermission(settings.permissions[action])
 }
 
 
@@ -78,7 +95,7 @@ const checkRender = (action, settings) => {
 // These functions are the ones that allow you to easily override the default displays.
 //- - - 
 //ability to set custom display (custom index and custom view) and custom form (custom new and custom edit)
-const checkResourceDisplay = (action, settings) => {
+const customResourceDisplay = (action, settings) => {
     switch (action) {
         case "index":
             return settings.display.index
@@ -91,28 +108,25 @@ const checkResourceDisplay = (action, settings) => {
     }
 }
 
-const checkFieldDisplay = (action, settings) => {
+const customFieldDisplay = (action, settings) => {
     switch (action) {
         case "index":
-            return settings.customIndex
+            return settings.customIndex || settings.customDisplay
         case "view":
-            return settings.customView
+            return settings.customView || settings.customDisplay
         case "new":
-            return settings.customNew
+            return settings.customNew || settings.customForm
         case "edit":
-            return settings.customEdit
-        case "display":
-            return settings.customDisplay
-        case "form":
-            return settings.customForm
+            return settings.customEdit || settings.customForm
     }
 }
 
 
 
 export default {
-    checkFieldView,
-    checkRender,
-    checkResourceDisplay,
-    checkFieldDisplay
+    checkPermission,
+    checkResourcePermission,
+    checkFieldPermission,
+    customResourceDisplay,
+    customFieldDisplay
 }

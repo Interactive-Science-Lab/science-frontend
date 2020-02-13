@@ -10,7 +10,7 @@ import {allResourceSettings} from 'db/defaultObjects'
 import { defaultLoader, checkParams, updatePage, checkLoad } from 'components/shared/search_helpers/search_helpers'
 
 //Related to this component
-import DefaultIndex from 'components/shared/ui_helpers/defaultIndex'
+import DefaultIndex from 'components/default/components/defaultIndex'
 import ItemComponent from './components/item'
 
 

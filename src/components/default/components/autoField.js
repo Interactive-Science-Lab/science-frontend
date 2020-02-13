@@ -10,7 +10,7 @@ class Page extends React.Component {
     }
 
     render() {
-        const { settings, field, displayType } = this.props
+        const { settings, field, action } = this.props
 
         return <div>
             {field.settings[1].label ? <div>{formHelpers.printifyName(field.name)} :</div> : ""}
@@ -18,7 +18,7 @@ class Page extends React.Component {
 
 
             {field.settings[1].fieldType === 'string' ? <div>
-                {field.settings[1].titleField ? (displayType === 'view' ?
+                {field.settings[1].titleField ? (action === 'view' ?
                     (settings.name.view_title ? <h2>{field.value}</h2> : <h1>{field.value}</h1>)
 
                     : <h3>{field.value}</h3>) : field.value}

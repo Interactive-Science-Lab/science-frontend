@@ -17,7 +17,7 @@ class Page extends React.Component {
 
         return <Link to={`${settings.name.urlPath}/${item[settings.idField]}`} style={{ display: "block" }}>
             {Object.values(fields).map(field => <div>
-                <FieldDisplay displayType={'list'} field={field} {...this.props} /> 
+                <FieldDisplay action={'index'} field={field} {...this.props} /> 
                 </div>
             )}
         </Link>

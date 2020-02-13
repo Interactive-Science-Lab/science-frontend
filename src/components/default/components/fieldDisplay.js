@@ -13,9 +13,10 @@ class Page extends React.Component {
     render() {
         const { field, action } = this.props
 
-        if (settingHelper.checkFieldView(action, field.settings[1].permissions)) {
-            if (field.settings[1].customDisplay) {
-                return field.settings[1].customDisplay(field.value)
+        if (settingHelper.checkFieldPermission(action, field.settings[1].permissions)) {
+            const customDisplay = settingHelper.customFieldDisplay(action, field.settings[1])
+            if (customDisplay) {
+                return customDisplay(field.value)
             } else {
                 return <AutoField {...this.props} />
             }
