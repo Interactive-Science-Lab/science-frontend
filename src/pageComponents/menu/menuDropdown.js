@@ -1,8 +1,6 @@
 import React from 'react'
-import MenuItem  from './menuItem'
+import MenuItem from './menuItem'
 import { withRouter } from 'react-router-dom'
-
-
 import { CSSTransition } from 'react-transition-group'
 
 class Menu extends React.Component {
@@ -29,25 +27,24 @@ class Menu extends React.Component {
   render = () => {
     const showMenu = this.state.showMenu
     const item = this.props.item
-    const user = localStorage.user ? JSON.parse(localStorage.user) : null
+    const ddClass = `hmenu-dropdown-toggle hdt-${item.name}`
+    const optionDisplay = { display: (showMenu ? 'block' : 'none') }
+
+    const ItemSymbol = <span className={`${ddClass} fas fa-${item.symbol}`}></span>
+    const ArrowDirection = <span className={`${ddClass} fas fa-caret-${this.state.showMenu ? 'down' : 'up'} `}></span>
 
     return <span className="hmenu-item hmenu-dropdown">
-      <div className={`hmenu-dropdown-toggle hdt-${item.name}`} onClick={this.toggleMenu}>
-        <span className={`hmenu-dropdown-toggle hdt-${this.props.item.name} fas fa-${item.symbol} `}></span> 
-        {item.name} 
-        <span className={`hmenu-dropdown-toggle hdt-${this.props.item.name} fas fa-caret-${this.state.showMenu ? 'down' : 'up'} `}></span>
+      {/* Actual dropdown item itself */}
+      <div className={ddClass} onClick={this.toggleMenu}>
+        {ItemSymbol} {item.name} {ArrowDirection}
       </div>
-      <br />
+      {/* The dropdown options */}
       <CSSTransition in={showMenu} timeout={100} classNames="menu-fade">
-        <div className="hmenu-dropdown-options" style={{ display: (showMenu ? 'block' : 'none') }}>
-          {item.links.map(subitem => 
-          <MenuItem item={subitem} />        
-          )}
+        <div className="hmenu-dropdown-options" style={optionDisplay}>
+          {item.links.map(subitem => <MenuItem item={subitem} />)}
         </div>
       </CSSTransition>
     </span>
-
-
   }
 }
 

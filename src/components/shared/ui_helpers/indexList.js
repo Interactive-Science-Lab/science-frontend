@@ -1,7 +1,6 @@
 import React from 'react'
 
-import {curr_user, headers} from 'helpers/api'
-
+import {loadingSpinner, permissionError, noResultsError} from 'helpers/site'
 class Page extends React.Component {
     constructor(props) {
         super(props)
@@ -13,11 +12,16 @@ class Page extends React.Component {
         const { items, Item, settings } = this.props
 
         return <div>
-                {items.map(
-                    (item) => settings.display.list ? settings.display.list(item)
-                    : <Item item={item} update={this.props.update} settings={settings} />
-                )}
-                { items.length === 0 ? (this.props.loader.loading ? "Loading" : "No Results.") : "" } 
+                
+                { 
+                items.length === 0 ? 
+                    ( this.props.loader.loading ? loadingSpinner : noResultsError ) : 
+                    items.map(
+                        (item) => settings.display.list ? settings.display.list(item)
+                        : <Item item={item} update={this.props.update} settings={settings} />
+                    )
+                }
+                
             </div>
 
     }

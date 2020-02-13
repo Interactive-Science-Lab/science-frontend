@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 
 import Home from '../views/home';
 
-import UserComponent from '../components/core/auth/controller';
+import UserComponent from 'components/core/auth/controller';
 import DefaultComponent from 'components/default/controller';
 import ExperimentComponent from 'components/experiments/open';
 
@@ -20,7 +20,7 @@ function Body(props) {
 			</Route>
 
 			<Route path="/lab/:id?">
-				<div className="body">
+				<div className="body" style={{paddingLeft:'280px'}}>
 					<div className="page-container">
 						<ExperimentComponent />
 					</div>

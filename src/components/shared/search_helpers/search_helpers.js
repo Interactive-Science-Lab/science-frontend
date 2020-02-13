@@ -13,7 +13,6 @@ export const defaultLoader = (def = {}) => {
     //Set the default if set already
     const options = ['search', 'filter', 'sort', 'sortdir', 'tag']
     options.map(o => params.get(o) ? retParams[o] = params.get(o) : "")
-    console.log(retParams)
     window.history.replaceState({}, "", window.location.pathname + '?' + params.toString()) 
     return retParams
 }
@@ -30,14 +29,16 @@ export const checkParams = (component) => {
 }
 
 export const updatePage = (component, res, params, object) => {
+    const loader = {
+        ...component.state.loader, 
+        params,
+        loading: false
+    } 
+    if(component.settings.paginate) { loader.pager = res?.data?.pager || null }
+
     component.setState({ 
         ...object,
-        loader: {
-            ...component.state.loader, 
-            pager: res.data.pager, 
-            params,
-            loading: false
-        } 
+        loader
     })
 }
 
@@ -46,9 +47,10 @@ export const checkLoad = (component, pState, pProps) => {
     const changingUpdate = pState.loader.update !== component.state.loader.update
     const changeComponent = !(component.props.match.params.urlPath === pProps.match.params.urlPath)
 
-    if (component.state.loader.update || (differentPages && !changingUpdate) || changeComponent) {
-        component.loadPage()
-    }
+
+    return component.state.loader.update || (differentPages && !changingUpdate) || changeComponent
+        
+    
 }
 
 export const handleParameter = (component, param, value) => {

@@ -1,19 +1,24 @@
 import React from 'react'
 import axios from 'axios'
-import api, { curr_user, headers, Protect } from 'helpers/api'
+import api from 'helpers/api'
 import { withRouter } from 'react-router'
-import { Link } from 'react-router-dom'
-import { resourceFullFields } from 'db/defaultObjects'
-import AutoField from './components/autoField'
 
-import formHelpers from 'components/shared/forms/form_helpers'
+//The loading spinner.
+import { loadingSpinner, permissionError, missingError } from 'helpers/site'
+//Contains the settings for the resource.
+import { ResourceContext } from './components/resourceContext'
+import settingHelper from 'db/settingHelpers'
 
+import DefaultView from './components/defaultView'
 
-class Page extends React.Component {
-    constructor(props) {
-        super(props)
+class Show extends React.Component {
+    constructor(props, context) {
+        super(props, context)
+        this.settings = this.context
+        this.permission = settingHelper.checkRender('view', this.settings)
         this.state = {
-            item: {}
+            item: {},
+            loading: false
         }
     }
 
@@ -21,73 +26,52 @@ class Page extends React.Component {
         this.loadPage()
     }
 
-    componentWillReceiveProps = (newProps) => {
-        this.loadPage(newProps)
+    componentDidUpdate = (pProps, pState) => {
+        //This make sures there a reason to call the api before doing so.
+        if (this.props.match.params.id !== pProps.match.params.id) { this.loadPage() }
     }
 
-    loadPage = (props = this.props) => {
-        axios
-            .get(api.apiPath(`${props.resourceSettings.name.urlPath}/${props.match.params.id}`))
-            .then(res =>
-                this.setState({ item: res.data })
-            )
-            .catch(err => console.log(err));
-    }
-
-
-    checkView = (settings) => {
-        let ret = true
-        if (settings[1].permissions) {
-            const p = settings[1].permissions
-            ret = p.indexOf('background') < 0 && p.indexOf('hidden') < 0 && p.indexOf('view-hidden') < 0
-            if (p.indexOf('mod') >= 0 || p.indexOf('admin') >= 0 || p.indexOf('user') >= 0 ||
-                p.indexOf('view-mod') >= 0 || p.indexOf('view-admin') >= 0 || p.indexOf('view-user') >= 0) {
-                ret = ret && curr_user ? true : false
-            }
+    loadPage = async () => {
+        //Get the actual item from the db. 
+        if (this.permission) {
+            await this.setState({ loading: true })
+            axios
+                .get(api.apiPath(`${this.settings.name.urlPath}/${this.props.match.params.id}`))
+                .then(res => this.setState({ item: res.data }))
+                .catch(err => console.log(err));
+            await this.setState({ loading: false })
         }
-
-        return ret
-    }
-
-    checkRender = (kind, settings) => {
-        let ret = true
-        ret = ret && settings.permissions[kind] !== 'none'
-        if (['mod', 'user', 'admin'].indexOf(settings.permissions[kind]) >= 0) {
-            ret = ret && curr_user ? true : false
-        }
-        return ret
-
     }
 
     render() {
         const item = this.state.item
-        const settings = this.props.resourceSettings
-        const friendlyName = settings.name.urlPath.substring(1)
-        const fields = resourceFullFields(friendlyName, item)
 
-        return <div>
-            {this.checkRender('index', settings) ?
-                <Link to={`${settings.options?.back_to_all_link(item) || settings.name.urlPath}`}>Back To All</Link>
-                : ""}
-
-            {this.checkRender('view', settings) ? (settings.display.page ?
-                settings.display.page(item) : <div>
-
-                    <h1>{settings.name.view_title}</h1>
-                    {Object.values(fields).map(field => <AutoField settings={settings} displayType={'view'} field={field} {...this.props} />)}
-                
-                </div>) : ""}
-
-
-
-            {settings.features.user_info ? JSON.stringify(item.info) : ""}
-
-            {this.checkRender('edit', settings) ?
-                <Link to={`${this.props.resourceSettings.name.urlPath}/${this.props.match.params.id}/edit`}>Edit</Link>
-                : ""}
-        </div>
+        //Very first, check the permissions.
+        if (this.permission) {
+            //Then we see if there is any result pulled back.
+            if (Object.entries(item).length > 0) {
+                 //Then, see if we have a custom index display.
+                let customDisplay = settingHelper.checkResourceDisplay('view', this.settings)
+                if (customDisplay) {
+                    //If so, go ahead and do the custom display.
+                    return customDisplay(item)
+                } else {
+                    //If not, do the default view.
+                    return <DefaultView item={item} />
+                }
+            } else {
+                //Display the loading spinner.
+                if (this.state.loading) { return loadingSpinner }
+                //Another error page.
+                else { return missingError }
+            }
+        } else {
+            //Error display
+            return permissionError
+        }
     }
 }
 
-export default withRouter(Page)
+Show.contextType = ResourceContext
+export default withRouter(Show)
 

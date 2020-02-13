@@ -55,8 +55,9 @@ export const resourceDefaultFields = (search) => {
     return all_fields
 }
 
-export const resourceFullFields = (search, item) => {
-    let defaultFields = resourceDefaultFields(search)
+export const resourceFullFields = (settings, item) => {
+    console.log(settings)
+    let defaultFields = resourceDefaultFields(settings.name.friendly)
     let returnFields = []
     defaultFields.map(field => returnFields.push(item[field.name] ? { ...field, value: item[field.name] } : field))
     return returnFields

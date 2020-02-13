@@ -4,7 +4,7 @@ import MenuItem from './menuItem'
 import { withRouter } from 'react-router-dom'
 
 import axios from 'axios'
-import {apiPath} from '../../helpers/api'
+import {apiPath} from 'helpers/api'
 
 class Menu extends React.Component {
   constructor(props) {
@@ -19,14 +19,11 @@ class Menu extends React.Component {
     this.setState({site_pages: pages.data})
   }
 
-  sitePagesCategories = [
-    //['Features', '', 'all'], 
+  sitePagesCategories = [ 
     ['About', 'exclamation', 'all']
   ]
   siteBlogTypes = [
     ["News & Updates", 'News', 'newspaper'], 
-    // ["News & Updates", 'News', 'newspaper'], 
-    // ["Projects Built", 'Project', 'star'], 
   ]
 
   sitePagesStructure = () => {

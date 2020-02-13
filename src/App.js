@@ -31,6 +31,7 @@ class App extends React.Component {
 		this.forceUpdate();
 	};
 
+	//App handles the user context, the placement of header & body, and a dynamic title bar.
 	render() {
 		return <UserContext.Provider value={{ ...this.state, logout: this.logout, login: this.login }}>
 			<div className="App main-bg">

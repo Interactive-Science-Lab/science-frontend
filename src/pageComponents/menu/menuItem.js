@@ -3,6 +3,8 @@ import { withRouter } from 'react-router-dom'
 import MenuDropdown from './menuDropdown'
 import MenuLink from './menuLink'
 
+import {curr_user as user} from 'helpers/api'
+
 class MenuItem extends React.Component {
   constructor(props) {
     super(props);
@@ -12,7 +14,6 @@ class MenuItem extends React.Component {
 
   showItem = () => {
     const item = this.props.item
-    const user = localStorage.user ? JSON.parse(localStorage.user) : null
     switch (item.view) {
         case 'all':
             return true

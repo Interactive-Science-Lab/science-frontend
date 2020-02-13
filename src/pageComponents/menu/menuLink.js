@@ -1,6 +1,6 @@
 import React from 'react'
-import {NavLink} from 'react-router-dom'
-import {curr_user} from 'helpers/api'
+import { NavLink } from 'react-router-dom'
+import { curr_user } from 'helpers/api'
 
 const displayLink = (item) => {
     if (item.link) { return item.link }
@@ -14,10 +14,10 @@ const displayLink = (item) => {
 
 const MenuLink = (props) => {
     const item = props.item
-    return <NavLink className="hmenu-item" to={displayLink(item)}> 
+    return <NavLink className="hmenu-item" to={displayLink(item)}>
 
-    <span>{item.name}</span> <span className={`fas fa-${item.symbol}`}></span>
-    
+        <span className={`fas fa-${item.symbol}`}></span><span>{item.name}</span>
+
     </NavLink>
 }
 

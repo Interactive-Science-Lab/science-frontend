@@ -1,29 +1,32 @@
 import React from 'react'
 import axios from 'axios'
-
 import { withRouter } from 'react-router-dom'
-
-//API Related
 import api from 'helpers/api'
 
+//Contains the settings for the resource.
+import { ResourceContext } from './components/resourceContext'
 //Related to search, sort, filter 
 import { defaultLoader, checkParams, updatePage, checkLoad } from 'components/shared/search_helpers/search_helpers'
+import settingHelper from 'db/settingHelpers'
 
-//Related to this component
+import { permissionError } from 'helpers/site'
+
+//Related to this component:
+//DefaultIndex takes the items & settings and actually lays out the page. Override this file to change search, paginate, etc. 
 import DefaultIndex from 'components/shared/ui_helpers/defaultIndex'
+//This is the Item Component which will be based down to eventually render.
 import ItemComponent from './components/item'
-
-
-
-class Page extends React.Component {
-    constructor(props) {
-        super(props)
-        console.log(props, this.props)
+//This component is responsible for controlling the state & api for the index route.
+class Index extends React.Component {
+    constructor(props, context) {
+        super(props, context)
+        this.settings = this.context
+        this.permission = settingHelper.checkRender('index', this.settings)
         this.state = {
             items: [],
             tags: [],
-            loader: defaultLoader(props.resourceSettings.loader),
-            settings: props.resourceSettings
+            loader: defaultLoader(this.settings.loader),
+            settings: this.settings
         }
     }
 
@@ -33,43 +36,56 @@ class Page extends React.Component {
 
     componentDidUpdate = (pProps, pState) => {
         //This make sures there a reason to call the api before doing so.
-        checkLoad(this, pState, pProps)
+        if (checkLoad(this, pState, pProps)) { this.loadPage() }
     }
 
-    loadPage = async (props = this.props) => {
-        //Makes sure we have the correct params and sets update to false.
-        const params = checkParams(this)
-        const res = await axios.get(api.apiPath('/' + props.resourceSettings.name.urlPath + '?' + params.toString()))
-        let updateObj = {}
-        
-        if (props.resourceSettings.features.paginate) {
-            updateObj = {
-                items: res.data.pageOfItems,
-                settings: props.resourceSettings
-            }
-        } else {
-            updateObj = {
-                items: res.data,
-                settings: props.resourceSettings
-            }
-        }
+    //Most of the magic happens here. We verify the Loader & params, and do the necessary calls based on the Features for the resource.
+    loadPage = async () => {
+        //Check permissions before any call.
+        if (this.permission) {
+            //Makes sure we have the correct params and sets update to false.
+            const params = checkParams(this)
+            const settings = this.settings
+            let updateObj = { settings, items: [] }
 
-        if (props.resourceSettings.features.tags) {
-            const resTags = await axios.get(api.apiPath('/' + props.resourceSettings.name.urlPath + `/tag-cloud/${params.get('category')}`))
-            updateObj.tags = resTags.data
+            //Make the api call 
+            const res = await axios.get(api.apiPath('/' + settings.name.urlPath + '?' + params.toString()))
+
+            //Copy over the settings and store the items in the right place depending on whether or not paginate is active.
+            updateObj.items = settings.features.paginate ? res.data.pageOfItems : updateObj.items = res.data
+
+            //Get the tags too, if tags are active.
+            if (settings.features.tags) {
+                //CURRENTLY COMMENNTED OUT BECAUSE BACKEND TAGS NOT SET YET
+                //const resTags = await axios.get(api.apiPath('/' + settings.name.urlPath + `/tag-cloud`))
+                //updateObj.tags = resTags.data
+            }
+
+            updatePage(this, res, params, updateObj)
         }
-        updatePage(this, res, params, updateObj)
     }
 
 
     render() {
-        const { items, settings } = this.state
+        const { items } = this.state
 
-
-        return <div>
-            <DefaultIndex Item={ItemComponent} items={items} settings={settings} mainState={this} />
-        </div>
+        //Very first, check the permissions.
+        if (this.permission) {
+            //Then, see if we have a custom index display.
+            let customDisplay = settingHelper.checkResourceDisplay('index', this.settings)
+            if (customDisplay) {
+                //If so, go ahead and do it.
+                return customDisplay(items)
+            } else {
+                //If not, do the default index.
+                return <DefaultIndex Item={ItemComponent} settings={this.settings} items={items} mainState={this} />
+            }
+        } else {
+            //Error display
+            return permissionError
+        }
     }
 }
 
-export default withRouter(Page)
+Index.contextType = ResourceContext
+export default withRouter(Index)

@@ -1,13 +1,14 @@
 import React from 'react'
-import {Switch, Route} from 'react-router-dom'
-import {withRouter} from 'react-router'
+import { Switch, Route, withRouter } from 'react-router-dom'
+
 import Index from './index.js'
 import Show from './show.js'
 import Edit from './edit.js'
 import New from './new.js'
+import FourOhFour from 'helpers/404Component'
 
+import { ResourceContext, resourceDefaults } from './components/resourceContext'
 
-import {findResourceSettings} from 'db/defaultObjects'
 
 class DefaultController extends React.Component {
     constructor(props) {
@@ -16,28 +17,28 @@ class DefaultController extends React.Component {
     }
 
     render() {
+        //Get the url and the settings based off of that. These go into a context to be used.
         const url = this.props.match.params.urlPath
-        const resourceSettings = findResourceSettings(url)
-        return <div className="page-container" id={`${url}`}>
-        <Switch>
-            
-            <Route path="/:urlPath" exact render={() => <Index resourceSettings={resourceSettings} />} />
+        const resourceSettings = resourceDefaults(url)
 
-            <Route path="/:urlPath/new" exact render={() => <New resourceSettings={resourceSettings} />} />
+        //Double check to make sure we have the settings. If not, most likely a typo on the url, so display a 404.
+        if (resourceSettings) {
+            return <ResourceContext.Provider value={resourceDefaults(url)}>
+                <div className="page-container" id={`${url}`}>
+                    <Switch>
+                        <Route path="/:urlPath" exact component={Index} />
+                        <Route path="/:urlPath/new" exact component={New} />
+                        <Route path="/:urlPath/:id" exact component={Show} />
+                        <Route path="/:urlPath/:id/edit" exact component={Edit} />
 
-            <Route path="/:urlPath/:id" exact render={() => <Show resourceSettings={resourceSettings} />} />
-
-            <Route path="/:urlPath/:id/edit" exact render={() => <Edit resourceSettings={resourceSettings} />} />
-
-
-            <Route path="/" render={() => <div className="controller"><div className="tpBlackBg">
-                <h2>We're Sorry</h2>
-                <h1>ERROR: 404 Page Not Found</h1> 
-                <p>Error Code DEFAULTCOMP</p>
-            </div></div>} />
-
-        </Switch>
-    </div>
+                        {/* Have the 404 again here in case the urlPath is right, but the rest of the url is not. */}
+                        <Route path="/" component={FourOhFour} />
+                    </Switch>
+                </div>
+            </ResourceContext.Provider>
+        } else {
+            return <FourOhFour />
+        }
     }
 }
 

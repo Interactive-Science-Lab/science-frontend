@@ -55,6 +55,7 @@ const fields = {
 }
 
 const plural = base + 's'
+const friendly = null || plural //override null here in specific cases. Try to avoid this for simplicity reasons, but this is where you can assign a site_blog to direct to blogs 
 const upper = base.charAt(0).toUpperCase() + base.substring(1);
 const pluralUpper = upper + 's'
 
@@ -66,6 +67,7 @@ export default  {
         ls: base,
         up: pluralUpper,
         us: upper,
+        friendly,
         urlPath: "/" + plural,
         folderPath: "/" + plural,
         title: {
