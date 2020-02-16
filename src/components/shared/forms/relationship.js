@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import HandleForm from './miniHandler'
-import MainHandler from './handler'
+import MainHandler from './formHandler'
 import { withRouter } from "react-router-dom";
 
 import relationshipConfig from './relationships/relationshipConfig'
@@ -18,7 +18,6 @@ class RelationshipForm extends React.Component {
 
   render() {
     const rConfig = relationshipConfig(this.props)
-    console.log(rConfig, this.props)
     return rConfig ? <div>
       <h3>{ rConfig.title }</h3>
       <div>

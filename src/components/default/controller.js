@@ -2,7 +2,7 @@ import React from 'react'
 import { Switch, Route, withRouter } from 'react-router-dom'
 
 import Index from './index.js'
-import Show from './show.js'
+import View from './view.js'
 import Edit from './edit.js'
 import New from './new.js'
 import FourOhFour from 'helpers/404Component'
@@ -28,7 +28,7 @@ class DefaultController extends React.Component {
                     <Switch>
                         <Route path="/:urlPath" exact component={Index} />
                         <Route path="/:urlPath/new" exact component={New} />
-                        <Route path="/:urlPath/:id" exact component={Show} />
+                        <Route path="/:urlPath/:id" exact component={View} />
                         <Route path="/:urlPath/:id/edit" exact component={Edit} />
 
                         {/* Have the 404 again here in case the urlPath is right, but the rest of the url is not. */}

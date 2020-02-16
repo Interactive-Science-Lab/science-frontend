@@ -1,4 +1,6 @@
-import { curr_user } from 'helpers/api'
+import api, { curr_user, headers, apiPath } from 'helpers/api'
+import axios from 'axios'
+import {resourceFullFields} from './defaultObjects'
 
 /*
 Functionality: Helpers regarding permissions, fields, and settings.
@@ -39,6 +41,46 @@ fieldPermissions = {
 */
 
 
+
+
+//------------------------------
+// PATHS & URLS 
+//------------------------------
+const urlPath = (settings) => { return settings.name.urlPath }
+const idPath = (settings, item) => { return urlPath(settings) + `/${item[settings.idField]}` }
+const beUrlPath = (settings) => { return api.apiPath(urlPath(settings)) }
+const beIdPath = (settings, item) => { return api.apiPath(idPath(settings, item)) }
+
+const feIndexPath = (settings) => { return urlPath(settings) }
+const feNewPath = (settings) => { return urlPath(settings) + '/new'}
+const feViewPath = (settings, item) => { return idPath(settings, item)}
+const feEditPath = (settings, item) => { return idPath(settings, item) + '/edit'}
+
+const beIndexCall = (settings) => { return axios.get( beUrlPath(settings), headers) }
+const beViewCall = (settings, item) => { return axios.get( beIdPath(settings, item), headers) }
+const beDeleteCall = (settings, item) => { return axios.delete(idPath(settings, item), headers) }
+const beNewCall = (settings, item) => { 
+    item = resourceFullFields(settings, item) 
+    return axios.post( beUrlPath(settings), item, headers ) 
+}
+const beEditCall = (settings, item) => { 
+    //Grab the path quick first
+    const path = beIdPath(settings, item)
+    //Map over this item to get the things we can call on the db.
+    let dbItem = {}
+    resourceFullFields(settings, item).map(field => dbItem[field.name] = field.value)
+    return axios.put( path, dbItem, headers ) 
+}
+
+//Returns any notes associated with the field type or custom
+const fieldNotes = (field) => {
+    return field.formInfo
+}
+
+
+//=====================
+// PERMISSIONS 
+//=====================
 //This function goes through the permission, comparing it to the current user.
 const checkPermission = (permission) => {
     let ret = true
@@ -128,5 +170,17 @@ export default {
     checkResourcePermission,
     checkFieldPermission,
     customResourceDisplay,
-    customFieldDisplay
+    customFieldDisplay,
+    urlPath,
+    idPath,
+    beNewCall,
+    beViewCall,
+    beIndexCall,
+    beEditCall,
+    beDeleteCall,
+    feNewPath,
+    feViewPath,
+    feIndexPath,
+    feEditPath,
+    fieldNotes
 }

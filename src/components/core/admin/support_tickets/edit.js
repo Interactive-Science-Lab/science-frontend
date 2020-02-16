@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom'
 import api from 'helpers/api'
-import HandleForm from 'components/shared/forms/handler'
+import HandleForm from 'components/shared/forms/formHandler'
 import defaults from  'db/defaultObjects'
 import { curr_user, headers } from 'helpers/api'
 

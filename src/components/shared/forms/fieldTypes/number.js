@@ -16,9 +16,7 @@ class Field extends React.Component {
     render() {
         const {field, item} = this.props.component.props
         return <Form.Control
-            type='text'
-            as='textarea'
-            rows={5}
+            type='number'
             onChange={this.handleChange}
             name={field.name}
             placeholder={field.name}

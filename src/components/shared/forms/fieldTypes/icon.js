@@ -8,22 +8,23 @@ class Field extends React.Component {
 
     handleChange = (e) => {
         this.props.component.props.updateItem({
-            ...this.props.component.props.item,
+            ...this.props.item,
             [e.target.name]: e.target.value
         })
     }
 
     render() {
         const {field, item} = this.props.component.props
-        return <Form.Control
+        return <div><Form.Control
             type='text'
-            as='textarea'
-            rows={5}
             onChange={this.handleChange}
             name={field.name}
             placeholder={field.name}
             value={item[field.name]}
         />
+        
+        <span className={`fas fa-${field[1]}`}></span>
+        </div>
     }
 }
 

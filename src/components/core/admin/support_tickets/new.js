@@ -3,7 +3,7 @@ import axios from 'axios';
 import {Link} from 'react-router-dom'
 import api from '../../../../helpers/api'
 
-import HandleForm from '../../../shared/forms/handler'
+import HandleForm from '../../../shared/forms/formHandler'
 
 import defaults from  '../../../../db/defaultObjects'
 

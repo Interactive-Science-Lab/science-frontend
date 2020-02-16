@@ -1,39 +1,34 @@
 import React from 'react'
 import { Form } from 'react-bootstrap'
 
-import formHelpers from '../form_helpers'
+class Field extends React.Component {
+    constructor(props) {
+        super(props)
+    }
 
-export default (props) => {
-    const { field, item, callback, type, label, as_setting, settings } = props
+    handleChange = (e) => {
+        let value = {}
+        try { value = JSON.parse(e.target.value) }
+        catch { console.log("That is not valid JSON, failed parse.") }
 
-    return <Form.Group>
+        this.props.component.props.updateItem({
+            ...this.props.component.props.item,
+            [e.target.name]: value
+        })
+    }
 
-        <Form.Label>
-            {label || formHelpers.printifyName(field[0])}
-            { /* Add any notes for any fields here */}
-            {field[0] === 'height' ? "- In inches" : ""}
-            {field[0] === 'weight' ? "- In pounds" : ""}
-            {settings && settings[1].fieldType === 'icon' ? <span className={`fas fa-${field[1]}`}></span> : ""}
-            {settings && settings[1].fieldType === 'local-image' ? <img src={`/images/${field[1]}`} /> : ""}
-        </Form.Label>
-
-        <Form.Control
-            type="text"
-            onChange={ callback }
-            name={field[0]}
-            placeholder={field[0]}
-            value={JSON.stringify( props.value || item[field[0]])}
-
-            as={"textarea"}
+    render() {
+        const {field, item} = this.props.component.props
+        return <Form.Control
+            type='text'
+            as='textarea'
             rows={5}
-            
-            
-            />
-
-
-        <div>
-        </div>
-
-
-    </Form.Group>
+            onChange={this.handleChange}
+            name={field.name}
+            placeholder={field.name}
+            value={ JSON.stringify(item[field.name]) }
+        />
+    }
 }
+
+export default Field

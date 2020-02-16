@@ -1,14 +1,30 @@
-import React from 'react'
-import {Form} from 'react-bootstrap'
-import {Input} from 'reactstrap'
 
-const Field = (props) => {
-    const {item, field, callback} = props
-    return <Form.Group>
-        <img src={item.image_preview_url ? item.image_preview_url : field[1] } height="50px" alt={item.image_title} /><br />
-        <Form.Label>Image</Form.Label>
-        <Input type="file" name={'image_raw'} onChange={callback} />
-    </Form.Group>
+import React from 'react'
+import { Form } from 'react-bootstrap'
+import { Input } from 'reactstrap'
+
+class Field extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+
+    handleChange = (e) => {
+        if (e.target.files[0]) {
+            this.props.component.props.updateItem({
+                ...this.props.component.props.item,
+                image_raw: e.target.files[0],
+                image_preview_url: URL.createObjectURL(e.target.files[0])
+            })
+        }
+    }
+
+    render() {
+        const { field, item } = this.props.component.props
+        return <div>
+            <img src={item.image_preview_url ? item.image_preview_url : field.value} height="50px" alt={item.image_title} /><br />
+            <Input type="file" name={'image_raw'} onChange={this.handleChange} />
+        </div>
+    }
 }
 
 export default Field

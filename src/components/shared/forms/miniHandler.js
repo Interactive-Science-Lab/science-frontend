@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { withRouter } from "react-router-dom";
-import BuildForm from './buildForm'
+import BuildForm from './formBuilder'
 import DisplayPreview from './relationships/displayPreview'
 import api, {headers, curr_user} from 'helpers/api'
 
@@ -29,7 +29,6 @@ class FormHandler extends React.Component {
   updateAPI = async (method, url, payload, bulkAdd) => {
     const headers = { headers: {'authorization': localStorage.token} }
     var apiCall;
-    console.log(bulkAdd)
 
     if(method === 'put') {
       apiCall = await axios.put(url, payload, headers)

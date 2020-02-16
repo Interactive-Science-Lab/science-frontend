@@ -4,7 +4,6 @@ import {findResourceSettings} from 'db/defaultObjects'
 export default (props) => {
   let records = []
   const resourceSettings = findResourceSettings(props.formClass)
-  console.log("rs in rc", resourceSettings, props.formClass)
   switch (props.formClass) {
 
 

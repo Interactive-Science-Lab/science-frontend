@@ -70,7 +70,7 @@ const fields = {
     },
     blog_category: {
         default: "Blog",
-        fieldType: ["select-custom", ["Blog", "News", "Project"]],
+        fieldType: ["select-custom", [["One", "One"], ['Blog', "Blog"], ["News", "News"], ["Project", "Project"]]],
         permissions: {
             index: {
                 name: 'none'

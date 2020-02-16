@@ -3,7 +3,7 @@ import axios from 'axios'
 import api from 'helpers/api'
 import { withRouter } from 'react-router'
 
-//The loading spinner.
+
 import { loadingSpinner, permissionError, missingError } from 'helpers/site'
 //Contains the settings for the resource.
 import { ResourceContext } from './components/resourceContext'
@@ -11,14 +11,14 @@ import settingHelper from 'db/settingHelpers'
 
 import DefaultView from './components/defaultView'
 
-class Show extends React.Component {
+class View extends React.Component {
     constructor(props, context) {
         super(props, context)
         this.settings = this.context
         this.permission = settingHelper.checkResourcePermission('view', this.settings)
         this.state = {
             item: {},
-            loading: false
+            loading: true
         }
     }
 
@@ -72,6 +72,6 @@ class Show extends React.Component {
     }
 }
 
-Show.contextType = ResourceContext
-export default withRouter(Show)
+View.contextType = ResourceContext
+export default withRouter(View)
 

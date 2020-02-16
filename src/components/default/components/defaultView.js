@@ -18,7 +18,6 @@ class Show extends React.Component {
         super(props, context)
         this.settings = this.context
         this.state = {
-            loading: false
         }
     }
      
