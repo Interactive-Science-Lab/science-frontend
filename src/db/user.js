@@ -85,6 +85,7 @@ export default {
         ls: base,
         up: pluralUpper,
         us: upper,
+        friendly: plural,
         urlPath: '/' + plural,
         folderPath: '/' + plural,
         title: {

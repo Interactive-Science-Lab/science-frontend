@@ -55,9 +55,9 @@ class defaultIndex extends React.Component {
     displayFilter = () => {
         const { settings, mainState } = this.props
         const optionSettings = settings.features.filter
-        if (optionSettings) { 
+        if (optionSettings) {
             const component = <Filter component={mainState} options={settings.features.filter.options} />
-            return this.displayOption(component, optionSettings) 
+            return this.displayOption(component, optionSettings)
         }
         else { return "" }
     }
@@ -65,9 +65,9 @@ class defaultIndex extends React.Component {
     displaySearch = () => {
         const { settings, mainState } = this.props
         const optionSettings = settings.features.search
-        if (optionSettings) { 
+        if (optionSettings) {
             const component = <Search component={mainState} />
-            return this.displayOption(component, optionSettings) 
+            return this.displayOption(component, optionSettings)
         }
         else { return "" }
     }
@@ -75,9 +75,9 @@ class defaultIndex extends React.Component {
     displaySort = () => {
         const { settings, mainState } = this.props
         const optionSettings = settings.features.sort
-        if (optionSettings) { 
+        if (optionSettings) {
             const component = <Sort component={mainState} options={settings.features.sort.options} />
-            return this.displayOption(component, optionSettings) 
+            return this.displayOption(component, optionSettings)
         }
         else { return "" }
     }
@@ -85,9 +85,9 @@ class defaultIndex extends React.Component {
     displayPagination = () => {
         const { settings, mainState } = this.props
         const optionSettings = settings.features.paginate
-        if (optionSettings) { 
+        if (optionSettings) {
             const component = <Pagination component={mainState} />
-            return this.displayOption(component, optionSettings) 
+            return this.displayOption(component, optionSettings)
         }
         else { return "" }
     }
@@ -95,9 +95,9 @@ class defaultIndex extends React.Component {
     displayTags = () => {
         const { settings, mainState } = this.props
         const optionSettings = settings.features.tags
-        if (optionSettings) { 
+        if (optionSettings) {
             const component = <Tags component={mainState} tags={mainState.state.tags} />
-            return this.displayOption(component, optionSettings) 
+            return this.displayOption(component, optionSettings)
         }
         else { return "" }
     }
@@ -105,9 +105,9 @@ class defaultIndex extends React.Component {
     displayNewLink = () => {
         const { settings, mainState } = this.props
         const optionSettings = settings.features.newLink
-        if (optionSettings) { 
+        if (optionSettings) {
             const component = <Link to={`${settings.name.urlPath}/new`}>{settings.features.newLink.options || "Add New +"}</Link>
-            return this.displayOption(component, optionSettings) 
+            return this.displayOption(component, optionSettings)
         }
         else { return "" }
     }
@@ -117,7 +117,7 @@ class defaultIndex extends React.Component {
         const component = <DefaultListComponent
             items={items}
             update={mainState.loadPage}
-            loader={mainState.state.loader} 
+            loader={mainState.state.loader}
             settings={settings} />
         const optionSettings = settings.name
         if (optionSettings) { return this.displayOption(component, optionSettings) }
@@ -128,22 +128,20 @@ class defaultIndex extends React.Component {
         const { settings } = this.props
 
         return <div>
-            <h1>{settings.name.index_title}</h1>
+            <h1>{settings.name.title.index}</h1>
 
-            <div>
+            <div style={{display:'flex',justifyContent:'space-between',maxWidth:'800px',margin:'auto'}}>
                 {this.displayFilter()}
-                {settings.features.search || settings.features.sort ? <div className='color-box'>
-                    {this.displaySearch()}
-                    {this.displaySort()}
-                </div> : <hr /> }
-
-                <div className='color-box'>
-                    {this.displayList()}
-                    {this.displayPagination()}
-                    {this.displayNewLink()}
-                </div>
-
+                {this.displaySearch()}
+                {this.displaySort()}
             </div>
+
+            <div className='color-box'>
+                {this.displayList()}
+                {this.displayPagination()}
+                {this.displayNewLink()}
+            </div>
+
             <div>
                 {this.displayTags()}
             </div>

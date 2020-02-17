@@ -13,10 +13,14 @@ class Pagination extends React.Component {
     }
 
     render() {
-      return <div>
-        <h3>Search</h3>
-        <input type="text" onChange={this.handleSearch} value={this.props.component.state.loader.params.get('search')} />
-      </div>
+      return <span>
+        <input 
+          type="text" 
+          onChange={this.handleSearch} 
+          placeholder={`Search ${this.props.component.context.name.friendly}...`}
+          value={this.props.component.state.loader.params.get('search')} 
+        />
+      </span>
     }
 }
 

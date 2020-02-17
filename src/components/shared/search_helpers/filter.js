@@ -16,12 +16,11 @@ class Pagination extends React.Component {
     }
 
     render() {
-      return <div>
-        {console.log(this.props.component.state.loader.params.get('filter'))}
+      return <span>
         <select onChange={this.handleSearch} value={this.props.component.state.loader.params.get('filter')} >
           {this.props.options.map(o => <option value={o}>{o}</option>)}
         </select>
-      </div>
+      </span>
     }
 }
 

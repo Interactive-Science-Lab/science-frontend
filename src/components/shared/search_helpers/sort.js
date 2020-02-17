@@ -22,10 +22,10 @@ class Pagination extends React.Component {
     
 
     render() {
-      return <div>
-        Sort By <select onChange={this.handleSearch} value={this.props.component.state.loader.params.get('sort')} >
+      return <span>
+        <select onChange={this.handleSearch} value={this.props.component.state.loader.params.get('sort')} >
           {this.props.options.map(o => 
-            <option value={o[0]}>{o[1]}</option>
+            <option value={o[0]}>Sort: {o[1]}</option>
           )}
         </select>
         <select onChange={this.handleOrder} value={this.props.component.state.loader.params.get('sortdir')} >
@@ -33,7 +33,7 @@ class Pagination extends React.Component {
             <option value={'ASC'}>Asc.</option>
             <option value={'DESC'}>Desc.</option>
         </select>
-      </div>
+      </span>
     }
 }
 

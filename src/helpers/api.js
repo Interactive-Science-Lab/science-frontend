@@ -62,7 +62,7 @@ export const Protect = (props) => {
         : "") 
     }
 
-    return <div>{checkResult ? props.children : ""}</div>
+    return <span>{checkResult ? props.children : ""}</span>
 
 }
 

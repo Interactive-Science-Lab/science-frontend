@@ -58,9 +58,8 @@ const feEditPath = (settings, item) => { return idPath(settings, item) + '/edit'
 
 const beIndexCall = (settings) => { return axios.get( beUrlPath(settings), headers) }
 const beViewCall = (settings, item) => { return axios.get( beIdPath(settings, item), headers) }
-const beDeleteCall = (settings, item) => { return axios.delete(idPath(settings, item), headers) }
+const beDeleteCall = (settings, item) => { return axios.delete(beIdPath(settings, item), headers) }
 const beNewCall = (settings, item) => { 
-    item = resourceFullFields(settings, item) 
     return axios.post( beUrlPath(settings), item, headers ) 
 }
 const beEditCall = (settings, item) => { 

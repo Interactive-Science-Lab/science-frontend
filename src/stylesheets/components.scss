@@ -172,22 +172,24 @@ select {
 	border-bottom: 5px outset $d-primary-color;
 	border-top: 1px outset $d-primary-color;
 	color: $d-dark-color;
-	padding:20px;
+	padding:10px 20px;
+	margin:3px;
 	font-size:18px;
 	cursor:pointer;
 }
 
-input.form-control, textarea.form-control{
+input, input.form-control, textarea.form-control{
 	border-radius:16px;
 	background-color:$ll-primary-color;
 	border: none;
 	border-bottom: 5px outset $d-primary-color;
 	border-top: 1px outset $d-primary-color;
 	color: $dark-color;
-	padding:20px;
+	padding:10px 20px;
+	margin:3px;
 	font-size:18px;
 }
-input.form-control:focus, textarea.form-control:focus{
+input, input.form-control:focus, textarea.form-control:focus{
 	background-color:$l-light-color;
 	border: 3px inset $primary-color;
 }
