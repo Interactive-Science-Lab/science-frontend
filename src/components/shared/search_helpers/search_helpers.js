@@ -34,7 +34,7 @@ export const updatePage = (component, res, params, object) => {
         params,
         loading: false
     } 
-    if(component.settings.paginate) { loader.pager = res?.data?.pager || null }
+    if(component.context.paginate) { loader.pager = res?.data?.pager || null }
 
     component.setState({ 
         ...object,
@@ -47,8 +47,8 @@ export const checkLoad = (component, pState, pProps) => {
     const changingUpdate = pState.loader.update !== component.state.loader.update
     const changeComponent = !(component.props.match.params.urlPath === pProps.match.params.urlPath)
 
-
-    return component.state.loader.update || (differentPages && !changingUpdate) || changeComponent
+    const ret = component.state.loader.update || (differentPages && !changingUpdate) || changeComponent
+    return ret
         
     
 }

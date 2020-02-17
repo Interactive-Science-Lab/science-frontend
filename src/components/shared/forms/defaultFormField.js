@@ -19,11 +19,7 @@ class FormFields extends React.Component {
 
     render() {
         const { field } = this.props
-        return <div>
-            FIELD: {JSON.stringify(field)}
-
-
-            <Form.Group>
+        return <Form.Group>
 
                 <Form.Label>
                     {formHelpers.printifyName(field.name)}
@@ -34,16 +30,12 @@ class FormFields extends React.Component {
                 <FieldType {...this.props} />
 
 
-                {field.settings[1].validations ? field.settings[1].validations.map(val => <div>
+                {field.settings[1].validations ? field.settings[1].validations.map(val => <div style={{color:'red'}}>
                     {val === 'required' ? (!field.value || field.value === "" ? "Field is required." : "") : ""}
                 </div>) : ""}
 
-
-
             </Form.Group>
 
-
-        </div>
     }
 
 }

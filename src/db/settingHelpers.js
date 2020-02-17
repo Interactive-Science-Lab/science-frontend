@@ -83,6 +83,7 @@ const fieldNotes = (field) => {
 //=====================
 //This function goes through the permission, comparing it to the current user.
 const checkPermission = (permission) => {
+    if(!permission || Object.entries(permission).length === 0) { throw "ASTEROID: Permission error with resource settings. Accepted format: {action: {name: %s}}" }
     let ret = true
     let roleCheck = null, kindCheck = null
     if (permission.name === 'all') { ret = true }
@@ -163,6 +164,27 @@ const customFieldDisplay = (action, settings) => {
     }
 }
 
+const validateInput = (settings, item) => {
+    let ret = true
+
+    //Get the field list from the settings.
+    Object.entries(settings.fields).map(field => {
+        //Put the name in a variable and copy the value over.
+        let fieldName = field[0]
+        field = field[1]
+        //If there's any validations, loop through them and handle them.
+        if(field.validations) {
+            field.validations.map(validation => {
+                if(validation === 'required'){
+                    ret = ret && item[fieldName] && item[fieldName] != ''
+                }
+            })
+        }
+    })
+
+    return ret
+}
+
 
 
 export default {
@@ -182,5 +204,6 @@ export default {
     feViewPath,
     feIndexPath,
     feEditPath,
-    fieldNotes
+    fieldNotes,
+    validateInput
 }

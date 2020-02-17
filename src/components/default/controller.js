@@ -20,10 +20,12 @@ class DefaultController extends React.Component {
         //Get the url and the settings based off of that. These go into a context to be used.
         const url = this.props.match.params.urlPath
         const resourceSettings = resourceDefaults(url)
+        console.log(resourceSettings)
+        if(!resourceSettings) { throw "ASTEROID: Unable to find resource settings file."}
 
         //Double check to make sure we have the settings. If not, most likely a typo on the url, so display a 404.
         if (resourceSettings) {
-            return <ResourceContext.Provider value={resourceDefaults(url)}>
+            return <ResourceContext.Provider value={resourceSettings}>
                 <div className="page-container" id={`${url}`}>
                     <Switch>
                         <Route path="/:urlPath" exact component={Index} />

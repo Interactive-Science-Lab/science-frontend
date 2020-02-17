@@ -3,11 +3,21 @@ import React from 'react'
 const base = 'container'
 
 const permissions = {
-    index: "all",
-    view: "all",
-    create: "mod",
-    edit: "mod",
-    delete: "mod"
+    index: {
+        name: "all"
+    },
+    view: {
+        name: "all"
+    },
+    new: {
+        name: "mod"
+    },
+    edit: {
+        name: "mod"
+    },
+    delete: {
+        name: "mod"
+    },
 }
 
 const features = {
@@ -32,14 +42,14 @@ const fields = {
         // customForm: (field, callback) => { return  <div>CUSTOM ENTRY</div> },
         formInfo: "Enter in mg, will display through app in grams.",
         label: true, 
-        permissions: ['list-hidden']
+        permissions:  {index: {name: 'none'}} 
     },
     container_volume: { 
         default: "", 
         fieldType: "number", 
         suffix: "mL", 
         label: true, 
-        permissions: ['list-hidden'] 
+        permissions: {index: {name: 'none'}} 
     },
     container_properties: { 
         default: "", 
@@ -49,7 +59,7 @@ const fields = {
     container_image: { 
         default: "", 
         fieldType: "local-image", 
-        permissions: ['list-hidden'], 
+        permissions: {index: {name: 'none'}} , 
         label: true 
     },
 }

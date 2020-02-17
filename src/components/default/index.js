@@ -19,13 +19,10 @@ import DefaultIndex from 'components/default/components/defaultIndex'
 class Index extends React.Component {
     constructor(props, context) {
         super(props, context)
-        this.settings = this.context
-        this.permission = settingHelper.checkResourcePermission('index', this.settings)
         this.state = {
             items: [],
             tags: [],
-            loader: defaultLoader(this.settings.loader),
-            settings: this.settings
+            loader: defaultLoader(this.context.loader),
         }
     }
 
@@ -40,11 +37,13 @@ class Index extends React.Component {
 
     //Most of the magic happens here. We verify the Loader & params, and do the necessary calls based on the Features for the resource.
     loadPage = async () => {
+        const settings =  this.context
+        const permission = settingHelper.checkResourcePermission('index', settings)
+
         //Check permissions before any call.
-        if (this.permission) {
+        if (permission) {
             //Makes sure we have the correct params and sets update to false.
             const params = checkParams(this)
-            const settings = this.settings
             let updateObj = { settings, items: [] }
 
             //Make the api call 
@@ -67,17 +66,19 @@ class Index extends React.Component {
 
     render() {
         const { items } = this.state
+        const settings =  this.context
+        const permission = settingHelper.checkResourcePermission('index', settings)
 
         //Very first, check the permissions.
-        if (this.permission) {
+        if (permission) {
             //Then, see if we have a custom index display.
-            let customDisplay = settingHelper.customResourceDisplay('index', this.settings)
+            let customDisplay = settingHelper.customResourceDisplay('index', settings)
             if (customDisplay) {
                 //If so, go ahead and do it.
                 return customDisplay(items)
             } else {
                 //If not, do the default index.
-                return <DefaultIndex settings={this.settings} items={items} mainState={this} />
+                return <DefaultIndex settings={settings} items={items} mainState={this} />
             }
         } else {
             //Error display

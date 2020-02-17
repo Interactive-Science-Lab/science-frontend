@@ -27,7 +27,6 @@ class Field extends React.Component {
     render() {
         const { field, item } = this.props.component.props
         return <div>
-            {field.name}<br />
             <select onChange={this.handleChange} name={field.name} value={field.value}>
                 {this.options().map(option => <option value={option[0]}>{option[1]}</option>)}
             </select>
