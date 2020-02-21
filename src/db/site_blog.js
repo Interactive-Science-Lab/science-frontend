@@ -126,7 +126,7 @@ const pluralUpper = upper + 's'
 const idField = base + '_id'
 const uniqueText = 'blog_title'
 const pageTitles = {
-    index: "All " + pluralUpper,
+    index: "All Updates",
     view: upper + " Details",
     new: "Add " + upper,
     edit: "Edit " + upper

@@ -63,8 +63,8 @@ class Item extends React.Component {
                             totalMass = r.object_weight : null
                     })
                 }
-            } else if(item.usedItem.itemType === 'containers') {
-                
+            } else if (item.usedItem.itemType === 'containers') {
+
                 {
                     masterItemList['containers'].map(r => {
                         return (r.container_id === item.usedItem.id) ?
@@ -72,7 +72,7 @@ class Item extends React.Component {
                     })
                 }
 
-                if(item.usedItem.contents.length > 0) {
+                if (item.usedItem.contents.length > 0) {
                     {
                         item.usedItem.contents.map(c => <div>
                             {masterItemList[c.itemType].map(r =>
@@ -115,7 +115,8 @@ class Item extends React.Component {
                         {item.itemType === 'containers' ? <>Total Vol: {record.container_volume}mL</> : ""}
                     </div>
                     <div className='item-description'>
-                        <i style={{ fontSize: '14px' }}>{record.object_description || record.container_description}</i>
+                        <i style={{ fontSize: '12px' }}>{item.itemType.charAt(0).toUpperCase() + item.itemType.substring(1, item.itemType.length - 1)}</i><br />
+                        <i style={{ fontSize: '16px' }}>{record.object_description || record.container_description}</i>
                     </div>
                     <div className="item-properties">
                         {record.container_properties?.includes('display_volume') ? <div>
@@ -125,34 +126,35 @@ class Item extends React.Component {
                             <hr /> Reading: {totalMass}g
                         </div> : ""}
                         {record.tool_properties?.includes('display_temperature') ? <div>
-                            <hr /> Reading: 70 deg F
+                            <hr /> Reading: ? deg F
                         </div> : ""}
                     </div>
 
 
 
                     <div className="item-contents">{
-                        item.contents ? <div><hr />
+                        item.contents ? (item.contents.length > 0 ? <div><hr />
                             <div>Contents:</div>
                             <div style={{ overFlowY: "scroll" }}>
                                 {this.displayContents(item.contents)}
                             </div>
-                        </div> : ""
+                        </div> : <p><hr />Drag objects to add them to this container.</p>) : null
                     }</div>
 
 
                     <div className="item-used">{
-                        item.usedItem ? <div><hr />
+                        item.usedItem ? (item.usedItem.name ? <div><hr />
                             <div>Item:</div>
-                            <div style={{ overFlowY: "scroll" }} className="tool-item">
+                            <div style={{ overFlowY: "scroll" }} className="tool-item ttipalt">
                                 <span className='drag-item'
                                     data-itemType={item.usedItem.itemType}
                                     data-parent-instance={item.instance}
                                     data-instance={item.usedItem.instance} draggable >
                                     {item.usedItem.name}
                                 </span>
+                                <p className="ttip">Click and drag to take the item off of the tool.</p>
                             </div>
-                        </div> : ""
+                        </div> : <p><hr />Drag an item onto this tool to get a reading.</p>) : null
                     }</div>
 
                     <div className="item-options">
@@ -177,7 +179,23 @@ class Item extends React.Component {
                 </div>
             </span>
         } else {
-            return null
+            if (this.props.i === 0 && this.props.dropInt === 2) {
+                return <div style={{position:'relative'}}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <h5>
+                </h5>
+                        <div className="ttiphover" style={{ cursor: 'pointer' }}>
+                            <h1>?</h1>
+                            <p className="ttip">Drop items here to see their readings, or just get a better look at them.<br />
+                            Hint: Try putting a graduated cylinder here to see it's contents & volume,<br /> 
+                            or the scale to see the object's mass.</p>
+                        </div>
+                    </div>
+                    <div className="dropzoneempty" style={{ width: '100%', height: '150px' }}></div>
+                </div> 
+            } else {
+                return null
+            }
         }
     }
 

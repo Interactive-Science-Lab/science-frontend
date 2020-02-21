@@ -17,9 +17,9 @@ class ExperimentLab extends React.Component {
         const {masterItemList} = this.context
 
         return <div id="shelveSection">
-            <Shelf list={masterItemList.tools} side={'left'} itemType={'tools'} />
-            <Shelf list={masterItemList.containers} side={'right'} itemType={'containers'} />
             <Shelf list={masterItemList.objects} side={'right'} itemType={'objects'} />
+            <Shelf list={masterItemList.containers} side={'right'} itemType={'containers'} />
+            <Shelf list={masterItemList.tools} side={'left'} itemType={'tools'} />
         </div>
     }
 

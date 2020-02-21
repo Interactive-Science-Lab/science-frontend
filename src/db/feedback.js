@@ -11,10 +11,10 @@ const permissions = {
         name: "all"
     },
     new: {
-        name: "mod"
+        name: "all"
     },
     edit: {
-        name: "mod"
+        name: "all"
     },
     delete: {
         name: "mod"
@@ -32,11 +32,11 @@ const features = {
 }
 
 const fields = {
-    feedback_kind: {default: "", fieldType: ['select-custom-int', ['Comment', 'Question', 'Concern']], permissions: {edit: {name: 'none'}}, label: true},
+    feedback_kind: {default: "", fieldType: ['select-custom', [[1, 'Comment'], [2, 'Question'], [3, 'Concern']]], permissions: {edit: {name: 'none'}}},
     feedback_message: {default: "", fieldType: 'text', permissions: {edit: {name: 'none'}}, label: true },
     feedback_name: {default: "", fieldType: 'string', permissions: {edit: {name: 'none'}}, label: true },
     feedback_email: {default: "", fieldType: 'string', permissions: {edit: {name: 'none'}}, label: true },
-    logged: {default: false, fieldType: 'boolean', permissions: {new: {name: 'none'}} }
+    logged: {default: false, fieldType: 'boolean', permissions: {new: {name: 'none'}, edit: {name: 'admin'}}, label: true }
 }
 
 const plural = base + 's'

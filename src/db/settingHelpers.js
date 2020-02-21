@@ -83,7 +83,7 @@ const fieldNotes = (field) => {
 //This function goes through the permission, comparing it to the current user.
 const checkPermission = (permission) => {
     if(!permission || Object.entries(permission).length === 0) { throw "ASTEROID: Permission error with resource settings. Accepted format: {action: {name: %s}}" }
-    let ret = true
+    let ret = null
     let roleCheck = null, kindCheck = null
     if (permission.name === 'all') { ret = true }
     if (permission.name === 'logged_in' || permission.name === 'user') { ret = curr_user ? true : false }
@@ -93,8 +93,8 @@ const checkPermission = (permission) => {
     if (permission.name === 'admin') { permission = { role: 3 } }
     if (permission.name === 'mod') { permission = { role: 2 } }
 
-    if (permission.role) { roleCheck = curr_user.user_role >= permission.role }
-    if (permission.kind) { kindCheck = curr_user.user_kind === permission.kind }
+    if (permission.role) { roleCheck = curr_user && curr_user.user_role >= permission.role }
+    if (permission.kind) { kindCheck = curr_user && curr_user.user_kind === permission.kind }
 
     if (permission.join === 'or') {
         ret = ret || roleCheck || kindCheck || permission.custom
@@ -113,6 +113,7 @@ const checkPermission = (permission) => {
 //This function takes in an action (index, view, edit, new), and the field permissions.
 const checkFieldPermission = (action, fieldPermissions) => {
     let ret = true
+
     if (fieldPermissions) {
         if (fieldPermissions['all']) {
             ret = checkPermission(fieldPermissions['all'])

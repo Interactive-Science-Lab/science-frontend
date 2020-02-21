@@ -15,8 +15,14 @@ class ExperimentLab extends React.Component {
     render() {
 
 
-        return <div id="wholeTable">
+        return <div id="wholeTable" style={{position:'relative'}}>
+
+<div className="ttiphover" style={{ cursor: 'pointer' }}>
+                            <h1>?</h1>
+                            <p className="ttip" style={{top: '-30px', bottom: 'auto'}}>This is the table. Drop items here to make them easiser to work with, and either clean them or put them away.</p>
+                        </div>
             <div id="tableTop">
+                
                 <div id="tableLeft">
                     <DropContainer {...this.props} dropType="drop-column" amount={3} />
                 </div>

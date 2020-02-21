@@ -22,7 +22,7 @@ class FormFields extends React.Component {
         return <Form.Group>
 
                 <Form.Label>
-                    {formHelpers.printifyName(field.name)}
+                    {field.settings[1].label ? formHelpers.printifyName(field.name) : null}
                     { /* Add any notes for any fields here */}
                     {settingHelper.fieldNotes(field)}
                 </Form.Label>

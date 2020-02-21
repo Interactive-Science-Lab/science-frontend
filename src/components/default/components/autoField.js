@@ -30,8 +30,8 @@ class Page extends React.Component {
             {field.settings[1].fieldType === 'html' ? <div dangerouslySetInnerHTML={{ __html: field.value }} /> : ""}
             {field.settings[1].fieldType[0] === 'select-draft' ? (field.value !== 'public' ? field.value : "") : ""}
             {field.settings[1].fieldType[0] === 'select-open' ? field.value : ""}
-            {field.settings[1].fieldType[0] === 'select-custom' ? field.value : ""}
-            {field.settings[1].fieldType === 'boolean' ? field.name + ": " + field.value : ""}
+            {field.settings[1].fieldType[0] === 'select-custom' ? field.settings[1].fieldType[1].map(o => o[0] === field.value ? o[1] : null) : ""}
+            {field.settings[1].fieldType === 'boolean' ? (field.value ? "Yes" : "No") : ""}
             {field.settings[1].fieldType === 'object' ? <div>
                 {Object.entries(field.value || {}).map(f => <div>
                     {f[0]}: {JSON.stringify(f[1])}

@@ -29,13 +29,13 @@ export default  [
     // {name: "Help", view: "all", symbol: "info-circle", links: [
     //     {name: "Support/Bug Report", view: "all", link: '/support_tickets/new', symbol: "bug"},
     // ]},
-    {name: "Site Settings [ADMIN]", view: "admin", symbol: "user-cog", links: [   
+    {name: "Site Settings", view: "admin", symbol: "user-cog", links: [   
         {name: "User List", view: 'admin', link: '/users', symbol: "users"},
         {name: "Feedback", view: 'admin', link: '/feedback', symbol: "comments"},
         //{name: "Page List", view: 'admin', link: '/pages', symbol: "cogs"},
         //{name: "Support Tickets", view: 'admin', link: '/support_tickets', symbol: "comments"},
     ]},
-    {name: "Lab Settings [ADMIN]", view: "admin", symbol: "tools", links: [   
+    {name: "Lab Settings", view: "admin", symbol: "tools", links: [   
         {name: "Experiments", view: 'admin', link: '/experiments', symbol: "microscope"},
         {name: "Containers", view: 'admin', link: '/containers', symbol: "flask"},
         {name: "Objects", view: 'admin', link: '/objects', symbol: "magnet"},

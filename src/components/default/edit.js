@@ -67,7 +67,7 @@ class Edit extends React.Component {
       }
     } else {
       //Error display
-      return permissionError
+      return this.settings.name.friendly === 'feedback' ? <h1>Thank you for your feedback!</h1> : permissionError
     }
 
 

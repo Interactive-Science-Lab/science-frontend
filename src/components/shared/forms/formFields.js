@@ -17,9 +17,9 @@ class FormFields extends React.Component {
 
     render() {
         return resourceFullFields(this.settings, this.props.item).map(field => {
-            if(settingHelper.checkFieldPermission('edit', field.settings)){
+            if(settingHelper.checkFieldPermission(this.props.existing ? 'edit' : 'new', field.settings[1].permissions)){
                 if(field.settings[1].customForm) {
-                    return field.settings[1].customForm(field, this.handleChange)
+                    return field.settings[1].customForm(field, this.props.updateItem)
                 } else {
                     return <DefaultFormField field={field} settings={this.settings} item={this.props.item} {...this.props} />
                 }

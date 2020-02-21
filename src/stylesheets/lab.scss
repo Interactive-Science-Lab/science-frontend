@@ -29,8 +29,10 @@ $schoolBrick: '/images/brick1.png';
 $roughStone: '/images/texture_stonerough.png';
 $pattern: '/images/gray-tile-pattern.png';
 
-$wallTexture: linear-gradient(lighten($envColor, $contrast), darken($envColor, $contrast)), url($schoolBrick);
-$floorTexture: linear-gradient(darken($floorColor, $contrast/2), $floorColor), url($pattern);
+$room: '/images/room.png';
+
+$wallTexture: linear-gradient(lighten($envColor, $contrast), darken($envColor, $contrast));
+$floorTexture: linear-gradient(darken($floorColor, $contrast/2), $floorColor);
 
 $metal: '/images/texture_metalplate.png';
 
@@ -39,9 +41,12 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
 
 #labScreen { 
     width: 100%;
-    height: 95vh;
+    position:relative;
+    height: 100vh;
     background-color: black; 
-    border:4px inset black;
+    background-image: url($room);
+    background-size: cover;
+    //border:4px inset black;
     * { font-size: 15px; }
         -webkit-touch-callout: none;
         -webkit-user-select: none;
@@ -58,15 +63,15 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
 
 #topHalf {
     height:40%;
-    background: $wallTexture;
+    //background: $wallTexture;
     display: flex;
     background-size: contain;
-    border-bottom: 4px solid darken($envColor, $contrast);
+    //border-bottom: 4px solid darken($envColor, $contrast);
 }
 #bottomHalf {
-    border-top: 4px solid  darken($floorColor, $contrast);
+    //border-top: 4px solid  darken($floorColor, $contrast);
     height:60%;
-    background: $floorTexture;
+    //background: $floorTexture;
     display: flex;
     background-size: cover;
 }
@@ -82,6 +87,7 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
     padding:10px;
     border-radius: 20px;
     .item-options { display:none;}
+    position:relative;
 }
 
 #shelveSection {
@@ -145,7 +151,7 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
     margin-top: 2%;
     margin-left: 2%;
     padding-right:60px;
-    background: url('/images/desk.png');
+    background: url('/images/tabledesk.png');
         background-size:100% 100%;
 }
 
@@ -163,7 +169,7 @@ $tableColor: rgba(19, 17, 15, .65);
         
 
     display: flex;
-    padding:20px 20px 20px 80px;
+    padding:0px 0px 20px 80px;
     flex-wrap: wrap;
     // border: 2px outset lighten($tableColor, $contrast/2);
     // border-top-width: 1px;
@@ -175,11 +181,11 @@ $tableColor: rgba(19, 17, 15, .65);
 }
 
 #tableLeft {
-    width:80%;
+    width:75%;
 }
 
 #tableSink {
-    width:20%;
+    width:25%;
     
 }
 
@@ -203,7 +209,7 @@ $tableColor: rgba(19, 17, 15, .65);
 
 $dropColor: rgba(180,180,180,.1);
 
-.dropzone:empty {
+.dropzone:empty, .dropzoneempty {
     border: 3px dashed #bbd;
 }
 
@@ -281,10 +287,14 @@ $dropColor: rgba(180,180,180,.1);
     cursor: grab;
     border-radius:4px;
 }
+.drag-item:hover {
+    background-color:rgba(255,255,255,.4)
+}
+
 .tool-item > .drag-item {
     display: flex;
     padding:20px;
-    border: 1px solid #222;
+    border: 2px solid #222;
     height:100%;
     max-height:100%;
     align-items: center;
@@ -337,4 +347,61 @@ $dropColor: rgba(180,180,180,.1);
     padding: 10px;
     border-bottom-left-radius:4px;
     right:0;
+    
+}
+
+.ttip {
+    position:absolute;
+    background-color: $d-primary-color;
+    color: $ll-primary-color;
+    padding: 10px;
+    bottom:0;
+    right:0;
+    border-radius:10px;
+    display:none;
+}
+
+.ttiphover:hover > .ttip {
+    display:block;
+}
+
+.ttiphover > h1 {
+    background: $d-primary-color;
+    display:inline-block;
+    padding:10px;
+    font-size:32px;
+    width:52px;
+    border-radius:50%;
+}
+
+.ttipalt > h1{
+    display:inline-block;
+    font-family: $textFont;
+}
+
+.ttipalt:hover > .ttip {
+    display:block;
+    width:100%;
+}
+
+
+#gameMessage {
+    position:absolute;
+    display:block;
+    bottom:32px;
+    width:80%;
+    margin:20px 10%;
+    text-align:center;
+    z-index:100;
+    background-color:$l-primary-color;
+    border:6px outset $d-primary-color;
+    padding:8px;
+    border-radius:20px;
+}
+
+#gameMessage .fas {
+    border-radius:50%;
+    border:2px solid $dark-color;
+    padding:4px;
+    cursor: pointer;
 }

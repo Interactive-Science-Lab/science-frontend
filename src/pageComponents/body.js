@@ -21,7 +21,7 @@ function Body(props) {
 
 			<Route path="/lab/:id?">
 				<div className="body" style={{paddingLeft:'280px'}}>
-					<div className="page-container">
+					<div className="">
 						<ExperimentComponent />
 					</div>
 				</div>

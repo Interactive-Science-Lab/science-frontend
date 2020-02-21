@@ -21,8 +21,10 @@ class ExperimentLab extends React.Component {
             hoverPos: {},
             hoverItem: {},
             dragItem: {},
+            debug: "",
             masterItemList: { objects: [], containers: [], substances: [], tools: [] },
-            experiment: {}
+            experiment: {},
+            message: "Welcome! Please choose an experiment."
         }
     }
 
@@ -31,37 +33,40 @@ class ExperimentLab extends React.Component {
         this.state.itemsState.forEach(inst => inst.instance === Number.parseInt(id) ? ret = inst : null)
         return ret
     }
-    
+
     emptyItem = (e) => {
-        const instance_id =  Number.parseInt(e.target.getAttribute('data-instance')) 
+        const instance_id = Number.parseInt(e.target.getAttribute('data-instance'))
         const instance = this.get_instance(instance_id)
 
-        if(instance.itemType === 'containers') {
+        //let record = null
+        //this.state.masterItemList['containers'].map(i => i.container_id === instance.id ? record = i : null)
+
+        if (instance.itemType === 'containers') {
             instance.contents = []
             instance.imgNum = 0
-            instance.image = `cylinder.png`
+            instance.image = null
         }
 
         //Remove that object from state & add the edited back in
         let newState = this.state.itemsState.filter(obj => Number.parseInt(instance_id) !== obj.instance)
         newState.push(instance)
-        this.setState({itemsState: newState})
+        this.setState({ itemsState: newState })
     }
 
-    
+
     removeItem = (e) => {
-        const instance_id =  Number.parseInt(e.target.getAttribute('data-instance')) 
-   
+        const instance_id = Number.parseInt(e.target.getAttribute('data-instance'))
+
         //Remove that object from state.
         let newState = this.state.itemsState.filter(obj => Number.parseInt(instance_id) !== obj.instance)
-        this.setState({itemsState: newState})
+        this.setState({ itemsState: newState })
     }
 
     updateItemPosition = (inst_id, newState, hoverPos, parent_inst_id) => {
         let updateObj = {}
         let parent = null
 
-        if(parent_inst_id){
+        if (parent_inst_id) {
             //Map the state to store the parent in the variable
             newState.map(obj => Number.parseInt(parent_inst_id) === obj.instance ? parent = obj : null)
             updateObj = parent.usedItem
@@ -85,20 +90,44 @@ class ExperimentLab extends React.Component {
     addItemToContainer = (newState, dragItem, hoverItem) => {
         let hoverInstance = {}
         let dragInstance = {}
+        let hoverRecord = null
+        let dragRecord = null
 
         newState.map(obj => {
             if (dragItem.instance === obj.instance) { dragInstance = obj }
             else if (obj.instance === hoverItem.instance) { hoverInstance = obj }
         })
 
-        newState = newState.filter(obj => obj.instance !== dragItem.instance && obj.instance != hoverItem.instance)
+        this.state.masterItemList['containers'].map(i => i.container_id === hoverInstance.id ? hoverRecord = i : null)
+        this.state.masterItemList['objects'].map(i => i.object_item_id === dragInstance.id ? dragRecord = i : null)
 
-        delete dragInstance.pos
-        delete dragInstance.area
+        let totalVolume = 0;
+        if (hoverInstance.contents) {
+            {
+                hoverInstance.contents.map(c => <div>
+                    {this.state.masterItemList[c.itemType].map(r =>
+                        (r.substance_id === c.id && c.itemType === 'substances') || (r.object_item_id === c.id && c.itemType === 'objects') ?
+                            totalVolume += (r.object_volume || r.substance_dispense_volume || 0) : "")}
+                </div>)
+            }
+        }
 
-        hoverInstance.contents.push(dragInstance)
-        newState.push(hoverInstance)
+        if (totalVolume <= (hoverRecord.container_volume - dragRecord.object_volume)) {
+            newState = newState.filter(obj => obj.instance !== dragItem.instance && obj.instance != hoverItem.instance)
+
+            delete dragInstance.pos
+            delete dragInstance.area
+
+            hoverInstance.contents.push(dragInstance)
+            newState.push(hoverInstance)
+        }
+        else {
+            this.setState({ message: "This container is filled to the brim." })
+        }
         return newState
+
+
+
     }
 
     addItemToTool = (newState, dragItem, hoverItem) => {
@@ -156,23 +185,48 @@ class ExperimentLab extends React.Component {
 
         newState.map(obj => 4 === obj.area && 0 === obj.pos ? updateObj = obj : null)
 
-        if (updateObj.name && updateObj.itemType==='containers') {
-            newState = newState.filter(obj => 4 !== obj.area || 0 !== obj.pos)
-            updateObj.contents.push({
-                instance: this.newInstanceId(this.state.itemsState),
-                itemType: 'substances',
-                id: 1,
-                name: "Water"
-            })
-            let imgNum = updateObj.imgNum || 0
-            updateObj.image = `cylinder-${imgNum > 80 ? 80 : imgNum}-light-blue.png`
-            updateObj.imgNum = imgNum + 10
-            newState.push(updateObj)
+        if (updateObj.name && updateObj.itemType === 'containers') {
+            let totalVolume = 0;
+            if (updateObj.contents) {
+                {
+                    updateObj.contents.map(c => <div>
+                        {this.state.masterItemList[c.itemType].map(r =>
+                            (r.substance_id === c.id && c.itemType === 'substances') || (r.object_item_id === c.id && c.itemType === 'objects') ?
+                                totalVolume += (r.object_volume || r.substance_dispense_volume || 0) : "")}
+                    </div>)
+                }
+            }
+
+            let updateRecord = null
+            this.state.masterItemList['containers'].map(i => i.container_id === updateObj.id ? updateRecord = i : null)
+
+            if (totalVolume <= (updateRecord.container_volume - 10)) {
+
+                newState = newState.filter(obj => 4 !== obj.area || 0 !== obj.pos)
+                updateObj.contents.push({
+                    instance: this.newInstanceId(this.state.itemsState),
+                    itemType: 'substances',
+                    id: 1,
+                    name: "Water"
+                })
+                let imgNum = updateObj.imgNum || 0
+
+                if (updateObj.name === 'Graduated Cylinder') {
+                    updateObj.image = `cylinder-${imgNum > 80 ? 80 : imgNum}-light-blue.png`
+                }
+
+                updateObj.imgNum = imgNum + 10
+                newState.push(updateObj)
+            }
+            else {
+                this.setState({ message: "This container is filled to the brim." })
+            }
+        } else {
+            this.setState({ message: "You need to drag a container to the sink in order to get water." })
         }
+
+
         this.setState({ itemsState: newState })
-
-
-        //document.body.style.pointerEvents = "auto"
 
     }
 
@@ -210,6 +264,8 @@ class ExperimentLab extends React.Component {
                 updateObj.usedItem = {}
             }
             newState.push(updateObj)
+        } else {
+            this.setState({ message: "You must move to an empty space first." })
         }
 
         this.setState({ itemsState: newState, hoverItem: {}, hoverPos: {}, dragItem: {} })
@@ -231,7 +287,7 @@ class ExperimentLab extends React.Component {
         //e.target.className = 'drag-item'
         const objType = e.target.getAttribute('data-itemtype')
         const inst_id = Number.parseInt(e.target.getAttribute('data-instance'))
-        
+
         const parent_inst_id = Number.parseInt(e.target.getAttribute('data-parent-instance'))
 
         const { hoverPos, hoverItem, dragItem } = this.state
@@ -245,11 +301,22 @@ class ExperimentLab extends React.Component {
             newState = this.addItemToTool(newState, dragItem, hoverItem)
         }
 
+        else if (hoverItem.instance !== dragItem.instance) {
+            if (hoverItem.instance && hoverItem.itemType === 'containers' && dragItem.itemType === 'containers') {
+                this.setState({ message: "You cannot drag a container to a container." })
+            } else if (hoverItem.instance && hoverItem.itemType === 'containers' && dragItem.itemType === 'tools') {
+                this.setState({ message: "You cannot drag a tool to a container, you must drag the container to the tool." })
+            } else if (hoverItem.instance && hoverItem.itemType === 'tools' && dragItem.itemType === 'tools') {
+                this.setState({ message: "You cannot drag a tool to a tool." })
+            }
+        }
+
+
         this.setState({ itemsState: newState, hoverItem: {}, hoverPos: {}, dragItem: {} })
     }
 
     dragOver = (e) => {
-        if (e.target.matches('.dropzone')) {
+        if (e.target.matches('.dropzone') || e.target.matches('.dropzoneempty')) {
             e.preventDefault();
         }
         else if (this.state.hoverItem.itemType === 'containers' || this.state.hoverItem.itemType === 'tools') {
@@ -275,8 +342,30 @@ class ExperimentLab extends React.Component {
                 hoverPos: { pos, area }
             })
         }
-        else {
+
+        if (e.target.closest('.dropzone')) {
+            let dropzone = e.target.closest('.dropzone')
+            if (e.target.closest('.drag-item')) {
+                let dragItem = e.target.closest('.drag-item')
+                const pos = Number.parseInt(dropzone.getAttribute('data-pos'))
+                const area = Number.parseInt(dropzone.getAttribute('data-area'))
+                this.setState({
+                    hoverItem: {
+                        instance: Number.parseInt(dragItem.getAttribute('data-instance')),
+                        itemType: dragItem.getAttribute('data-itemType')
+                    },
+                    hoverPos: { pos, area }
+                })
+            } else {
+                const pos = Number.parseInt(dropzone.getAttribute('data-pos'))
+                const area = Number.parseInt(dropzone.getAttribute('data-area'))
+                this.setState({
+                    hoverPos: { pos, area }
+                })
+
+            }
         }
+
     }
     dragLeave = (e) => {
         if (e.target.matches('.dropzone')) {
@@ -324,7 +413,9 @@ class ExperimentLab extends React.Component {
     componentDidUpdate = async () => {
         this.dragListeners();
         this.setExperiment();
-
+        if (this.state.message) {
+            setTimeout(() => { this.setState({ message: null }) }, 3000);
+        }
     }
 
     setExperiment = async () => {
@@ -380,14 +471,19 @@ class ExperimentLab extends React.Component {
 
     }
 
+    clearMessage = () => {
+        this.setState({ message: null })
+    }
+
     render() {
         const devMode = true
 
         return <LabContext.Provider value={{ masterItemList: this.state.masterItemList, itemsState: this.state.itemsState }} >
 
-
-
             <div id="labScreen">
+                {this.state.message ?
+                    <div id="gameMessage">{this.state.message} <span className="fas fa-times" onClick={this.clearMessage}></span></div> :
+                    null}
                 <div id="topHalf">
                     <Tray />
                     <Cupboard />

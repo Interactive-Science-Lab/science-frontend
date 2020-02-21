@@ -22,12 +22,15 @@ class ExperimentLab extends React.Component {
                 <DropContainer {...this.props} dropType="drop-section" amount={8} />
             </div>
             <div style={{textAlign:'center', padding: '5px', width: this.state.showTray ? '20%' : '100%', fontSize: '10px'}}>
-                Hold items here<br />
-                ?<br />
-                <i>Materials Tray</i>
-                <div onClick={this.toggleTray} style={{cursor:'pointer'}}>
-                    <h1>{ this.state.showTray ? "<" : ">" }</h1>
-                    { this.state.showTray ? "close" : "open" }
+                
+                
+                <div className="ttiphover" style={{cursor:'pointer'}}>
+                    <h1>?</h1>
+                    <p className="ttip">You can store items here when you are not using them.</p>
+                </div>
+                <div className="ttiphover" onClick={this.toggleTray} style={{cursor:'pointer'}}>
+                    <h1>{ this.state.showTray ? <span className="fas fa-arrow-left"></span> : <span className="fas fa-arrow-right"></span> }</h1>
+                    <p className="ttip">{ this.state.showTray ? "Hide tray" : "Show tray" }</p>
                 </div>
             </div>
         </div>
