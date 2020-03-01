@@ -102,7 +102,8 @@ const checkPermission = (permission) => {
         //Put them in an array and map. If they are exactly false, return false.
         [ret, roleCheck, kindCheck, permission.custom].forEach((c) => c === false ? ret = false : null)
     }
-    return ret
+    console.log(permission, ret, roleCheck, curr_user)
+    return ret === false ? false : true
 }
 
 //----------------------

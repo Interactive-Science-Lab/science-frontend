@@ -20,6 +20,7 @@ class ExperimentLab extends React.Component {
             <Shelf list={masterItemList.objects} side={'right'} itemType={'objects'} />
             <Shelf list={masterItemList.containers} side={'right'} itemType={'containers'} />
             <Shelf list={masterItemList.tools} side={'left'} itemType={'tools'} />
+            <Shelf list={masterItemList.substances} side={'left'} itemType={'substances'} />
         </div>
     }
 

@@ -11,9 +11,10 @@ import { UserContext } from 'helpers/userContext'
 class LogIn extends React.Component {
     constructor(props) {
         super(props)
+        const params = new URLSearchParams(window.location.search)
         this.state = {
           user: {
-            username: "",
+            username: params.get('class'),
             password: ""
           },
           formColor: 'transparent',
@@ -67,7 +68,7 @@ class LogIn extends React.Component {
                 
           <h2>Login</h2>
                 <Form.Group>
-                    <Form.Label>Username or Email</Form.Label>
+                    <Form.Label>Class name:</Form.Label>
                     <Form.Control
                       onChange={this.handleChange} type="text"
                       name="username" placeholder="username"
@@ -75,7 +76,7 @@ class LogIn extends React.Component {
                     <Form.Text>Please enter.</Form.Text>
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Password</Form.Label>
+                    <Form.Label>Access code:</Form.Label>
                     <Form.Control
                       onChange={this.handleChange} type="password"
                       name="password" placeholder="Password"

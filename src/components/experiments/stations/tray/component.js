@@ -17,9 +17,9 @@ class ExperimentLab extends React.Component {
     }
 
     render() {
-        return <><div id='studentTray' style={{width: this.state.showTray ? '60%' : '15%'}} >
+        return <><div id='studentTray' style={{width: this.state.showTray ? '30%' : '15%'}} >
             <div style={{width: this.state.showTray ? '80%' : '0%', display:  this.state.showTray ? 'block' : 'none'}}>
-                <DropContainer {...this.props} dropType="drop-section" amount={8} />
+                <DropContainer {...this.props} dropType="drop-section" amount={6} />
             </div>
             <div style={{textAlign:'center', padding: '5px', width: this.state.showTray ? '20%' : '100%', fontSize: '10px'}}>
                 

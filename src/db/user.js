@@ -1,11 +1,11 @@
 const base = 'user';
 
 const permissions = {
-    index: 'mod',
-    view: 'all',
-    create: 'all',
-    edit: 'self',
-    delete: 'self'
+    index: {name: 'mod'},
+    view: {name: 'all'},
+    create: {name: 'all'},
+    edit: {name: 'self'},
+    delete: {name: 'self'}
 };
 
 const features = {

@@ -13,6 +13,12 @@ import Examiner from './stations/examiner/component'
 
 import { LabContext, labDefaults } from './db/labContext'
 
+import ClassHelpers from './classes/itemsState'
+import ContainerHelper from './classes/containers'
+import ToolHelper from './classes/tools'
+import MasterListHelper from './classes/masterList'
+import DragHelper from './classes/drag'
+
 class ExperimentLab extends React.Component {
     constructor(props) {
         super(props)
@@ -26,357 +32,6 @@ class ExperimentLab extends React.Component {
             experiment: {},
             message: "Welcome! Please choose an experiment."
         }
-    }
-
-    get_instance = (id) => {
-        let ret = {}
-        this.state.itemsState.forEach(inst => inst.instance === Number.parseInt(id) ? ret = inst : null)
-        return ret
-    }
-
-    emptyItem = (e) => {
-        const instance_id = Number.parseInt(e.target.getAttribute('data-instance'))
-        const instance = this.get_instance(instance_id)
-
-        //let record = null
-        //this.state.masterItemList['containers'].map(i => i.container_id === instance.id ? record = i : null)
-
-        if (instance.itemType === 'containers') {
-            instance.contents = []
-            instance.imgNum = 0
-            instance.image = null
-        }
-
-        //Remove that object from state & add the edited back in
-        let newState = this.state.itemsState.filter(obj => Number.parseInt(instance_id) !== obj.instance)
-        newState.push(instance)
-        this.setState({ itemsState: newState })
-    }
-
-
-    removeItem = (e) => {
-        const instance_id = Number.parseInt(e.target.getAttribute('data-instance'))
-
-        //Remove that object from state.
-        let newState = this.state.itemsState.filter(obj => Number.parseInt(instance_id) !== obj.instance)
-        this.setState({ itemsState: newState })
-    }
-
-    updateItemPosition = (inst_id, newState, hoverPos, parent_inst_id) => {
-        let updateObj = {}
-        let parent = null
-
-        if (parent_inst_id) {
-            //Map the state to store the parent in the variable
-            newState.map(obj => Number.parseInt(parent_inst_id) === obj.instance ? parent = obj : null)
-            updateObj = parent.usedItem
-            parent.usedItem = {}
-            newState.push(parent)
-        }
-        else {
-            //Map the state to store the object we're updating in the variable
-            newState.map(obj => Number.parseInt(inst_id) === obj.instance ? updateObj = obj : null)
-            //Remove that object from state.
-            newState = newState.filter(obj => Number.parseInt(inst_id) !== obj.instance)
-        }
-
-        updateObj.pos = hoverPos.pos
-        updateObj.area = hoverPos.area
-        newState.push(updateObj)
-
-        return newState
-    }
-
-    addItemToContainer = (newState, dragItem, hoverItem) => {
-        let hoverInstance = {}
-        let dragInstance = {}
-        let hoverRecord = null
-        let dragRecord = null
-
-        newState.map(obj => {
-            if (dragItem.instance === obj.instance) { dragInstance = obj }
-            else if (obj.instance === hoverItem.instance) { hoverInstance = obj }
-        })
-
-        this.state.masterItemList['containers'].map(i => i.container_id === hoverInstance.id ? hoverRecord = i : null)
-        this.state.masterItemList['objects'].map(i => i.object_item_id === dragInstance.id ? dragRecord = i : null)
-
-        let totalVolume = 0;
-        if (hoverInstance.contents) {
-            {
-                hoverInstance.contents.map(c => <div>
-                    {this.state.masterItemList[c.itemType].map(r =>
-                        (r.substance_id === c.id && c.itemType === 'substances') || (r.object_item_id === c.id && c.itemType === 'objects') ?
-                            totalVolume += (r.object_volume || r.substance_dispense_volume || 0) : "")}
-                </div>)
-            }
-        }
-
-        if (totalVolume <= (hoverRecord.container_volume - dragRecord.object_volume)) {
-            newState = newState.filter(obj => obj.instance !== dragItem.instance && obj.instance != hoverItem.instance)
-
-            delete dragInstance.pos
-            delete dragInstance.area
-
-            hoverInstance.contents.push(dragInstance)
-            newState.push(hoverInstance)
-        }
-        else {
-            this.setState({ message: "This container is filled to the brim." })
-        }
-        return newState
-
-
-
-    }
-
-    addItemToTool = (newState, dragItem, hoverItem) => {
-        let hoverInstance = {}
-        let dragInstance = {}
-
-        newState.map(obj => {
-            if (dragItem.instance === obj.instance) { dragInstance = obj }
-            else if (obj.instance === hoverItem.instance) { hoverInstance = obj }
-        })
-
-        newState = newState.filter(obj => obj.instance !== dragItem.instance && obj.instance != hoverItem.instance)
-
-        delete dragInstance.pos
-        delete dragInstance.area
-
-        hoverInstance.usedItem = dragInstance
-        newState.push(hoverInstance)
-        return newState
-    }
-
-
-    checkPositionFree = ({ pos, area }, hoverItem, newState) => {
-        let posFree = (pos || pos === 0) && area
-        newState.map(item => item.pos === pos && item.area === area ? posFree = false : null)
-        return posFree
-    }
-
-    newInstanceId = (itemsState) => {
-        let new_instance_id = 0
-        itemsState.map(item => {
-            if (item.instance > new_instance_id) {
-                new_instance_id = item.instance
-            }
-            if (item.contents) {
-                item.contents.map(i => {
-                    if (i.instance > new_instance_id) {
-                        new_instance_id = i.instance
-                    }
-                })
-            }
-            if (item.usedItem) {
-                if (item.usedItem.instance > new_instance_id) {
-                    new_instance_id = item.usedItem.instance
-                }
-            }
-        })
-        return new_instance_id + 1
-    }
-
-    fillWater = async (e) => {
-        //document.body.style.pointerEvents = "none"
-        let newState = this.state.itemsState
-        let updateObj = {}
-
-        newState.map(obj => 4 === obj.area && 0 === obj.pos ? updateObj = obj : null)
-
-        if (updateObj.name && updateObj.itemType === 'containers') {
-            let totalVolume = 0;
-            if (updateObj.contents) {
-                {
-                    updateObj.contents.map(c => <div>
-                        {this.state.masterItemList[c.itemType].map(r =>
-                            (r.substance_id === c.id && c.itemType === 'substances') || (r.object_item_id === c.id && c.itemType === 'objects') ?
-                                totalVolume += (r.object_volume || r.substance_dispense_volume || 0) : "")}
-                    </div>)
-                }
-            }
-
-            let updateRecord = null
-            this.state.masterItemList['containers'].map(i => i.container_id === updateObj.id ? updateRecord = i : null)
-
-            if (totalVolume <= (updateRecord.container_volume - 10)) {
-
-                newState = newState.filter(obj => 4 !== obj.area || 0 !== obj.pos)
-                updateObj.contents.push({
-                    instance: this.newInstanceId(this.state.itemsState),
-                    itemType: 'substances',
-                    id: 1,
-                    name: "Water"
-                })
-                let imgNum = updateObj.imgNum || 0
-
-                if (updateObj.name === 'Graduated Cylinder') {
-                    updateObj.image = `cylinder-${imgNum > 80 ? 80 : imgNum}-light-blue.png`
-                }
-
-                updateObj.imgNum = imgNum + 10
-                newState.push(updateObj)
-            }
-            else {
-                this.setState({ message: "This container is filled to the brim." })
-            }
-        } else {
-            this.setState({ message: "You need to drag a container to the sink in order to get water." })
-        }
-
-
-        this.setState({ itemsState: newState })
-
-    }
-
-    dragInventoryStart = (e) => {
-        e.dataTransfer.effectAllowed = "copy";
-
-        const itemType = e.target.getAttribute('data-itemType')
-        const id = Number.parseInt(e.target.getAttribute('data-id'))
-        const name = e.target.getAttribute('data-name')
-        const instance = this.newInstanceId(this.state.itemsState)
-
-
-        this.setState({
-            dragItem: {
-                instance,
-                itemType,
-                id,
-                name
-            }
-        })
-    }
-
-    dragInventoryEnd = (e) => {
-        const { hoverPos, hoverItem, dragItem } = this.state
-        let newState = this.state.itemsState
-
-        if (this.checkPositionFree(hoverPos, hoverItem, newState) && dragItem.itemType && dragItem.id) {
-            let updateObj = dragItem
-            updateObj.pos = hoverPos.pos
-            updateObj.area = hoverPos.area
-            if (updateObj.itemType === 'containers') {
-                updateObj.contents = []
-            }
-            if (updateObj.itemType === 'tools') {
-                updateObj.usedItem = {}
-            }
-            newState.push(updateObj)
-        } else {
-            this.setState({ message: "You must move to an empty space first." })
-        }
-
-        this.setState({ itemsState: newState, hoverItem: {}, hoverPos: {}, dragItem: {} })
-    }
-
-    dragStart = (e) => {
-        e.dataTransfer.effectAllowed = "move";
-
-        this.setState({
-            dragItem: {
-                instance: Number.parseInt(e.target.getAttribute('data-instance')),
-                itemType: e.target.getAttribute('data-itemType')
-            }
-        })
-        setTimeout(() => (this.className = 'invisible'))
-    }
-
-    dragEnd = (e) => {
-        //e.target.className = 'drag-item'
-        const objType = e.target.getAttribute('data-itemtype')
-        const inst_id = Number.parseInt(e.target.getAttribute('data-instance'))
-
-        const parent_inst_id = Number.parseInt(e.target.getAttribute('data-parent-instance'))
-
-        const { hoverPos, hoverItem, dragItem } = this.state
-        let newState = this.state.itemsState
-
-        if (this.checkPositionFree(hoverPos, hoverItem, newState)) {
-            this.updateItemPosition(inst_id, newState, hoverPos, parent_inst_id)
-        } else if (hoverItem.instance && hoverItem.itemType === 'containers' && dragItem.itemType !== 'containers' && dragItem.itemType !== 'tools') {
-            newState = this.addItemToContainer(newState, dragItem, hoverItem)
-        } else if (hoverItem.instance && hoverItem.itemType === 'tools' && dragItem.itemType !== 'tools') {
-            newState = this.addItemToTool(newState, dragItem, hoverItem)
-        }
-
-        else if (hoverItem.instance !== dragItem.instance) {
-            if (hoverItem.instance && hoverItem.itemType === 'containers' && dragItem.itemType === 'containers') {
-                this.setState({ message: "You cannot drag a container to a container." })
-            } else if (hoverItem.instance && hoverItem.itemType === 'containers' && dragItem.itemType === 'tools') {
-                this.setState({ message: "You cannot drag a tool to a container, you must drag the container to the tool." })
-            } else if (hoverItem.instance && hoverItem.itemType === 'tools' && dragItem.itemType === 'tools') {
-                this.setState({ message: "You cannot drag a tool to a tool." })
-            }
-        }
-
-
-        this.setState({ itemsState: newState, hoverItem: {}, hoverPos: {}, dragItem: {} })
-    }
-
-    dragOver = (e) => {
-        if (e.target.matches('.dropzone') || e.target.matches('.dropzoneempty')) {
-            e.preventDefault();
-        }
-        else if (this.state.hoverItem.itemType === 'containers' || this.state.hoverItem.itemType === 'tools') {
-            e.preventDefault();
-        }
-
-    }
-    dragEnter = (e) => {
-        if (e.target.matches('.dropzone')) {
-            const pos = Number.parseInt(e.target.getAttribute('data-pos'))
-            const area = Number.parseInt(e.target.getAttribute('data-area'))
-            this.setState({ hoverItem: {}, hoverPos: { pos, area } })
-        }
-        else if (e.target.matches('.drag-item')) {
-            const dropzone = e.target.closest('.dropzone')
-            const pos = Number.parseInt(dropzone.getAttribute('data-pos'))
-            const area = Number.parseInt(dropzone.getAttribute('data-area'))
-            this.setState({
-                hoverItem: {
-                    instance: Number.parseInt(e.target.getAttribute('data-instance')),
-                    itemType: e.target.getAttribute('data-itemType')
-                },
-                hoverPos: { pos, area }
-            })
-        }
-
-        if (e.target.closest('.dropzone')) {
-            let dropzone = e.target.closest('.dropzone')
-            if (e.target.closest('.drag-item')) {
-                let dragItem = e.target.closest('.drag-item')
-                const pos = Number.parseInt(dropzone.getAttribute('data-pos'))
-                const area = Number.parseInt(dropzone.getAttribute('data-area'))
-                this.setState({
-                    hoverItem: {
-                        instance: Number.parseInt(dragItem.getAttribute('data-instance')),
-                        itemType: dragItem.getAttribute('data-itemType')
-                    },
-                    hoverPos: { pos, area }
-                })
-            } else {
-                const pos = Number.parseInt(dropzone.getAttribute('data-pos'))
-                const area = Number.parseInt(dropzone.getAttribute('data-area'))
-                this.setState({
-                    hoverPos: { pos, area }
-                })
-
-            }
-        }
-
-    }
-    dragLeave = (e) => {
-        if (e.target.matches('.dropzone')) {
-        }
-        else if (e.target.matches('.drag-item')) {
-        }
-        else {
-        }
-    }
-    dragDrop = (e) => {
-        e.preventDefault();
     }
 
     componentDidMount = async () => {
@@ -401,6 +56,18 @@ class ExperimentLab extends React.Component {
                 tool_name: "Thermometer",
                 tool_properties: ['display_temperature'],
                 tool_image: 'thermometer.png'
+            },
+            {
+                tool_id: 3,
+                tool_name: "pH Meter",
+                tool_properties: ['display_ph'],
+                tool_image: 'thermometer.png'
+            },
+            {
+                tool_id: 4,
+                tool_name: "Strainer",
+                tool_properties: ['strain_container'],
+                tool_image: 'thermometer.png'
             }
         ]
 
@@ -420,14 +87,10 @@ class ExperimentLab extends React.Component {
 
     setExperiment = async () => {
         const experiment_id = this.props.match.params.id
-        console.log(this.props.match.params)
 
         if (experiment_id && this.state.experiment.experiment_id !== Number.parseInt(experiment_id)) {
             let experiment = await axios.get(api.apiPath(`/experiments/${experiment_id}`), curr_user)
             experiment = experiment.data
-
-            console.log(experiment)
-
             this.setState({ experiment, itemsState: experiment.experiment_start })
         }
     }
@@ -453,8 +116,6 @@ class ExperimentLab extends React.Component {
         for (const dropzone of dropzones) {
             dropzone.addEventListener('dragover', this.dragOver)
             dropzone.addEventListener('dragenter', this.dragEnter)
-            dropzone.addEventListener('dragleave', this.dragLeave)
-            dropzone.addEventListener('drop', this.dragDrop)
         }
 
         for (const waterButton of waterButtons) {
@@ -468,8 +129,26 @@ class ExperimentLab extends React.Component {
         for (const emptyButton of emptyButtons) {
             emptyButton.addEventListener('click', this.emptyItem)
         }
-
     }
+
+    emptyItem = (e) => {
+        //Get the instance off of the event
+        const instance = ClassHelpers.get_instance_by_event(this.state.itemsState, e)
+        //Empty the container
+        ContainerHelper.emptyContainer(instance)
+        //Update the item in state
+        ClassHelpers.update_item(this, instance)
+    }
+
+    removeItem = (e) => { ClassHelpers.remove_item_from_event(this, e) }
+    fillWater = async (e) => { ContainerHelper.fillWater(this) }
+
+    dragInventoryStart = (e) => { DragHelper.dragInventoryStart(this, e) }
+    dragInventoryEnd = (e) => { DragHelper.dragInventoryEnd(this, e) }
+    dragStart = (e) => { DragHelper.dragStart(this, e) }
+    dragOver = (e) => { DragHelper.dragOver(this, e) }
+    dragEnter = (e) => { DragHelper.dragEnter(this, e) }
+    dragEnd = (e) => { DragHelper.dragEnd(this, e) }
 
     clearMessage = () => {
         this.setState({ message: null })
@@ -504,12 +183,6 @@ class ExperimentLab extends React.Component {
                     </div>)
 
                 }</div></div> : null}
-
-
-
-
-
-
         </LabContext.Provider>
     }
 

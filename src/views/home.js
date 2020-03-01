@@ -7,13 +7,21 @@ import { curr_user } from 'helpers/api'
 function Home(props) {
 	const squares = [
 		{
-			title: "Log In",
-			link: "/auth/login"
+			title: "Physics",
+			link: "/auth/login?class=physics2020"
 		},
 		{
-			title: "Contact",
-			link: "/feedback/new"
+			title: "Chemistry",
+			link: "/auth/login?class=chemistry2020"
 		},
+		{
+			title: "Biology",
+			link: "/auth/login?class=biology2020"
+		},
+		{
+			title: "Anatomy",
+			link: "/auth/login?class=anatomy2020"
+		}
 	]
 
 	return <div style={{ 
@@ -40,14 +48,15 @@ function Home(props) {
 					<h2>Welcome back!</h2>
 					<h4></h4>
 					</div> : <div>
-					<h2>{siteTitle} Portal</h2>
-					<h4>An online, interactive science lab allowing you to perform experiments in your browser</h4>
+					<h2>Lab Portal</h2>
 					</div> }
 					
 
 					{curr_user ?
 						<div>
-							<Link className="nice-button" to='/lab'><h3>Go To Lab</h3></Link><br />
+							<Link className="nice-button" to='/lab'>
+								<h3>Go To {curr_user.user_kind === 'end_user' ? ['', 'Biology', 'Chemistry', 'Physics'][curr_user.user_role] + ' ' : ''}Lab</h3>
+							</Link><br />
 							<Link className="nice-button" to='/feedback/new'><h3>Contact</h3></Link><br />
 							{ curr_user.user_kind === 'admin_user' ? <div>
 							<Link className="nice-button" to='/experiments'><h3>Admin Settings</h3></Link></div> : ""}
