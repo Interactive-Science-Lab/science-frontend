@@ -34,7 +34,7 @@ class ExperimentLab extends React.Component {
                 </div>
             </div>
         </div>
-        <div  style={{width: this.state.showTray ? '0%' : '45%'}}>
+        <div  style={{width: this.state.showTray ? '0%' : '15%'}}>
 
         </div>
         </>

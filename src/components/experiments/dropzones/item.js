@@ -89,7 +89,7 @@ class Item extends React.Component {
 
         if (item.name) {
             masterItemList[item.itemType].map(r => (r.tool_id === item.id && item.itemType === 'tools') || (r.container_id === item.id && item.itemType === 'containers') || (r.object_item_id === item.id && item.itemType === 'objects') ? record = r : "")
-            console.log(record)
+            
             return <span className='drag-item lab-action' data-itemType={item.itemType} data-instance={item.instance} draggable >
                 <span>{item.name}</span>
                 <div className="">
@@ -97,7 +97,7 @@ class Item extends React.Component {
                     <div className='item-name'>
                         <img
                             draggable={false}
-                            src={`/images/${item.image || record.object_image || record.tool_image || record.container_image}`}
+                            src={`/images/${item.image || record.sprite }`}
                         />
 
 
@@ -164,8 +164,19 @@ class Item extends React.Component {
                         </div> : ""}
                         {item.itemType === 'tools' ? <div>
                             <span data-instance={item.instance} className='format-link lab-action fas fa-trash remove-item'><span>Put Away</span></span>
+                            
+                            {record.tool_properties.indexOf('strain') > -1 ? <span>
+                            
+                            <span data-instance={item.instance} className='format-link lab-action fas fa-filter strain-item'><span>Strain</span></span> 
+                            <span data-instance={item.instance} className='format-link lab-action fas fa-sync combine-strain-item'><span>Combine</span></span> 
+                            
+                            </span>
+                            : "" }
                         </div> : ""}
                         {item.itemType === 'objects' ? <div>
+                            <span data-instance={item.instance} className='format-link lab-action fas fa-trash remove-item'><span>Put Away</span></span>
+                        </div> : ""}
+                        {item.itemType === 'substances' ? <div>
                             <span data-instance={item.instance} className='format-link lab-action fas fa-trash remove-item'><span>Put Away</span></span>
                         </div> : ""}
                     </div>

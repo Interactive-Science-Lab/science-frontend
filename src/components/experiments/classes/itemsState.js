@@ -64,7 +64,8 @@ function updateItemPosition (inst_id, itemsState, hoverPos, parent_inst_id) {
         updateObj = parent.usedItem
         //Resetting the parent's space and pushing it to the the itemsState.
         parent.usedItem = {}
-        itemsState.push(parent)
+        
+        //itemsState.push(parent)
     }
     //If we're just moving an item, simple:
     else {

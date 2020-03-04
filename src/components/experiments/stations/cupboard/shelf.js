@@ -26,11 +26,13 @@ class ExperimentLab extends React.Component {
                 {list.map(item =>
                     <div
                         draggable
-                        className="inventory-item"
+                        className={`inventory-item `}
                         data-itemType={itemType}
-                        data-id={item.container_id || item.tool_id || item.object_item_id}
-                        data-name={item.container_name || item.tool_name || item.object_name}>
-                        <p style={{ cursor: 'grab', color: 'white', padding: '15px', borderBottom: '2px solid #0f0a04', borderTop: '2px solid #2f2a24' }}><span style={{ cursor: 'grab', color: 'white' }} class="fas fa-caret-right"></span> {item.container_name || item.tool_name || item.object_name}</p>
+                        data-id={item.container_id || item.tool_id || item.object_item_id || item.substance_id }
+                        data-name={item.container_name || item.tool_name || item.object_name || item.substance_name }>
+                        <p style={{ cursor: 'grab', color: 'white', padding: '15px', borderBottom: '2px solid #0f0a04', borderTop: '2px solid #2f2a24' }}><span style={{ cursor: 'grab', color: 'white' }} class="fas fa-caret-right"></span> 
+                            {item.container_name || item.tool_name || item.object_name || item.substance_name}
+                        </p>
                     </div>)}
 
 

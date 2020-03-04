@@ -61,13 +61,25 @@ class ExperimentLab extends React.Component {
                 tool_id: 3,
                 tool_name: "pH Meter",
                 tool_properties: ['display_ph'],
-                tool_image: 'thermometer.png'
+                tool_image: 'phmeter.png'
             },
             {
                 tool_id: 4,
                 tool_name: "Strainer",
-                tool_properties: ['strain_container'],
-                tool_image: 'thermometer.png'
+                tool_properties: ['strain'],
+                tool_image: 'strainer.png'
+            },
+            {
+                tool_id: 5,
+                tool_name: "Eyedropper",
+                tool_properties: ['scoop'],
+                tool_image: 'dropper-empty.png'
+            },
+            {
+                tool_id: 6,
+                tool_name: "Measuring Cup",
+                tool_properties: ['scoop'],
+                tool_image: 'measuring.png'
             }
         ]
 
@@ -103,6 +115,10 @@ class ExperimentLab extends React.Component {
         const emptyButtons = document.querySelectorAll('.empty-item')
         const removeButtons = document.querySelectorAll('.remove-item')
 
+        
+        const strainButtons = document.querySelectorAll('.strain-item')
+        const combineStrainButtons = document.querySelectorAll('.combine-strain-item')
+
         for (const item of dragItems) {
             item.addEventListener('dragstart', this.dragStart)
             item.addEventListener('dragend', this.dragEnd)
@@ -122,13 +138,12 @@ class ExperimentLab extends React.Component {
             waterButton.addEventListener('click', this.fillWater)
         }
 
-        for (const removeButton of removeButtons) {
-            removeButton.addEventListener('click', this.removeItem)
-        }
+        for (const removeButton of removeButtons) { removeButton.addEventListener('click', this.removeItem) }
+        for (const emptyButton of emptyButtons) { emptyButton.addEventListener('click', this.emptyItem) }
 
-        for (const emptyButton of emptyButtons) {
-            emptyButton.addEventListener('click', this.emptyItem)
-        }
+        
+        for (const strainButton of strainButtons) { strainButton.addEventListener('click', this.strainItem) }
+        for (const combineStrainButton of combineStrainButtons) { combineStrainButton.addEventListener('click', this.combineStrainItem) }
     }
 
     emptyItem = (e) => {
@@ -142,6 +157,8 @@ class ExperimentLab extends React.Component {
 
     removeItem = (e) => { ClassHelpers.remove_item_from_event(this, e) }
     fillWater = async (e) => { ContainerHelper.fillWater(this) }
+    strainItem = (e) => { ToolHelper.strainItem(this, e) }
+    combineStrainItem = (e) => { ToolHelper.combineStrainItem(this, e) }
 
     dragInventoryStart = (e) => { DragHelper.dragInventoryStart(this, e) }
     dragInventoryEnd = (e) => { DragHelper.dragInventoryEnd(this, e) }
