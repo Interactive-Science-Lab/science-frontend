@@ -20,7 +20,7 @@ function Body(props) {
 			</Route>
 
 			<Route path="/lab/:id?">
-				<div className="body" style={{paddingLeft:'280px'}}>
+				<div className="body" style={{paddingLeft:'25vw'}}>
 					<div className="">
 						<ExperimentComponent />
 					</div>

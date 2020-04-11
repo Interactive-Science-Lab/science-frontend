@@ -10,17 +10,44 @@ class ExperimentLab extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            openNum: 0
         }
     }
+
+    selectNum = (num) => {
+        if(num === this.state.openNum) {
+            this.setState({openNum: 0})
+        } else {
+            this.setState({openNum: num})
+        }
+    }
+
     render() {
         const {masterItemList} = this.context
+        const observeList = ['Balance', 'Thermometer', 'pH Meter', 'Timer']
+        const actionList = ['Bunsen Burner', "Strainer", "Filter Paper", "Timer", "Candle"]
+        const solidList = ['Hydrophillic Beads (lg)', 'Hydrophillic Beads (sm)', 'Salt', "Sodium Carbonate","Magnesium Sulfate","Potassium Chlorate",]
+        const liquidList = ['Weak Base', 'Weak Acid']
+        const frozenList = ['Water']
+        const measureList = ["Micro Pipette", "Measuring Cup (50mL)", "Measuring Cup (10mL)", "Measuring Spoon (5mL)", "Measuring Spoon (1mL)", 'Eyedropper']
 
-        return <div id="shelveSection">
-            <Shelf list={masterItemList.objects} side={'right'} itemType={'objects'} />
-            <Shelf list={masterItemList.containers} side={'right'} itemType={'containers'} />
-            <Shelf list={masterItemList.tools} side={'left'} itemType={'tools'} />
-            <Shelf list={masterItemList.substances} side={'left'} itemType={'substances'} />
+        return <div id="shelveSection"  style={{ position: 'relative' }} >
+            <div>
+            <Shelf num={1} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList.objects}  itemType={'objects'} />
+            <Shelf num={2} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList.containers}  itemType={'containers'} />
+            <Shelf num={3} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList.tools.filter(i => observeList.includes(i.display_name)) } itemType={'tools'} filter={"measuring"}/>
+            <Shelf num={4} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList.tools.filter(i => actionList.includes(i.display_name)) } itemType={'tools'} filter={"action"} />
+            </div>
+
+            <div>
+            <Shelf num={5} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList.substances.filter(i => solidList.includes(i.display_name))} itemType={'substances'} filter={"solid"}/>
+            <Shelf num={6} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList.substances.filter(i => liquidList.includes(i.display_name))} itemType={'substances'} filter={"liquid"}/>
+            <Shelf num={7} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList.substances.filter(i => frozenList.includes(i.display_name))} itemType={'substances'} filter={'frozen'}/>
+            <Shelf num={8} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList.tools.filter(i => measureList.includes(i.display_name)) } itemType={'tools'} filter={"measuring"}/>
+            </div>
+            <div>&nbsp;</div>
+
+
         </div>
     }
 

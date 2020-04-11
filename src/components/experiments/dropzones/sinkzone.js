@@ -19,16 +19,19 @@ class Dropzone extends React.Component {
 
         return <div style={{ width: '100%', color:'white', position: 'relative'}}>
             
-            <div className="sink-controls" style={{marginLeft:'-25px'}}>
+            <div className="sink-controls" style={{marginLeft:'-82px',marginTop:'-32px'}}>
                 <span className="ttipalt">
-                        <h1 className="waterButton waterHot">&nbsp;H&nbsp;</h1>
+                        <h1 data-itemType={item.itemType} data-instance={item.instance_id}  className="waterButton waterHot">&nbsp;&nbsp;&nbsp;</h1>
                         <p className="ttip">Dispense 10mL hot water into the glass.</p>
                 </span> 
                         
-                <span style={{position:'relative',display:'inline-block',width:'40px',textAlign:'center'}}><img style={{left: '5px', position:'absolute',bottom:0}} src={"/images/faucet.png"} width='40px' height="80px"/></span>
+                <span style={{position:'relative',display:'inline-block',width:'50px',textAlign:'center'}}>
+                    
+                    
+                </span>
 
                 <span className="ttipalt">
-                        <h1 className="waterButton waterCold">&nbsp;C&nbsp;</h1>
+                        <h1  data-itemType={item.itemType} data-instance={item.instance_id} className="waterButton waterCold">&nbsp;&nbsp;&nbsp;</h1>
                         <p className="ttip">Dispense 10mL cold water into the glass.</p>
                 </span> 
             </div>

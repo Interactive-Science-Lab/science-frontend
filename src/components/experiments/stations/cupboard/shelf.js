@@ -14,24 +14,25 @@ class ExperimentLab extends React.Component {
     }
 
     toggleOpen = () => {
-        this.setState({ openShelf: !this.state.openShelf })
+        this.props.selectNum(this.props.num)
     }
 
     render() {
-        const { list, side, itemType } = this.props
+        const { list, side, itemType, filter } = this.props
 
-        return <div style={{ position: 'relative' }} className={`shelf ${side}-shelf ${this.state.openShelf ? 'open' : 'close'}-shelf`}>
+        return <div className={`shelf ${side}-shelf ${this.props.openNum === this.props.num ? 'open' : 'close'}-shelf`}>
 
-            <div className='shelf-contents' style={{height:'100%', overflowY: 'scroll', paddingBottom: '40px'}}>
+            <div className='shelf-contents' style={{margin:'30px 0 25px', position: 'absolute', bottom:'0', width: '300px',  paddingBottom: '0px'}}>
                 {list.map(item =>
                     <div
                         draggable
                         className={`inventory-item `}
                         data-itemType={itemType}
+                        data-shelf-option={filter}
                         data-id={item.container_id || item.tool_id || item.object_item_id || item.substance_id }
-                        data-name={item.container_name || item.tool_name || item.object_name || item.substance_name }>
+                        data-name={item.display_name }>
                         <p style={{ cursor: 'grab', color: 'white', padding: '15px', borderBottom: '2px solid #0f0a04', borderTop: '2px solid #2f2a24' }}><span style={{ cursor: 'grab', color: 'white' }} class="fas fa-caret-right"></span> 
-                            {item.container_name || item.tool_name || item.object_name || item.substance_name}
+                            {item.display_name} {filter === 'frozen' ? "(Frozen)" : null}
                         </p>
                     </div>)}
 
@@ -39,9 +40,9 @@ class ExperimentLab extends React.Component {
 
             </div>
 
-            <div style={{ position: 'absolute', bottom: '5px', width: '100%' }}>
-                {this.state.openShelf ?
-                    <div className="ttiphover" style={{ cursor: 'pointer' }} onClick={this.toggleOpen}>
+            <div style={{textAlign:'right'}}>
+                {this.props.openNum === this.props.num ?
+                    <div className="" style={{ cursor: 'pointer' }} onClick={this.toggleOpen}>
                         <h1 className="fas fa-chevron-right"></h1>
                         <p className="ttip">Close {this.props.itemType}</p>
                     </div>
@@ -49,7 +50,7 @@ class ExperimentLab extends React.Component {
 
                     :
 
-                    <div className="ttiphover" style={{ cursor: 'pointer' }} onClick={this.toggleOpen}>
+                    <div className="" style={{ cursor: 'pointer' }} onClick={this.toggleOpen}>
                         <h1 className="fas fa-chevron-left"></h1>
                         <p className="ttip">Open {this.props.itemType}</p>
                     </div>

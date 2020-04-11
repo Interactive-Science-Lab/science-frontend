@@ -1,8 +1,10 @@
 function getRecord(masterItemList, itemType, instance) {
     let returnRecord = null
-    //One liner to parse itemType to id_field
-    const id_field = ['container_id', 'object_item_id', 'substance_id', 'tool_id'][['containers', 'objects', 'substances', 'tools'].indexOf(itemType)]
-    masterItemList[itemType].map(i => i[id_field] === instance.id ? returnRecord = i : null)
+    if (itemType && instance.id) {
+        //One liner to parse itemType to id_field
+        const id_field = ['container_id', 'object_item_id', 'substance_id', 'tool_id'][['containers', 'objects', 'substances', 'tools'].indexOf(itemType)]
+        masterItemList[itemType].map(i => i[id_field] === instance.id ? returnRecord = i : null)
+    }
     return returnRecord
 }
 
@@ -20,11 +22,20 @@ function getTool(masterItemList, id) {
     return getRecord(masterItemList, 'tools', id)
 }
 
+function getRecordByNameAndType(masterItemList, name, itemType) {
+    let ret = {}
+    if (itemType && name) {
+         masterItemList[itemType].map(i => i.display_name === name ? ret = i : null)
+    }
+    return ret
+}
+
 
 export default {
     getRecord,
     getContainer,
     getObject,
     getSubstance,
-    getTool
+    getTool,
+    getRecordByNameAndType
 }

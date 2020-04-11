@@ -29,7 +29,7 @@ $schoolBrick: '/images/brick1.png';
 $roughStone: '/images/texture_stonerough.png';
 $pattern: '/images/gray-tile-pattern.png';
 
-$room: '/images/room.png';
+$room: '/images/background.png';
 
 $wallTexture: linear-gradient(lighten($envColor, $contrast), darken($envColor, $contrast));
 $floorTexture: linear-gradient(darken($floorColor, $contrast/2), $floorColor);
@@ -40,13 +40,15 @@ $displayBox: rgba(130, 170, 172, .8);
 $displayBorder: 4px inset darken($displayBox, $contrast/2);
 
 #labScreen { 
-    width: 100%;
+    width: 75vw;
     position:relative;
-    height: 100vh;
+    height: 44.64vw;
     background-color: black; 
     background-image: url($room);
-    background-size: cover;
-    //border:4px inset black;
+    background-size: 100% 100%;
+    padding:15px;
+    margin:auto;
+    border-bottom:2px solid black;
     * { font-size: 15px; }
         -webkit-touch-callout: none;
         -webkit-user-select: none;
@@ -61,19 +63,15 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
     cursor: grabbing;
 }
 
-#topHalf {
-    height:40%;
-    //background: $wallTexture;
-    display: flex;
-    background-size: contain;
-    //border-bottom: 4px solid darken($envColor, $contrast);
+#topPart {
+    height:55%;
 }
-#bottomHalf {
-    //border-top: 4px solid  darken($floorColor, $contrast);
-    height:60%;
-    //background: $floorTexture;
-    display: flex;
-    background-size: cover;
+#midPart {
+    height:26%;
+    padding:30px;
+}
+#bottomPart {
+    height: 19%;
 }
 
 
@@ -91,34 +89,31 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
 }
 
 #shelveSection {
-    width: 70%;
-    margin-bottom: 20px;
-    background-color: darken($wood, $contrast);
-    background: $backWoodTexture;
-    display: flex;
-    border-bottom: 8px solid black;
-    border-left: 16px solid darken($wood, $contrast);
-    border-right: 6px solid darken($wood, $contrast);
-    border-top: 4px solid lighten($wood, $contrast);
+    width: 100%;
+    height:100%;
+    display:flex;
+    
+    & > div {
+        width: 33.3%;
+        height:100%;
+        padding: 0 40px 0 0;
+    }
 }
 
 .shelf{
-    width: 50%; 
-    height: 92%; 
-    border: $woodBorder;
-    margin: 2%;
+    width: 100%; 
+    height:25%;
 }
 
 .open-shelf {
-    background:  $darkWoodTexture;
     .shelf-contents {
+        background-color:#222;
         display: block;
     }
 
 }
 
 .close-shelf {
-    background:  $frontWoodTexture;
     .shelf-contents {
         display: none;
     }
@@ -137,51 +132,33 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
 
 #examiner { 
     width: 30%;
-    margin: 2%;
     background-color: $displayBox;
     text-align:center;
     border: $displayBorder;
     padding:10px;
     .item-weight, .item-volume, .item-description, .item-properties, .item-contents, .item-used { display: block; }
     border-radius: 20px;
+    max-height:100%;
+    overflow-y:scroll;
+    overflow-x: visible;
 }
 
 #wholeTable {
-    width: 70%;
-    margin-top: 2%;
-    margin-left: 2%;
-    padding-right:60px;
-    background: url('/images/tabledesk.png');
-        background-size:100% 100%;
+    width: 100%;
+    height:100%;
 }
 
 $tableColor: rgba(19, 17, 15, .65);
 
 #tableTop {
-    height: 85%;
-    // background: linear-gradient(
-    //     darken($tableColor, $contrast) 0%, 
-    //     $tableColor 20%, 
-    //     $tableColor 35%, 
-    //     lighten($tableColor, $contrast/2),
-    //     $tableColor 95%, 
-    //     lighten($tableColor, $contrast/3) 100%), url('/images/texture_rock.png');
-        
-
+    height: 100%;
     display: flex;
-    padding:0px 0px 20px 80px;
     flex-wrap: wrap;
-    // border: 2px outset lighten($tableColor, $contrast/2);
-    // border-top-width: 1px;
-    // border-bottom-width:32px;
-    // border-bottom-color: lighten($tableColor, $contrast/2);
-    // border-radius:10px;
-    margin-bottom:-10px;
-    z-index:100;
 }
 
 #tableLeft {
     width:75%;
+    height:100%;
 }
 
 #tableSink {
@@ -207,6 +184,7 @@ $tableColor: rgba(19, 17, 15, .65);
     // border: $woodBorder;
 }
 
+
 $dropColor: rgba(180,180,180,.1);
 
 .dropzone:empty, .dropzoneempty {
@@ -221,20 +199,15 @@ $dropColor: rgba(180,180,180,.1);
     background-color: $dropColor; 
 }
 .drop-column {
-    width: 30%;
-    height: 140px;
-    margin: 1%;
+    width: 12%;
+    margin: 0 1%;
     background-color: $dropColor;
-    margin-top:50px;
 }
 
 .drop-sink {
     width: 100%;
     min-height: 140px;
     height:100%;
-    background-color: $dropColor;
-    background: url('/images/sink.png');
-    background-size: 100% 100%;
     .item-options {display:none;}
     .dropzone {border-color:transparent;}
 }
@@ -255,23 +228,23 @@ $dropColor: rgba(180,180,180,.1);
 }
 
 .waterHot {
-    background-color: rgba(#d22, .4);
+    border-color: rgba(#d22, .4);
     &:hover {
-        background-color: rgba(#d22, .8);
+        border-color: rgba(#d22, .8);
     }
     &:active {
-        background-color: rgba(#f99, .8);
+        border-color: rgba(#f99, .8);
     }
 
 }
 
 .waterCold {
-    background-color: rgba(#22d, .4);
+    border-color: rgba(#22d, .4);
     &:hover {
-        background-color: rgba(#22d, .8);
+        border-color: rgba(#22d, .8);
     }
     &:active {
-        background-color: rgba(#99f, .8);
+        border-color: rgba(#99f, .8);
     }
 }
 
@@ -325,7 +298,7 @@ $dropColor: rgba(180,180,180,.1);
     color: $ll-primary-color;
     padding: 10px;
     border-radius:4px;
-    top:100%;
+    bottom:100%;
     width:max-content;
     min-width:100%;
     border: 2px solid black;
@@ -334,10 +307,40 @@ $dropColor: rgba(180,180,180,.1);
 
 .lab-action:hover > span{
     display:inline-block;
+    
 }
 
 .lab-action:active > span{
     display:none;
+}
+
+.item-options {
+    position:absolute;
+    width:max-content;
+    display:none;
+    top:100%;
+    min-width:100%; 
+    padding: 10px;
+    border-radius:4px;
+    margin:auto;
+    background-color: $d-primary-color;
+    color: $ll-primary-color;
+}
+.item-options:hover {
+    display:inline-block;
+}
+
+.lab-action:hover .item-options, #examiner .item-options, #examiner .item-show-name {
+    display:inline-block;
+}
+
+.item-options .lab-action > span {
+    z-index:1000;
+    overflow:visible;
+}
+
+#examiner .drag-item.lab-action {
+    margin:30px 0;
 }
 
 .content-display {
@@ -405,3 +408,5 @@ $dropColor: rgba(180,180,180,.1);
     padding:4px;
     cursor: pointer;
 }
+
+

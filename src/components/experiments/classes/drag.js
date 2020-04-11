@@ -1,12 +1,8 @@
-import ClassHelpers from './itemsState'
 import MasterListHelper from './masterList'
 
-import ContainerHelper from './containers'
-import ToolHelper from './tools'
 
 function dragStart(component, e) {
     e.dataTransfer.effectAllowed = "move";
-
     component.setState({
         dragItem: {
             instance: Number.parseInt(e.target.getAttribute('data-instance')),
@@ -16,77 +12,105 @@ function dragStart(component, e) {
     setTimeout(() => (component.className = 'invisible'))
 }
 
+
+
 function dragEnd(component, e) {
     let { hoverPos, hoverItem, dragItem, itemsState } = component.state
 
     //Get the instance ids and possibly the parent id if it's being moved from a tool. 
+
     const inst_id = Number.parseInt(e.target.getAttribute('data-instance'))
     const parent_inst_id = Number.parseInt(e.target.getAttribute('data-parent-instance'))
 
+    const hoverInstance = itemsState.getInstance(hoverItem.instance)
+    const dragInstance = itemsState.getInstance(dragItem.instance)
 
-    //If the position is free, just move it.
-    if (ClassHelpers.checkPositionFree(hoverPos, itemsState) && !(dragItem.itemType === 'substances' && parent_inst_id) ) {
-        ClassHelpers.updateItemPosition(inst_id, itemsState, hoverPos, parent_inst_id)
-    } 
-    //If it's a container, and the other object is an item, move in into the container.
-    else if (hoverItem.instance && hoverItem.itemType === 'containers' && dragItem.itemType === 'objects') {
-        itemsState = ContainerHelper.addItemToContainer(itemsState, dragItem, hoverItem, component.state.masterItemList)
-    } 
-    //If it's a object, and the other object is a container, move it to the container. 
-    else if (hoverItem.instance && hoverItem.itemType === 'objects' && dragItem.itemType === 'containers') {
-        itemsState = ContainerHelper.addItemToContainer(itemsState, hoverItem, dragItem, component.state.masterItemList)
-    }
-    //If it's a tool, and the other object is an object/container, move it to the tool. 
-    else if (hoverItem.instance && hoverItem.itemType === 'tools' && (dragItem.itemType === 'objects' || dragItem.itemType === 'containers')) {
-        itemsState = ToolHelper.addItemToTool(itemsState, dragItem, hoverItem)
-    }
-    //If it's a object/container, and the other object is a tool, move it to the tool. 
-    else if (hoverItem.instance && (hoverItem.itemType === 'objects' || hoverItem.itemType === 'containers') && dragItem.itemType === 'tools') {
-        itemsState = ToolHelper.addItemToTool(itemsState, hoverItem, dragItem)
-    }
-
-    //If it's a substance, and the other object is a tool, try to move it to the tool.
-    else if (hoverItem.instance && hoverItem.itemType === 'substances' && dragItem.itemType === 'tools') {
-        itemsState = ToolHelper.addSubstanceToScoopTool(itemsState, dragItem, hoverItem, component)
-    }
-    //Reverse of above.
-    else if (hoverItem.instance && hoverItem.itemType === 'tools' && dragItem.itemType === 'substances') {
-        itemsState = ToolHelper.addSubstanceToScoopTool(itemsState, hoverItem, dragItem, component)
-    }
-
-    //Otherwise, we'll throw an error.
-    else if (hoverItem.instance !== dragItem.instance) {
-        if (hoverItem.instance && hoverItem.itemType === 'containers' && dragItem.itemType === 'containers') {
-            component.setState({ message: "You cannot drag a container to a container." })
-        } else if (hoverItem.instance && hoverItem.itemType === 'tools' && dragItem.itemType === 'tools') {
-            component.setState({ message: "You cannot drag a tool to a tool." })
-        } else if (dragItem.itemType === 'substances' && parent_inst_id) {
-            component.setState({ message: "You need to drag the scoop to a container." })
-        } else if (dragItem.itemType === 'substances' && !parent_inst_id) {
-            component.setState({ message: "You need to use a scoop tool to get the substance out." })
+    if (hoverItem.instance !== dragItem.instance) {
+        //If the position is free, just move it.
+        if (itemsState.checkPosition(hoverPos) && !(dragItem.itemType === 'substances' && parent_inst_id)) {
+            dragInstance.updatePosition(hoverPos)
+            if (parent_inst_id) {
+                console.log(parent_inst_id)
+                let parentInstance = itemsState.getInstance(parent_inst_id)
+                parentInstance.clearItem()
+            }
         }
+        else if (hoverInstance.instance_id) {
+            //If it's a container, and the other object is an item, move in into the container.
+            if (hoverInstance.isType('containers') && dragInstance.isType('objects')) {
+                itemsState.updateInstanceAndState(hoverInstance.addToContents(dragInstance), component)
+            }
+            //[Reverse of above- allowing dragging a container to an obect] 
+            //If it's a object, and the other object is a container, move it to the container. 
+            else if (hoverInstance.isType('objects') && dragInstance.isType('containers')) {
+                itemsState.updateInstanceAndState(dragInstance.addToContents(hoverInstance), component)
+            }
+
+            //If it's a tool, and the other object is an object/container, move it to the tool. 
+            else if (hoverInstance.isType('tools') && dragInstance.isType(['objects', 'containers'])) {
+                hoverInstance.addItem(dragInstance, component)
+                itemsState.updateInstance(hoverInstance)
+                itemsState.updateInstance(dragInstance)
+                itemsState.updateState(component)
+            }
+            //If it's a object/container, and the other object is a tool, move it to the tool. 
+            else if (hoverInstance.isType(['objects', 'containers']) && dragInstance.isType('tools')) {
+                dragInstance.addItem(hoverInstance, component)
+                itemsState.updateInstance(dragInstance)
+                itemsState.updateInstance(hoverInstance)
+                itemsState.updateState(component)
+            }
+
+            //If it's a substance, and the other object is a tool, try to move it to the tool.
+            else if (hoverInstance.isType('substances') && dragInstance.isType('tools')) {
+                itemsState.updateInstanceAndState(dragInstance.addSubstanceToScoopTool(hoverInstance, component), component)
+            }
+            //Reverse of above.
+            else if (dragInstance.isType('substances') && hoverInstance.isType('tools')) {
+                itemsState.updateInstanceAndState(hoverInstance.addSubstanceToScoopTool(dragInstance, component), component)
+            }
+
+            //If you're dragging one container to another, combine them
+            else if (hoverInstance.isType('containers') && dragInstance.isType('containers')) {
+                hoverInstance.contents.combineMixture(dragInstance.contents, component)
+                dragInstance.emptyContents(component)
+                itemsState.updateInstance(dragInstance)
+                itemsState.updateInstance(hoverInstance)
+                itemsState.updateState(component)
+            }
+        }
+        //Otherwise, we'll throw an error.
+        // else
+        //     if (hoverItem.instance && hoverItem.itemType === 'tools' && dragItem.itemType === 'tools') {
+        //         component.setState({ message: "You cannot drag a tool to a tool." })
+        //     } else if (dragItem.itemType === 'substances' && parent_inst_id) {
+        //         component.setState({ message: "You need to drag the scoop to a container." })
+        //     } else if (dragItem.itemType === 'substances' && !parent_inst_id) {
+        //         component.setState({ message: "You need to use a scoop tool to get the substance out." })
+        //     }
+        // }
     }
 
 
     component.setState({ itemsState: itemsState, hoverItem: {}, hoverPos: {}, dragItem: {} })
 }
 
+//Drag over only controls which elements appear as if you can "drop" into them, that's the "preventDefault" line
 function dragOver(component, e) {
     if (e.target.matches('.dropzone') || e.target.matches('.dropzoneempty')) {
         e.preventDefault();
     }
     else if (
-        component.state.hoverItem.itemType === 'containers' || 
+        component.state.hoverItem.itemType === 'containers' ||
         component.state.hoverItem.itemType === 'tools' ||
         (component.state.hoverItem.itemType === 'objects' && component.state.dragItem.itemType === 'containers') ||
         (component.state.hoverItem.itemType === 'substances' && component.state.dragItem.itemType === 'tools') ||
-        (component.state.hoverItem.itemType === 'objects' && component.state.dragItem.itemType === 'containers') ) {
+        (component.state.hoverItem.itemType === 'objects' && component.state.dragItem.itemType === 'containers')) {
         e.preventDefault();
     }
-
 }
 
-function dragEnter (component, e) {
+function dragEnter(component, e) {
     if (e.target.matches('.dropzone')) {
         const pos = Number.parseInt(e.target.getAttribute('data-pos'))
         const area = Number.parseInt(e.target.getAttribute('data-area'))
@@ -138,40 +162,32 @@ function dragEnter (component, e) {
 function dragInventoryStart(component, e) {
     e.dataTransfer.effectAllowed = "copy";
 
-        const itemType = e.target.getAttribute('data-itemType')
-        const id = Number.parseInt(e.target.getAttribute('data-id'))
-        const name = e.target.getAttribute('data-name')
-        const instance = ClassHelpers.newInstanceId(component.state.itemsState)
+    const itemType = e.target.getAttribute('data-itemType')
+    const id = Number.parseInt(e.target.getAttribute('data-id'))
+    const name = e.target.getAttribute('data-name')
+    const options = e.target.getAttribute('data-shelf-option')
 
-
-        component.setState({
-            dragItem: {
-                instance,
-                itemType,
-                id,
-                name
-            }
-        })
+    component.setState({
+        dragItem: {
+            itemType,
+            id,
+            name,
+            options
+        }
+    })
 }
 
 
 function dragInventoryEnd(component, e) {
     const { hoverPos, dragItem, itemsState } = component.state
 
-    if (ClassHelpers.checkPositionFree(hoverPos, itemsState) && dragItem.itemType  && dragItem.id) {
-        let updateObj = dragItem
-        updateObj.pos = hoverPos.pos
-        updateObj.area = hoverPos.area
-        if (updateObj.itemType === 'containers') {
-            updateObj.contents = []
-        }
-        if (updateObj.itemType === 'tools') {
-            updateObj.usedItem = {}
-        }
-        itemsState.push(updateObj)
-    } else{
+    if (itemsState.checkPosition(hoverPos) && dragItem.itemType && dragItem.id) {
+        let dragRecord = MasterListHelper.getRecord(component.state.masterItemList, dragItem.itemType, dragItem)
+        let updateObj = itemsState.newInstance(dragRecord, dragItem, hoverPos)
+        itemsState.updateState(component)
+    } else {
         component.setState({ message: "You must move to an empty space first." })
-    } 
+    }
 
     component.setState({ itemsState: itemsState, hoverItem: {}, hoverPos: {}, dragItem: {} })
 }

@@ -1,108 +1,153 @@
 
-import ClassHelpers from './itemsState'
-import MasterListHelper from './masterList'
+import React from 'react'
+import { ItemInstance } from './core'
+import { Mixture } from './mixture'
+import masterListHelper from './masterList'
 
-function emptyContainer(instance) {
-    if (instance.itemType === 'containers') {
-        instance.contents = []
-        instance.imgNum = 0
-        instance.image = null
+export class ContainerInstance extends ItemInstance {
+    constructor(record, instance, hoverPos, instance_id) {
+        super(record, instance, hoverPos, instance_id);
+        this.contents = new Mixture();
     }
-    return instance
-}
-
-function getContainerVolume(itemsState, container){
-    let totalVolume = 0;
-    if (container.contents) {
-        {
-            //map over the contents
-            container.contents.map(content_item => {
-                //get the record 
-                const content_record = MasterListHelper.getRecord(itemsState, content_item.itemType, content_item )
-                //add that weight to the total
-                totalVolume += (content_record.object_volume || content_record.substance_dispense_volume || 0)
-            })
+    
+    /* ------------------------ */
+    /*      CONTENT HELPERS     */
+    /* ------------------------ */
+    //Takes in an ObjectItemInstance or a SubstanceItemInstance
+    addToContents = (itemInstance, component = null) => {
+        if (this.record.hold_volume > itemInstance.getVolume() + this.getFillVolume()) {
+            itemInstance.area = null
+            itemInstance.pos = null
+            this.contents = this.contents.addItemToMixture(itemInstance, component)
         }
+        return this
     }
+    //"Empties" the contents, creating a a clean container.
+    emptyContents = (component) => { this.contents.reset(component) }
+    //Takes in a volume amount and the main component, 
+    splitContents = (volume, component) => { return this.contents.split(volume, component) }
+    //Returns an ingredient by a given name if it exists in the contents.
+    findIngredient = (name) => { return this.contents.findIngredient(name) }
+    //Prints them out HTML
+    displayContents = () => { return this.contents.displayContents().map(i => <div>{i.name}</div>) }
+    //Returns the generic number for how many different ingredients in container.
+    contentCount = () => { return this.contents.ingredients.length }
+    
 
-    return totalVolume
-}
-
-function addItemToContainer (newState, dragItem, hoverItem, masterItemList) {
-    //Get the instances & the records
-    let hoverInstance = ClassHelpers.get_instance_by_id(newState, hoverItem.instance)
-    let dragInstance = ClassHelpers.get_instance_by_id(newState, dragItem.instance)
-    let hoverRecord = MasterListHelper.getContainer(masterItemList, hoverInstance)
-    let dragRecord = MasterListHelper.getObject(masterItemList, dragInstance)
-
-    //Check the total volume before we agree to add it in.
-    const totalVolume = getContainerVolume(hoverInstance, masterItemList)
-
-    if (totalVolume <= (hoverRecord.container_volume - dragRecord.object_volume)) {
-        //Filter newState to remove the object from it.
-        newState = newState.filter(obj => obj.instance !== dragItem.instance && obj.instance != hoverItem.instance)
-
-        //Get rid of the pos and area attributes
-        delete dragInstance.pos
-        delete dragInstance.area
-
-        //Push the instance to the contents, and the container back to state.d
-        hoverInstance.contents.push(dragInstance)
-        newState.push(hoverInstance)
-    }
-    else {
-        this.setState({ message: "This container is filled to the brim." })
-    }
-    return newState
-}
-
-
-
-function fillWater (component) {
-        //document.body.style.pointerEvents = "none"
-        let {itemsState, masterItemList} = component.state
-
-        //Get the item in the sink (area 4, pos 0)
-        let updateObj = {}
-        itemsState.map(obj => 4 === obj.area && 0 === obj.pos ? updateObj = obj : null)
-
-        //If there is an item there (the .name check), AND it's a container, we fill it up
-        if (updateObj.name && updateObj.itemType === 'containers') {
-            //Get the total volume, and record for the item.
-            const totalVolume = getContainerVolume(updateObj, masterItemList)
-            let updateRecord = MasterListHelper.getContainer(masterItemList, updateObj)
-
-            //If there's enough room
-            if (totalVolume <= (updateRecord.container_volume - 10)) { //10 IS A HARDCODED VALUE FOR THE DISPENSE RATE OF WATER
-                //Temporarily remove the item from state
-                itemsState = itemsState.filter(obj => 4 !== obj.area || 0 !== obj.pos)
-                //Create a new water object
-                updateObj.contents.push({
-                    instance: ClassHelpers.newInstanceId(itemsState),
-                    itemType: 'substances',
-                    id: 1,
-                    name: "Water"
-                })
-                //Update the sprite accordingly
-                let imgNum = updateObj.imgNum || 0
-                if (updateObj.name === 'Graduated Cylinder') {
-                    updateObj.image = `cylinder-${imgNum > 80 ? 80 : imgNum}-light-blue.png`
-                }
-                updateObj.imgNum = imgNum + 10
-                itemsState.push(updateObj)
-            }
-            else {
-                component.setState({ message: "This container is filled to the brim." })
-            }
+    
+    /* ------------------------ */
+    /*      STATS & INFOS       */
+    /* ------------------------ */
+    getSprite = () => {
+        if (this.contentCount() > 0 && this.contents.color) {
+            return `${this.record.sprite}-${this.contents.texture}-${this.contents.color}-${this.calculateFillPercent()}.png`
         } else {
-            component.setState({ message: "You need to drag a container to the sink in order to get water." })
+            return this.record.sprite + ".png"
         }
-        component.setState({ itemsState: itemsState })
+    }
+    //Returns how filled the container is
+    getFillVolume = () => { return this.contents.getVolume() }
+    //Returns a rounded fill percentage to the nearest 10.
+    calculateFillPercent = () => { return Math.floor(this.getFillVolume() / this.record.hold_volume * 10) * 10 }
+    //Returns the Ph of the mixture
+    getPh = () => { return this.contents.getPh() }
+    //Returns the temp of the mixture
+    getTemperature = () => { return this.contents.getTemperature() }
+    //Returns the total mass, container + mixture
+    getMass = () => { return this.record.mass + this.contents.getMass() }
+    advanceTime = (seconds, component) => {
+        this.ingredient.time += seconds
+
+        let seltzerInstance = this.findIngredient("Seltzer Tablet")
+        if (seltzerInstance) { this.handleSeltzer(seltzerInstance) }
+
+        let saltInstance = this.findIngredient('Salt')
+        let waterInstance = this.findIngredient('Water')
+        if(saltInstance && waterInstance) { this.handleSalt(saltInstance, component) } 
+
+        this.contents.advanceTime(seconds, component)
+    }
+    heatItem = (temperature, component) => {
+        this.ingredient.temperature += temperature
+        this.contents.adjustTemperature(temperature, component)
+    }
+    setTemperature = (temperature, component) => {
+        this.ingredient.temperature = temperature
+        this.contents.adjustTemperatureTo(temperature, component)
+    }
+
+    /* ------------------------ */
+    /* SPECIFIC FUNCTIONALITIES */
+    /* ------------------------ */
+    fillWithWater = (e, component) => {
+        let temperature = e.target.classList.contains('waterHot') ? 50 : 10
+        let waterRecord = masterListHelper.getRecordByNameAndType(component.state.masterItemList, "Water", 'substances')
+        waterRecord.temperature = temperature
+        waterRecord.volume = 10
+        let waterInstance = component.state.itemsState.newInstance(waterRecord, { itemType: 'substances' }, {})
+        this.addToContents(waterInstance, component)
+        component.state.itemsState.updateInstanceAndState(this, component)
+    }
+
+    handleSeltzer = (seltzerInstance) => {
+        let record = seltzerInstance.record
+        let massList = {}
+        try {
+            massList = JSON.parse(record.properties[1])
+        } catch { console.log("ERROR WITH JSON PARSE") }
+
+        delete massList.name
+        let waterTemp = 0
+        Object.keys(massList).map(tempRange => {
+            if (tempRange <= this.getTemperature() && (tempRange + 10 >= this.getTemperature() || tempRange == 42)) {
+                waterTemp = tempRange
+            }
+        })
+        
+        let tempList = massList[waterTemp]
+        let newMass = 0
+        Object.keys(tempList).map(tempEntry => {
+            tempEntry = Number.parseInt(tempEntry)
+            if (tempEntry <= this.getTime() && (tempEntry + 5 > this.getTime() || (tempEntry == 60 && this.getTime() < 120) || (tempEntry == 120 && this.getTime() > 120))) {
+                newMass = tempList[tempEntry]
+            }
+        })
+
+        newMass = newMass || seltzerInstance.getMass()
+
+        this.contents.adjustMass(newMass - seltzerInstance.getMass())
+        seltzerInstance.setMass(newMass)
+    }
+
+    handleSalt = (saltInstance, component) => {
+        let record = saltInstance.record
+        let massList = {}
+        try {
+            massList = JSON.parse(record.properties[1])
+        } catch { console.log("ERROR WITH JSON PARSE") }
+
+        console.log(massList)
+
+        let saltMass = saltInstance.getMass()
+        if(saltMass > 50) { saltMass = 50 }
+
+        let tempRanges = {}
+        Object.keys(massList).map(amount => {
+            amount = Number.parseInt(amount)
+            if(saltMass > (amount - 5.75) && saltMass < (amount + 5.75) ) {
+                tempRanges = amount
+            }
+        })
+
+        let time = Math.floor(saltInstance.getTime() / 60) * 60
+        if(time > 300) (time = 300)
+
+        let tempChange = massList[ `${tempRanges}` ][ `${time}` ]
+
+        this.contents.adjustTemperature(tempChange, component)
+    }
+
 }
 
-export default {
-    emptyContainer,
-    getContainerVolume,
-    addItemToContainer,
-    fillWater
-}
+
+

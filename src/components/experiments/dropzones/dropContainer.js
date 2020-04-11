@@ -34,7 +34,7 @@ class ExperimentLab extends React.Component {
                 dropInt = 4;
                 break;
         }
-        let containerItems = items.filter(i => i.area === dropInt)
+        let containerItems = items.list.filter(i => i.area === dropInt)
 
         let dropzones = []
 
