@@ -66,7 +66,7 @@ class ExperimentLab extends React.Component {
         if (experiment_id && this.state.experiment.experiment_id !== Number.parseInt(experiment_id)) {
             let experiment = await axios.get(api.apiPath(`/experiments/${experiment_id}`), curr_user)
             experiment = experiment.data
-            this.setState({ experiment, itemsState: experiment.experiment_start })
+            this.setState({ experiment })
         }
     }
 
@@ -157,7 +157,7 @@ class ExperimentLab extends React.Component {
                     <div id="gameMessage">{this.state.message} <span className="fas fa-times" onClick={this.clearMessage}></span></div> :
                     null}
                 <div id="topPart">
-                    <Examiner /> {/*<Tray />*/}
+                    <Examiner />  {/*<Tray />*/}
                 </div>
                 <div id="midPart">
                     <Table />

@@ -37,8 +37,8 @@ export default  [
     ]},
     {name: "Lab Settings", view: "admin", symbol: "tools", links: [   
         {name: "Experiments", view: 'admin', link: '/experiments', symbol: "microscope"},
-        {name: "Containers", view: 'admin', link: '/containers', symbol: "flask"},
-        {name: "Objects", view: 'admin', link: '/objects', symbol: "magnet"},
-        {name: "Substances", view: 'admin', link: '/substances', symbol: "atom"},
+        //{name: "Containers", view: 'admin', link: '/containers', symbol: "flask"},
+        //{name: "Objects", view: 'admin', link: '/objects', symbol: "magnet"},
+        //{name: "Substances", view: 'admin', link: '/substances', symbol: "atom"},
     ]},
 ]

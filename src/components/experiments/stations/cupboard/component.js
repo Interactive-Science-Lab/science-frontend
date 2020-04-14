@@ -24,6 +24,7 @@ class ExperimentLab extends React.Component {
 
     render() {
         const {masterItemList} = this.context
+        const objectList = ['Osmium Chunk', 'Gold Piece', 'Bolt', 'Marble', 'Seltzer Tablet', 'Heat Metal']
         const observeList = ['Balance', 'Thermometer', 'pH Meter', 'Timer']
         const actionList = ['Bunsen Burner', "Strainer", "Filter Paper", "Timer", "Candle"]
         const solidList = ['Hydrophillic Beads (lg)', 'Hydrophillic Beads (sm)', 'Salt', "Sodium Carbonate","Magnesium Sulfate","Potassium Chlorate",]
@@ -33,7 +34,7 @@ class ExperimentLab extends React.Component {
 
         return <div id="shelveSection"  style={{ position: 'relative' }} >
             <div>
-            <Shelf num={1} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList.objects}  itemType={'objects'} />
+            <Shelf num={1} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList.objects.filter(i => objectList.includes(i.display_name))}  itemType={'objects'} />
             <Shelf num={2} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList.containers}  itemType={'containers'} />
             <Shelf num={3} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList.tools.filter(i => observeList.includes(i.display_name)) } itemType={'tools'} filter={"measuring"}/>
             <Shelf num={4} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList.tools.filter(i => actionList.includes(i.display_name)) } itemType={'tools'} filter={"action"} />

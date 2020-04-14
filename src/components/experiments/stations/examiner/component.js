@@ -15,13 +15,29 @@ class Examiner extends React.Component {
     render() {
 
 
-        return <div id="examiner">
-                    <div className="DDcontainer">
-                        <DropContainer {...this.props} dropType="drop-row" amount={1} />
-                    </div>
-                    
+        return <div>
+            <div id="examiner">
+                <div className="DDcontainer">
+                    <DropContainer {...this.props} dropType="drop-row" amount={1} />
                 </div>
-                
+            </div>
+
+            <div id="examiner">
+                <div className="DDcontainer">
+                    <DropContainer {...this.props} dropType="drop-row2" amount={1} />
+                </div>
+            </div>
+
+
+            <div id="examiner">
+                <div className="DDcontainer">
+                    <DropContainer {...this.props} dropType="drop-row3" amount={1} />
+                </div>
+            </div>
+
+
+        </div>
+
     }
 
 }

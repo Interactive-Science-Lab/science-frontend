@@ -17,6 +17,7 @@ function dragStart(component, e) {
 function dragEnd(component, e) {
     let { hoverPos, hoverItem, dragItem, itemsState } = component.state
 
+
     //Get the instance ids and possibly the parent id if it's being moved from a tool. 
 
     const inst_id = Number.parseInt(e.target.getAttribute('data-instance'))
@@ -25,7 +26,7 @@ function dragEnd(component, e) {
     const hoverInstance = itemsState.getInstance(hoverItem.instance)
     const dragInstance = itemsState.getInstance(dragItem.instance)
 
-    if (hoverItem.instance !== dragItem.instance) {
+    if (hoverItem.instance !== dragItem.instance /*&& hoverPos.area !== dragInstance.area && hoverPos.pos !== dragInstance.pos*/) {
         //If the position is free, just move it.
         if (itemsState.checkPosition(hoverPos) && !(dragItem.itemType === 'substances' && parent_inst_id)) {
             dragInstance.updatePosition(hoverPos)
@@ -33,6 +34,8 @@ function dragEnd(component, e) {
                 console.log(parent_inst_id)
                 let parentInstance = itemsState.getInstance(parent_inst_id)
                 parentInstance.clearItem()
+                console.log(parentInstance)
+                itemsState.updateInstanceAndState(parentInstance, component)
             }
         }
         else if (hoverInstance.instance_id) {
@@ -49,6 +52,13 @@ function dragEnd(component, e) {
             //If it's a tool, and the other object is an object/container, move it to the tool. 
             else if (hoverInstance.isType('tools') && dragInstance.isType(['objects', 'containers'])) {
                 hoverInstance.addItem(dragInstance, component)
+                if (parent_inst_id) {
+                    console.log(parent_inst_id)
+                    let parentInstance = itemsState.getInstance(parent_inst_id)
+                    parentInstance.clearItem()
+                    console.log(parentInstance)
+                    itemsState.updateInstance(parentInstance)
+                }
                 itemsState.updateInstance(hoverInstance)
                 itemsState.updateInstance(dragInstance)
                 itemsState.updateState(component)
@@ -56,6 +66,13 @@ function dragEnd(component, e) {
             //If it's a object/container, and the other object is a tool, move it to the tool. 
             else if (hoverInstance.isType(['objects', 'containers']) && dragInstance.isType('tools')) {
                 dragInstance.addItem(hoverInstance, component)
+                if (parent_inst_id) {
+                    console.log(parent_inst_id)
+                    let parentInstance = itemsState.getInstance(parent_inst_id)
+                    parentInstance.clearItem()
+                    console.log(parentInstance)
+                    itemsState.updateInstance(parentInstance)
+                }
                 itemsState.updateInstance(dragInstance)
                 itemsState.updateInstance(hoverInstance)
                 itemsState.updateState(component)

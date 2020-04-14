@@ -15,7 +15,7 @@ class ExperimentLab extends React.Component {
     }
 
     render() {
-        const { amount, dropType } = this.props
+        let { amount, dropType } = this.props
         const items = this.context.itemsState
 
         let dropInt = 0
@@ -27,11 +27,19 @@ class ExperimentLab extends React.Component {
             case "drop-row":
                 dropInt = 2;
                 break;
-            case "drop-column":
+            case "drop-row2":
+                dropType = 'drop-row'
                 dropInt = 3;
                 break;
-            case "drop-sink":
+            case "drop-row3":
+                dropType = 'drop-row'
                 dropInt = 4;
+                break;
+            case "drop-column":
+                dropInt = 5;
+                break;
+            case "drop-sink":
+                dropInt = 6;
                 break;
         }
         let containerItems = items.list.filter(i => i.area === dropInt)
@@ -45,7 +53,7 @@ class ExperimentLab extends React.Component {
             {
             dropType === 'drop-sink' ? 
             dropzones.map((item, i) => <Sinkzone item={item} i={i} dropInt={dropInt} {...this.context} {...this.props} />) : 
-            dropzones.map((item, i) => <Dropzone item={item} i={i} dropInt={dropInt} {...this.context} {...this.props} />)
+            dropzones.map((item, i) => <Dropzone {...this.props} item={item} i={i} dropInt={dropInt}  dropType={dropType} {...this.context}  />)
             }
 
         </div>

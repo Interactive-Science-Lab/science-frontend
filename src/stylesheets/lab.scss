@@ -65,6 +65,13 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
 
 #topPart {
     height:55%;
+    & > div {
+        display:flex;
+        align-items: space-between;
+        justify-content: space-between;
+        max-height: 300px;
+        height:300px;
+    }
 }
 #midPart {
     height:26%;
@@ -94,15 +101,19 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
     display:flex;
     
     & > div {
-        width: 33.3%;
+        width: 33.33%;
+        margin: 0 5% 0 2.5%;
         height:100%;
-        padding: 0 40px 0 0;
     }
 }
 
 .shelf{
     width: 100%; 
     height:25%;
+    position:relative;
+    &:hover {
+        background-color:rgba(255,255,255,.5)
+    }
 }
 
 .open-shelf {
@@ -285,6 +296,9 @@ $dropColor: rgba(180,180,180,.1);
 
 .invisible {
     display: none;
+}
+.inventory-item:hover {
+    background-color:rgba(180,180,180,.3)
 }
 
 .lab-action {
