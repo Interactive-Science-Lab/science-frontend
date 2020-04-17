@@ -180,7 +180,7 @@ class ExperimentLab extends React.Component {
                             <Col lg={1}>Area,Pos</Col>
                         </Row>
                 <div>{
-                    Object.entries(this.state.itemsState.list).map(o => <div>
+                    Object.entries(this.state.itemsState.list || {}).map(o => <div>
                         <Row>
                             <Col lg={1}>{o[1].name}</Col>
                             <Col lg={1}>{o[1].itemType}</Col>
