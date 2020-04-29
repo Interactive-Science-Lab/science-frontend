@@ -70,7 +70,7 @@ a, .format-link {
 	margin: 5px;
 	border-radius: $borderRadius;
 	display: inline-block;
-	background: linear-gradient(rgba($linkBackground, .3),  rgba($linkBackground, .8));
+	background: linear-gradient(rgba($linkBackground, .1),  rgba($linkBackground, .5));
 	&:hover {
 		background: rgba($linkHoverBackground, .7);
 		color: $linkHoverColor;

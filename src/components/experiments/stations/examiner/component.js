@@ -22,18 +22,18 @@ class Examiner extends React.Component {
                 </div>
             </div>
 
-            <div id="examiner">
+            <div id="examiner" style={{left: '33%'}}>
                 <div className="DDcontainer">
                     <DropContainer {...this.props} dropType="drop-row2" amount={1} />
                 </div>
             </div>
 
 
-            <div id="examiner">
+            {/*<div id="examiner"  style={{left: '66%'}}>
                 <div className="DDcontainer">
                     <DropContainer {...this.props} dropType="drop-row3" amount={1} />
                 </div>
-            </div>
+    </div>*/}
 
 
         </div>

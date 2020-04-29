@@ -41,6 +41,7 @@ const features = {
 const fields = {
     experiment_name: { default: "", fieldType: "string", validations: ["unique", "required"], titleField: true },
     experiment_description: { default: "", fieldType: "string" },
+    experiment_information: { default: "", fieldType: "string" },
     experiment_steps: { default: "", fieldType: "text", display_type: "", label: true, permissions: {index: {name: 'none'}} },
     experiment_start: { default: "", fieldType: "object", permissions: {index: {name: 'none'}, show: {name: 'none'}} },
     

@@ -50,14 +50,15 @@ class Header extends React.Component {
             <NavLink to="/lab" style={{ background: 'none' }}>Experiments</NavLink>
             <h2 style={{ color: "white" }}>#{this.props.match.params.id}. {item.experiment_name }</h2>
             <p><i style={{ color: "grey" }}>{item.experiment_description}</i></p>
-            <h4 style={{ color: "white" }}>Directions</h4>
+            <p style={{color: '#ccc'}}>{item.experiment_information}</p>
+            <h4 style={{ color: "white" }}>Method</h4>
             </div>
             : <div>
-            <NavLink to="/" style={{ background: 'none' }}>Home</NavLink>{items.length > 0 ? <div>
-                <h4 style={{ color: "grey" }}>Please choose an experiment, or continue in sandbox mode.</h4>{
-                items.map(i => <Link to={`/lab/${i.experiment_id}`}>
-                    <p style={{ color: "white" }}>{i.experiment_order} {i.experiment_name}<br />
-                    <i>{i.experiment_description}</i></p>  
+            <NavLink to="/" style={{ background: 'none', display: 'block' }}>Home</NavLink>{items.length > 0 ? <div>
+                <p style={{ color: "grey" }}>Please choose an experiment, or continue in sandbox mode.</p>{
+                items.map(i => <Link to={`/lab/${i.experiment_id}`}  style={{ display: 'block' }}>
+                    <p style={{ color: "white" }}>#{i.experiment_order} {i.experiment_name}
+                   </p>  
                 </Link>)
             }</div> : "-" }</div> }
 

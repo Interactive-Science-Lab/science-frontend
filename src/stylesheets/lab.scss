@@ -65,6 +65,7 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
 
 #topPart {
     height:55%;
+    position:relative;
     & > div {
         display:flex;
         align-items: space-between;
@@ -150,6 +151,9 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
     .item-weight, .item-volume, .item-description, .item-properties, .item-contents, .item-used { display: block; }
     border-radius: 20px;
     max-height:100%;
+    height:fit-content;
+    bottom:10px;
+    position:absolute;
     overflow-y:scroll;
     overflow-x: visible;
 }
@@ -225,7 +229,7 @@ $dropColor: rgba(180,180,180,.1);
 
 .drop-row {
     width: 98%;
-    min-height: 40%;
+    min-height:20px;
     margin: 1%;
     background-color: $dropColor;
 }
@@ -233,29 +237,33 @@ $dropColor: rgba(180,180,180,.1);
 .waterButton {
     cursor: pointer;
     color: white;
-    border: 2px outset grey;
+    border: 10px outset transparent;
     padding: 10px;
     border-radius: 20px;
 }
 
 .waterHot {
-    border-color: rgba(#d22, .4);
+    background-color: rgba(#d22, .3);
     &:hover {
-        border-color: rgba(#d22, .8);
+        background-color: rgba(#d22, .6);
     }
     &:active {
         border-color: rgba(#f99, .8);
+        background-color: rgba(#d22, 1);
+        border-width: 10px;
     }
 
 }
 
 .waterCold {
-    border-color: rgba(#22d, .4);
+    background-color: rgba(#22d, .3);
     &:hover {
-        border-color: rgba(#22d, .8);
+        background-color: rgba(#22d, .6);
     }
     &:active {
         border-color: rgba(#99f, .8);
+        background-color: rgba(#22d, 1);
+        border-width: 10px;
     }
 }
 

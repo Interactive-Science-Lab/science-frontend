@@ -24,9 +24,9 @@ class ExperimentLab extends React.Component {
 
     render() {
         const {masterItemList} = this.context
-        const objectList = ['Osmium Chunk', 'Gold Piece', 'Bolt', 'Marble', 'Seltzer Tablet', 'Heat Metal']
-        const observeList = ['Balance', 'Thermometer', 'pH Meter', 'Timer']
-        const actionList = ['Bunsen Burner', "Strainer", "Filter Paper", "Timer", "Candle"]
+        const objectList = ['Osmium Chunk', 'Gold Piece', 'Bolt', 'Marble', 'Seltzer Tablet', 'Scrap Metal']
+        const observeList = ["Mystery #1", "Mystery #2", "Mystery #3", "Mystery #4", "Mystery #5", "Mystery #6", "Mystery #7", "Mystery #8", "Mystery #9", "Mystery #10"]
+        const actionList = ['Balance', 'Thermometer', 'pH Meter', 'Timer', 'Bunsen Burner', "Strainer", "Filter Paper", "Timer", "Candle"]
         const solidList = ['Hydrophillic Beads (lg)', 'Hydrophillic Beads (sm)', 'Salt', "Sodium Carbonate","Magnesium Sulfate","Potassium Chlorate",]
         const liquidList = ['Weak Base', 'Weak Acid']
         const frozenList = ['Water']
@@ -36,7 +36,7 @@ class ExperimentLab extends React.Component {
             <div>
             <Shelf num={1} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList.objects.filter(i => objectList.includes(i.display_name))}  itemType={'objects'} />
             <Shelf num={2} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList.containers}  itemType={'containers'} />
-            <Shelf num={3} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList.tools.filter(i => observeList.includes(i.display_name)) } itemType={'tools'} filter={"measuring"}/>
+            <Shelf num={3} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList.objects.filter(i => observeList.includes(i.display_name)) } itemType={'objects'} filter={"measuring"}/>
             <Shelf num={4} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList.tools.filter(i => actionList.includes(i.display_name)) } itemType={'tools'} filter={"action"} />
             </div>
 

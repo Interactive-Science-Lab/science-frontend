@@ -128,7 +128,8 @@ class ExperimentLab extends React.Component {
     }
 
     removeItem = (e) => { this.state.itemsState.removeItemByEvent(e, this) }
-    fillWater =  (e) => { this.state.itemsState.getInstanceByEvent(e).fillWithWater(e, this) }
+    fillWater =  (e) => { let w = this.state.itemsState.getInstanceByEvent(e) 
+        if (w.instance_id) { w.fillWithWater(e, this) }}
     strainItem = (e) => { this.state.itemsState.getInstanceByEvent(e).strainSolidItems(e, this) }
     combineStrainItem = (e) => { this.state.itemsState.getInstanceByEvent(e).combineStrainItems(e, this) }
     heatItem = (e) => { this.state.itemsState.getInstanceByEvent(e).heatItem(e, this) }

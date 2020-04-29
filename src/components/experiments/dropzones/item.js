@@ -20,7 +20,7 @@ class Item extends React.Component {
             return <ItemComponent {...this.props} />
         } else {
             {/* IF there's no item, and we're looking at the exam zone, show the things.*/ }
-            if (this.props.i === 0 && this.props.dropInt === 2) {
+            if (this.props.i === 0 && ([2, 3].includes(this.props.dropInt) ) ){
                 return <BlankExaminer />
             } else {
                 return null
@@ -66,34 +66,34 @@ class ItemComponent extends React.Component {
                         : null}
 
                 </div>
-                <div className='item-volume'>
-                    {item.itemType === 'containers' ? <>Total Vol: {record.hold_volume}mL</> : ""}
-                </div>
                 <div className='item-description'>
                     <i style={{ fontSize: '12px' }}>{item.itemType.charAt(0).toUpperCase() + item.itemType.substring(1, item.itemType.length - 1)}</i><br />
                     <i style={{ fontSize: '16px' }}>{record.description}</i>
                 </div>
                 <div className="item-properties">
                     {record.properties?.includes('display_volume') ? <div>
-                        <hr /> Reading: {item.getFillVolume() || 0}mL
+                        <hr /> Reading: {Math.round( item.getFillVolume() * 100) / 100.0 || 0}mL
                         </div> : ""}
                     {record.properties?.includes('display_mass') ? <div>
-                        <hr /> Reading: {item.getItemMass() || 0}g
+                        <hr /> Reading: {Math.round(item.getItemMass() * 100) / 100.0 || 0}g
                         </div> : ""}
                     {record.properties?.includes('heatsource-useable') ? <div>
-                        <hr /> Mass: {item.getHeatSourceMass() || 0}g
+                        <hr /> Mass: {Math.round( item.getHeatSourceMass() * 100) / 100.0 || 0}g
                         </div> : ""}
                     {record.properties?.includes('display_temperature') ? <div>
-                        <hr /> Reading: {item.getItemTemperature() || 20}deg C
+                        <hr /> Reading: {Math.round( item.getItemTemperature() * 100) / 100.0 || 20}deg C
                         </div> : ""}
                     {record.properties?.includes('display_ph') ? <div>
-                        <hr /> Reading: {item.getItemPh() || 7}
+                        <hr /> Reading: {Math.round(item.getItemPh() * 100) / 100.0 || 7}
                     </div> : ""}
                     {record.properties?.includes('timer') ? <div>
                         <hr /> Reading: {this.printTime(item.getItemTime() || 0)}
                     </div> : ""}
                 </div>
 
+                <div className='item-volume'>
+                    {item.itemType === 'containers' ? <>Max Vol: {record.hold_volume}mL</> : ""}
+                </div>
 
 
                 <div className="item-contents">{
@@ -204,14 +204,12 @@ class BlankExaminer extends React.Component {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <h5>
                 </h5>
-                <div className="ttiphover" style={{ cursor: 'pointer' }}>
+                <div className="ttiphover" style={{ cursor: 'pointer', position: 'absolute', right: '0', top: '-4px' }}>
                     <h1>?</h1>
-                    <p className="ttip">Drop items here to see their readings, or just get a better look at them.<br />
-                        Hint: Try putting a graduated cylinder here to see it's contents & volume,<br />
-                        or the scale to see the object's mass.</p>
+                    <p className="ttip" style={{width: '300px'}}>Drag items here to use them and see their information.</p>
                 </div>
             </div>
-            <div className="dropzoneempty" style={{ width: '100%', height: '150px' }}></div>
+            <div className="dropzoneempty" style={{ width: '100%', minHeight: '20px' }}></div>
         </div>
     }
 }
