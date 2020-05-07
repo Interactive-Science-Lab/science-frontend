@@ -26,11 +26,11 @@ class ExperimentLab extends React.Component {
         const {masterItemList} = this.context
         const objectList = ['Osmium Chunk', 'Gold Piece', 'Bolt', 'Marble', 'Seltzer Tablet', 'Scrap Metal']
         const observeList = ["Mystery #1", "Mystery #2", "Mystery #3", "Mystery #4", "Mystery #5", "Mystery #6", "Mystery #7", "Mystery #8", "Mystery #9", "Mystery #10"]
-        const actionList = ['Balance', 'Thermometer', 'pH Meter', 'Timer', 'Bunsen Burner', "Strainer", "Filter Paper", "Timer", "Candle"]
+        const actionList = ['Bunsen Burner', "Strainer", "Filter Paper", "Candle"]
         const solidList = ['Hydrophillic Beads (lg)', 'Hydrophillic Beads (sm)', 'Salt', "Sodium Carbonate","Magnesium Sulfate","Potassium Chlorate",]
         const liquidList = ['Weak Base', 'Weak Acid']
         const frozenList = ['Water']
-        const measureList = ["Micro Pipette", "Measuring Cup (50mL)", "Measuring Cup (10mL)", "Measuring Spoon (5mL)", "Measuring Spoon (1mL)", 'Eyedropper']
+        const measureList = ['Balance', 'Thermometer', 'pH Meter', 'Timer', "Micro Pipette", "Measuring Cup (50mL)", "Measuring Cup (10mL)", "Measuring Spoon (5mL)", "Measuring Spoon (1mL)", 'Eyedropper']
 
         return <div id="shelveSection"  style={{ position: 'relative' }} >
             <div>
