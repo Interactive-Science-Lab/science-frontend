@@ -47,22 +47,30 @@ class Header extends React.Component {
             {item.experiment_id ? <div>
                 
             <NavLink to="/" style={{ background: 'none' }}>Home</NavLink>
-            <NavLink to="/lab" style={{ background: 'none' }}>Experiments</NavLink>
-            <h2 style={{ color: "white" }}>#{this.props.match.params.id}. {item.experiment_name }</h2>
-            <p><i style={{ color: "grey" }}>{item.experiment_description}</i></p>
-            <p style={{color: '#ccc'}}>{item.experiment_information}</p>
+            <NavLink to="/lab" style={{ background: 'none' }}>Back To Experiments</NavLink>
+            <h2 style={{ color: "white" }}>{item.experiment_name }</h2>
+            <p><i style={{ color: "grey", textAlign: "left" }}>{item.experiment_description}</i></p>
+            <p style={{color: '#ccc', textAlign: "left"}}>{item.experiment_information}</p>
             <h4 style={{ color: "white" }}>Method</h4>
+
+            {item.experiment_steps?.split('#').map(step => <div style={{ color: "white", textAlign: "left", marginBottom: '5px' }}>{step ? "#" + step : ""}</div>)}
+
             </div>
+
+
             : <div>
+
             <NavLink to="/" style={{ background: 'none', display: 'block' }}>Home</NavLink>{items.length > 0 ? <div>
                 <p style={{ color: "grey" }}>Please choose an experiment, or continue in sandbox mode.</p>{
-                items.map(i => <Link to={`/lab/${i.experiment_id}`}  style={{ display: 'block' }}>
-                    <p style={{ color: "white" }}>#{i.experiment_order} {i.experiment_name}
+                items.map((i, x) => <Link to={`/lab/${i.experiment_id}`}  style={{ display: 'block' }}>
+                    <p style={{ color: "white" }}>#{x+1} {i.experiment_name}
                    </p>  
                 </Link>)
-            }</div> : "-" }</div> }
+            }</div> : "-" }
+            
+            </div> }
 
-            {item.experiment_steps?.split('#').map(step => <div style={{ color: "white" }}>{step ? "#" + step : ""}</div>)}
+            
         </div>
     }
 

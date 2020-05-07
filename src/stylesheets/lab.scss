@@ -177,7 +177,7 @@ $tableColor: rgba(19, 17, 15, .65);
 }
 
 #tableSink {
-    width:25%;
+    width:17%;
     
 }
 
@@ -202,8 +202,9 @@ $tableColor: rgba(19, 17, 15, .65);
 
 $dropColor: rgba(180,180,180,.1);
 
-.dropzone:empty, .dropzoneempty {
+p.dropzoneempty {
     border: 3px dashed #bbd;
+    height:100%;
 }
 
 .drop-section {
@@ -221,7 +222,6 @@ $dropColor: rgba(180,180,180,.1);
 
 .drop-sink {
     width: 100%;
-    min-height: 140px;
     height:100%;
     .item-options {display:none;}
     .dropzone {border-color:transparent;}

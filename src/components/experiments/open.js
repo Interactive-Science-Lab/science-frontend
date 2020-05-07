@@ -152,13 +152,12 @@ class ExperimentLab extends React.Component {
         const devMode = true
 
         return <LabContext.Provider value={{ masterItemList: this.state.masterItemList, itemsState: this.state.itemsState }} >
-
-            <div id="labScreen">
+             <div id="labScreen">
                 {this.state.message ?
                     <div id="gameMessage">{this.state.message} <span className="fas fa-times" onClick={this.clearMessage}></span></div> :
                     null}
                 <div id="topPart">
-                    <Examiner />  {/*<Tray />*/}
+                    <Examiner />  
                 </div>
                 <div id="midPart">
                     <Table />

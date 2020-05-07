@@ -19,7 +19,7 @@ export class ToolInstance extends ItemInstance {
             tare = this.usedItem.getMass();
         }
         this.option.tare = tare
-        
+        this.flash(1.5)
         this.update(component)
     }
 
@@ -37,9 +37,11 @@ export class ToolInstance extends ItemInstance {
     addItem = (itemInstance, component) => {
         if (this.usedItem?.itemType === 'substances' && itemInstance.isType('containers')) {
             itemInstance.addToContents(this.clearItem(), component)
+            this.flash(2)
         } else if (!this.usedItem?.itemType) {
             this.usedItem = itemInstance
             itemInstance.removePosition()
+            this.flash(2)
         }
         return this
     }
@@ -57,7 +59,7 @@ export class ToolInstance extends ItemInstance {
     }
     getItemTemperature = () => {
         if (this.usedItem.instance_id) { return this.usedItem.getTemperature() } 
-        else { return 0 }
+        else { return "None" }
     }
     getItemPh = () => {
         if (this.usedItem.instance_id) { return this.usedItem.getPh() } 
@@ -84,6 +86,7 @@ export class ToolInstance extends ItemInstance {
             this.usedItem.contents = liquidContents
 
             
+        this.flash(1.5)
             this.update(component)
 
         } else {
@@ -96,6 +99,7 @@ export class ToolInstance extends ItemInstance {
             let contents = this.contents
             this.contents = new Mixture()
             this.usedItem.contents.combineMixture(contents, component)
+            this.flash(1.5)
             this.update(component)
         } else {
             //component.setState({ message: "You can only combine into a container." })
@@ -121,6 +125,7 @@ export class ToolInstance extends ItemInstance {
 
         if(this.usedItem?.itemType) {
             this.usedItem.heatItem(heat, component)
+            this.flash(1.5)
             this.update(component)
         }
     }
@@ -142,6 +147,7 @@ export class ToolInstance extends ItemInstance {
             if(time === 600) {
                 this.usedItem.setTemperature(20, component)
             }
+            this.flash(1.5)
             this.update(component)
         }
     }
@@ -163,6 +169,7 @@ export class ToolInstance extends ItemInstance {
                 scoopInstance.setVolume(volume)
                 scoopInstance.setMass(volume * scoopInstance.record.density)
 
+                this.flash(1.5)
                 this.addItem(scoopInstance)
             }
         } else {
@@ -176,6 +183,7 @@ export class ToolInstance extends ItemInstance {
         if(this.usedItem.itemType === 'containers') {
             this.contents = this.usedItem.splitContents(10, component)
             this.update(component)
+            this.flash(1.5)
         }
     }
 

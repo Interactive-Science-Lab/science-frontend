@@ -47,6 +47,16 @@ export class ItemInstance {
     advanceTime = (seconds) => { this.ingredient.time += seconds }
     heatItem = (temperature, component) => { this.ingredient.temperature += temperature }
 
+    flash = (intensity = 1) => {
+        let item = this.getHtmlElement()
+        item.style.backgroundColor = `rgba(255,255,255,.${4*intensity})`
+        setTimeout(function(){ item.style.backgroundColor = 'transparent'; }, 200*intensity);
+    }
+
+    getHtmlElement = () => {
+        return document.getElementsByClassName(`instance-${this.instance_id}`)[0]
+    }
+
     
     /* ------------------------  */
     /*      POSITION HELPERS     */

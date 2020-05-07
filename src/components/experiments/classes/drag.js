@@ -26,7 +26,7 @@ function dragEnd(component, e) {
     const hoverInstance = itemsState.getInstance(hoverItem.instance)
     const dragInstance = itemsState.getInstance(dragItem.instance)
 
-    if (hoverItem.instance !== dragItem.instance /*&& hoverPos.area !== dragInstance.area && hoverPos.pos !== dragInstance.pos*/) {
+    if (true/*hoverItem.instance !== dragItem.instance && hoverPos.area !== dragInstance.area && hoverPos.pos !== dragInstance.pos*/) {
         //If the position is free, just move it.
         if (itemsState.checkPosition(hoverPos) && !(dragItem.itemType === 'substances' && parent_inst_id)) {
             dragInstance.updatePosition(hoverPos)

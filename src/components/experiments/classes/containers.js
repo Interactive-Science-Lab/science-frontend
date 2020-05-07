@@ -18,6 +18,7 @@ export class ContainerInstance extends ItemInstance {
         if (this.record.hold_volume > itemInstance.getVolume() + this.getFillVolume()) {
             itemInstance.area = null
             itemInstance.pos = null
+            this.flash(2)
             this.contents = this.contents.addItemToMixture(itemInstance, component)
         }
         return this
@@ -86,6 +87,7 @@ export class ContainerInstance extends ItemInstance {
         waterRecord.volume = 10
         let waterInstance = component.state.itemsState.newInstance(waterRecord, { itemType: 'substances' }, {})
         this.addToContents(waterInstance, component)
+        this.flash()
         component.state.itemsState.updateInstanceAndState(this, component)
     }
 
