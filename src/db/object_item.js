@@ -27,7 +27,6 @@ const permissions = {
 // RESOURCE FEATURES
 //----------------------------------------
 const features = {
-    paginate: {},
     newLink: {
         protection: "mod",
         options: "Add New +",
@@ -39,11 +38,27 @@ const features = {
 // RESOURCE FIELDS
 //----------------------------------------
 const fields ={
-    object_name: { default: "", fieldType: "string", validations: ["unique", "required"], titleField: true },
-    object_description: { default: "", fieldType: "string" },
-    object_weight: { default: "", fieldType: "number", suffix: "g", label: true, permissions: {index: {name: 'none'}} },
-    object_volume: { default: "", fieldType: "number", suffix: "mL", label: true, permissions: {index: {name: 'none'}} },
-    object_image: { default: "", fieldType: "local-image", permissions: {index: {name: 'none'}}, label: true },
+    display_name: { default: "", fieldType: "string", validations: ["unique", "required"], titleField: true },
+    description: { default: "", fieldType: "string" },
+    scientific_name: { default: "", fieldType: "string" },
+
+    color: { default: "", fieldType: "string", label: true, permissions: { index: {name: 'none'}} },
+    
+    sprite: { 
+        default: "", 
+        fieldType: "local-image", 
+        permissions: {index: {name: 'none'}} , 
+        label: true 
+    },
+
+    properties: { default: "", fieldType: "string", label: true, permissions: { index: {name: 'none'}, edit: {name: "webmaster" }} },
+    volume: { default: "", fieldType: "number", label: true, permissions: { index: {name: 'none'}} },
+    mass: { default: "", fieldType: "number", label: true, permissions: { index: {name: 'none'}} },
+    ph: { default: "", fieldType: "number", label: true, permissions: { index: {name: 'none'}} },
+    temperature: { default: "", fieldType: "number", label: true, permissions: { index: {name: 'none'}} },
+    low_temp_point: { default: "", fieldType: "number", label: true, permissions: { index: {name: 'none'}} },
+    high_temp_point: { default: "", fieldType: "number", label: true, permissions: { index: {name: 'none'}} },
+
     
 }
 
@@ -58,7 +73,7 @@ const friendly = 'objects' || plural //override null here in specific cases. Try
 const upper = 'ObjectItem';
 const pluralUpper = upper + 's'
 const idField = base + '_id'
-const uniqueText = 'object' + '_name'
+const uniqueText = 'display' + '_name'
 const pageTitles = {
     index: "All " + pluralUpper,
     view: upper + " Details",

@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavLink, withRouter, Link } from 'react-router-dom'
 import axios from 'axios'
+import labSettings from './classes/fields'
 import api from 'helpers/api'
 
 class Header extends React.Component {
@@ -34,8 +35,15 @@ class Header extends React.Component {
         } else {
             axios
                 .get(api.apiPath(`/experiments`))
-                .then(res =>
-                    this.setState({ items: res.data.pageOfItems, item: {} })
+                .then(res => {
+                        const labKind = props.location.search.split('=')[1] || 'chemistry'
+                        let retExperiments = []
+                        res.data.map( 
+                            i => labSettings[labKind].experimentList.includes(i.experiment_id) ? retExperiments.push(i) : null 
+                        )
+                        console.log(res.data, retExperiments, labSettings[labKind].experimentList)
+                        this.setState({ items: retExperiments, item: {} })
+                    }
                 )
                 .catch(err => console.log(err));
         }
@@ -45,7 +53,7 @@ class Header extends React.Component {
         const {item, items} = this.state
         return <div>
             {item.experiment_id ? <div>
-                
+            
             <NavLink to="/" style={{ background: 'none' }}>Home</NavLink>
             <NavLink to="/lab" style={{ background: 'none' }}>Back To Experiments</NavLink>
             <h2 style={{ color: "white" }}>{item.experiment_name }</h2>
@@ -62,7 +70,7 @@ class Header extends React.Component {
 
             <NavLink to="/" style={{ background: 'none', display: 'block' }}>Home</NavLink>{items.length > 0 ? <div>
                 <p style={{ color: "grey" }}>Please choose an experiment, or continue in sandbox mode.</p>{
-                items.map((i, x) => <Link to={`/lab/${i.experiment_id}`}  style={{ display: 'block' }}>
+                items.map((i, x) => <Link to={`/lab/${i.experiment_id}?l=${this.props.location.search.split('=')[1] || 'chemistry'}`}  style={{ display: 'block' }}>
                     <p style={{ color: "white" }}>#{x+1} {i.experiment_name}
                    </p>  
                 </Link>)

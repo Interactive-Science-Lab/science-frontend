@@ -29,7 +29,6 @@ $schoolBrick: '/images/brick1.png';
 $roughStone: '/images/texture_stonerough.png';
 $pattern: '/images/gray-tile-pattern.png';
 
-$room: '/images/background.png';
 
 $wallTexture: linear-gradient(lighten($envColor, $contrast), darken($envColor, $contrast));
 $floorTexture: linear-gradient(darken($floorColor, $contrast/2), $floorColor);
@@ -44,7 +43,6 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
     position:relative;
     height: 44.64vw;
     background-color: black; 
-    background-image: url($room);
     background-size: 100% 100%;
     padding:15px;
     margin:auto;
@@ -201,6 +199,10 @@ $tableColor: rgba(19, 17, 15, .65);
 
 
 $dropColor: rgba(180,180,180,.1);
+
+.dropzone:empty {
+    border: 3px dashed #bbd;
+}
 
 p.dropzoneempty {
     border: 3px dashed #bbd;

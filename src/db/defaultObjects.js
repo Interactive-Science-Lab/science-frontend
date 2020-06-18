@@ -12,7 +12,9 @@ import experiment from './experiment'
 import container from './container'
 import substance from './substance'
 import object_item from './object_item'
+import tool from './tool'
 
+//This is where we match the route to the actual settings. The case MUST match the Url Path set in the setting file
 export const findResourceSettings = (search) => {
     switch (search) {
         case "posts":
@@ -41,6 +43,8 @@ export const findResourceSettings = (search) => {
             return substance
         case 'objects':
             return object_item
+        case 'tools':
+            return tool
 
     }
 }

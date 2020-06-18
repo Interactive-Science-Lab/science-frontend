@@ -21,7 +21,6 @@ const permissions = {
 }
 
 const features = {
-    paginate: {},
     newLink: {
         protection: "mod",
         options: "Add New +",
@@ -29,34 +28,36 @@ const features = {
 }
 
 const fields = {
-    container_name: { 
+    display_name: { 
         default: "", 
         fieldType: "string", 
         validations: ["unique", "required"], 
         titleField: true 
     },
-    container_mass: { 
+    description: {
+        default: "",
+        fieldType: "string"
+    },
+    mass: { 
         default: "", 
         fieldType: "number", 
-        customDisplay: (value) => { return `${value/1000}g`},
-        // customForm: (field, callback) => { return  <div>CUSTOM ENTRY</div> },
-        formInfo: "Enter in mg, will display through app in grams.",
+        suffix: "g", 
         label: true, 
         permissions:  {index: {name: 'none'}} 
     },
-    container_volume: { 
+    hold_volume: { 
         default: "", 
         fieldType: "number", 
         suffix: "mL", 
         label: true, 
         permissions: {index: {name: 'none'}} 
     },
-    container_properties: { 
+    properties: { 
         default: "", 
-        fieldType: "object", 
+        fieldType: "text-array", 
         permissions: ['hidden'] 
     },
-    container_image: { 
+    sprite: { 
         default: "", 
         fieldType: "local-image", 
         permissions: {index: {name: 'none'}} , 

@@ -27,7 +27,6 @@ const permissions = {
 // RESOURCE FEATURES
 //----------------------------------------
 const features = {
-    paginate: {},
     newLink: {
         protection: "mod",
         options: "Add New +",

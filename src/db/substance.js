@@ -27,7 +27,6 @@ const permissions = {
 // RESOURCE FEATURES
 //----------------------------------------
 const features = {
-    paginate: {},
     newLink: {
         protection: "mod",
         options: "Add New +",
@@ -39,12 +38,18 @@ const features = {
 // RESOURCE FIELDS
 //----------------------------------------
 const fields = {
-    substance_name: { default: "", fieldType: "string", validations: ["unique", "required"], titleField: true },
-    substance_density: {  default: "", fieldType: "number", suffix: "g/mL", label: true, permissions: {index: {name: 'none'}} },
-    substance_dispense_volume: {  default: "", fieldType: "number", suffix: "mL", label: true, permissions: {index: {name: 'none'}} },
-    substance_state_of_matter: { default: "", fieldType: "string", label: true, permissions: {index: {name: 'none'}} },
-    substance_scientific_name: { default: "", fieldType: "string", label: true },
-    
+    display_name: { default: "", fieldType: "string", validations: ["unique", "required"], titleField: true },
+    scientific_name: { default: "", fieldType: "string", label: true },
+    description: { default: "", fieldType: "string", label: true },
+    color: { default: "", fieldType: "string", label: true, permissions: { index: {name: 'none'}} },
+    texture: { default: "", fieldType: "string", label: true, permissions: { index: {name: 'none'}} },
+    container: { default: "", fieldType: "string", label: true, permissions: { index: {name: 'none'}} },
+    properties: { default: "", fieldType: "string", label: true, permissions: { index: {name: 'none'}, edit: {name: "webmaster" }} },
+    density: { default: "", fieldType: "number", label: true, permissions: { index: {name: 'none'}} },
+    ph: { default: "", fieldType: "number", label: true, permissions: { index: {name: 'none'}} },
+    temperature: { default: "", fieldType: "number", label: true, permissions: { index: {name: 'none'}} },
+    low_temp_point: { default: "", fieldType: "number", label: true, permissions: { index: {name: 'none'}} },
+    high_temp_point: { default: "", fieldType: "number", label: true, permissions: { index: {name: 'none'}} },
 }
 
 
@@ -58,7 +63,7 @@ const friendly = null || plural //override null here in specific cases. Try to a
 const upper = base.charAt(0).toUpperCase() + base.substring(1);
 const pluralUpper = upper + 's'
 const idField = base + '_id'
-const uniqueText = base + '_name'
+const uniqueText = 'display_name'
 const pageTitles = {
     index: "All " + pluralUpper,
     view: upper + " Details",

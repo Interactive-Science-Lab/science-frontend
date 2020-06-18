@@ -10,6 +10,10 @@ import Tray from './stations/tray/component'
 import Table from './stations/table/component'
 import Cupboard from './stations/cupboard/component'
 import Examiner from './stations/examiner/component'
+import {Link} from 'react-router-dom'
+
+import labSettings from './classes/fields'
+
 
 import { LabContext, labDefaults } from './db/labContext'
 
@@ -28,7 +32,8 @@ class ExperimentLab extends React.Component {
             debug: "",
             masterItemList: { objects: [], containers: [], substances: [], tools: [] },
             experiment: {},
-            message: "Welcome! Please choose an experiment."
+            message: "Welcome! Please choose an experiment.",
+            labType: props.location.search.split('=')[1] || 'chemistry'
         }
     }
 
@@ -87,6 +92,10 @@ class ExperimentLab extends React.Component {
         const tareButtons = document.querySelectorAll('.tare-item')
         const splitButtons = document.querySelectorAll('.split-item')
 
+        const revealButtons = document.querySelectorAll('.reveal-item')
+        const advanceButtons = document.querySelectorAll('.advance-graphic')
+        const atpButtons = document.querySelectorAll('.run-atp-item')
+
         for (const item of dragItems) {
             item.addEventListener('dragstart', this.dragStart)
             item.addEventListener('dragend', this.dragEnd)
@@ -116,6 +125,9 @@ class ExperimentLab extends React.Component {
         for (const timeButton of timeButtons) { timeButton.addEventListener('click', this.timeItem) }
         for (const tareButton of tareButtons) { tareButton.addEventListener('click', this.tareItem) }
         for (const splitButton of splitButtons) { splitButton.addEventListener('click', this.splitItem) }
+        for (const revealButton of revealButtons) { revealButton.addEventListener('click', this.revealItem) }
+        for (const advanceButton of advanceButtons) { advanceButton.addEventListener('click', this.advanceGraphic) }
+        for (const atpButton of atpButtons) { atpButton.addEventListener('click', this.runAtpCalculation) }
     }
 
     emptyItem = (e) => {
@@ -136,6 +148,9 @@ class ExperimentLab extends React.Component {
     timeItem = (e) => { this.state.itemsState.getInstanceByEvent(e).timeItem(e, this) }
     tareItem = (e) => { this.state.itemsState.getInstanceByEvent(e).setTare(e, this) }
     splitItem = (e) => { this.state.itemsState.getInstanceByEvent(e).splitMixture(e, this) }
+    revealItem = (e) => { this.state.itemsState.getInstanceByEvent(e).revealItem(e, this) }
+    advanceGraphic = (e) => { this.state.itemsState.getInstanceByEvent(e).advanceGraphic(e, this) }
+    runAtpCalculation = (e) => { this.state.itemsState.getInstanceByEvent(e).runAtpCalculation(e, this) }
 
     dragInventoryStart = (e) => { DragHelper.dragInventoryStart(this, e) }
     dragInventoryEnd = (e) => { DragHelper.dragInventoryEnd(this, e) }
@@ -151,8 +166,9 @@ class ExperimentLab extends React.Component {
     render() {
         const devMode = true
 
-        return <LabContext.Provider value={{ masterItemList: this.state.masterItemList, itemsState: this.state.itemsState }} >
-             <div id="labScreen">
+        return <LabContext.Provider value={{ masterItemList: this.state.masterItemList, itemsState: this.state.itemsState, state: this.state }} >
+             <a href="/lab?l=chemistry">Chemistry</a> | <a href="/lab?l=biology">Biology</a> | <Link to="/lab?l=physics">Physics</Link>
+             <div id="labScreen" style={{backgroundImage: `url('/images/${labSettings[this.state.labType].backgroundImage}')` }}>
                 {this.state.message ?
                     <div id="gameMessage">{this.state.message} <span className="fas fa-times" onClick={this.clearMessage}></span></div> :
                     null}

@@ -12,9 +12,16 @@ export class ItemInstance {
         this.itemType = instance.itemType
         //short hand to the record, has default infos & properties
         this.name = record.display_name
-        this.record = record
+        this.record = JSON.parse(JSON.stringify(record))
         //Ingredients hold all the infos regarding temp, mass, ph, time, etc.
         this.ingredient = new Ingredient(record, this)
+
+        const randomize = this.record.properties.indexOf('random')
+        if(randomize > -1) {
+            let outOf = Number.parseInt(this.record.properties[randomize + 1])
+            let value = Math.ceil(Math.random() * outOf)
+            this.record.color = value
+        }
     }
 
     /* ----------------------------------- */
@@ -57,6 +64,53 @@ export class ItemInstance {
         return document.getElementsByClassName(`instance-${this.instance_id}`)[0]
     }
 
+    advanceGraphic = (e, component) => {
+        let currentColor = Number.parseInt(this.record.color)
+        let progressInt = this.record.properties.indexOf("progress")
+        let maxLoop = Number.parseInt(this.record.properties[progressInt + 1])
+        if(maxLoop === currentColor) {currentColor = 0}
+        this.record.color = currentColor + 1
+        component.state.itemsState.updateInstanceAndState(this, component)
+    }
+
+    revealItem = (e, component) => {
+        let randomPos = this.record.properties.indexOf("reveal-random")
+        let outOf = Number.parseInt(this.record.properties[randomPos + 1])
+        let value = Math.ceil(Math.random() * outOf)
+        this.record.color = value
+        this.record.properties[randomPos] = ""
+        component.state.itemsState.updateInstanceAndState(this, component)
+    }
+
+    checkSynthesis = (other, component) => {
+        let proteinCheck = this.record.properties.indexOf('protein-connect')
+        let otherCheck = other.record.properties.indexOf('protein-connect')
+        if(proteinCheck > -1 && otherCheck > -1) {
+            if(this.record.properties[proteinCheck+1] === other.name){
+                let dna = {}
+                let rna = {}
+                if(this.name.indexOf('DNA') > -1){
+                    dna = this
+                    rna = other
+                } else {
+                    dna = other
+                    rna = this
+                }
+                dna.record.color = '1'
+                component.state.itemsState.removeItem(rna.instance_id)
+            }
+        }
+    }
+
+
+    runAtpCalculation = (e, component) => {
+        let item = e.target.closest('.drag-item')
+        let molecules = item.querySelector('.atp-molecules').value 
+        let aerobic = item.querySelector('.atp-aerobic').value
+        aerobic = aerobic === "Aerobic" ? 32 : 2
+        let result = aerobic * parseInt(molecules)
+        item.querySelector('.atp-reading').innerHTML = `Yielded ${result} ATP`
+    }
     
     /* ------------------------  */
     /*      POSITION HELPERS     */

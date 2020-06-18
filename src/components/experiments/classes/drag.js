@@ -39,8 +39,14 @@ function dragEnd(component, e) {
             }
         }
         else if (hoverInstance.instance_id) {
+            if (hoverInstance.isType('objects') && dragInstance.isType('objects')) {
+                hoverInstance.checkSynthesis(dragInstance, component)
+            }
+            else if (hoverInstance.isType('tools') && dragInstance.isType('tools')) {
+                hoverInstance.checkDissection(dragInstance, component)
+            }
             //If it's a container, and the other object is an item, move in into the container.
-            if (hoverInstance.isType('containers') && dragInstance.isType('objects')) {
+            else if (hoverInstance.isType('containers') && dragInstance.isType('objects')) {
                 itemsState.updateInstanceAndState(hoverInstance.addToContents(dragInstance), component)
             }
             //[Reverse of above- allowing dragging a container to an obect] 

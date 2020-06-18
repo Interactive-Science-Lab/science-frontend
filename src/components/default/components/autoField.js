@@ -13,7 +13,7 @@ class Page extends React.Component {
         const { settings, field, action } = this.props
 
         return <div>
-            {field.settings[1].label ? <div>{formHelpers.printifyName(field.name)} :</div> : ""}
+            {field.settings[1].label ? <div>{formHelpers.printifyName(field.name)}:</div> : ""}
 
 
 

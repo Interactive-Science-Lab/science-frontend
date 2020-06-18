@@ -12,6 +12,8 @@ class Page extends React.Component {
     render() {
         const { items, settings } = this.props
 
+        if(!items) { throw "ASTEROID: 'Items' is not set, check pagination options." }
+
         if (items.length > 0) {
             return items.map(
                 (item) => {

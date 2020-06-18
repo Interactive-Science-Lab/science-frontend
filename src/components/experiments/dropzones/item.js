@@ -50,10 +50,19 @@ class ItemComponent extends React.Component {
             <span className="item-show-name">{item.name}</span>
             <div className="">
                 <div className='item-name'>
+                    { (item.name === "Dissection Tray") || (item.name === "Petri Dish With Agar (A)") || (item.name === "Petri Dish With Agar (B)") ? 
+                    
+                    <img
+                        draggable={false}
+                        src={`/images/${item.getSprite()}`}
+                        style={{maxWidth:'none'}}
+                    />
+                    :
                     <img
                         draggable={false}
                         src={`/images/${item.getSprite()}`}
                     />
+                    }
 
 
                     {item.usedItem ? <span className={`content-display ${
@@ -85,6 +94,28 @@ class ItemComponent extends React.Component {
                     {record.properties?.includes('timer') ? <div>
                         <hr /> Reading: {this.printTime(item.getItemTime() || 0)}
                     </div> : ""}
+                    
+                    {record.properties?.includes('atp-factory') ? <div>
+                        <hr /> Molecules Glucose: 
+                        <select className="atp-molecules">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                        </select>
+                        
+                        <select className="atp-aerobic">
+                            <option>Aerobic</option>
+                            <option>Anaerobic</option>
+                        </select>
+                        <div className="atp-reading"></div>
+                    </div> : ""}
                 </div>
 
 
@@ -99,7 +130,7 @@ class ItemComponent extends React.Component {
 
 
                 <div className="item-used">{
-                    item.usedItem ? (item.usedItem.name ? <div><hr />
+                    item.usedItem ? (item.usedItem.name && item.name != 'Dissection Tray' ? <div><hr />
                         <div>Item:</div>
                         <div style={{ overFlowY: "scroll" }} className="tool-item ttipalt">
                             <span className='drag-item'
@@ -159,6 +190,23 @@ class ItemComponent extends React.Component {
                 </div> : ""}
                 {item.itemType === 'objects' ? <div>
                     <span data-instance={item.instance_id} className='format-link lab-action fas fa-trash remove-item'><span>Put Away</span></span>
+                    {record.properties?.indexOf('progress') > -1 ? <span>
+                        <span data-instance={item.instance_id} className='format-link lab-action fas fa-chevron-right advance-graphic time-lo'><span>Advance</span></span>
+                    </span> : ""}
+                    
+                    {record.properties?.indexOf('reveal-random') > -1 ? <span>
+                        <span data-instance={item.instance_id} className='format-link lab-action fas fa-eye-dropper reveal-item'><span>Run Test</span></span>
+
+                    </span> : ""}
+                    
+                    {record.properties?.indexOf('atp-factory') > -1 ? <span>
+                        <span data-instance={item.instance_id} className='format-link lab-action fas fa-chevron-right run-atp-item'><span>Run Test</span></span>
+
+                    </span> : ""}
+                
+                
+                
+                
                 </div> : ""}
                 {item.itemType === 'substances' ? <div>
                     <span data-instance={item.instance_id} className='format-link lab-action fas fa-trash remove-item'><span>Put Away</span></span>

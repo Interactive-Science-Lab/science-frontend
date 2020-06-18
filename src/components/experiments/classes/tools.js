@@ -40,6 +40,9 @@ export class ToolInstance extends ItemInstance {
             this.flash(2)
         } else if (!this.usedItem?.itemType) {
             this.usedItem = itemInstance
+            if(this.name==='Dissection Tray' && ['Frog', "Worm"].indexOf(itemInstance.name) > -1) {
+                this.record.sprite += `-${itemInstance.sprite}-1`
+            }
             itemInstance.removePosition()
             this.flash(2)
         }
@@ -191,6 +194,26 @@ export class ToolInstance extends ItemInstance {
         component.state.itemsState.updateInstance(this)
         if(this.usedItem?.instance_id){component.state.itemsState.updateInstance(this.usedItem)}
         component.state.itemsState.updateState(component)
+    }
+
+    checkDissection = (other, component) => {
+        console.log(this, other)
+        if(this.name === 'Dissection Tray') {
+            if(this.usedItem.name) {
+                console.log(this.usedItem)
+                let dissectPos = this.usedItem.record.properties.indexOf('disect')
+                if(dissectPos > -1) {
+                    let dissectInfo = this.usedItem.record.properties[dissectPos+1].split('-')
+                    let spriteInfo = this.record.sprite.split('-')
+                    let stage = parseInt(spriteInfo[2]) - 1
+                    if(dissectInfo[stage] === other.name.toLowerCase() ) {
+                        spriteInfo[2] = stage + 2
+                        this.record.sprite = spriteInfo.join('-')
+                        this.flash(2)
+                    }
+                }
+            }
+        }
     }
 
 }
