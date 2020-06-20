@@ -20,16 +20,19 @@ MENU OPTIONS
 ----------------------------- */
 export const menuOptions = {
     /* Whether or not to show the Site Pages ("About Us") on the menu */
-    showPages: false,
+    showPages: true,
     /* You may use page categories to organize your pages in the menu. False will put all the pages in the bar.*/
-    usePageCategories: false,
-    /* Attributes: 
+    usePageCategories: true,
+    /* 
+    Add page categories here and set them in the field.
+
+    Attributes: 
     "name"- string; what is shown
     "symbol"- string; the fontawesome name
     "view"- permissions; can be "all", "logged_in", "no_user", "end_user", or "admin"
     */
     pageCategories: [
-        {name: 'About', symbol: 'exclamation', view: 'all'}
+        {name: 'Help', symbol: 'exclamation', view: 'all'}
     ],
     
     /* Whether or not to show the Blog Content ("News", "Updates") on the menu */
@@ -43,10 +46,19 @@ export const menuOptions = {
     displayName- string; what is shown on the link
     categoryName- string; what is stored in the database
     symbol- string; fontawesome name
+
+    Set them here & set the correct IN the component file
     */
     blogContentTypes: [
         {displayName: "News & Updates", categoryName: "News", symbol: "newspaper", view: "all"},
-        //{displayName: "Blog Posts", categoryName: "Blogs", symbol: "comments", view: "all"},
+        {displayName: "Blog Posts", categoryName: "Blogs", symbol: "comments", view: "all"},
     ],
+
+    showComponents: true,
+    componentCategories: [
+        {id: 1, name: "Lab Settings", symbol: "newspaper", view: "admin", order: 2},
+        {id: 2, name: "Support", symbol: "newspaper", view: "all", order: 1},
+        {id: 3, name: "Admin", symbol: "newspaper", view: "admin", order: 3}
+    ]
 
 }

@@ -3,11 +3,19 @@ import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 import api from 'helpers/api'
 
+/* 
+    Default Index- 
+    Responsibilities:
+    1) This controls the functionality of calling the BE and passing those items 
+    to either the Default Index Display or a custom one
+    2) Keeping track of state and the items actually retrieved from the BE
+*/
+
+
 //Contains the settings for the resource.
 import { ResourceContext } from './components/resourceContext'
 //Related to search, sort, filter 
 import { defaultLoader, checkParams, updatePage, checkLoad } from 'components/shared/search_helpers/search_helpers'
-import settingHelper from 'db/settingHelpers'
 
 import { permissionError } from 'helpers/site'
 
@@ -38,7 +46,7 @@ class Index extends React.Component {
     //Most of the magic happens here. We verify the Loader & params, and do the necessary calls based on the Features for the resource.
     loadPage = async () => {
         const settings =  this.context
-        const permission = settingHelper.checkResourcePermission('index', settings)
+        const permission = settings.checkPermission('index')
 
         //Check permissions before any call.
         if (permission) {
@@ -47,7 +55,7 @@ class Index extends React.Component {
             let updateObj = { settings, items: [] }
 
             //Make the api call 
-            const res = await axios.get(api.apiPath('/' + settings.name.urlPath + '?' + params.toString()))
+            const res = await axios.get(api.apiPath('/' + settings.get("urlPath") + '?' + params.toString()))
 
             //Copy over the settings and store the items in the right place depending on whether or not paginate is active.
             updateObj.items = settings.features.paginate ? res.data.pageOfItems : updateObj.items = res.data
@@ -67,12 +75,13 @@ class Index extends React.Component {
     render() {
         const { items } = this.state
         const settings =  this.context
-        const permission = settingHelper.checkResourcePermission('index', settings)
+        const permission = settings.checkPermission('index')
+        
 
         //Very first, check the permissions.
         if (permission) {
             //Then, see if we have a custom index display.
-            let customDisplay = settingHelper.customResourceDisplay('index', settings)
+            let customDisplay = settings.checkCustomDisplay('index')
             if (customDisplay) {
                 //If so, go ahead and do it.
                 return customDisplay(items)

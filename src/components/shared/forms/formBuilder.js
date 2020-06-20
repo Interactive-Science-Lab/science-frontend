@@ -2,7 +2,6 @@ import React from 'react'
 import { Form } from 'react-bootstrap'
 import { withRouter } from "react-router-dom";
 import { ResourceContext } from 'components/default/components/resourceContext'
-import settingHelper from 'db/settingHelpers'
 
 import FormFields from './formFields'
 
@@ -23,7 +22,7 @@ class FormHandler extends React.Component {
     }
 
     validate = () => {
-        return settingHelper.validateInput(this.settings, this.props.item)
+        return this.settings.validateInput(this.props.item)
     }
 
     submitForm = async (e) => {

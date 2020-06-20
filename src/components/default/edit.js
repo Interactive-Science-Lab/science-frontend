@@ -5,7 +5,6 @@ import api from 'helpers/api'
 
 import { loadingSpinner, permissionError, missingError } from 'helpers/site'
 
-import settingHelper from 'db/settingHelpers'
 import { ResourceContext } from './components/resourceContext'
 
 import DefaultEdit from './components/defaultEdit'
@@ -14,7 +13,7 @@ class Edit extends React.Component {
   constructor(props, context) {
     super(props, context)
     this.settings = this.context
-    this.permission = settingHelper.checkResourcePermission('edit', this.settings)
+    this.permission = this.context.checkPermission('edit')
     this.state = {
       item: {},
       loading: true
@@ -28,7 +27,7 @@ class Edit extends React.Component {
   }
 
   updateItem = (item) => {
-    this.setState({item: item})
+    this.setState({ item: item })
   }
 
   loadPage = async () => {
@@ -36,7 +35,7 @@ class Edit extends React.Component {
       await this.setState({ loading: true })
       const id = this.props.match.params.id
       axios
-        .get(api.apiPath(`${this.settings.name.urlPath}/${id}`))
+        .get(api.apiPath(`${this.settings.get('urlPath')}/${id}`))
         .then(res => this.setState({ item: res.data }))
         .catch(err => console.log(err));
       await this.setState({ loading: false })
@@ -44,14 +43,15 @@ class Edit extends React.Component {
   }
 
   render() {
-    const item = this.state.item
+    const { item } = this.state
+    const settings = this.settings
 
     //Very first, check the permissions.
     if (this.permission) {
       //Then we see if there is any result pulled back.
       if (Object.entries(item).length > 0) {
         //Then, see if we have a custom index display.
-        let customDisplay = settingHelper.customResourceDisplay('edit', this.settings)
+        let customDisplay = settings.checkCustomDisplay('edit')
         if (customDisplay) {
           //If so, go ahead and do the custom display.
           return customDisplay(item)
@@ -67,7 +67,12 @@ class Edit extends React.Component {
       }
     } else {
       //Error display
-      return this.settings.name.friendly === 'feedback' ? <h1>Thank you for your feedback!</h1> : permissionError
+      let submit_message = this.settings.options.submit_message
+      if (submit_message) {
+        return submit_message(item)
+      } else {
+        return permissionError
+      }
     }
 
 

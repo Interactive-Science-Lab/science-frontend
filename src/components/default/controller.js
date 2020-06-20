@@ -1,11 +1,23 @@
 import React from 'react'
 import { Switch, Route, withRouter } from 'react-router-dom'
 
+/* 
+
+This is the controller for all components that are using the default options. 
+
+This file has a few major responsibilities:
+1) Pull the component settings and put it into a context
+2) Link to the default index, view, edit, new funtionality; which ends up linking to the BE
+
+
+*/
+
 import Index from './index.js'
 import View from './view.js'
 import Edit from './edit.js'
 import New from './new.js'
 import FourOhFour from 'helpers/404Component'
+
 
 import { ResourceContext, resourceDefaults } from './components/resourceContext'
 
@@ -20,7 +32,6 @@ class DefaultController extends React.Component {
         //Get the url and the settings based off of that. These go into a context to be used.
         const url = this.props.match.params.urlPath
         const resourceSettings = resourceDefaults(url)
-        console.log(resourceSettings)
         if(!resourceSettings) { throw "ASTEROID: Unable to find resource settings file."}
 
         //Double check to make sure we have the settings. If not, most likely a typo on the url, so display a 404.

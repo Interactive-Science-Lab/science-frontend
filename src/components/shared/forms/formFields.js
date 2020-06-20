@@ -3,7 +3,6 @@ import { withRouter } from "react-router-dom";
 
 
 import { resourceFullFields } from 'db/defaultObjects'
-import settingHelper from 'db/settingHelpers'
 import { ResourceContext } from 'components/default/components/resourceContext'
 import DefaultFormField from './defaultFormField'
 
@@ -16,10 +15,12 @@ class FormFields extends React.Component {
     }
 
     render() {
-        return resourceFullFields(this.settings, this.props.item).map(field => {
-            if(settingHelper.checkFieldPermission(this.props.existing ? 'edit' : 'new', field.settings[1].permissions)){
-                if(field.settings[1].customForm) {
-                    return field.settings[1].customForm(field, this.props.updateItem)
+        let action = this.props.existing ? 'edit' : 'new'
+        return this.settings.getItemFields(this.props.item).map(field => {
+            if(field.settings.checkPermission(action)){
+                let customForm = field.settings.checkCustomDisplay(action)
+                if(customForm) {
+                    return customForm(this.props.updateItem)
                 } else {
                     return <DefaultFormField field={field} settings={this.settings} item={this.props.item} {...this.props} />
                 }

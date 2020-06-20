@@ -1,162 +1,48 @@
 import React from 'react'
 
-const base = 'site_blog'
+import Component from '../component'
+import { PermissionSetting } from '../permission'
 
-//----------------------------------------
-// RESOURCE PERMISSIONS
-//----------------------------------------
-const permissions = {
-    index: {
-        name: "all"
-    },
-    view: {
-        name: "all"
-    },
-    new: {
-        name: "mod"
-    },
-    edit: {
-        name: "mod"
-    },
-    delete: {
-        name: "mod"
-    },
+let component = new Component('site_blog', {friendly: 'posts', upper: 'BlogPosts'}) 
+
+let noIndex = new PermissionSetting('noIndex')
+let hidden = new PermissionSetting('hidden')
+let mod = new PermissionSetting('mod')
+
+component.turnOnFeature('search')
+component.turnOnFeature('paginate')
+component.turnOnFeature('thumbnail')
+component.turnOnFeature('filter')
+component.setFilterOptions(['draft', 'public', 'private'])
+component.setLoader({ sort: "created_at", sortdir: "DESC" })
+
+component.turnOnFeature('sort')
+component.addSortOption('blog_title', 'Alphabetical')
+component.addSortOption('created_at', 'Post Date')
+
+component.turnOnFeature('tags')
+component.setFieldOption('tags', 'blog_tags')
+
+const back_to_all_link = (item) => {
+    return `/posts?category=${item.blog_category}`
 }
 
-//----------------------------------------
-// RESOURCE FEATURES
-//----------------------------------------
-const features = {
-    filter: {
-        options: ['draft', 'public', 'private'],
-        protection: "admin",
-    },
-    sort: {
-        options: [
-            ['created_at', 'Post Date'],
-            ['blog_title', 'Alphabetical']
-        ],
-    },
-    search: {},
-    paginate: {},
-    tags: {
-        field: "blog_tags"
-    },
-    newLink: {
-        protection: "admin",
-        options: "Add New +",
-    },
-    thumbnail: {},
-    user: [{
-        field: "author_id",
-        name: "Author",
-        permissions: ["static"]
-    }]
-}
+component.addOption('back_to_all_link', back_to_all_link)
 
+component.addMenuOption({name: "BlogPosts", view: 'admin', symbol: 'heart', order: 0})
 
-//----------------------------------------
-// RESOURCE FIELDS
-//----------------------------------------
-const fields = {
-    blog_status: {
-        default: "draft",
-        fieldType: ["select-draft"],
-        permissions: {
-            all: {
-                name: 'mod'
-            }
-        }
-    },
-    blog_category: {
-        default: "Blog",
-        fieldType: ["select-custom", [["One", "One"], ['Blog', "Blog"], ["News", "News"], ["Project", "Project"]]],
-        permissions: {
-            index: {
-                name: 'none'
-            },
-            view: {
-                name: 'none'
-            }
-        }
-    },
-    blog_title: {
-        default: "",
-        fieldType: "string",
-        validations: ["unique", "required"],
-        titleField: true
-    },
-    blog_description: {
-        default: "",
-        fieldType: "string",
-        validations: ["required"],
-    },
-    blog_text: {
-        default: "",
-        fieldType: "html",
-        validations: ["required"],
-        permissions: {
-            index: {
-                name: 'none'
-            }
-        }
-    },
+component.addField('blog_status', {default: "draft", fieldType: ["select-draft"], permissions: mod})
+component.addField('blog_category', {default: "Blog", permissions: hidden, fieldType: ["select-custom", [['Blog', "Blog"], ["News", "News"]]],})
+component.addField('blog_title', {validations: ["required", "unique"],titleField: true})
+component.addField('blog_description', {validations: ["required"],})
+component.addField('blog_text', {fieldType: 'html', validations: ["required"], permissions: noIndex})
 
-}
+export default component
 
-
-
-//----------------------------------------
-// OPTIONS & OVERRIDES
-//----------------------------------------
-//NAME SETTINGS
-const plural = base + 's'
-const friendly = 'posts' || plural //override null here in specific cases. Try to avoid this for simplicity reasons, but this is where you can assign a site_blog to direct to blogs 
-const upper = base.charAt(0).toUpperCase() + base.substring(1);
-const pluralUpper = upper + 's'
-const idField = base + '_id'
-const uniqueText = 'blog_title'
-const pageTitles = {
-    index: "All Updates",
-    view: upper + " Details",
-    new: "Add " + upper,
-    edit: "Edit " + upper
-}
-//OTHER SETTINGS
-const options = {
-    back_to_all_link: (item) => {
-        return `/posts?category=${item.blog_category}`
-    }
-}
-const loader = {
-    filter: 'public'
-}
-const displayTemplates = {
-    //INDEX, VIEW, NEW, and EDIT- do a HARD overwrite of the route
-    //index: (items) => { return JSON.stringify(items) + "WTFITEMS"}
-    //view: (item) => { return JSON.stringify(item) + "WTFITEM"}
-    //new: (item) => { return JSON.stringify(item) + "WTFITEM"}
-    //edit: (item) => { return JSON.stringify(item) + "WTFITEM"}
-    //listItem: (item) => { return JSON.stringify(item) + "WTFITEM"}
-}
-
-
-export default {
-    name: {
-        lp: plural,
-        ls: base,
-        up: pluralUpper,
-        us: upper,
-        friendly,
-        urlPath: "/" + friendly,
-        title: pageTitles,
-    },
-    permissions,
-    features,
-    loader,
-    idField,
-    uniqueText,
-    fields,
-    display: displayTemplates,
-    options
-}
+// const features = {
+//     user: [{
+//         field: "author_id",
+//         name: "Author",
+//         permissions: ["static"]
+//     }]
+// }

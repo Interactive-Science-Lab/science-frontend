@@ -7,7 +7,6 @@ import { withRouter } from 'react-router'
 import { loadingSpinner, permissionError, missingError } from 'helpers/site'
 //Contains the settings for the resource.
 import { ResourceContext } from './components/resourceContext'
-import settingHelper from 'db/settingHelpers'
 
 import DefaultView from './components/defaultView'
 
@@ -15,7 +14,7 @@ class View extends React.Component {
     constructor(props, context) {
         super(props, context)
         this.settings = this.context
-        this.permission = settingHelper.checkResourcePermission('view', this.settings)
+        this.permission = context.checkPermission('view')
         this.state = {
             item: {},
             loading: true
@@ -36,7 +35,7 @@ class View extends React.Component {
         if (this.permission) {
             await this.setState({ loading: true })
             axios
-                .get(api.apiPath(`${this.settings.name.urlPath}/${this.props.match.params.id}`))
+                .get(api.apiPath(`${this.settings.get('urlPath')}/${this.props.match.params.id}`))
                 .then(res => this.setState({ item: res.data }))
                 .catch(err => console.log(err));
             await this.setState({ loading: false })
@@ -51,7 +50,7 @@ class View extends React.Component {
             //Then we see if there is any result pulled back.
             if (Object.entries(item).length > 0) {
                  //Then, see if we have a custom index display.
-                let customDisplay = settingHelper.customResourceDisplay('view', this.settings)
+                let customDisplay = this.settings.checkCustomDisplay('view')
                 if (customDisplay) {
                     //If so, go ahead and do the custom display.
                     return customDisplay(item)

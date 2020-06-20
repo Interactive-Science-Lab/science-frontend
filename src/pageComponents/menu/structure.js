@@ -46,19 +46,6 @@ export default  [
         {name: "Forgot My Password", view: "all", link: '/auth/forgottenPassword', symbol: ""},
     ]}, 
     {name: "Logout", view: 'logged_in', link: '/auth/logout', symbol: "sign-out-alt"},
-    {name: "Site Settings", view: "admin", symbol: "user-cog", links: [   
-        {name: "User List", view: 'admin', link: '/users', symbol: "users"},
-        {name: "Feedback", view: 'admin', link: '/feedback', symbol: "comments"},
-        //{name: "Page List", view: 'admin', link: '/pages', symbol: "cogs"},
-        //{name: "Support Tickets", view: 'admin', link: '/support_tickets', symbol: "comments"},
-    ]},
-    {name: "Lab Settings", view: "admin", symbol: "tools", links: [   
-        {name: "Experiments", view: 'admin', link: '/experiments', symbol: "microscope"},
-        {name: "Containers", view: 'admin', link: '/containers', symbol: "flask"},
-        {name: "Objects", view: 'admin', link: '/objects', symbol: "magnet"},
-        {name: "Substances", view: 'admin', link: '/substances', symbol: "atom"},
-        {name: "Tools", view: 'admin', link: '/tools', symbol: "atom"},
-    ]},
 ]
 
  // {name: "Account", view: "logged_in", symbol: "user", links: [   
@@ -66,4 +53,13 @@ export default  [
 // ]},
 // {name: "Help", view: "all", symbol: "info-circle", links: [
 //     {name: "Support/Bug Report", view: "all", link: '/support_tickets/new', symbol: "bug"},
+// ]},
+
+
+// {name: "Lab Settings", view: "admin", symbol: "tools", links: [   
+//     {name: "Experiments", view: 'admin', link: '/experiments', symbol: "microscope"},
+//     {name: "Containers", view: 'admin', link: '/containers', symbol: "flask"},
+//     {name: "Objects", view: 'admin', link: '/objects', symbol: "magnet"},
+//     {name: "Substances", view: 'admin', link: '/substances', symbol: "atom"},
+//     {name: "Tools", view: 'admin', link: '/tools', symbol: "atom"},
 // ]},

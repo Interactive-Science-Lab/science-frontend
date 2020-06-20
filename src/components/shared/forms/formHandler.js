@@ -2,7 +2,6 @@ import React from 'react'
 import BuildForm from './formBuilder'
 import { withRouter } from "react-router-dom";
 
-import settingHelper from 'db/settingHelpers'
 import { ResourceContext } from 'components/default/components/resourceContext'
 
 class FormHandler extends React.Component {
@@ -26,9 +25,9 @@ class FormHandler extends React.Component {
   callAPI = async () => {
     let apiCall = null;
     if (this.props.existing) {
-      apiCall = await settingHelper.beEditCall(this.settings, this.props.item)
+      apiCall = await this.settings.beEditCall(this.props.item)
     } else {
-      apiCall = await settingHelper.beNewCall(this.settings, this.props.item)
+      apiCall = await this.settings.beNewCall(this.props.item)
     }
 
     //If the api call returns an error, DO NOT update the page, that clears the user input.
@@ -53,9 +52,9 @@ class FormHandler extends React.Component {
     } else {
       //If it's existing, redirect to the view page, if it's new, redirect to the edit page.
       if (this.props.existing) {
-        return settingHelper.feViewPath(this.settings, res.data)
+        return this.settings.feViewPath(res.data)
       } else {
-        return settingHelper.feEditPath(this.settings, res.data)
+        return this.settings.feEditPath(res.data)
       }
     }
 
@@ -64,8 +63,8 @@ class FormHandler extends React.Component {
   deleteItem = (e) => {
     e.preventDefault()
     if (window.confirm("Are you sure you wish to completely delete the item?")) {
-      settingHelper.beDeleteCall(this.settings, this.props.item)
-        .then(res => this.props.history.push(`${this.settings.name.urlPath}`) )
+      this.settings.beDeleteCall(this.props.item)
+        .then(res => this.props.history.push(`${this.settings.get('urlPath')}`) )
         .catch(err => console.log(err))
     }
   }

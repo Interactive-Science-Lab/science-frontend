@@ -14,13 +14,13 @@ class Field extends React.Component {
 
     options = () => {
         const field = this.props.component.props.field
-        switch( field.settings[1].fieldType[0] ){
+        switch( field.settings.fieldType[0] ){
             case "select-draft":
                 return [ ['draft', 'Draft'], ['public', 'Public'], ['private', 'Private'] ]
             case 'select-open':
                 return [ ['pending', 'Pending'], ['open', 'Open'], ['closed', 'Closed'], ['solved', 'Solved'], ['repoened', 'Reopened'] ]
             case "select-custom":
-                return field.settings[1].fieldType[1]
+                return field.settings.fieldType[1]
         }
     }
 

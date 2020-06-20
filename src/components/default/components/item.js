@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { resourceFullFields } from 'db/defaultObjects'
 import FieldDisplay from './fieldDisplay'
 
 
@@ -14,12 +13,14 @@ class Page extends React.Component {
 
     render() {
         const {item, settings}  = this.props        
-        const fields = resourceFullFields(settings, item)
+        const fields = settings.getItemFields(item)
 
-        return <Link to={`${settings.name.urlPath}/${item[settings.idField]}`} style={{ display: "block" }}>
-            {Object.values(fields).map(field => <div>
+        return <Link to={`${settings.get("urlPath")}/${item[settings.fields.idField]}`} style={{ display: "block" }}>
+            {fields.map(field => <div>
+                
                 <FieldDisplay action={'index'} field={field} {...this.props} /> 
-                </div>
+                
+            </div>
             )}
         </Link>
 

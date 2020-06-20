@@ -1,95 +1,57 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-const base = 'feedback'
 
-const permissions = {
-    index: {
-        name: "all"
-    },
-    view: {
-        name: "all"
-    },
-    new: {
-        name: "all"
-    },
-    edit: {
-        name: "all"
-    },
-    delete: {
-        name: "mod"
-    },
+import Component from '../component'
+import { PermissionSetting } from '../permission'
+
+let component = new Component('feedback', {friendly: 'feedback', urlPath: '/feedback'}) 
+
+let staticSubmit = new PermissionSetting('static-submit')
+let auto = new PermissionSetting('auto')
+
+component.setPermissions(staticSubmit)
+
+component.turnOnFeature('search')
+component.turnOnFeature('paginate')
+component.turnOnFeature('filter')
+component.setFilterOptions(['logged', 'unlogged'])
+component.setLoader({filter: 'unlogged'})
+
+component.addMenuOption({name: "See Feedback", category: 3, view: 'admin', symbol: 'heart', order: 1})
+component.addMenuOption({name: "Submit Feedback", category: 2, view: 'all', symbol: 'heart', order: 1, path: "/new"})
+
+const list = (item) => {
+    const from = item.feedback_name || item.feedback_email ?  `${item.feedback_name} ${item.feedback_email}` : "Anonymous"
+    return <Link style={{display:'block'}} to={`feedback/${item.feedback_id}`}>
+        {from} said:<br /> 
+        <i>{item.feedback_message}</i><br />
+        {item.logged ? "Logged" : "Unlogged"}
+    </Link>
 }
-
-
-const features = {
-    filter: {
-        options: ['unlogged', 'logged'],
-        protection: "admin",
-    },
-    search: {},
-    paginate: {},
+const page = (item) => {
+    const from = item.feedback_name || item.feedback_email ?  `${item.feedback_name} ${item.feedback_email}` : "Anonymous"
+    return <div style={{display:'block'}} to={`feedback/${item.feedback_id}`}>
+        {from} said:<br /> 
+        <i>{item.feedback_message}</i><br />
+        {item.logged ? "Logged" : "Unlogged"}
+    </div>
 }
+const submit_message = (item) => { return <div>Thank You! Your feedback has been recieved.</div> }
 
-const fields = {
-    feedback_kind: {default: "", fieldType: ['select-custom', [[1, 'Comment'], [2, 'Question'], [3, 'Concern']]], permissions: {edit: {name: 'none'}}},
-    feedback_message: {default: "", fieldType: 'text', permissions: {edit: {name: 'none'}}, label: true },
-    feedback_name: {default: "", fieldType: 'string', permissions: {edit: {name: 'none'}}, label: true },
-    feedback_email: {default: "", fieldType: 'string', permissions: {edit: {name: 'none'}}, label: true },
-    logged: {default: false, fieldType: 'boolean', permissions: {new: {name: 'none'}, edit: {name: 'admin'}}, label: true }
-}
+component.setCustomDisplay('listItem', list)
+//component.setCustomDisplay('view', page)
+component.addOption('submit_message', submit_message)
 
-const plural = base + 's'
-const friendly = 'feedback' || plural //override null here in specific cases. Try to avoid this for simplicity reasons, but this is where you can assign a site_blog to direct to blogs 
-const upper = base.charAt(0).toUpperCase() + base.substring(1);
-const pluralUpper = upper + 's'
+component.addField('feedback_kind', {default: 1, fieldType: ['select-custom', [[1, 'Comment'], [2, 'Question'], [3, 'Concern']] ] })
+component.addField('feedback_message', {fieldType: "text", label: true})
+component.addField('feedback_name', {label: true})
+component.addField('feedback_email', {label: true})
+component.addField('logged', {default: false, fieldType: "boolean", label: true, permissions: auto})
 
-const loader = {}
+export default component
 
-export default  {
-    name: {
-        lp: plural,
-        ls: base,
-        up: pluralUpper,
-        us: upper,
-        friendly,
-        urlPath: "/" + base,
-        folderPath: "/" + plural,
-        title: {
-            index: "All " + pluralUpper,
-            view: upper + " Details",
-            new: "Add " + upper,
-            edit: "Edit " + upper
-        },
-    },
-    permissions,
-    features,
-    loader,
-    idField: base + '_id',
-    uniqueText: base + '_name',
-    fields,
-    display: {
-        list: (item) => {
-            const from = item.feedback_name || item.feedback_email ?  `${item.feedback_name} ${item.feedback_email}` : "Anonymous"
-            return <Link style={{display:'block'}} to={`feedback/${item.feedback_id}`}>
-                {from} said:<br /> 
-                <i>{item.feedback_message}</i><br />
-                {item.logged ? "Logged" : "Unlogged"}
-            </Link>
-        }, 
-        page: (item) => {
-            const from = item.feedback_name || item.feedback_email ?  `${item.feedback_name} ${item.feedback_email}` : "Anonymous"
-            return <div style={{display:'block'}} to={`feedback/${item.feedback_id}`}>
-                {from} said:<br /> 
-                <i>{item.feedback_message}</i><br />
-                {item.logged ? "Logged" : "Unlogged"}
-            </div>
-        }
-    },
-    options: {
-        submit_message: () => { return <div>Thank You! Your feedback has been recieved.</div> }
-    }
-}
+    
 
 
 

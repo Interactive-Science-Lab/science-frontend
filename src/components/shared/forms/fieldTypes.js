@@ -22,7 +22,7 @@ class FormFields extends React.Component {
     render() {
         const { field } = this.props
 
-        let fieldType = field.settings[1].fieldType
+        let fieldType = field.settings.fieldType
         if (Array.isArray(fieldType)) { fieldType = fieldType[0] }
 
         if (['string'].includes(fieldType)) { return <String component={this} /> }

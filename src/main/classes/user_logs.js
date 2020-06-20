@@ -1,47 +1,40 @@
-export default {
-    name: {
-        lp: "logs",
-        ls: "log",
-        up: "Logs",
-        us: "Log",
-        urlPath: "/logs",
-        folderPath: "/core/admin",
-        folderName: "/logComponents",
-        index_title: "Logs",
-        view_title: "User Profile"
-    },
-    permissions: {
-        index: "mod",
-        view: "mod",
-        create: "none",
-        edit: "mod"
-    },
-    features: {
-        resource: {
-            urlPath: '/logs',
-            title: "Logs",
-        },
-        filter: {
-            options: ['all', 'confirmed', 'unconfirmed'],
-            protection: "admin",
-        },
-        search: {},
-        paginate: {},
-        user: [
-            {field: "log_submitting_user_id", name: "Submitting User", permissions: ["static"]},
-            {field: "log_confirming_user_id", name: "Confirming User", permissions: ["static"]},
-        ]
-    },
-    loader: { filter: 'unlogged'},
-    idField: 'log_id',
-    fields: {
-        route: {permissions: ['static'], fieldType: 'string' },
-        method: {permissions: ['static'], fieldType: 'string'},
-        changes: {permissions: ['static'], fieldType: 'object'},
-        previous: {permissions: ['static'], fieldType: 'object'},
-        notes: {default: "", fieldType: "text"},
-        log_confirmed: {permissions: ['static'], fieldType: 'boolean'},
-        object_id: {permissions: ['static'], fieldType: 'reference'},
-    },
-    display: {}
-}
+import Component from '../component'
+import { PermissionSetting } from '../permission'
+
+let component = new Component('log')
+
+let pS = new PermissionSetting('mod')
+pS.setPermission('new', 'none')
+
+let staticField = new PermissionSetting('static')
+
+component.setPermissions(pS)
+
+component.turnOnFeature('search')
+component.turnOnFeature('paginate')
+component.turnOnFeature('filter')
+component.setFilterOptions(['all', 'confirmed', 'unconfirmed'])
+component.setLoader({ filter: 'unlogged' })
+
+component.addMenuOption({ name: "Logs", view: 'admin', symbol: 'heart', category: 3, order: 3 })
+
+component.addField('route', {permission: staticField})
+component.addField('method', {permission: staticField})
+component.addField('changes', {fieldType: "object", permission: staticField})
+component.addField('previous', {fieldType: "object", permission: staticField})
+component.addField('object_id', {fieldType: "reference", permission: staticField})
+component.addField('notes', {fieldType: "text"})
+component.addField('log_confirmed', {})
+
+export default component
+
+// features: {
+//     resource: {
+//         urlPath: '/logs',
+//             title: "Logs",
+//         },
+//     user: [
+//         { field: "log_submitting_user_id", name: "Submitting User", permissions: ["static"] },
+//         { field: "log_confirming_user_id", name: "Confirming User", permissions: ["static"] },
+//     ]
+// },

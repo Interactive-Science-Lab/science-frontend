@@ -1,16 +1,44 @@
-
+import { curr_user } from 'helpers/api'
 
 /* 
+PERMISSION SETTING controls who can see what versions of information.
 
-Common Permission Settings-
+The object really only has one field, which can store "rules" or Permission class instances based on the action or view
 
-Content- Mod edit, all view
-Submit- All submit, mod view
-Admin- Only admin can see and edit
-Secret- completely hidden at all times
-NoIndex- don't show on the index
+There's 7 possible "action/views"- and they follow a specificity flow- 
+Most general is "all"- chich refers to, well, all.
+Then "display"      and      "form"        both include 2 views;
+"index" & "view"     +    "new" & "edit"       respectively
 
-*/ 
+
+*/
+
+//All is used for both targeting users & actions
+var ALL = "all", 
+//==Target specific users== 
+MOD = "mod", ADMIN = "admin", LOGGEDIN = "logged_in", NOUSER = 'no_user', NONE = "none", SELF = "self",
+
+//==Action / view list==
+//Display is the 'category' for index & view
+DISPLAY = "display", INDEX = "index", VIEW = "view", 
+//Form is the 'category' for edit & new
+FORM = "form", EDIT = "edit", NEW = "new",
+
+//==Quick Permission settings==
+//admin, mod, loggedin, nouser
+CONTENT = 'content', //Mod edit, all view
+SUBMIT = 'submit', //All submit, mod view
+SUBMITCONTENT = 'submit-content', //all submit, all view, mod edit
+SECRET = 'secret', //completely hidden at all times- including forms
+HIDDEN = 'hidden', //do not show on index or view
+NOINDEX = 'noIndex', //don't show on the index, more like a detail / text
+MODINDEX = 'modIndex', //hide the index unless mod
+STATIC = 'static', //No edit at all
+AUTO = 'auto', //Do not show new
+STATICSUBMIT = 'static-submit',//anyone submits, mod views, no one edits
+PERSONALCONTENT = 'personal-content', //anyone can create, anyone can view, only self can edit, only self can delete
+PRIVATE = 'private' //anyone can create, only see own.
+
 
 export class PermissionSetting {
     constructor(string) {
@@ -19,32 +47,107 @@ export class PermissionSetting {
     }
 
     setPermissions = (string) => {
-        switch(string) {
-            case "content":
-                this.setPermission('display', 'all')
-                this.setPermission('form', 'mod')
+        switch (string) {
+            case ALL:
+                this.setPermission(ALL, ALL)
+            case CONTENT:
+                this.setPermission(DISPLAY, ALL)
+                this.setPermission(FORM, MOD)
                 break;
-            case "submit":
-                this.setPermission('all', 'mod')
-                this.setPermission('new', 'all')
+            case SUBMIT:
+                this.setPermission(ALL, MOD)
+                this.setPermission(NEW, ALL)
                 break;
-            case 'logged_in':
-                this.setPermission('all', 'logged_in')
+            case SUBMITCONTENT:
+                this.setPermission(DISPLAY, ALL)
+                this.setPermission(NEW, ALL)
+                this.setPermission(EDIT, MOD)
                 break;
-            case "admin":
-                this.setPermission('all', 'admin')
+            case LOGGEDIN:
+                this.setPermission(ALL, LOGGEDIN)
                 break;
-            case "secret":
-                this.setPermission('all', 'none')
+            case ADMIN:
+                this.setPermission(ALL, ADMIN)
                 break;
-            case "noIndex":
-                this.setPermission('index', 'none')
+            case MOD:
+                this.setPermission(ALL, MOD)
+                break;
+            case SECRET:
+                this.setPermission(ALL, NONE)
+                break;
+            case HIDDEN:
+                this.setPermission(DISPLAY, NONE)
+                break;
+            case NOINDEX:
+                this.setPermission(INDEX, NONE)
+                break;
+            case MODINDEX:
+                this.setPermission(INDEX, MOD)
+            case STATIC:
+                this.setPermission(EDIT, NONE)
+                break;
+            case AUTO:
+                this.setPermission(NEW, NONE)
+                break;
+            case STATICSUBMIT:
+                this.setPermission(DISPLAY, MOD)
+                this.setPermission(NEW, ALL)
+                this.setPermission(EDIT, NONE)
+                break;
+            case PERSONALCONTENT:
+                this.setPermission(NEW, ALL)
+                this.setPermission(EDIT, SELF)
+                this.setPermission(DISPLAY, ALL)
+                break;
+            case PRIVATE:
+                this.setPermission(NEW, ALL)
+                this.setPermission(ALL, SELF)
+                break;
         }
-        
+
     }
 
+    //This is used to add another set of permissions onto what's already there, and returns new self for ease.
+    modifyPermissions = (string) => {
+        this.setPermissions(string)
+        return this
+    }
+
+    //Helper function to call the permission class itself.
     setPermission = (view, phrase) => {
         this.permissionObject[view] = new Permission(phrase)
+    }
+
+    /* 
+        "Check" has specificity flow-
+            First it checks to see if the EXACT action has a rule, if not,
+            It sees if the action category (display is both index & view; form is both edit & new), If not,
+            It sees if there's a rule for "all".
+    
+    */
+    checkPermission = (view) => {
+        let permission = null
+        switch (view) {
+            case INDEX:
+                permission = this.permissionObject.index || this.permissionObject.display || this.permissionObject.all
+                break;
+            case VIEW:
+                permission = this.permissionObject.view || this.permissionObject.display || this.permissionObject.all
+                break;
+            case EDIT:
+                permission = this.permissionObject.edit || this.permissionObject.form || this.permissionObject.all
+                break;
+            case NEW:
+                permission = this.permissionObject.new || this.permissionObject.form || this.permissionObject.all
+                break;
+        }
+
+        console.log(permission)
+        if (permission) {
+            return permission.check()
+        } else {
+            return true
+        }
     }
 }
 
@@ -54,22 +157,34 @@ export class PermissionSetting {
     'logged_in'
     'no_user'
     'none'
-    'webmaster'
     'admin'
     'mod'
-    'self'
+    'webmaster'**
+    'self'**
 */
 
 export class Permission {
     constructor(name) {
         this.rules = {
-            name: name,
-            role: "",
-            kind: "",
-            join: "",
-            custom: ""
+            name: name
         }
     }
 
+    check = () => {
+        switch (this.rules.name) {
+            case NONE:
+                return false;
+            case ALL:
+                return true;
+            case MOD:
+                return curr_user.user_role >= 2
+            case ADMIN:
+                return curr_user.user_role === 3
+            case LOGGEDIN:
+                return curr_user
+            case NOUSER:
+                return !curr_user
+        }
+    }
 
 }

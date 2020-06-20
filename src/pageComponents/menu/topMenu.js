@@ -7,6 +7,8 @@ import axios from 'axios'
 import { apiPath } from 'helpers/api'
 import { menuOptions } from 'helpers/site'
 
+import site from 'main/app'
+
 /*
   This file is responsible for determining & displaying the menu.
 
@@ -96,11 +98,37 @@ class Menu extends React.Component {
     }
   }
 
+  siteComponentStructure = () => {
+    let retCategories = []
+    let retLinks = []
+
+    //Parse all the categories from the helper/site file
+    menuOptions.componentCategories.map(category => {
+      retCategories.push({...category, links: []})
+    })
+    
+    //Call the site's getMenu function, and map over that, adding to the correct category, or the top menu
+    site.getMenu().map(menuItem => {
+      if(menuItem.category) {
+        retCategories.map(cat => menuItem.category === cat.id ? cat.links.push(menuItem) : null)
+      } else {
+        retLinks.push(menuItem)
+      }
+    })
+
+    //Sort order links WITHIN categories
+    retCategories.map(rc => rc.links = rc.links.sort((a, b) => a.order - b.order))
+
+    //Add the categories to the links, and sort order again
+    return retLinks.concat(retCategories).sort((a, b) => a.order - b.order)
+  }
+
 
 
   render = () => {
 
-    const menuStructure = [...this.sitePagesStructure(), ...this.siteContentStructure(), ...customMenuStructure,]
+    
+    const menuStructure = [...this.sitePagesStructure(), ...this.siteContentStructure(), ...customMenuStructure, ...this.siteComponentStructure() ]
 
     return <div className={`${this.props.showMenu ? "mobile-menu-show" : "mobile-menu-hide"}`}>
       {menuStructure.map(item =>

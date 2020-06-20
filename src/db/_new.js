@@ -27,6 +27,10 @@ component.addField('simple_field')
 component.addField('text_field_example', {fieldType: 'text'})
 component.addField('example_field', {default: "some default", fieldType: "number", permissions: new PermissionSetting() } )
 
+component.setCustomDisplay('index', (items) => { return "Whatever you want in here"})
+
+component.addOption('back_to_all_link', (item) => { return '/wtf/comone'} )
+component.addOption('submit_message', (item) => { return "Hey, it's all submitted"} )
 
 export default component
     
@@ -45,13 +49,4 @@ const fields = {
             return `${value}- THATS THE CUSTOM INDEX`
         },
     }
-
-
-//OTHER SETTINGS
-const options = {
-    //Used to change the "Back To All" link that appears on a "Show" page
-    //The item record is passed through for reference.
-    back_to_all_link: (item) => { return '' },
-    //Custom message to display after a "New"
-    submit_message: () => { return <div></div> }
 }

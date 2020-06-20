@@ -17,7 +17,7 @@ class Pagination extends React.Component {
         <input 
           type="text" 
           onChange={this.handleSearch} 
-          placeholder={`Search ${this.props.component.context.name.friendly}...`}
+          placeholder={`Search ${this.props.component.context.get('friendlyName')}...`}
           value={this.props.component.state.loader.params.get('search')} 
         />
       </span>

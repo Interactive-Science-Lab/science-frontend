@@ -1,83 +1,39 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import Component from '../component'
+import { PermissionSetting } from '../permission'
 
-const base = 'site_page'
+let component = new Component('site_page', {friendly: 'pages', upper: 'Page'}) 
 
-const permissions = {
-    index: {
-        name: "all"
-    },
-    view: {
-        name: "all"
-    },
-    new: {
-        name: "all"
-    },
-    edit: {
-        name: "all"
-    },
-    delete: {
-        name: "mod"
-    },
-}
+/* PERMISSIONS */
+let pagePermissions = new PermissionSetting('content')
+pagePermissions.setPermission('index', 'mod')
+let hiddenPermissions = new PermissionSetting('hidden')
+component.setPermissions(pagePermissions)
 
+/* FEATURES */
+component.turnOnFeature('search')
+component.turnOnFeature('paginate')
+component.turnOnFeature('filter')
+component.setFilterOptions(['draft', 'public', 'private'])
 
-const features = {
-    filter: {
-        options: ['draft', 'public', 'private'],
-        protection: "admin",
-    },
-    sort: {
-        options: [['page_title', 'Alphabetical'], ['page_category', 'Category'], ['page_order', 'Order']],
-    },
-    search: {},
-    paginate: {},
-    newLink: {
-        protection: "admin",
-        options: "Add New +",
-    },
-    thumbnail: {},
-}
+component.turnOnFeature('sort')
+component.addSortOption('page_title', 'Alphabetical')
+component.addSortOption('page_category', 'Category')
+component.addSortOption('page_order', 'Order')
 
-const fields = {
-    page_status: {default: "draft", fieldType: ["select-draft"] },
-    page_category: {default: "About", fieldType: ["select-custom", ["About", "Features"]], validations: ["required"]  },
-    page_symbol: {default: "star", fieldType: "icon" },
-    page_title: {default: "", fieldType: "string", validations: ["unique", "required"], titleField: true },
-    page_body_text: {default: "", fieldType: "html", validations: ["required"] }, 
-    page_order: {default: 0, fieldType: 'number', permissions: ["hidden"], validations: ["required"]}
-}
+component.setLoader({ filter: 'public' })
 
-const loader = { filter: 'public' }
+/* MENU */
+component.addMenuOption({name: "Site Pages", view: 'admin', symbol: 'heart', order: 0})
 
-export default  {
-    name: {
-        lp: "site_pages",
-        ls: "site_page",
-        up: "SitePages",
-        us: "SitePage",
-        urlPath: "/pages",
-        folderPath: "/content",
-        friendly: "Page",
-        title: {
-            index: "All Pages",
-            view: "Page Details",
-            new: "Add Page",
-            edit: "Edit Page"
-        },
-    },
-    permissions,
-    features,
-    loader,
-    idField: base + '_id',
-    uniqueText: base + '_name',
-    fields,
-    display: {
-      
-    },
-    options: {
-    }
-}
+/* FIELDS */
+component.addField('page_status', {default: 'draft', fieldType: ["select-draft"] })
+component.addField('page_category', {permissions: hiddenPermissions})
+component.addField('page_symbol', {default: 'star', fieldType: 'icon'})
+component.addField('page_title', {validations: ['unique', 'required'], titleField: true})
+component.addField('page_body_text', {fieldType: "html", validations: ['required']})
+component.addField('page_order', {default: 0, fieldType: 'number', validations: ['required'], permissions: hiddenPermissions})
 
+/* DISPLAY */
+component.changeText('viewTitle', '')
 
-
+export default component

@@ -18,7 +18,7 @@ class Page extends React.Component {
             return items.map(
                 (item) => {
                     //Look to see if there is an override for a list-item
-                    if (settings.display.listItem) { return settings.display.listItem(item) }
+                    if (settings.checkCustomDisplay('listItem')) { return settings.checkCustomDisplay('listItem')(item) }
                     //Otherwise do the default Item.
                     else { return <Item item={item} update={this.props.update} settings={settings} /> }
                 })

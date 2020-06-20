@@ -1,21 +1,16 @@
-export default {
-    name: {
-        lp: "admin_users",
-        ls: "admin_user",
-        up: "AdminUsers",
-        us: "AdminUser",
-        urlPath: "/admin_users",
-        folderPath: "/core",
-        index_title: "Users List",
-        view_title: "User Profile"
-    },
-    permissions: {},
-    features: {},
-    loader: {},
-    idField: 'admin_user_id',
-    fields: {
-        public_email: {default: "", fieldType: "string", validations: ["unique", "required"] },
-        phone_number: {default: "", fieldType: "string", validations: ["unique", "required"] },
-    },
-    display: {}
-}
+import Component from '../component'
+import { PermissionSetting } from '../permission'
+
+let component = new Component('admin_user')
+let pS = new PermissionSetting('all')
+
+component.setPermissions(pS)
+
+
+// fields: {
+//     public_email: {default: "", fieldType: "string", validations: ["unique", "required"] },
+//     phone_number: {default: "", fieldType: "string", validations: ["unique", "required"] },
+// },
+
+
+export default component

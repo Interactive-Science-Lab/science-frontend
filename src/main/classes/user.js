@@ -1,118 +1,43 @@
-const base = 'user';
+import Component from '../component'
+import { PermissionSetting } from '../permission'
 
-const permissions = {
-    index: {name: 'mod'},
-    view: {name: 'all'},
-    create: {name: 'all'},
-    edit: {name: 'self'},
-    delete: {name: 'self'}
-};
+let component = new Component('user') 
 
-const features = {
-    filter: {
-        options: ['all', '1', '2', '3'],
-        protection: 'admin'
-    },
-    search: {},
-    paginate: {},
-    thumbnail: {},
-    user_info: {}
-};
+let pS = new PermissionSetting('personal-content')
+pS.modifyPermissions('modIndex')
 
-const fields = {
-    username: {
-        default: '',
-        fieldType: 'string',
-        validations: ['unique', 'required']
-    },
-    user_email: {
-        default: '',
-        fieldType: 'string',
-        validations: ['unique', 'required'],
-        permissions: {
-            all: {name: 'self'}
-        }
-    },
-    password: {
-        default: '',
-        fieldType: 'string',
-        validations: ['required'],
-        permissions: {
-            all: { name: "none" },
-            edit: { name: "self" },
-            new: {name: "all"}
-        }
-    },
-    ban_notes: {
-        default: '',
-        fieldType: 'text',
-        permissions: {
-            all: { name: "mod"}
-        }
-    },
-    mailing_list: {
-        default: false,
-        fieldType: 'boolean',
-        permissions: {
-            all: {name: 'self'}
-        }
-    },
-    user_role: {
-        default: 1,
-        fieldType: 'number',
-        permissions: {
-            edit: {name: 'admin'},
-            new: {name: 'none'}
-        },
-    },
-    user_kind: {
-        permissions: {
-            edit: {name: 'none'},
-            new: {name: 'none'}
-        },
-        fieldType: 'string'
-    },
-    user_verified: {
-        fieldType: 'hidden'
-    },
-    last_login_attempt: {
-        fieldType: 'hidden'
-    },
-    login_attempts: {
-        fieldType: 'hidden'
-    },
-    forgotten_password_reset_time: {
-        fieldType: 'hidden'
-    }
-};
+component.setPermissions(pS)
 
-const plural = base + 's';
-const upper = base.charAt(0).toUpperCase() + base.substring(1);
-const pluralUpper = upper + 's';
+component.turnOnFeature('search')
+component.turnOnFeature('paginate')
+component.turnOnFeature('thumbnail')
+component.turnOnFeature('filter')
+component.setFilterOptions(['all', '1', '2', '3'])
+component.setLoader({ sort: "created_at", sortdir: "DESC" })
 
-const loader = {};
+component.addMenuOption({name: "Users", view: 'admin', symbol: 'heart', order: 3, category: 3})
 
-export default {
-    name: {
-        lp: plural,
-        ls: base,
-        up: pluralUpper,
-        us: upper,
-        friendly: plural,
-        urlPath: '/' + plural,
-        folderPath: '/' + plural,
-        title: {
-            index: 'All ' + pluralUpper,
-            view: upper + ' Details',
-            new: 'Add ' + upper,
-            edit: 'Edit ' + upper
-        }
-    },
-    permissions,
-    features,
-    loader,
-    idField: base + '_id',
-    uniqueText: base + '_name',
-    fields,
-    display: {}
-};
+
+let privateField = new PermissionSetting('private')
+let mod = new PermissionSetting('mod')
+let autoStatic = new PermissionSetting('static')
+autoStatic.modifyPermissions('auto')
+let adminEdit = new PermissionSetting('auto')
+adminEdit.setPermission('edit', 'admin')
+
+component.addField('username', {validations: ['unique', 'required']})
+component.addField('user_email', {validations: ['unique', 'required'], permissions: privateField})
+component.addField('password', {validations: ['required'], permissions: privateField.modifyPermissions('hidden') })
+component.addField('ban_notes', {fieldType: 'text', permissions: mod})
+component.addField('mailing_list', {default: true, fieldType: 'boolean', permissions: privateField})
+component.addField('user_role', {default: 1, fieldType: 'number', permissions: adminEdit })
+component.addField('user_kind', {permissions: autoStatic })
+component.addField('user_verified', {fieldType: "hidden"})
+component.addField('last_login_attempt', {fieldType: "hidden"})
+component.addField('login_attempts', {fieldType: "hidden"})
+component.addField('forgotten_password_reset_time', {fieldType: "hidden"})
+
+
+export default component
+
+//feature - user_info

@@ -2,6 +2,16 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
+/* 
+
+THIS IS THE MAIN LOGIC FILE 
+
+This is the page that ends up parsing the URL
+
+Most traffic will end up going to the default component, unless you override here. 
+
+*/
+
 import Home from '../views/home';
 
 import UserComponent from 'components/core/auth/controller';

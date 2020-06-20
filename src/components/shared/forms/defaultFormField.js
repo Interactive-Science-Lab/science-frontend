@@ -22,15 +22,15 @@ class FormFields extends React.Component {
         return <Form.Group>
 
                 <Form.Label>
-                    {field.settings[1].label ? formHelpers.printifyName(field.name) : null}
+                    {field.settings.label ? formHelpers.printifyName(field.name) : null}
                     { /* Add any notes for any fields here */}
-                    {settingHelper.fieldNotes(field)}
+                    {field.settings.formInfo}
                 </Form.Label>
 
                 <FieldType {...this.props} />
 
 
-                {field.settings[1].validations ? field.settings[1].validations.map(val => <div style={{color:'red'}}>
+                {field.settings.validations ? field.settings.validations.map(val => <div style={{color:'red'}}>
                     {val === 'required' ? (!field.value || field.value === "" ? "Field is required." : "") : ""}
                 </div>) : ""}
 

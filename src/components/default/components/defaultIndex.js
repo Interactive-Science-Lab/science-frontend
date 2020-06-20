@@ -22,7 +22,7 @@ class defaultIndex extends React.Component {
 
 
     displayOption = (component, optionSettings) => {
-        //user, mod, admin, webmaster
+        /*user, mod, admin, webmaster
         if (optionSettings.protection) {
             let protections = { role: 3, kind: 'admin_user', join: "and" }
             switch (optionSettings.protection) {
@@ -45,9 +45,9 @@ class defaultIndex extends React.Component {
                 {component}
             </Protect>
 
-        } else {
+        } else {*/
             return component
-        }
+        //}
     }
 
 
@@ -56,7 +56,7 @@ class defaultIndex extends React.Component {
         const { settings, mainState } = this.props
         const optionSettings = settings.features.filter
         if (optionSettings) {
-            const component = <Filter component={mainState} options={settings.features.filter.options} />
+            const component = <Filter component={mainState} options={settings.options.filterOptions.options} />
             return this.displayOption(component, optionSettings)
         }
         else { return "" }
@@ -76,7 +76,7 @@ class defaultIndex extends React.Component {
         const { settings, mainState } = this.props
         const optionSettings = settings.features.sort
         if (optionSettings) {
-            const component = <Sort component={mainState} options={settings.features.sort.options} />
+            const component = <Sort component={mainState} options={settings.options.sortOptions} />
             return this.displayOption(component, optionSettings)
         }
         else { return "" }
@@ -106,7 +106,7 @@ class defaultIndex extends React.Component {
         const { settings, mainState } = this.props
         const optionSettings = settings.features.newLink
         if (optionSettings) {
-            const component = <Link to={`${settings.name.urlPath}/new`}>{settings.features.newLink.options || "Add New +"}</Link>
+            const component = <Link to={`${settings.get("urlPath")}/new`}>{settings.text.newLink || "Add New +"}</Link>
             return this.displayOption(component, optionSettings)
         }
         else { return "" }
@@ -119,7 +119,7 @@ class defaultIndex extends React.Component {
             update={mainState.loadPage}
             loader={mainState.state.loader}
             settings={settings} />
-        const optionSettings = settings.name
+        const optionSettings = settings
         if (optionSettings) { return this.displayOption(component, optionSettings) }
         else { return "" }
     }
@@ -128,7 +128,8 @@ class defaultIndex extends React.Component {
         const { settings } = this.props
 
         return <div>
-            <h1>{settings.name.title.index}</h1>
+            <h1>{settings.get("indexTitle")}</h1>
+            <p>{settings.get("indexText")}</p>
 
             <div style={{display:'flex',justifyContent:'space-between',maxWidth:'800px',margin:'auto'}}>
                 {this.displayFilter()}
