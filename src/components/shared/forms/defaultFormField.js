@@ -1,10 +1,8 @@
 import React from 'react'
-import { Input } from 'reactstrap'
 import { withRouter } from "react-router-dom";
 
 import { ResourceContext } from 'components/default/components/resourceContext'
 
-import settingHelper from 'db/settingHelpers'
 import formHelpers from './form_helpers'
 import { Form } from 'react-bootstrap'
 import FieldType from './fieldTypes'

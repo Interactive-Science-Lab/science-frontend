@@ -1,11 +1,12 @@
 import React from 'react'
-import axios from 'axios'
 import HandleForm from './miniHandler'
-import MainHandler from './formHandler'
 import { withRouter } from "react-router-dom";
 
 import relationshipConfig from './relationships/relationshipConfig'
 import DisplayExisting from './relationships/displayExisting'
+
+import { ResourceContext } from 'components/default/components/resourceContext'
+
 
 
 class RelationshipForm extends React.Component {
@@ -26,7 +27,7 @@ class RelationshipForm extends React.Component {
 
       <div>
           {rConfig.default_item ? <div>
-            <HandleForm item={ rConfig.resourceSettings.fields } formClass={this.props.formClass} existing={false} info={rConfig} update={this.props.update} />
+            <HandleForm item={ this.context.getDefaultItem() } formClass={this.props.formClass} existing={false} info={rConfig} update={this.props.update} />
           </div>
           :""}
       </div>
@@ -38,4 +39,5 @@ class RelationshipForm extends React.Component {
 
 }
 
+RelationshipForm.contextType = ResourceContext
 export default withRouter(RelationshipForm)

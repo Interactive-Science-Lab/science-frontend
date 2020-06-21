@@ -14,10 +14,10 @@ class View extends React.Component {
     constructor(props, context) {
         super(props, context)
         this.settings = this.context
-        this.permission = context.checkPermission('view')
         this.state = {
             item: {},
-            loading: true
+            loading: true,
+            permission: true
         }
     }
 
@@ -32,13 +32,13 @@ class View extends React.Component {
 
     loadPage = async () => {
         //Get the actual item from the db. 
-        if (this.permission) {
+        if (this.state.permission) {
             await this.setState({ loading: true })
             axios
                 .get(api.apiPath(`${this.settings.get('urlPath')}/${this.props.match.params.id}`))
-                .then(res => this.setState({ item: res.data }))
+                .then(res => this.setState({ item: res.data, permission: this.settings.checkPermission('view', res.data)  }))
                 .catch(err => console.log(err));
-            await this.setState({ loading: false })
+            await this.setState({ loading: false})
         }
     }
 
@@ -46,7 +46,7 @@ class View extends React.Component {
         const item = this.state.item
 
         //Very first, check the permissions.
-        if (this.permission) {
+        if (this.state.permission) {
             //Then we see if there is any result pulled back.
             if (Object.entries(item).length > 0) {
                  //Then, see if we have a custom index display.

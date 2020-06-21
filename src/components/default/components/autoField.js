@@ -11,7 +11,6 @@ class Page extends React.Component {
 
     render() {
         const { settings, field, action } = this.props
-        console.log(field.settings)
         return <div>
             {field.settings.label ? <div>{formHelpers.printifyName(field.name)}:</div> : ""}
 
@@ -38,7 +37,11 @@ class Page extends React.Component {
                 </div>)}
             </div> : ""}
 
-            {field.settings.fieldType === 'reference' ? "Reference " + field.name + ": " + field.value : ""}
+            {field.settings.fieldType === 'array' ? JSON.stringify(field.value) : ""}
+
+            {field.settings.fieldType === 'reference' ? "reference" + ": " + field.value : ""}
+
+            {field.settings.fieldType === 'userReference' ? field.settings.info.title + ": " + this.props.item[field.settings.info.targetField] : ""}
 
             {field.settings.suffix}
 

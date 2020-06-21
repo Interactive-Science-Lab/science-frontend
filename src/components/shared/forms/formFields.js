@@ -17,7 +17,7 @@ class FormFields extends React.Component {
     render() {
         let action = this.props.existing ? 'edit' : 'new'
         return this.settings.getItemFields(this.props.item).map(field => {
-            if(field.settings.checkPermission(action)){
+            if(field.settings.checkPermission(action, this.props.item, this.settings.fields.selfId)){
                 let customForm = field.settings.checkCustomDisplay(action)
                 if(customForm) {
                     return customForm(this.props.updateItem)

@@ -20,7 +20,7 @@ class Field extends React.Component {
             onChange={this.handleChange}
             name={field.name}
             placeholder={field.name}
-            value={item[field.name]}
+            value={field.value}
         />
     }
 }

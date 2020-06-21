@@ -6,9 +6,12 @@ import DisplayPreview from './relationships/displayPreview'
 import api, {headers, curr_user} from 'helpers/api'
 
 
+import { ResourceContext } from 'components/default/components/resourceContext'
+
+
 class FormHandler extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor(props, context) {
+    super(props, context)
     this.state = {
       item: {},
       formClass: "",
@@ -45,10 +48,11 @@ class FormHandler extends React.Component {
     const id = this.state.item.id
     delete this.state.item.id
     delete this.state.item.original_record
-    const postURL = api.apiPath(`/${this.props.info.url}`)
+    const postURL = api.apiPath(`/${this.context.get('urlPath')}`)
     const putURL = `${postURL}/${id}`
     var apiCall;
-    let override = api.apiPath(this.props.settings.name.override_api_path)
+    let oap = this.context.options.override_api_path
+    let override = oap ? api.apiPath(oap) : null
 
     if(this.state.formClass === "images" || this.state.formClass === "thumbnail"){
       if(this.state.existing) {
@@ -99,9 +103,10 @@ class FormHandler extends React.Component {
       <div className='mini-form'>
         <BuildForm 
           item={this.state.item} 
+          formCallbacks={{submitForm: this.submitForm,
+            deleteItem: this.deleteItem}
+          }
           updateItem={this.updateItem} 
-          submitForm={this.submitForm} 
-          deleteItem={this.deleteItem}
           existing={this.state.existing} 
           settings={this.props.settings}
           formClass={this.state.formClass} /> 
@@ -120,6 +125,7 @@ class FormHandler extends React.Component {
 
 }
 
+FormHandler.contextType = ResourceContext
 export default withRouter(FormHandler)
 
 

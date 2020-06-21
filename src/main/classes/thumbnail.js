@@ -4,15 +4,16 @@ import { PermissionSetting } from '../permission'
 let component = new Component('thumbnail')
 let pS = new PermissionSetting('all')
 
-component.setPermissions(pS)
+let autoStatic = new PermissionSetting('auto').modifyPermissions('static')
 
-// fields: {
-//     image_url: {default: "https://www.w3schools.com/w3css/img_lights.jpg",},
-//     image_kind: {default: 'thumbnail', permissions: ['background']},
-//     image_title: {default: 'Thumbnail Image',},
-//     image_description: {default: 'An image uploaded by this user',},
-//     image_source: {default: "Original Upload"}
-// },
+component.setPermissions(pS)
+component.setName("urlPath", 'images')
+
+component.addField('image_url', {fieldType: "image"})
+component.addField('image_kind', {default: 'thumbnail', permissions: autoStatic})
+component.addField('image_title', {})
+component.addField('image_description', {})
+component.addField('image_source', {})
 
 
 export default component

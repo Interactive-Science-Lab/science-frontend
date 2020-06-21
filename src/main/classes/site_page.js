@@ -14,6 +14,8 @@ component.turnOnFeature('search')
 component.turnOnFeature('paginate')
 component.turnOnFeature('filter')
 component.setFilterOptions(['draft', 'public', 'private'])
+let filterPermissions = new PermissionSetting('admin')
+component.setFilterPermissions(filterPermissions)
 
 component.turnOnFeature('sort')
 component.addSortOption('page_title', 'Alphabetical')

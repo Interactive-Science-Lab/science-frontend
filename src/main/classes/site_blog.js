@@ -8,20 +8,25 @@ let component = new Component('site_blog', {friendly: 'posts', upper: 'BlogPosts
 let noIndex = new PermissionSetting('noIndex')
 let hidden = new PermissionSetting('hidden')
 let mod = new PermissionSetting('mod')
+let staticField = new PermissionSetting('static').modifyPermissions('auto')
 
 component.turnOnFeature('search')
 component.turnOnFeature('paginate')
+
 component.turnOnFeature('thumbnail')
+
 component.turnOnFeature('filter')
 component.setFilterOptions(['draft', 'public', 'private'])
-component.setLoader({ sort: "created_at", sortdir: "DESC" })
+component.setLoader({ sort: "created_at", sortdir: "DESC", filter: "public" })
 
 component.turnOnFeature('sort')
 component.addSortOption('blog_title', 'Alphabetical')
 component.addSortOption('created_at', 'Post Date')
 
-component.turnOnFeature('tags')
-component.setFieldOption('tags', 'blog_tags')
+component.turnOnFeature('userReference')
+component.addUserReference("author_id", {permissions: staticField, title: "Author", targetField: 'author_username' })
+
+component.addTags('blog_tags', {})
 
 const back_to_all_link = (item) => {
     return `/posts?category=${item.blog_category}`
@@ -38,11 +43,3 @@ component.addField('blog_description', {validations: ["required"],})
 component.addField('blog_text', {fieldType: 'html', validations: ["required"], permissions: noIndex})
 
 export default component
-
-// const features = {
-//     user: [{
-//         field: "author_id",
-//         name: "Author",
-//         permissions: ["static"]
-//     }]
-// }

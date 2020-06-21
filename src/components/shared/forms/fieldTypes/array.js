@@ -15,8 +15,8 @@ class ArrayField extends React.Component {
     const set = e.target.name.split('-')
     const field = set[0]
     const index = set[1]
-    const value = e.target.value
-    const array = item[field] 
+    const value = e.target.value 
+    const array = item[field] || []
     if (value === "") {
       array.splice(index, 1)
     } else if (value.indexOf(';') > -1) {
@@ -27,13 +27,13 @@ class ArrayField extends React.Component {
     }
     updateItem({
       ...item,
-      [e.target.name]: array
+      [field]: array
     })
   }
   
   field = () => {
     const { field, item } = this.props.component.props
-
+    console.log(field, item)
     if (item[field.name] && item[field.name].length > 0) {
       return item[field.name].map((i, index) => <div key={index}>
         <Form.Control

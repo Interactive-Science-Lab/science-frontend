@@ -13,10 +13,10 @@ class Edit extends React.Component {
   constructor(props, context) {
     super(props, context)
     this.settings = this.context
-    this.permission = this.context.checkPermission('edit')
     this.state = {
       item: {},
-      loading: true
+      loading: true,
+      permission: true
     }
   }
 
@@ -31,12 +31,12 @@ class Edit extends React.Component {
   }
 
   loadPage = async () => {
-    if (this.permission) {
+    if (this.state.permission) {
       await this.setState({ loading: true })
       const id = this.props.match.params.id
       axios
         .get(api.apiPath(`${this.settings.get('urlPath')}/${id}`))
-        .then(res => this.setState({ item: res.data }))
+        .then(res => this.setState({ item: res.data, permission: this.settings.checkPermission('edit', res.data) }))
         .catch(err => console.log(err));
       await this.setState({ loading: false })
     }
@@ -47,7 +47,7 @@ class Edit extends React.Component {
     const settings = this.settings
 
     //Very first, check the permissions.
-    if (this.permission) {
+    if (this.state.permission) {
       //Then we see if there is any result pulled back.
       if (Object.entries(item).length > 0) {
         //Then, see if we have a custom index display.

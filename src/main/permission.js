@@ -14,30 +14,30 @@ Then "display"      and      "form"        both include 2 views;
 */
 
 //All is used for both targeting users & actions
-var ALL = "all", 
-//==Target specific users== 
-MOD = "mod", ADMIN = "admin", LOGGEDIN = "logged_in", NOUSER = 'no_user', NONE = "none", SELF = "self",
+var ALL = "all",
+    //==Target specific users== 
+    MOD = "mod", ADMIN = "admin", LOGGEDIN = "logged_in", NOUSER = 'no_user', NONE = "none", SELF = "self",
 
-//==Action / view list==
-//Display is the 'category' for index & view
-DISPLAY = "display", INDEX = "index", VIEW = "view", 
-//Form is the 'category' for edit & new
-FORM = "form", EDIT = "edit", NEW = "new",
+    //==Action / view list==
+    //Display is the 'category' for index & view
+    DISPLAY = "display", INDEX = "index", VIEW = "view",
+    //Form is the 'category' for edit & new
+    FORM = "form", EDIT = "edit", NEW = "new",
 
-//==Quick Permission settings==
-//admin, mod, loggedin, nouser
-CONTENT = 'content', //Mod edit, all view
-SUBMIT = 'submit', //All submit, mod view
-SUBMITCONTENT = 'submit-content', //all submit, all view, mod edit
-SECRET = 'secret', //completely hidden at all times- including forms
-HIDDEN = 'hidden', //do not show on index or view
-NOINDEX = 'noIndex', //don't show on the index, more like a detail / text
-MODINDEX = 'modIndex', //hide the index unless mod
-STATIC = 'static', //No edit at all
-AUTO = 'auto', //Do not show new
-STATICSUBMIT = 'static-submit',//anyone submits, mod views, no one edits
-PERSONALCONTENT = 'personal-content', //anyone can create, anyone can view, only self can edit, only self can delete
-PRIVATE = 'private' //anyone can create, only see own.
+    //==Quick Permission settings==
+    //admin, mod, loggedin, nouser
+    CONTENT = 'content', //Mod edit, all view
+    SUBMIT = 'submit', //All submit, mod view
+    SUBMITCONTENT = 'submit-content', //all submit, all view, mod edit
+    SECRET = 'secret', //completely hidden at all times- including forms
+    HIDDEN = 'hidden', //do not show on index or view
+    NOINDEX = 'noIndex', //don't show on the index, more like a detail / text
+    MODINDEX = 'modIndex', //hide the index unless mod
+    STATIC = 'static', //No edit at all
+    AUTO = 'auto', //Do not show new
+    STATICSUBMIT = 'static-submit',//anyone submits, mod views, no one edits
+    PERSONALCONTENT = 'personal-content', //anyone can create, anyone can view, only self can edit, only self can delete
+    PRIVATE = 'private' //anyone can create, only see own.
 
 
 export class PermissionSetting {
@@ -50,6 +50,7 @@ export class PermissionSetting {
         switch (string) {
             case ALL:
                 this.setPermission(ALL, ALL)
+                break;
             case CONTENT:
                 this.setPermission(DISPLAY, ALL)
                 this.setPermission(FORM, MOD)
@@ -83,6 +84,7 @@ export class PermissionSetting {
                 break;
             case MODINDEX:
                 this.setPermission(INDEX, MOD)
+                break;
             case STATIC:
                 this.setPermission(EDIT, NONE)
                 break;
@@ -102,6 +104,9 @@ export class PermissionSetting {
             case PRIVATE:
                 this.setPermission(NEW, ALL)
                 this.setPermission(ALL, SELF)
+                break;
+            case NOUSER:
+                this.setPermission(ALL, NOUSER)
                 break;
         }
 
@@ -125,8 +130,9 @@ export class PermissionSetting {
             It sees if there's a rule for "all".
     
     */
-    checkPermission = (view) => {
+    checkPermission = (view, item = {}, selfId = null) => {
         let permission = null
+
         switch (view) {
             case INDEX:
                 permission = this.permissionObject.index || this.permissionObject.display || this.permissionObject.all
@@ -142,9 +148,8 @@ export class PermissionSetting {
                 break;
         }
 
-        console.log(permission)
         if (permission) {
-            return permission.check()
+            return permission.check(item, selfId)
         } else {
             return true
         }
@@ -170,7 +175,7 @@ export class Permission {
         }
     }
 
-    check = () => {
+    check = (item = {}, selfId = null) => {
         switch (this.rules.name) {
             case NONE:
                 return false;
@@ -184,6 +189,11 @@ export class Permission {
                 return curr_user
             case NOUSER:
                 return !curr_user
+            case SELF:
+                let selfCheck = selfId && item[selfId]
+                if (!selfCheck) { throw "ASTEROID: Self Check Error; selfID or item NOT SET" }
+                return item[selfId] === curr_user.user_id
+
         }
     }
 

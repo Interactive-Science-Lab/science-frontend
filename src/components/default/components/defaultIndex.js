@@ -21,41 +21,17 @@ class defaultIndex extends React.Component {
     }
 
 
-    displayOption = (component, optionSettings) => {
-        /*user, mod, admin, webmaster
-        if (optionSettings.protection) {
-            let protections = { role: 3, kind: 'admin_user', join: "and" }
-            switch (optionSettings.protection) {
-                case "webmaster":
-                    protections = { role: 3, kind: 'admin_user', join: "and" }
-                    break;
-                case "admin":
-                    protections = { role: 3, kind: 'admin_user', join: "or" }
-                    break;
-                case "mod":
-                    protections = { role: 2, kind: 'mod_user', join: "or" }
-                    break;
-                case "user":
-                    protections = { role: 1, kind: 'end_user', join: "or" }
-                    break;
-                default:
-                    throw `Incorrect input for displayOptions- must be webmaster, admin, mod, or user.`
-            }
-            return <Protect role={protections.role} kind={protections.kind} join={protections.join}>
-                {component}
-            </Protect>
-
-        } else {*/
-            return component
-        //}
+    displayOption = (component) => {
+        return component
     }
-
-
 
     displayFilter = () => {
         const { settings, mainState } = this.props
         const optionSettings = settings.features.filter
-        if (optionSettings) {
+        const filterPermissions = settings.options.filterOptions.permissions
+        let filterCheck = true
+        if(filterPermissions) { filterCheck = filterPermissions.checkPermission('index') }
+        if (optionSettings && filterCheck) {
             const component = <Filter component={mainState} options={settings.options.filterOptions.options} />
             return this.displayOption(component, optionSettings)
         }
@@ -105,7 +81,8 @@ class defaultIndex extends React.Component {
     displayNewLink = () => {
         const { settings, mainState } = this.props
         const optionSettings = settings.features.newLink
-        if (optionSettings) {
+        let permissionCheck = settings.checkPermission('new') 
+        if (optionSettings && permissionCheck) {
             const component = <Link to={`${settings.get("urlPath")}/new`}>{settings.text.newLink || "Add New +"}</Link>
             return this.displayOption(component, optionSettings)
         }

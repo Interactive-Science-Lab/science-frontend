@@ -5,13 +5,13 @@ import { withRouter } from 'react-router'
 import HandleForm from 'components/shared/forms/formHandler'
 import RelationshipForm from 'components/shared/forms/relationship'
 
-import { ResourceContext } from './resourceContext'
+import { ResourceContext, resourceDefaults } from './resourceContext'
+
 
 class Edit extends React.Component {
   constructor(props, context) {
     super(props, context)
     this.settings = this.context
-    this.permission = context.checkPermission('edit')
     this.state = {}
   }
 
@@ -19,9 +19,8 @@ class Edit extends React.Component {
     const item = this.props.item
     const settings = this.settings
 
-
     return <div className="tpBlackBg color-box">
-      {settings.checkPermission('view') ?
+      {settings.checkPermission('view', item) ?
         <Link to={`${settings.get('urlPath')}/${item[settings.get('idField')]}`}>Back To Page</Link>
         : ""}
 
@@ -39,14 +38,17 @@ class Edit extends React.Component {
         loadPage={this.props.loadPage} />
 
 
-      {/* Below are for forms for additional features, if they exist. */}
       {settings.features.thumbnail ?
-        <RelationshipForm item={item} formClass={"thumbnail"} settings={settings} update={this.loadPage} info={{ id: item[settings.idField], class: settings.name.us }} />
+        <ResourceContext.Provider value={resourceDefaults('thumbnails')}>
+          <RelationshipForm item={item} formClass={"thumbnail"} settings={settings} update={this.props.loadPage} info={{ id: item[settings.fields.idField], class: settings.names.us }} />
+        </ResourceContext.Provider>
         : ""}
 
 
-      {settings.features.user_info && item.info ?
-        <RelationshipForm item={item} formClass={item.user_kind} settings={settings} update={this.loadPage} info={{ id: item[settings.idField], class: settings.name.us }} />
+      {settings.features.userInfo && item.info ?
+        <ResourceContext.Provider value={resourceDefaults(item.user_kind)}>
+          <RelationshipForm item={item} formClass={item.user_kind} settings={settings} update={this.props.loadPage} info={{ id: item[settings.fields.idField], class: settings.names.us }} />
+        </ResourceContext.Provider>
         : ""}
 
     </div>

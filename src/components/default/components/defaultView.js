@@ -1,13 +1,11 @@
 import React from 'react'
 import { withRouter } from 'react-router'
 import { Link } from 'react-router-dom'
-import AutoField from './autoField'
 
 //Contains the settings for the resource.
 import { ResourceContext } from './resourceContext'
 
 import FieldDisplay from './fieldDisplay'
-import component from 'main/classes/experiment'
 
 
 class Show extends React.Component {
@@ -20,10 +18,11 @@ class Show extends React.Component {
      
     render() {
         const item = this.props.item
+        console.log(item)
         const settings = this.settings
         const fields = settings.getItemFields(item)
         return <div>
-            {settings.checkPermission('index') ?
+            {settings.checkPermission('index', item) ?
                 <Link to={`${settings.options?.back_to_all_link ? settings.options.back_to_all_link(item) : settings.get('urlPath') }`}>Back To All</Link>
                 : ""}
 
@@ -41,7 +40,7 @@ class Show extends React.Component {
 
             {settings.features.user_info ? JSON.stringify(item.info) : ""}
 
-            {settings.checkPermission('edit') ?
+            {settings.checkPermission('edit', item) ?
                 <Link to={`${settings.get('urlPath')}/${this.props.match.params.id}/edit`}>Edit</Link>
                 : ""}
         </div>

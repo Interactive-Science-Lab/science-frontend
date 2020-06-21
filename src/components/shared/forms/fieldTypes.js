@@ -1,5 +1,4 @@
 import React from 'react'
-import { Input } from 'reactstrap'
 
 import String from './fieldTypes/string'
 import TextArea from './fieldTypes/textArea'
@@ -35,16 +34,6 @@ class FormFields extends React.Component {
         else if (['number'].includes(fieldType)) { return <NumberField component={this} /> }
         else if (['boolean'].includes(fieldType)) { return <BooleanField component={this} /> }
         else if (['image'].includes(fieldType)) { return <ImageUploadField component={this} /> }
-
-
-        else {
-            return <div>
-                {field.name === 'feedback_kind' ? <Input type="hidden" name="feedback_kind" value={1} /> : ""}
-                {field.name === 'foreign_id' ? <Input type="hidden" name="foreign_id" value={this.props.item.foreign_id} /> : ""}
-                {field.name === 'foreign_key' ? <Input type="hidden" name="foreign_key" value={this.props.item.foreign_key} /> : ""}
-                {field.name === 'foreign_class' ? <Input type="hidden" name="foreign_class" value={this.props.item.foreign_class} /> : ""}
-            </div>
-        }
     }
 }
 

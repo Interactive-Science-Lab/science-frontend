@@ -49,8 +49,9 @@ export default class Component {
         this.fields = {
             idField: baseName + '_id',
             uniqueField: baseName + '_name',
+            userReferences: [],
             tagField: null,
-            selfIdField: null,
+            selfId: null,
             fieldList: []
         }
         this.permissions = new PermissionSetting('content')
@@ -122,6 +123,18 @@ export default class Component {
     setLoader = (loader) => { this.loader = loader }
     addMenuOption = (options) => { this.menuOptions.push(options) }
 
+    addUserReference = (name, options) => { 
+        options = {fieldType: 'userReference', default: curr_user?.user_id, ...options}
+        this.fields.userReferences.push(name) 
+        this.addField(name, options)
+    }
+    addTags = (tagFieldName, options) => {
+        this.turnOnFeature('tags')
+        this.setFieldOption('tagField', tagFieldName)
+        options = {fieldType: 'array', name: tagFieldName, default: [], ...options}
+        this.addField(tagFieldName, options)
+    }
+
     addField = (fieldName, options = {}) => {
         let field = new ComponentField(fieldName, options)
         this.fields.fieldList.push(field)
@@ -144,12 +157,9 @@ export default class Component {
             }
         ))
 
-        //Check to see if there's a tag feature; if so, account for it.
-        const tags = this.features.tags
-        //if (tags) { return_fields.push({ name: settings.features.tags.field, value: [], settings: [settings.features.tags.field, { fieldType: 'array', feature: 'tags' }] }) }
-
         return return_fields
     }
+
     getDefaultItem = () => {
         let obj = {}
         this.getDefaultFields().map(f => obj[f.name] = f.value)
@@ -159,13 +169,18 @@ export default class Component {
     getItemFields = (item) => {
         let defaultFields = this.getDefaultFields()
         let returnFields = []
-        defaultFields.map(field => returnFields.push(item[field.name] ? { ...field, value: item[field.name] } : field))
+        defaultFields.map(field => {
+            let fieldRet = field
+            if( item[field.name] ) { fieldRet = {...fieldRet, value: item[field.name] }}
+            returnFields.push(fieldRet)
+        
+        })
         return returnFields
     }
     addSortOption = (field, displayText) => { this.options.sortOptions.push([field, displayText]) }
 
     setFilterOptions = (array) => { this.options.filterOptions.options = array }
-    setFilterPermissions = () => { }
+    setFilterPermissions = (permissions) => { this.options.filterOptions.permissions = permissions}
 
     setFieldOption = (fieldType, fieldName) => { this.fields[fieldType] = fieldName }
 
@@ -175,8 +190,8 @@ export default class Component {
     turnOffFeature = (featureName) => { this.features[featureName] = false }
     changeText = (textType, newInput) => { this.text[textType] = newInput }
 
-    checkPermission = (view) => {
-        return this.permissions.checkPermission(view)
+    checkPermission = (view, item ={}) => {
+        return this.permissions.checkPermission(view, item, this.fields.selfId)
     }
 
     setCustomDisplay = (view, template) => {
@@ -275,11 +290,13 @@ class ComponentField {
 
         this.customDisplay = {}
 
+        this.info = options
+
     }
 
-    checkPermission = (view) => {
+    checkPermission = (view, item ={}, selfId = null) => {
         if (this.permissions) {
-            return this.permissions.checkPermission(view)
+            return this.permissions.checkPermission(view, item, selfId)
         } else {
             return true
         }
