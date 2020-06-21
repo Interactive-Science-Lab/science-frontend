@@ -2,10 +2,9 @@ import React from 'react'
 import HandleForm from './miniHandler'
 import { withRouter } from "react-router-dom";
 
-import relationshipConfig from '../../../trash/relationshipConfig'
 import DisplayExisting from './relationships/displayExisting'
 
-import { ResourceContext } from 'main/defaultComponent/components/resourceContext'
+import { ResourceContext } from 'main/defaultComponent/componentParts/resourceContext'
 
 
 
@@ -18,7 +17,7 @@ class RelationshipForm extends React.Component {
   }
 
   render() {
-    const rConfig = relationshipConfig(this.props)
+    const rConfig = {} //relationshipConfig(this.props)
     return rConfig ? <div>
       <h3>{ rConfig.title }</h3>
       <div>

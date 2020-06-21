@@ -2,11 +2,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { curr_user, headers, Protect } from 'helpers/api'
 
-import Pagination from 'project/shared/search_helpers/pagination'
-import Search from 'project/shared/search_helpers/search'
-import Tags from 'project/shared/search_helpers/tag'
-import Filter from 'project/shared/search_helpers/filter'
-import Sort from 'project/shared/search_helpers/sort'
+import Pagination from 'main/defaultComponent/helpers/search_helpers/pagination'
+import Search from 'main/defaultComponent/helpers/search_helpers/search'
+import Tags from 'main/defaultComponent/helpers/search_helpers/tag'
+import Filter from 'main/defaultComponent/helpers/search_helpers/filter'
+import Sort from 'main/defaultComponent/helpers/search_helpers/sort'
 
 //Related to this component
 import DefaultListComponent from './indexList'

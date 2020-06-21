@@ -5,9 +5,9 @@ import api from 'helpers/api'
 
 import { loadingSpinner, permissionError, missingError } from 'site/siteSettings'
 
-import { ResourceContext } from './components/resourceContext'
+import { ResourceContext } from './componentParts/resourceContext'
 
-import DefaultEdit from './components/defaultEdit'
+import DefaultEdit from './componentParts/defaultEdit'
 
 class Edit extends React.Component {
   constructor(props, context) {

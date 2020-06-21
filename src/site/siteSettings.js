@@ -21,6 +21,10 @@ export const googleFonts = ['Open Sans', 'Signika', 'Bowlby One SC']
 MENU OPTIONS 
 
 ----------------------------- */
+export const siteOptions = {
+    displayFooter: true
+}
+
 export const menuOptions = {
     /* Whether or not to show the Site Pages ("About Us") on the menu */
     showPages: true,

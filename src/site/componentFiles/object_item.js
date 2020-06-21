@@ -1,5 +1,5 @@
-import Component from '../../main/component'
-import { PermissionSetting } from '../../main/permission'
+import Component from '../../main/asteroid/component'
+import { PermissionSetting } from '../../main/asteroid/permission'
 
 let component = new Component('object_item', {friendly: 'objects', upper: 'Object'}) 
 let noIndex = new PermissionSetting('noIndex')

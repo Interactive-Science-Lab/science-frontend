@@ -1,11 +1,12 @@
 import React from 'react';
-import './site/App.scss';
+import './stylesheets/App.scss';
 import Helmet from 'react-helmet'
 
 import Header from './main/structure/header';
+import Footer from './main/structure/footer';
 import Body from './main/structure/body';
 
-import { siteTitle, siteTagline } from './site/siteSettings'
+import { siteTitle, siteTagline, siteOptions } from './site/siteSettings'
 import { UserContext, userDefaults } from 'main/asteroid/userContext'
  
 class App extends React.Component {
@@ -39,6 +40,7 @@ class App extends React.Component {
 				<div className="main-screen">
 					<Helmet><title>{`${siteTitle}- ${siteTagline}`}</title></Helmet>
 					<Body />	
+					{siteOptions.displayFooter ? <Footer /> : ""}
 				</div>
 			</div>
 		</UserContext.Provider>

@@ -6,7 +6,7 @@ import DisplayPreview from './relationships/displayPreview'
 import api, {headers, curr_user} from 'helpers/api'
 
 
-import { ResourceContext } from 'main/defaultComponent/components/resourceContext'
+import { ResourceContext } from 'main/defaultComponent/componentParts/resourceContext'
 
 
 class FormHandler extends React.Component {

@@ -10,14 +10,14 @@ import ScrollToTop from './main/structure/scrollToTop'
 
 //Pulls in the array of google fonts and puts it nicely in a string to call.
 import {googleFonts} from './site/siteSettings'
-googleFonts = googleFonts.join('|').split(' ').join('+')
+let fonts = googleFonts.join('|').split(' ').join('+')
 
 ReactDOM.render(
     <BrowserRouter>
       <ScrollToTop>
           <App />
           <style>
-            @import url(${`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`});
+            @import url('{`https://fonts.googleapis.com/css?family=${fonts}&display=swap`}');
           </style>
         </ScrollToTop>
     </BrowserRouter>,

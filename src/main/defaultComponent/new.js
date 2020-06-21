@@ -4,7 +4,7 @@ import { withRouter } from 'react-router'
 import { loadingSpinner, permissionError, missingError } from 'site/siteSettings'
 import HandleForm from 'main/defaultComponent/forms/formHandler'
 
-import { ResourceContext } from './components/resourceContext'
+import { ResourceContext } from './componentParts/resourceContext'
 
 class New extends React.Component {
   constructor(props, context) {

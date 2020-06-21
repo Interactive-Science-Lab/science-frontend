@@ -2,7 +2,7 @@ import React from 'react'
 import BuildForm from './formBuilder'
 import { withRouter } from "react-router-dom";
 
-import { ResourceContext } from 'main/defaultComponent/components/resourceContext'
+import { ResourceContext } from 'main/defaultComponent/componentParts/resourceContext'
 
 class FormHandler extends React.Component {
   constructor(props, context) {

@@ -1,6 +1,5 @@
-import React from 'react'
-import Component from '../../main/component'
-import { PermissionSetting } from '../../main/permission'
+import Component from '../../main/asteroid/component'
+import { PermissionSetting } from '../../main/asteroid/permission'
 
 let component = new Component('substance') 
 let noIndex = new PermissionSetting('noIndex')

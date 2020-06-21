@@ -19,7 +19,7 @@ import New from './new.js'
 import FourOhFour from 'main/structure/404Component'
 
 
-import { ResourceContext, resourceDefaults } from './components/resourceContext'
+import { ResourceContext, resourceDefaults } from './componentParts/resourceContext'
 
 
 class DefaultController extends React.Component {

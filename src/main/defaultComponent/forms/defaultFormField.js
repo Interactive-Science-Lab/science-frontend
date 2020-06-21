@@ -1,7 +1,7 @@
 import React from 'react'
 import { withRouter } from "react-router-dom";
 
-import { ResourceContext } from 'main/defaultComponent/components/resourceContext'
+import { ResourceContext } from 'main/defaultComponent/componentParts/resourceContext'
 
 import formHelpers from './form_helpers'
 import { Form } from 'react-bootstrap'

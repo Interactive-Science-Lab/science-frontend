@@ -1,30 +1,30 @@
 /*---Helpful Methods---*/
-@import '/stylesheets/mixins';
+@import '/mixins';
 
 /*---Theme Settings---*/
 /* The general settings that aren't fonts & colors. */
-@import '/stylesheets/settings';
+@import '/settings';
 /* The color palette and what goes on each page */
-@import '/stylesheets/theme-colors/smoothblue';
-@import '/stylesheets/theme-designs/light-primary';
+@import '/theme-colors/smoothblue';
+@import '/theme-designs/light-primary';
 /* Font-families & sizes for all fonts */
-@import '/stylesheets/fonts';
+@import '/fonts';
 /* Reusable components- Buttons, Links, Dividers */
-@import '/stylesheets/components';
+@import '/components';
 /* CSS animations for pages & route changes, etc. */
-@import '/stylesheets/animations';
+@import '/animations';
 
 
 /*---Page Components---*/
 /*Styling for menu*/
-@import '/stylesheets/menu';
-@import '/stylesheets/lab';
+@import '/menu';
+@import '/lab';
 /*Styling that is used on every page.*/
-@import '/stylesheets/page';
+@import '/page';
 
 
 /*---Individual Components---*/
-@import '/stylesheets/components/homeLinks';
+@import '/components/homeLinks';
 
 .color-box {
 	margin: 20px auto;

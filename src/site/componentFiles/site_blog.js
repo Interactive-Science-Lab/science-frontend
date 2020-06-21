@@ -1,7 +1,5 @@
-import React from 'react'
-
-import Component from '../../main/component'
-import { PermissionSetting } from '../../main/permission'
+import Component from '../../main/asteroid/component'
+import { PermissionSetting } from '../../main/asteroid/permission'
 
 let component = new Component('site_blog', {friendly: 'posts', upper: 'BlogPosts'}) 
 
