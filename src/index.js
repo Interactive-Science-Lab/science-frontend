@@ -2,21 +2,23 @@ import 'react-app-polyfill/ie9';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import 'semantic-ui-css/semantic.min.css'
-
 import App from './App';
-import ScrollToTop from './pageComponents/scrollToTop'
 import {BrowserRouter} from 'react-router-dom';
 
-ReactDOM.render(
+//Automatically makes the page go to the top on a new click.
+import ScrollToTop from './main/structure/scrollToTop'
 
+//Pulls in the array of google fonts and puts it nicely in a string to call.
+import {googleFonts} from './site/siteSettings'
+googleFonts = googleFonts.join('|').split(' ').join('+')
+
+ReactDOM.render(
     <BrowserRouter>
       <ScrollToTop>
           <App />
           <style>
-            @import url('https://fonts.googleapis.com/css?family=Open+Sans|Signika|Bowlby+One+SC&display=swap');
+            @import url(${`https://fonts.googleapis.com/css?family=${googleFonts}&display=swap`});
           </style>
         </ScrollToTop>
     </BrowserRouter>,
-
 document.getElementById('root'));

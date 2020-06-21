@@ -44,9 +44,8 @@ Field Itself
       -- Classes & things that control layout
     / -- DefaultComponent
       -- The main layout (form & all) for a component
-
-/ -- LayoutStructure (Page Components)
-  -- Have things like body, footer, layout, and general site structure 
+    / -- Structure (Page Components)
+      -- Have things like body, footer, layout, and general site structure 
 
 / -- Stylesheets
 

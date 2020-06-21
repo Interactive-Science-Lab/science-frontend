@@ -1,6 +1,7 @@
 import React from 'react'
-//export const apiPath = (path) => { return `http://localhost:4001/api${path}` }
-export const apiPath = (path) => { return `https://interactivelabscience.herokuapp.com/api${path}` }
+import {apiPathLink} from '../site/siteSettings'
+
+export const apiPath = (path) => { return `${apiPathLink}${path}` }
 
 //Component paths
 export const userPath = (path = "") => { return apiPath(`/users${path}`) }

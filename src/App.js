@@ -1,12 +1,12 @@
 import React from 'react';
-import './App.scss';
-
+import './site/App.scss';
 import Helmet from 'react-helmet'
-import Header from './pageComponents/header';
-import Body from './pageComponents/body';
 
-import { siteTitle, siteTagline } from './helpers/site'
-import { UserContext, userDefaults } from 'helpers/userContext'
+import Header from './main/structure/header';
+import Body from './main/structure/body';
+
+import { siteTitle, siteTagline } from './site/siteSettings'
+import { UserContext, userDefaults } from 'main/asteroid/userContext'
  
 class App extends React.Component {
 	constructor(props) {
