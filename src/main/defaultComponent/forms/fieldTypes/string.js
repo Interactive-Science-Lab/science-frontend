@@ -18,8 +18,8 @@ class Field extends React.Component {
         return <Form.Control
             type='text'
             onChange={this.handleChange}
-            name={field.name}
-            placeholder={field.name}
+            name={field.settings.fieldName}
+            placeholder={field.settings.fieldName}
             value={field.value}
         />
     }

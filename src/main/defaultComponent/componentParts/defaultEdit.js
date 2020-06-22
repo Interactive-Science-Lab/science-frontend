@@ -30,10 +30,10 @@ class Edit extends React.Component {
 
       {/* the form for the item being passed in*/}
       {/* The item itself being passed in. */}
-      {/* Existing is TRUE because this is the edit form */}
+      
       <HandleForm
         item={item}
-        existing={true}
+        action = {'edit'}
         updateItem={this.props.updateItem}
         loadPage={this.props.loadPage} />
 

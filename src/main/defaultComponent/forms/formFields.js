@@ -14,17 +14,23 @@ class FormFields extends React.Component {
     }
 
     render() {
-        let action = this.props.existing ? 'edit' : 'new'
+        let action = this.props.action
         return this.settings.getItemFields(this.props.item).map(field => {
+
             if(field.settings.checkPermission(action, this.props.item, this.settings.fields.selfId)){
                 let customForm = field.settings.checkCustomDisplay(action)
+
                 if(customForm) {
                     return customForm(this.props.updateItem)
                 } else {
-                    return <DefaultFormField field={field} settings={this.settings} item={this.props.item} {...this.props} />
+                    //Essentially we map through each fieldOBJECT and pass through the item
+                    return <DefaultFormField field={field} {...this.props} />
                 }
-            }
-            return null
+
+            } else {
+                return null
+            }      
+
         })
     }
 }

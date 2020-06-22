@@ -8,19 +8,14 @@ let pagePermissions = new PermissionSetting('content')
 pagePermissions.setPermission('index', 'mod')
 let hiddenPermissions = new PermissionSetting('hidden')
 component.setPermissions(pagePermissions)
+let filterPermissions = new PermissionSetting('admin')
 
 /* FEATURES */
-component.turnOnFeature('search')
-component.turnOnFeature('paginate')
-component.turnOnFeature('filter')
-component.setFilterOptions(['draft', 'public', 'private'])
-let filterPermissions = new PermissionSetting('admin')
-component.setFilterPermissions(filterPermissions)
+component.addFeature('search')
+component.addFeature('paginate')
 
-component.turnOnFeature('sort')
-component.addSortOption('page_title', 'Alphabetical')
-component.addSortOption('page_category', 'Category')
-component.addSortOption('page_order', 'Order')
+component.addFeature('filter', ['draft', 'public', 'private'], filterPermissions)
+component.addFeature('sort', [['page_title', 'Alphabetical'], ['page_order', 'Order'], ['page_category', 'Category']])
 
 component.setLoader({ filter: 'public' })
 

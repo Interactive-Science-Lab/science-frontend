@@ -14,12 +14,8 @@ import DefaultListComponent from './indexList'
 class defaultIndex extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-        }
-
-
+        this.state = {}
     }
-
 
     displayOption = (component) => {
         return component
@@ -27,12 +23,12 @@ class defaultIndex extends React.Component {
 
     displayFilter = () => {
         const { settings, mainState } = this.props
-        const optionSettings = settings.features.filter
-        const filterPermissions = settings.options.filterOptions.permissions
+        const optionSettings = settings.feature('filter')
+        const filterPermissions = optionSettings?.permissions
         let filterCheck = true
         if(filterPermissions) { filterCheck = filterPermissions.checkPermission('index') }
         if (optionSettings && filterCheck) {
-            const component = <Filter component={mainState} options={settings.options.filterOptions.options} />
+            const component = <Filter component={mainState} options={optionSettings.options} />
             return this.displayOption(component, optionSettings)
         }
         else { return "" }
@@ -40,7 +36,7 @@ class defaultIndex extends React.Component {
 
     displaySearch = () => {
         const { settings, mainState } = this.props
-        const optionSettings = settings.features.search
+        const optionSettings = settings.feature('search')
         if (optionSettings) {
             const component = <Search component={mainState} />
             return this.displayOption(component, optionSettings)
@@ -50,9 +46,9 @@ class defaultIndex extends React.Component {
 
     displaySort = () => {
         const { settings, mainState } = this.props
-        const optionSettings = settings.features.sort
+        const optionSettings = settings.feature('sort')
         if (optionSettings) {
-            const component = <Sort component={mainState} options={settings.options.sortOptions} />
+            const component = <Sort component={mainState} options={optionSettings.options} />
             return this.displayOption(component, optionSettings)
         }
         else { return "" }
@@ -60,7 +56,7 @@ class defaultIndex extends React.Component {
 
     displayPagination = () => {
         const { settings, mainState } = this.props
-        const optionSettings = settings.features.paginate
+        const optionSettings = settings.feature('paginate')
         if (optionSettings) {
             const component = <Pagination component={mainState} />
             return this.displayOption(component, optionSettings)
@@ -80,11 +76,10 @@ class defaultIndex extends React.Component {
 
     displayNewLink = () => {
         const { settings, mainState } = this.props
-        const optionSettings = settings.features.newLink
         let permissionCheck = settings.checkPermission('new') 
-        if (optionSettings && permissionCheck) {
+        if (permissionCheck) {
             const component = <Link to={`${settings.get("urlPath")}/new`}>{settings.text.newLink || "Add New +"}</Link>
-            return this.displayOption(component, optionSettings)
+            return this.displayOption(component)
         }
         else { return "" }
     }
@@ -96,8 +91,7 @@ class defaultIndex extends React.Component {
             update={mainState.loadPage}
             loader={mainState.state.loader}
             settings={settings} />
-        const optionSettings = settings
-        if (optionSettings) { return this.displayOption(component, optionSettings) }
+        if (settings) { return this.displayOption(component, settings) }
         else { return "" }
     }
 

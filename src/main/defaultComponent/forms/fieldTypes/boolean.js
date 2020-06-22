@@ -18,9 +18,9 @@ class Field extends React.Component {
         return <Form.Control
             type='checkbox'
             onChange={this.handleChange}
-            name={field.name}
-            placeholder={field.name}
-            value={item[field.name]}
+            name={field.settings.fieldName}
+            placeholder={field.settings.fieldName}
+            value={field.value}
         />
     }
 }

@@ -26,10 +26,12 @@ class Edit extends React.Component {
     if (this.props.match.params.id !== pProps.match.params.id) { this.loadPage() }
   }
 
+  //A callback to directly update the item in state.
   updateItem = (item) => {
     this.setState({ item: item })
   }
 
+  
   loadPage = async () => {
     if (this.state.permission) {
       await this.setState({ loading: true })

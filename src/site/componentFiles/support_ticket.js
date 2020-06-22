@@ -11,10 +11,11 @@ let auto = new PermissionSetting('auto')
 
 component.setPermissions(submit)
 
-component.turnOnFeature('search')
-component.turnOnFeature('paginate')
-component.turnOnFeature('filter')
-component.setFilterOptions(['all', 'pending', 'open', 'closed'])
+component.addFeature('search')
+component.addFeature('paginate')
+
+component.addFeature('filter', ['all', 'pending', 'open', 'closed'])
+
 component.setLoader({ sort: "created_at", sortdir: "DESC" })
 
 component.addMenuOption({name: "Get Help", view: 'all', symbol: 'heart', order: 2, category: 2, path: "/new"})

@@ -39,7 +39,7 @@ class New extends React.Component {
           <p>{this.settings.get("newText")}</p>
           <HandleForm
             item={item} 
-            existing={false}
+            action={'new'}
             updateItem={this.updateItem} loadPage={() => {}} />
         </div>
       }

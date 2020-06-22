@@ -1,7 +1,13 @@
 import React from 'react'
 
-//export const apiPath = `http://localhost:4001/api` 
-export const apiPathLink = `https://interactivelabscience.herokuapp.com/api` 
+export const siteOptions = {
+    backendLive: true,
+    displayFooter: true
+}
+
+export const localBeLink = `http://localhost:4001/api` 
+export const liveBeLink = `https://interactivelabscience.herokuapp.com/api` 
+export const apiPathLink = siteOptions.backendLive ? liveBeLink : localBeLink
 
 export const siteTitle = "Science Lab"
 export const logoURL = "/images/cpslogo.png"
@@ -21,9 +27,7 @@ export const googleFonts = ['Open Sans', 'Signika', 'Bowlby One SC']
 MENU OPTIONS 
 
 ----------------------------- */
-export const siteOptions = {
-    displayFooter: true
-}
+
 
 export const menuOptions = {
     /* Whether or not to show the Site Pages ("About Us") on the menu */

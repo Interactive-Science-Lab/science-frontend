@@ -10,16 +10,13 @@ export default (props) => {
 
         <Form.Label>
             {label || formHelpers.printifyName(field[0])}
-            { /* Add any notes for any fields here */}
-            {field[0] === 'height' ? "- In inches" : ""}
-            {field[0] === 'weight' ? "- In pounds" : ""}
         </Form.Label>
 
         <Form.Control
             type={type}
             onChange={callback}
-            name={field[0]}
-            placeholder={field[0]}
+            name={field.settings.fieldName}
+            placeholder={field.settings.fieldName}
             value={props.value || item[field[0]]}
 
             as={as_setting}

@@ -58,7 +58,7 @@ class Index extends React.Component {
             const res = await axios.get(api.apiPath('/' + settings.get("urlPath") + '?' + params.toString()))
 
             //Copy over the settings and store the items in the right place depending on whether or not paginate is active.
-            updateObj.items = settings.features.paginate ? res.data.pageOfItems : updateObj.items = res.data
+            updateObj.items = settings.feature('paginate') ? res.data.pageOfItems : updateObj.items = res.data
 
             //Get the tags too, if tags are active.
             if (settings.features.tags) {

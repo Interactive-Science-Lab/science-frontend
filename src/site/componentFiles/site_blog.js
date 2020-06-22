@@ -1,3 +1,4 @@
+import React from 'react'
 import Component from '../../main/asteroid/component'
 import { PermissionSetting } from '../../main/asteroid/permission'
 
@@ -8,28 +9,26 @@ let hidden = new PermissionSetting('hidden')
 let mod = new PermissionSetting('mod')
 let staticField = new PermissionSetting('static').modifyPermissions('auto')
 
-component.turnOnFeature('search')
-component.turnOnFeature('paginate')
+component.addFeature('search')
+component.addFeature('paginate')
 
-component.turnOnFeature('thumbnail')
+component.addFeature('filter', ['draft', 'public', 'private'])
+component.addFeature('sort', [['blog_title', 'Alphabetical'], ['created_at', 'Post Date']])
 
-component.turnOnFeature('filter')
-component.setFilterOptions(['draft', 'public', 'private'])
-component.setLoader({ sort: "created_at", sortdir: "DESC", filter: "public" })
+component.addReference('author_id', 'author_username', {permissions: staticField, title: "Author"})
 
-component.turnOnFeature('sort')
-component.addSortOption('blog_title', 'Alphabetical')
-component.addSortOption('created_at', 'Post Date')
+let thumb = component.addReference('image_id', 'image_url', {})
 
-component.turnOnFeature('userReference')
-component.addUserReference("author_id", {permissions: staticField, title: "Author", targetField: 'author_username' })
+let imageDisplay = (item) => { return <img src={item.image_url} /> }
+thumb.setCustomDisplay('display', imageDisplay)
 
 component.addTags('blog_tags', {})
 
-const back_to_all_link = (item) => {
-    return `/posts?category=${item.blog_category}`
-}
 
+
+component.setLoader({ sort: "created_at", sortdir: "DESC", filter: "public" })
+
+const back_to_all_link = (item) => { return `/posts?category=${item.blog_category}` }
 component.addOption('back_to_all_link', back_to_all_link)
 
 component.addMenuOption({name: "BlogPosts", view: 'admin', symbol: 'heart', order: 0})

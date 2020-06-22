@@ -18,7 +18,6 @@ class Show extends React.Component {
      
     render() {
         const item = this.props.item
-        console.log(item)
         const settings = this.settings
         const fields = settings.getItemFields(item)
         return <div>

@@ -11,7 +11,7 @@ import FieldType from './fieldTypes'
 class FormFields extends React.Component {
     constructor(props, context) {
         super(props, context)
-        this.settings = this.context
+        this.componentSettings = this.context
         this.state = {}
     }
 
@@ -20,7 +20,7 @@ class FormFields extends React.Component {
         return <Form.Group>
 
                 <Form.Label>
-                    {field.settings.label ? formHelpers.printifyName(field.name) : null}
+                    {field.settings.label ? field.settings.printifyName(this.componentSettings) + '- ' : null}
                     { /* Add any notes for any fields here */}
                     {field.settings.formInfo}
                 </Form.Label>
@@ -29,7 +29,7 @@ class FormFields extends React.Component {
 
 
                 {field.settings.validations ? field.settings.validations.map(val => <div style={{color:'red'}}>
-                    {val === 'required' ? (!field.value || field.value === "" ? "Field is required." : "") : ""}
+                    {val === 'required' ? (field.value === null || field.value === "" ? "Field is required." : "") : ""}
                 </div>) : ""}
 
             </Form.Group>

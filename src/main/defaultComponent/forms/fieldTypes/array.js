@@ -34,17 +34,17 @@ class ArrayField extends React.Component {
   field = () => {
     const { field, item } = this.props.component.props
     console.log(field, item)
-    if (item[field.name] && item[field.name].length > 0) {
-      return item[field.name].map((i, index) => <div key={index}>
+    if (item[field.settings.fieldName] && item[field.settings.fieldName].length > 0) {
+      return item[field.settings.fieldName].map((i, index) => <div key={index}>
         <Form.Control
           onChange={this.handleArrayChange}
           type={'text'}
           value={i}
-          name={`${field.name}-${index}`} />
+          name={`${field.settings.fieldName}-${index}`} />
         <br />
       </div>)
     } else {
-      return <Form.Control onChange={this.handleArrayChange} type='text' placeholder="Start typing" name={`${field.name}-${0}`} />
+      return <Form.Control onChange={this.handleArrayChange} type='text' placeholder="Start typing" name={`${field.settings.fieldName}-${0}`} />
     }
   }
 

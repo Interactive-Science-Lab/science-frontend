@@ -1,4 +1,7 @@
 import { PermissionSetting, Permission } from "./permission";
+import ComponentField  from './componentField'
+import ComponentFeature  from './componentFeature'
+import ComponentReference  from './componentReference'
 
 import api, { curr_user, headers, apiPath } from 'helpers/api'
 import axios from 'axios'
@@ -12,11 +15,14 @@ It takes in a baseName and generates all necessary information-
 NAMES
 example - generates examples, Example, Examples, examples, and /examples
 
+PERMISSIONS
+Controls who can see which pages
+
 FIELDS
 Important fields- generates example_id, example_name, and example_tags
 
-PERMISSIONS
-Controls who can see which pages
+REERENCES
+Fields that connect with another record
 
 FEATURES
 Turn on & off common features like sorting, search, pagination, etc.
@@ -38,6 +44,7 @@ export default class Component {
         const upper = options.upper || baseName.charAt(0).toUpperCase() + baseName.substring(1);
         const friendly = options.friendly || plural
 
+        
         this.names = {
             lp: baseName + 's',
             ls: baseName,
@@ -46,33 +53,44 @@ export default class Component {
             friendly: friendly,
             urlPath: options.urlPath || "/" + friendly,
         }
+
         this.fields = {
             idField: baseName + '_id',
             uniqueField: baseName + '_name',
+            selfId: null,
+
             userReferences: [],
             tagField: null,
-            selfId: null,
             fieldList: []
         }
         this.permissions = new PermissionSetting('content')
         this.features = {
-            paginate: false,
-            search: false,
             thumbnail: false,
-            newLink: true,
-            sort: false,
-            filter: false,
             tags: false
         }
+        this.features = []
+        // paginate: false,
+        // search: false,
+        // sort: false,
+        // filter: false,
+
+        //Options holds things like:
+        // simple true/false things like newLink: true 
+        // override links & stuff like that
         this.options = {
-            sortOptions: [],
-            filterOptions: {
-                options: [],
-                permissions: null
-            }
+            //This option will not move you away from a form.
+            blockFormRedirect: false,
+            //This option will override where it redirects when a form is successfully submitted.
+            formRedirectPath: null,
+            //This changes whether or not a "delete" option is "confirmed" with a popup window
+            confirmDelete: true,
+            newRedirect: (item) => { return this.feEditPath(item) },
+            editRedirect: (item) => { return this.feViewPath(item) },
+            deleteRedirect: this.get('urlPath'),
+
+
         }
         this.text = {
-            newLink: "Add New +",
             indexTitle: "All " + upper + 's',
             indexText: "",
             viewTitle: upper + " Details",
@@ -80,7 +98,13 @@ export default class Component {
             newTitle: "New " + upper,
             newText: "",
             editTitle: "Edit " + upper,
-            editText: ""
+            editText: "",
+            newLink: "Add New +",
+            newSubmit: "Add",
+            editLink: "Edit",
+            editSubmit: "Submit",
+            deleteLink: "Delete",
+            deleteWarning: "Are you sure you wish to completely delete the item?",
         }
         this.customDisplay = {}
         this.loader = {}
@@ -117,24 +141,30 @@ export default class Component {
                 return this.text.newText
         }
     }
-
+    getId = (item) => {
+        return item[this.get('idField')]
+    }
+    
     setName = (nameField, text) => { this.names[nameField] = text }
     setPermissions = (permissions) => { this.permissions = permissions }
     setLoader = (loader) => { this.loader = loader }
+
     addMenuOption = (options) => { this.menuOptions.push(options) }
 
-    addUserReference = (name, options) => { 
-        options = {fieldType: 'userReference', default: curr_user?.user_id, ...options}
-        this.fields.userReferences.push(name) 
-        this.addField(name, options)
-    }
+    
     addTags = (tagFieldName, options) => {
-        this.turnOnFeature('tags')
-        this.setFieldOption('tagField', tagFieldName)
         options = {fieldType: 'array', name: tagFieldName, default: [], ...options}
         this.addField(tagFieldName, options)
     }
+    
 
+    addReference = (idField, targetField, options) => {
+        let reference = new ComponentReference(idField, targetField, options)
+        this.fields.fieldList.push(reference)
+        return reference
+    }
+
+    /* Field functions- for defining which fields are important & how they display */ 
     addField = (fieldName, options = {}) => {
         let field = new ComponentField(fieldName, options)
         this.fields.fieldList.push(field)
@@ -145,49 +175,55 @@ export default class Component {
         this.fields.fieldList.map((i) => i.fieldName === fieldName ? ret = i : null)
         return ret
     }
-    //Essentially returns the fields to complete a blank form
+
+    //Returns the fields with a value
     getDefaultFields = () => {
-        const return_fields = []
-
-        this.fields.fieldList.map(fieldObject => return_fields.push(
-            {
-                name: fieldObject.fieldName,
-                value: fieldObject.default,
-                settings: fieldObject
-            }
-        ))
-
-        return return_fields
+        return this.fields.fieldList.map(fL => ({settings: fL, value: fL.default}) )
     }
 
+    //Returns a JSON object of name/value pairs for a "new" item
     getDefaultItem = () => {
         let obj = {}
-        this.getDefaultFields().map(f => obj[f.name] = f.value)
+        this.getDefaultFields().map(f => obj[f.settings.fieldName] = f.value)
         return obj
     }
+
     //Takes in an raw json item and returns the fields for that item based on the above function
     getItemFields = (item) => {
         let defaultFields = this.getDefaultFields()
         let returnFields = []
         defaultFields.map(field => {
             let fieldRet = field
-            if( item[field.name] ) { fieldRet = {...fieldRet, value: item[field.name] }}
+            if( item[field.settings.fieldName] ) { fieldRet.value = item[field.settings.fieldName] }
             returnFields.push(fieldRet)
-        
         })
         return returnFields
     }
-    addSortOption = (field, displayText) => { this.options.sortOptions.push([field, displayText]) }
 
-    setFilterOptions = (array) => { this.options.filterOptions.options = array }
-    setFilterPermissions = (permissions) => { this.options.filterOptions.permissions = permissions}
+    addFeature = (name, options = null, permissions = null) => {
+        let feature = new ComponentFeature(name, options, permissions) 
+        this.features.push(feature)
+    }
 
-    setFieldOption = (fieldType, fieldName) => { this.fields[fieldType] = fieldName }
+    feature = (name) => {
+        let retFeature = null
+        this.features.map(f => f.name === name ? retFeature = f : null)
+        return retFeature
+    }
 
-    addOption = (optionName, value) => { this.options[optionName] = value }
+    addUserReference = () => { }
+    addSortOption = () => { }
 
-    turnOnFeature = (featureName) => { this.features[featureName] = true }
-    turnOffFeature = (featureName) => { this.features[featureName] = false }
+    setFilterOptions = () => { }
+    setFilterPermissions = () => {}
+
+    setFieldOption = () => {}
+
+    turnOnFeature = () => { }
+    turnOffFeature = () => { }
+
+
+    addOption = (optionName, value) => { this.options[optionName] = value }    
     changeText = (textType, newInput) => { this.text[textType] = newInput }
 
     checkPermission = (view, item ={}) => {
@@ -225,7 +261,7 @@ export default class Component {
         const path = this.beIdPath(item)
         //Map over this item to get the things we can call on the db.
         let dbItem = {}
-        this.getItemFields(item).map(field => dbItem[field.name] = field.value)
+        this.getItemFields(item).map(field => dbItem[field.settings.fieldName] = field.value)
         return axios.put(path, dbItem, headers)
     }
 
@@ -236,7 +272,6 @@ export default class Component {
         this.fields.fieldList.map(field => {
             //Put the name in a variable and copy the value over.
             let fieldName = field.fieldName
-            field = field
             //If there's any validations, loop through them and handle them.
             if (field.validations) {
                 field.validations.map(validation => {
@@ -257,69 +292,3 @@ export default class Component {
 
 
 
-/*
-        ==Field Types==
-        "string"- a string, gives a box
-        "text"- a long string, text box
-        "boolean"- a boolean, does a checkbox
-        "number" 
-        "html"
-        "object"  
-        "text-array"
-        "reference" 
-        "local-image" 
-        "hidden"
-        "icon"
-        ["select-open"] 
-        ["select-draft"] 
-        ["select-custom", [[x, X], [y, Y]]
-*/
-
-class ComponentField {
-    constructor(fieldName, options = {}) {
-        this.fieldName = fieldName
-        this.default = options.default === null ? "" : options.default
-        this.fieldType = options.fieldType || "string"
-        this.permissions = options.permissions
-        this.validations = options.validations || []
-
-        this.formInfo = options.formInfo
-        this.suffix = options.suffix
-        this.label = options.label
-        this.titleField = options.titleField
-
-        this.customDisplay = {}
-
-        this.info = options
-
-    }
-
-    checkPermission = (view, item ={}, selfId = null) => {
-        if (this.permissions) {
-            return this.permissions.checkPermission(view, item, selfId)
-        } else {
-            return true
-        }
-    }
-
-    setCustomDisplay = (view, template) => {
-        this.customDisplay[view] = template
-    }
-    checkCustomDisplay = (view) => {
-        switch (view) {
-            case "index":
-                return this.customDisplay['index'] || this.customDisplay['display']
-            case "view":
-                return this.customDisplay['view'] || this.customDisplay['display']
-            case "edit":
-                return this.customDisplay['edit'] || this.customDisplay['form']
-            case "new":
-                return this.customDisplay['new'] || this.customDisplay['form']
-        }
-
-    }
-
-    getValue = () => {
-
-    }
-}

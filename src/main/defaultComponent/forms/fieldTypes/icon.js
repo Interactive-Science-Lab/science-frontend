@@ -8,7 +8,7 @@ class Field extends React.Component {
 
     handleChange = (e) => {
         this.props.component.props.updateItem({
-            ...this.props.item,
+            ...this.props.component.props.item,
             [e.target.name]: e.target.value
         })
     }
@@ -18,12 +18,12 @@ class Field extends React.Component {
         return <div><Form.Control
             type='text'
             onChange={this.handleChange}
-            name={field.name}
-            placeholder={field.name}
-            value={item[field.name]}
+            name={field.settings.fieldName}
+            placeholder={field.settings.fieldName}
+            value={field.value}
         />
         
-        <span className={`fas fa-${field[1]}`}></span>
+        <span className={`fas fa-${field.value}`}></span>
         </div>
     }
 }
