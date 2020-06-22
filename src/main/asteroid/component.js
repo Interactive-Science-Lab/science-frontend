@@ -1,7 +1,7 @@
 import { PermissionSetting, Permission } from "./permission";
-import ComponentField  from './componentField'
-import ComponentFeature  from './componentFeature'
-import ComponentReference  from './componentReference'
+import ComponentField from './componentField'
+import ComponentFeature from './componentFeature'
+import ComponentReference from './componentReference'
 
 import api, { curr_user, headers, apiPath } from 'helpers/api'
 import axios from 'axios'
@@ -39,12 +39,12 @@ The loader pretty much sets what "default" options are set when you first go a p
 
 export default class Component {
 
-    constructor(baseName, options={}) {
+    constructor(baseName, options = {}) {
         const plural = options.plural || baseName + 's'
         const upper = options.upper || baseName.charAt(0).toUpperCase() + baseName.substring(1);
         const friendly = options.friendly || plural
 
-        
+
         this.names = {
             lp: baseName + 's',
             ls: baseName,
@@ -144,27 +144,33 @@ export default class Component {
     getId = (item) => {
         return item[this.get('idField')]
     }
-    
+
     setName = (nameField, text) => { this.names[nameField] = text }
     setPermissions = (permissions) => { this.permissions = permissions }
     setLoader = (loader) => { this.loader = loader }
+    setFieldOption = (kind, name) => { this.fields[kind] = name }
 
     addMenuOption = (options) => { this.menuOptions.push(options) }
 
-    
+
     addTags = (tagFieldName, options) => {
-        options = {fieldType: 'array', name: tagFieldName, default: [], ...options}
+        options = { fieldType: 'array', name: tagFieldName, default: [], ...options }
         this.addField(tagFieldName, options)
     }
-    
 
-    addReference = (idField, targetField, options) => {
-        let reference = new ComponentReference(idField, targetField, options)
+
+    addReference = (idField, targetField, referenceType, options) => {
+        let reference = new ComponentReference(idField, targetField, referenceType, options)
         this.fields.fieldList.push(reference)
         return reference
     }
+    getControlReferences = () => {
+        let ret = []
+        this.fields.fieldList.map(fl => fl.referenceType === 'control' ? ret.push(fl) : null)
+        return ret
+    }
 
-    /* Field functions- for defining which fields are important & how they display */ 
+    /* Field functions- for defining which fields are important & how they display */
     addField = (fieldName, options = {}) => {
         let field = new ComponentField(fieldName, options)
         this.fields.fieldList.push(field)
@@ -178,7 +184,7 @@ export default class Component {
 
     //Returns the fields with a value
     getDefaultFields = () => {
-        return this.fields.fieldList.map(fL => ({settings: fL, value: fL.default}) )
+        return this.fields.fieldList.map(fL => ({ settings: fL, value: fL.default }))
     }
 
     //Returns a JSON object of name/value pairs for a "new" item
@@ -194,14 +200,14 @@ export default class Component {
         let returnFields = []
         defaultFields.map(field => {
             let fieldRet = field
-            if( item[field.settings.fieldName] ) { fieldRet.value = item[field.settings.fieldName] }
+            if (item[field.settings.fieldName]) { fieldRet.value = item[field.settings.fieldName] }
             returnFields.push(fieldRet)
         })
         return returnFields
     }
 
     addFeature = (name, options = null, permissions = null) => {
-        let feature = new ComponentFeature(name, options, permissions) 
+        let feature = new ComponentFeature(name, options, permissions)
         this.features.push(feature)
     }
 
@@ -215,18 +221,18 @@ export default class Component {
     addSortOption = () => { }
 
     setFilterOptions = () => { }
-    setFilterPermissions = () => {}
+    setFilterPermissions = () => { }
 
-    setFieldOption = () => {}
+    
 
     turnOnFeature = () => { }
     turnOffFeature = () => { }
 
 
-    addOption = (optionName, value) => { this.options[optionName] = value }    
+    addOption = (optionName, value) => { this.options[optionName] = value }
     changeText = (textType, newInput) => { this.text[textType] = newInput }
 
-    checkPermission = (view, item ={}) => {
+    checkPermission = (view, item = {}) => {
         return this.permissions.checkPermission(view, item, this.fields.selfId)
     }
 

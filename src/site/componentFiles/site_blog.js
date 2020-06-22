@@ -14,10 +14,10 @@ component.addFeature('paginate')
 
 component.addFeature('filter', ['draft', 'public', 'private'])
 component.addFeature('sort', [['blog_title', 'Alphabetical'], ['created_at', 'Post Date']])
+//permissions: staticField, 
+component.addReference('author_id', 'author_username', 'select', {title: "Author"})
 
-component.addReference('author_id', 'author_username', {permissions: staticField, title: "Author"})
-
-let thumb = component.addReference('image_id', 'image_url', {})
+let thumb = component.addReference('image_id', 'thumbnail', 'control', {title: "Thumbnail Image", resourceName: 'thumbnails'})
 
 let imageDisplay = (item) => { return <img src={item.image_url} /> }
 thumb.setCustomDisplay('display', imageDisplay)

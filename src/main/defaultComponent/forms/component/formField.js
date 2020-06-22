@@ -3,7 +3,6 @@ import { withRouter } from "react-router-dom";
 
 import { ResourceContext } from 'main/defaultComponent/componentParts/resourceContext'
 
-import formHelpers from './form_helpers'
 import { Form } from 'react-bootstrap'
 import FieldType from './fieldTypes'
 
@@ -29,7 +28,7 @@ class FormFields extends React.Component {
 
 
                 {field.settings.validations ? field.settings.validations.map(val => <div style={{color:'red'}}>
-                    {val === 'required' ? (field.value === null || field.value === "" ? "Field is required." : "") : ""}
+                    {val === 'required' ? (field.value === undefined || field.value === null || field.value === "" ? "Field is required." : "") : ""}
                 </div>) : ""}
 
             </Form.Group>

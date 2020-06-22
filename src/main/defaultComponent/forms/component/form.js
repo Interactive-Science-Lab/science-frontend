@@ -1,5 +1,5 @@
 import React from 'react'
-import BuildForm from './formBuilder'
+import BuildForm from './formStructure'
 import { withRouter } from "react-router-dom";
 
 import { ResourceContext } from 'main/defaultComponent/componentParts/resourceContext'
@@ -98,22 +98,17 @@ class FormHandler extends React.Component {
   //Logic to see where to redirect to.
   redirectUrl = (res) => {
     //Option to block a redirect and just stay on the form.
-    if (this.settings.options.blockFormRedirect) {
-      console.log('1')
+    if (this.settings.options.blockFormRedirect || this.props.blockRedirect ) {
       return false
     }
     //Option to plug in a custom redirect field in props. 
     if (this.settings.options.formRedirectPath) {
-      console.log('2')
       return this.settings.options.formRedirectPath
     } else {
-      console.log('4')
       //Direct to the appropriate page.
       if (this.props.action === 'edit') {
-        console.log('3')
         return this.settings.options.editRedirect(res.data)
       } else {
-        console.log('6')
         return this.settings.options.newRedirect(res.data)
       }
     }

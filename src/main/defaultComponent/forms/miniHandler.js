@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { withRouter } from "react-router-dom";
-import BuildForm from './formBuilder'
+import BuildForm from './component/formStructure'
 import DisplayPreview from './relationships/displayPreview'
 import api, {headers, curr_user} from 'helpers/api'
 

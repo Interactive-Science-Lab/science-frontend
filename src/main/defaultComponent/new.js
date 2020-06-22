@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router'
 
 import { loadingSpinner, permissionError, missingError } from 'site/siteSettings'
-import HandleForm from 'main/defaultComponent/forms/formHandler'
+import HandleForm from 'main/defaultComponent/forms/component/form'
 
 import { ResourceContext } from './componentParts/resourceContext'
 

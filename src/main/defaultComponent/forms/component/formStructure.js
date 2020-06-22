@@ -3,7 +3,7 @@ import { Form } from 'react-bootstrap'
 import { withRouter } from "react-router-dom";
 import { ResourceContext } from 'main/defaultComponent/componentParts/resourceContext'
 
-import FormFields from './formFields'
+import FormFields from './formFieldList'
 
 /* FORM BUILDER */
 

@@ -9,7 +9,6 @@ class IdList extends React.Component {
 
   render() {
     const item = this.props.item
-    const original = item.original_record
     switch (this.props.formClass) {
       case "images":
       case "thumbnail":

@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 
 
 import { ResourceContext } from 'main/defaultComponent/componentParts/resourceContext'
-import DefaultFormField from './defaultFormField'
+import DefaultFormField from './formField'
 
 //This component maps over the fields and controls whether it shows a default form field or the custom.
 class FormFields extends React.Component {

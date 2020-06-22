@@ -7,7 +7,8 @@ let pS = new PermissionSetting('all')
 let autoStatic = new PermissionSetting('auto').modifyPermissions('static')
 
 component.setPermissions(pS)
-component.setName("urlPath", 'images')
+component.setName("urlPath", '/images')
+component.setFieldOption('idField', 'image_id')
 
 component.addField('image_url', {fieldType: "image"})
 component.addField('image_kind', {default: 'thumbnail', permissions: autoStatic})

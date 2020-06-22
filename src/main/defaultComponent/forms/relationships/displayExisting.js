@@ -1,27 +1,29 @@
 import React from 'react'
-import HandleForm from '../miniHandler'
+import SubForm from './subFormController'
+import { ResourceContext } from 'main/defaultComponent/componentParts/resourceContext'
 
 class Existing extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor(props, context) {
+    super(props, context)
+    this.settings = context
     this.state = {
 
     }
   }
 
   render() {
-    const {rConfig, info, update, formClass} = this.props
-    return rConfig.records.length > 0 ?
-            rConfig.records.map(item => <div>
-                <HandleForm item={item.record} formClass={formClass} existing={true} info={rConfig} update={update} />
-            </div> 
-            )
-            : ""
-        }
+    let {referenceField, item} = this.props
+    let formItem = this.settings.getItemFields( item[ referenceField.targetField ] ) 
+    
+    return <SubForm action={'edit'} {...this.props} item={formItem} />
+
+    
+  }
 
 
 
 
 }
 
+Existing.contextType = ResourceContext
 export default Existing

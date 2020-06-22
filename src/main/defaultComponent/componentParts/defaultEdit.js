@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router'
 
-import HandleForm from 'main/defaultComponent/forms/formHandler'
-import RelationshipForm from 'main/defaultComponent/forms/relationship'
+import HandleForm from 'main/defaultComponent/forms/component/form'
+import RelationshipForm from 'main/defaultComponent/forms/relationships/relationship'
 
 import { ResourceContext, resourceDefaults } from './resourceContext'
 
@@ -37,7 +37,31 @@ class Edit extends React.Component {
         updateItem={this.props.updateItem}
         loadPage={this.props.loadPage} />
 
+      {/** Features!- Additional features that have their own forms. */}
+      { settings.getControlReferences().map( referenceField => {
+        console.log(referenceField)
+        let resourceSettings = resourceDefaults( referenceField.info.resourceName )
+        return <ResourceContext.Provider value={resourceSettings}>
+          <RelationshipForm {...this.props} referenceField={referenceField} />
+        </ResourceContext.Provider>
+      })}
 
+
+     
+
+    </div>
+
+  }
+}
+
+Edit.contextType = ResourceContext
+export default withRouter(Edit)
+
+
+
+
+
+ {/*
       {settings.features.thumbnail ?
         <ResourceContext.Provider value={resourceDefaults('thumbnails')}>
           <RelationshipForm item={item} formClass={"thumbnail"} settings={settings} update={this.props.loadPage} info={{ id: item[settings.fields.idField], class: settings.names.us }} />
@@ -49,12 +73,4 @@ class Edit extends React.Component {
         <ResourceContext.Provider value={resourceDefaults(item.user_kind)}>
           <RelationshipForm item={item} formClass={item.user_kind} settings={settings} update={this.props.loadPage} info={{ id: item[settings.fields.idField], class: settings.names.us }} />
         </ResourceContext.Provider>
-        : ""}
-
-    </div>
-
-  }
-}
-
-Edit.contextType = ResourceContext
-export default withRouter(Edit)
+      : ""} */}
