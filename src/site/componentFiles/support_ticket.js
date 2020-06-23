@@ -18,8 +18,8 @@ component.addFeature('filter', ['all', 'pending', 'open', 'closed'])
 
 component.setLoader({ sort: "created_at", sortdir: "DESC" })
 
-component.addMenuOption({name: "Get Help", view: 'all', symbol: 'heart', order: 2, category: 2, path: "/new"})
-component.addMenuOption({name: "See Support Ticket", view: 'admin', symbol: 'heart', order: 2, category: 3})
+component.addMenuOption({name: "Contact for Help", permission:  'all', symbol: 'heart', order: 2, category: "Help and Support", path: "/new"})
+component.addMenuOption({name: "See Support Ticket", permission:  'admin', symbol: 'heart', order: 2, category: "Admin"})
 
 component.addField('support_ticket_kind', {default: 1, fieldType: ["select-custom", [['error', "Account Error"], ['bug', "Bug Encountered"], ["general", "General Issue"]] ] })
 component.addField('support_ticket_message', {fieldType: "text", label: true})

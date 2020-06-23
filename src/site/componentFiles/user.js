@@ -15,7 +15,7 @@ component.turnOnFeature("userInfo")
 component.setFilterOptions(['all', '1', '2', '3'])
 component.setFieldOption('selfId', 'user_id')
 
-component.addMenuOption({name: "Users", view: 'admin', symbol: 'heart', order: 3, category: 3})
+component.addMenuOption({name: "Manage User Accounts", permission:  'admin', symbol: 'heart', order: 3, category: "Admin"})
 
 
 let privateField = new PermissionSetting('private').modifyPermissions('noIndex')

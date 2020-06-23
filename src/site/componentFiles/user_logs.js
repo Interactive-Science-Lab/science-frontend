@@ -24,7 +24,6 @@ component.setFilterOptions(['all', 'confirmed', 'unconfirmed'])
 
 component.setLoader({ filter: 'unconfirmed' })
 
-component.addMenuOption({ name: "Logs", view: 'admin', symbol: 'heart', category: 3, order: 3 })
 
 component.turnOnFeature('userReference')
 component.addUserReference("log_submitting_user_id", {permissions: staticAuto, title: "Submitter", targetField: 'log_submitting_user_id' })

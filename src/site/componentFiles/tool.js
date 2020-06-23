@@ -12,7 +12,7 @@ component.addField('instructions')
 component.addField('sprite', {fieldType: "string", permissions: noIndex })
 component.addField('properties', {fieldType: "array", permissions: noIndex })
 
-component.addMenuOption({name: "Tools", category: 1, view: 'admin', symbol: 'heart', order: 5})
+component.addMenuOption({name: "Tools", category: "Lab Settings", permission:  'admin', symbol: 'heart', order: 5})
 
 export default component
 

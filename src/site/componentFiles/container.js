@@ -14,6 +14,6 @@ component.addField('hold_volume', {fieldType: "number", suffix: "mL", label: tru
 component.addField('properties', {fieldType: "array", permissions: noIndex })
 component.addField('sprite', {fieldType: "string", permissions: noIndex })
 
-component.addMenuOption({name: "Containers", category: 1, view: 'admin', symbol: 'heart', order: 4})
+component.addMenuOption({name: "Containers", category: "Lab Settings", permission:  'admin', symbol: 'heart', order: 4})
 
 export default component

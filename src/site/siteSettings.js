@@ -30,46 +30,31 @@ MENU OPTIONS
 
 
 export const menuOptions = {
+    showComponents: true,
     /* Whether or not to show the Site Pages ("About Us") on the menu */
     showPages: true,
-    /* You may use page categories to organize your pages in the menu. False will put all the pages in the bar.*/
-    usePageCategories: true,
-    /* 
-    Add page categories here and set them in the field.
-
-    Attributes: 
-    "name"- string; what is shown
-    "symbol"- string; the fontawesome name
-    "view"- permissions; can be "all", "logged_in", "no_user", "end_user", or "admin"
-    */
-    pageCategories: [
-        {name: 'Help', symbol: 'exclamation', view: 'all'}
-    ],
-    
     /* Whether or not to show the Blog Content ("News", "Updates") on the menu */
     showBlogs: false,
+
     /* Used for separating different types of blog content. True puts them all in a dropdown, false, puts them in the menu.*/
     blogContentDropdown: true,
     /* If the above is true, all of the content is put into this dropdown object */
-    blogDropdownObject: { name: "Content", view: "all", symbol: "box" },
-    /* 
-    Attributes
-    displayName- string; what is shown on the link
-    categoryName- string; what is stored in the database
-    symbol- string; fontawesome name
-
-    Set them here & set the correct IN the component file
-    */
+    blogDropdownObject: { name: "Content", permission:  "all", symbol: "box" },
+    
+    /* displayName- string; what is shown on the link - categoryName- string; what is stored in the database */
     blogContentTypes: [
-        {displayName: "News & Updates", categoryName: "News", symbol: "newspaper", view: "all"},
-        {displayName: "Blog Posts", categoryName: "Blogs", symbol: "comments", view: "all"},
+        {displayName: "News & Updates", categoryName: "News", symbol: "newspaper", permission:  "all"},
+        {displayName: "Blog Posts", categoryName: "Blogs", symbol: "comments", permission:  "all"},
     ],
-
-    showComponents: true,
-    componentCategories: [
-        {id: 1, name: "Lab Settings", symbol: "newspaper", view: "admin", order: 2},
-        {id: 2, name: "Support", symbol: "newspaper", view: "all", order: 1},
-        {id: 3, name: "Admin", symbol: "newspaper", view: "admin", order: 3}
+    customMenuStructure: [
+        {name: "Visit The Lab", permission:  "logged_in", symbol: "star", link: "/lab", order: 1},
+        {name: "Login", permission:  "no_user", symbol: "user", order: 1, link: '/auth/login'},
+        {name: "Logout", permission:  'logged_in', link: '/auth/logout', symbol: "sign-out-alt", order: 5},
+    ],
+    menuCategories: [
+        {name: "Help and Support", symbol: "newspaper", permission:  "all", order: 2},
+        {name: "Lab Settings", symbol: "newspaper", permission:  "admin", order: 3},
+        {name: "Admin", symbol: "newspaper", permission:  "admin", order: 4}
     ]
 
 }

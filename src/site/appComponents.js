@@ -1,6 +1,5 @@
 import Site from '../main/asteroid/site'
 
-
 /* 
 ASTEROID STANDARD SITE COMPONENTS 
 */
@@ -27,8 +26,8 @@ import substance from './componentFiles/substance'
 import object_item from './componentFiles/object_item'
 import tool from './componentFiles/tool'
 
-
 let site = new Site()
+
 site.addComponent(user)
 site.addComponent(log)
 site.addComponent(admin_user)
@@ -44,5 +43,6 @@ site.addComponent(experiment)
 site.addComponent(container)
 site.addComponent(substance)
 site.addComponent(tool)
+
 
 export default site

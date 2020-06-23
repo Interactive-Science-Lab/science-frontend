@@ -17,8 +17,6 @@ component.turnOnFeature('filter')
 component.setFilterOptions(['logged', 'unlogged'])
 component.setLoader({filter: 'unlogged'})
 
-component.addMenuOption({name: "See Feedback", category: 3, view: 'admin', symbol: 'heart', order: 1})
-component.addMenuOption({name: "Submit Feedback", category: 2, view: 'all', symbol: 'heart', order: 1, path: "/new"})
 
 const list = (item) => {
     const from = item.feedback_name || item.feedback_email ?  `${item.feedback_name} ${item.feedback_email}` : "Anonymous"

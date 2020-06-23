@@ -31,8 +31,6 @@ component.setLoader({ sort: "created_at", sortdir: "DESC", filter: "public" })
 const back_to_all_link = (item) => { return `/posts?category=${item.blog_category}` }
 component.addOption('back_to_all_link', back_to_all_link)
 
-component.addMenuOption({name: "BlogPosts", view: 'admin', symbol: 'heart', order: 0})
-
 component.addField('blog_status', {default: "draft", fieldType: ["select-draft"], permissions: mod})
 component.addField('blog_category', {default: "Blog", permissions: hidden, fieldType: ["select-custom", [['Blog', "Blog"], ["News", "News"]]],})
 component.addField('blog_title', {validations: ["required", "unique"],titleField: true})

@@ -1,9 +1,9 @@
 import React from 'react'
-import MenuItem from './menuItem'
 import { withRouter } from 'react-router-dom'
-import { CSSTransition } from 'react-transition-group'
 
-class Menu extends React.Component {
+//Controls state for a dropdown menu
+
+class DropdownOption extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,7 +12,7 @@ class Menu extends React.Component {
 
     document.addEventListener('click', (e) => {
       const mobileToggleClick = e.target.className.indexOf('hmenu-mobile-toggle') >= 0
-      const dropdownToggleClick = e.target.className.indexOf(`hdt-${this.props.item.name}`) >= 0
+      const dropdownToggleClick = e.target.className.indexOf(`hdt-${this.props.menuOption.name}`) >= 0
       if (!dropdownToggleClick && !mobileToggleClick) {
         this.setState({ showMenu: false })
       }
@@ -26,26 +26,9 @@ class Menu extends React.Component {
 
   render = () => {
     const showMenu = this.state.showMenu
-    const item = this.props.item
-    const ddClass = `hmenu-dropdown-toggle hdt-${item.name}`
-    const optionDisplay = { display: (showMenu ? 'block' : 'none') }
-
-    const ItemSymbol = <span className={`${ddClass} fas fa-${item.symbol}`}></span>
-    const ArrowDirection = <span className={`${ddClass} fas fa-caret-${this.state.showMenu ? 'down' : 'up'} `}></span>
-
-    return <span className="hmenu-item hmenu-dropdown">
-      {/* Actual dropdown item itself */}
-      <div className={ddClass} onClick={this.toggleMenu}>
-        {ItemSymbol} {item.name} {ArrowDirection}
-      </div>
-      {/* The dropdown options */}
-      <CSSTransition in={showMenu} timeout={100} classNames="menu-fade">
-        <div className="hmenu-dropdown-options" style={optionDisplay}>
-          {item.links.map(subitem => <MenuItem item={subitem} />)}
-        </div>
-      </CSSTransition>
-    </span>
+    const menuOption = this.props.menuOption
+    return menuOption.printDropdown(showMenu, this.toggleMenu)
   }
 }
 
-export default withRouter(Menu);
+export default withRouter(DropdownOption);

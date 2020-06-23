@@ -12,7 +12,7 @@ component.addField('experiment_information', {formInfo: "Any background informat
 component.addField('experiment_steps', {fieldType: "text", label: true, permissions: noIndex, formInfo: "The actual steps of the experiment as shown to the user. Split up steps with the format '#x.' and that will start a new line." })
 component.addField('experiment_start', {fieldType: "object", label: true, permissions: noIndex, formInfo: "What each experiment starts with. This needs to be technical information, so I highly reccomend NOT to edit." })
 
-component.addMenuOption({name: "Experiments", category: 1, view: 'admin', symbol: 'heart', order: 1})
+component.addMenuOption({name: "Experiments", category:  "Lab Settings", permission:  'admin', symbol: 'heart', order: 1})
 
 
 

@@ -23,7 +23,7 @@ component.addField('low_temp_point', {fieldType: "number", label: true, permissi
 component.addField('high_temp_point', {fieldType: "number", label: true, permissions: noIndex })
 
 
-component.addMenuOption({name: "Substances", category: 1, view: 'admin', symbol: 'heart', order: 3})
+component.addMenuOption({name: "Substances", category: "Lab Settings", permission:  'admin', symbol: 'heart', order: 3})
 
 export default component
 

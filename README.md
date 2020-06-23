@@ -1,10 +1,10 @@
 Double check all features
-Check all field types across all
+Check all field types across all 
 Copy across all features, and THEN turn off
 
 Able to set that only ONE shows on edit page, esp. thumbail & userInfo- edit OR new
 FORM Data for images
-Select fiel for references
+Select field for references
 
 SELECT / filter doesn't always stick w/ loader
 
