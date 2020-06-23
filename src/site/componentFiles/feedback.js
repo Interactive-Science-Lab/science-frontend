@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-import Component from '../../main/asteroid/component'
+import Component from '../../main/asteroid/componentClass/component'
 import { PermissionSetting } from '../../main/asteroid/permission'
 
 let component = new Component('feedback', {friendly: 'feedback', urlPath: '/feedback'}) 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Form } from 'react-bootstrap'
 import { withRouter } from "react-router-dom";
-import { ResourceContext } from 'main/asteroid/resourceContext'
+import { ResourceContext } from 'main/asteroid/contexts/resourceContext'
 
 import FormFields from './formFieldList'
 

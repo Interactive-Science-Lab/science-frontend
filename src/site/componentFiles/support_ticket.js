@@ -1,4 +1,4 @@
-import Component from '../../main/asteroid/component'
+import Component from '../../main/asteroid/componentClass/component'
 import { PermissionSetting } from '../../main/asteroid/permission'
 
 let component = new Component('support_ticket', {friendly: 'support_tickets', upper: 'SupportTicket'}) 

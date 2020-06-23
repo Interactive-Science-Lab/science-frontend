@@ -7,7 +7,7 @@ import Footer from './main/structure/footer';
 import Body from './main/structure/body';
 
 import { siteTitle, siteTagline, siteOptions } from './site/siteSettings'
-import { UserContext, userDefaults } from 'main/asteroid/userContext'
+import { UserContext, userDefaults } from 'main/asteroid/contexts/userContext'
  
 class App extends React.Component {
 	constructor(props) {

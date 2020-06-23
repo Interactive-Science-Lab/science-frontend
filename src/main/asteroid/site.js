@@ -1,3 +1,6 @@
+/* Essentially, this is just a class to hold all the components, 
+just a data structure to keep them all in with a few helpful functions */
+
 export default class Site {
     constructor() {
         this.components = []

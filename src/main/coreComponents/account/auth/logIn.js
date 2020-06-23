@@ -5,7 +5,7 @@ import {withRouter} from 'react-router-dom'
 import api from 'helpers/api'
 
 
-import { UserContext } from 'main/asteroid/userContext'
+import { UserContext } from 'main/asteroid/contexts/userContext'
 
 
 class LogIn extends React.Component {

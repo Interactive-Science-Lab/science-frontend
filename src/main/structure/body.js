@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import Home from '../../site/home';
 import FourOhFour from './404Component'
 
-import AccountComponent from 'main/asteroid/commonComponents/account/controller';
+import AccountComponent from 'main/coreComponents/account/controller';
 import DefaultComponent from 'main/defaultComponent/controller';
 import ExperimentComponent from 'project/lab/core';
 

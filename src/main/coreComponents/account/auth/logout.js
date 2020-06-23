@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 
-import { UserContext } from 'main/asteroid/userContext'
+import { UserContext } from 'main/asteroid/contexts/userContext'
 
 
 class Logout extends React.Component {

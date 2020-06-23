@@ -2,7 +2,7 @@ import React from 'react'
 import { withRouter } from "react-router-dom";
 
 
-import { ResourceContext } from 'main/asteroid/resourceContext'
+import { ResourceContext } from 'main/asteroid/contexts/resourceContext'
 import DefaultFormField from './formField'
 
 //This component maps over the fields and controls whether it shows a default form field or the custom.

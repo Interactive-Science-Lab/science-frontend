@@ -3,12 +3,15 @@ Asteroid Folder Structure & Overview
 Quick Overview: A react / node application base that automatically sets up components based on configuration files
 Essentially, define the functionality of a REST resource in a file and have that component set up automatically
 
-    Main folders in /src
+/src
 ================================
 /main- all the "main" files for default functionality.
 /site - for modifying site options, things that are commonly changed from one site to another despite functionality (Site name & links, etc.)
 /project- for adding custom codes & functionality outside of the scope of what ASTEROID covers
 /stylesheets- has all the scss stylesheets
+index.js- the base file for the app, what calls react dom
+App.js- sets up the page with header/footer/login/out and a few other things
+
 
     /main
 ====================

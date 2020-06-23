@@ -1,4 +1,4 @@
-import {PermissionSetting} from './permission'
+import {PermissionSetting} from '../permission'
 
 
 //Paginate, search, sort, filter

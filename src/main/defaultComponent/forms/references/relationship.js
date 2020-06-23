@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 
 import SubForm from './subFormController'
 
-import { ResourceContext } from 'main/asteroid/resourceContext'
+import { ResourceContext } from 'main/asteroid/contexts/resourceContext'
 
 class RelationshipForm extends React.Component {
   constructor(props, context) {

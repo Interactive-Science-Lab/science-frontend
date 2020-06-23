@@ -13,7 +13,7 @@ import api from 'helpers/api'
 
 
 //Contains the settings for the resource.
-import { ResourceContext } from '../../asteroid/resourceContext'
+import { ResourceContext } from '../../asteroid/contexts/resourceContext'
 //Related to search, sort, filter 
 import { defaultLoader, checkParams, updatePage, checkLoad } from 'main/defaultComponent/index/featureComponents/search_helpers'
 

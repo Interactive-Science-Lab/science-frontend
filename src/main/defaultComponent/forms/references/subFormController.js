@@ -2,7 +2,7 @@ import React from 'react'
 import { withRouter } from "react-router-dom";
 import InsertForm from '../component/form'
 
-import { ResourceContext } from 'main/asteroid/resourceContext'
+import { ResourceContext } from 'main/asteroid/contexts/resourceContext'
 
 /* This component controls the state for object forms that may be placed other places */
 class subFormController extends React.Component {

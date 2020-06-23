@@ -1,4 +1,4 @@
-import { PermissionSetting, Permission } from "./permission";
+import { PermissionSetting, Permission } from "../permission";
 import ComponentField from './componentField'
 import ComponentFeature from './componentFeature'
 import ComponentReference from './componentReference'
