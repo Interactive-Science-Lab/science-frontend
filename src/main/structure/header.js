@@ -4,7 +4,7 @@ import { NavLink, Switch, Route, withRouter } from 'react-router-dom'
 import { siteTitle, logoURL } from 'site/siteSettings'
 
 //An alternate sidebar for displaying the experiments
-import ExperimentSidebar from 'project/experiments/sidebar'
+import ExperimentSidebar from 'project/lab/sidebar'
 
 
 class Header extends React.Component {

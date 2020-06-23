@@ -2,7 +2,7 @@ import React from 'react'
 import Dropzone from './dropzone';
 import Sinkzone from './sinkzone';
 
-import { LabContext } from 'project/experiments/db/labContext'
+import { LabContext } from 'project/lab/labContext'
 
 
 class ExperimentLab extends React.Component {

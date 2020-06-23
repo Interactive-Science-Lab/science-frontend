@@ -6,7 +6,7 @@ import FourOhFour from './404Component'
 
 import AccountComponent from 'main/asteroid/commonComponents/account/controller';
 import DefaultComponent from 'main/defaultComponent/controller';
-import ExperimentComponent from 'project/experiments/open';
+import ExperimentComponent from 'project/lab/core';
 
 /* 
 

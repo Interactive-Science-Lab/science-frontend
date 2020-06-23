@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { LabContext } from 'project/experiments/db/labContext'
+import { LabContext } from 'project/lab/labContext'
 
 
 

@@ -15,7 +15,7 @@ import {Link} from 'react-router-dom'
 import labSettings from './classes/fields'
 
 
-import { LabContext, labDefaults } from './db/labContext'
+import { LabContext, labDefaults } from './labContext'
 
 import DragHelper from './classes/drag'
 
