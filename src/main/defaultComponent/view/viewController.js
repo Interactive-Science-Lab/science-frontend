@@ -6,7 +6,7 @@ import { withRouter } from 'react-router'
 
 import { loadingSpinner, permissionError, missingError } from 'site/siteSettings'
 //Contains the settings for the resource.
-import { ResourceContext } from '../helpers/resourceContext'
+import { ResourceContext } from '../../asteroid/resourceContext'
 
 import DefaultView from './viewLayout'
 

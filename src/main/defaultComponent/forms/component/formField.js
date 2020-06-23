@@ -1,7 +1,7 @@
 import React from 'react'
 import { withRouter } from "react-router-dom";
 
-import { ResourceContext } from 'main/defaultComponent/helpers/resourceContext'
+import { ResourceContext } from 'main/asteroid/resourceContext'
 
 import { Form } from 'react-bootstrap'
 import FieldType from './fieldTypes'

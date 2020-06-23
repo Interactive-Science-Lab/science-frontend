@@ -1,5 +1,5 @@
 import React from 'react'
-import Menu from './menu/topMenu.js'
+import Menu from './menu/menuBuilder.js'
 import { NavLink, Switch, Route, withRouter } from 'react-router-dom'
 import { siteTitle, logoURL } from 'site/siteSettings'
 

@@ -3,7 +3,7 @@ import { withRouter } from 'react-router'
 import { Link } from 'react-router-dom'
 
 //Contains the settings for the resource.
-import { ResourceContext } from '../helpers/resourceContext'
+import { ResourceContext } from '../../asteroid/resourceContext'
 
 import FieldDisplay from '../display/fieldDisplay'
 

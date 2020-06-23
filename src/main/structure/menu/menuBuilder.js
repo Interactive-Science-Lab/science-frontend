@@ -1,5 +1,5 @@
 import React from 'react'
-import customMenuStructure from './structure'
+import customMenuStructure from './customStructure'
 import MenuItem from './menuItem'
 import { withRouter } from 'react-router-dom'
 

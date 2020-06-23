@@ -2,7 +2,7 @@ import React from 'react'
 import BuildForm from './formStructure'
 import { withRouter } from "react-router-dom";
 
-import { ResourceContext } from 'main/defaultComponent/helpers/resourceContext'
+import { ResourceContext } from 'main/asteroid/resourceContext'
 
 /* 
 

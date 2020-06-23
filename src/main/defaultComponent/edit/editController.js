@@ -5,7 +5,7 @@ import api from 'helpers/api'
 
 import { loadingSpinner, permissionError, missingError } from 'site/siteSettings'
 
-import { ResourceContext } from '../helpers/resourceContext'
+import { ResourceContext } from '../../asteroid/resourceContext'
 
 import DefaultEdit from './editLayout'
 

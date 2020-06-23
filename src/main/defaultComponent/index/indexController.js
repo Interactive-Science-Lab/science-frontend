@@ -13,9 +13,9 @@ import api from 'helpers/api'
 
 
 //Contains the settings for the resource.
-import { ResourceContext } from '../helpers/resourceContext'
+import { ResourceContext } from '../../asteroid/resourceContext'
 //Related to search, sort, filter 
-import { defaultLoader, checkParams, updatePage, checkLoad } from 'main/defaultComponent/helpers/search_helpers/search_helpers'
+import { defaultLoader, checkParams, updatePage, checkLoad } from 'main/defaultComponent/index/featureComponents/search_helpers'
 
 import { permissionError } from 'site/siteSettings'
 

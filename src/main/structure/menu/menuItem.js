@@ -1,6 +1,6 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
-import MenuDropdown from './menuDropdown'
+import MenuDropdown from './menuDropdownLink'
 import MenuLink from './menuLink'
 
 import {curr_user as user} from 'helpers/api'
