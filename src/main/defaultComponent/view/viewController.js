@@ -6,9 +6,9 @@ import { withRouter } from 'react-router'
 
 import { loadingSpinner, permissionError, missingError } from 'site/siteSettings'
 //Contains the settings for the resource.
-import { ResourceContext } from './componentParts/resourceContext'
+import { ResourceContext } from '../helpers/resourceContext'
 
-import DefaultView from './componentParts/defaultView'
+import DefaultView from './viewLayout'
 
 class View extends React.Component {
     constructor(props, context) {

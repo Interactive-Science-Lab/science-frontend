@@ -12,14 +12,14 @@ This file has a few major responsibilities:
 
 */
 
-import Index from './index.js'
-import View from './view.js'
-import Edit from './edit.js'
-import New from './new.js'
+import Index from './index/indexController.js'
+import View from './view/viewController.js'
+import Edit from './edit/editController.js'
+import New from './new/newController.js'
 import FourOhFour from 'main/structure/404Component'
 
 
-import { ResourceContext, resourceDefaults } from './componentParts/resourceContext'
+import { ResourceContext, resourceDefaults } from './helpers/resourceContext'
 
 
 class DefaultController extends React.Component {

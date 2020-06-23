@@ -13,7 +13,7 @@ import api from 'helpers/api'
 
 
 //Contains the settings for the resource.
-import { ResourceContext } from './componentParts/resourceContext'
+import { ResourceContext } from '../helpers/resourceContext'
 //Related to search, sort, filter 
 import { defaultLoader, checkParams, updatePage, checkLoad } from 'main/defaultComponent/helpers/search_helpers/search_helpers'
 
@@ -21,7 +21,7 @@ import { permissionError } from 'site/siteSettings'
 
 //Related to this component:
 //DefaultIndex takes the items & settings and actually lays out the page. Override this file to change search, paginate, etc. 
-import DefaultIndex from 'main/defaultComponent/componentParts/defaultIndex'
+import DefaultIndex from 'main/defaultComponent/index/indexLayout'
 
 //This component is responsible for controlling the state & api for the index route.
 class Index extends React.Component {

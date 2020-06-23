@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import FieldDisplay from './fieldDisplay'
+import FieldDisplay from '../display/fieldDisplay'
 
 
 class Page extends React.Component {

@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import InsertForm from '../component/form'
 import DisplayPreview from './displayPreview'
 
-import { ResourceContext } from 'main/defaultComponent/componentParts/resourceContext'
+import { ResourceContext } from 'main/defaultComponent/helpers/resourceContext'
 
 /* This component controls the state for object forms that may be placed other places */
 class subFormController extends React.Component {
@@ -40,7 +40,7 @@ class subFormController extends React.Component {
       <div className='mini-form'>
         <InsertForm {...this.props} blockRedirect={true} item={this.state.item} updateItem={this.updateItem} loadPage={this.props.loadPage} /> 
       </div>
-    : (this.props.action === 'edit' ? <DisplayPreview {...this.props}  /> : "")
+    : (this.props.action === 'edit' ? "HEY DISPLAY A THING HERE" : "")
     }
     </div>
   }

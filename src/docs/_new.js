@@ -49,4 +49,4 @@ const fields = {
             return `${value}- THATS THE CUSTOM INDEX`
         },
     }
-}
+

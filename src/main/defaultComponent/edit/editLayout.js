@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router'
 
 import HandleForm from 'main/defaultComponent/forms/component/form'
-import RelationshipForm from 'main/defaultComponent/forms/relationships/relationship'
+import RelationshipForm from 'main/defaultComponent/forms/references/relationship'
 
-import { ResourceContext, resourceDefaults } from './resourceContext'
+import { ResourceContext, resourceDefaults } from '../helpers/resourceContext'
 
 
 class Edit extends React.Component {
