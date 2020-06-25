@@ -14,7 +14,6 @@ import ComponentField from './componentField'
 
 export default class ComponentReference extends ComponentField {
     constructor(idField, targetField, referenceType, options) {
-        console.log(options)
         super(idField, { ...options, fieldType: 'reference' })
         //which field the info is stored in on the parent- should likely be an foriegn id field
         this.idField = idField

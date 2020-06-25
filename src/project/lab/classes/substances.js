@@ -1,8 +1,5 @@
 
-import React from 'react'
 import {ItemInstance} from './core'
-import {Mixture, Ingredient} from './ingredient'
-import masterListHelper from './masterList'
 
 export class SubstanceInstance extends ItemInstance {
     constructor(record, instance, hoverPos, instance_id) {

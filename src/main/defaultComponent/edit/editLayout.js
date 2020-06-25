@@ -28,8 +28,7 @@ class Edit extends React.Component {
       <h1>{settings.get('editTitle')}</h1>
       <p>{settings.get('editText')}</p>
 
-      {/* the form for the item being passed in*/}
-      {/* The item itself being passed in. */}
+      {/* the form for the item being passed in  The item itself being passed in. */}
       
       <HandleForm
         item={item}
@@ -56,21 +55,3 @@ class Edit extends React.Component {
 
 Edit.contextType = ResourceContext
 export default withRouter(Edit)
-
-
-
-
-
- {/*
-      {settings.features.thumbnail ?
-        <ResourceContext.Provider value={resourceDefaults('thumbnails')}>
-          <RelationshipForm item={item} formClass={"thumbnail"} settings={settings} update={this.props.loadPage} info={{ id: item[settings.fields.idField], class: settings.names.us }} />
-        </ResourceContext.Provider>
-        : ""}
-
-
-      {settings.features.userInfo && item.info ?
-        <ResourceContext.Provider value={resourceDefaults(item.user_kind)}>
-          <RelationshipForm item={item} formClass={item.user_kind} settings={settings} update={this.props.loadPage} info={{ id: item[settings.fields.idField], class: settings.names.us }} />
-        </ResourceContext.Provider>
-      : ""} */}

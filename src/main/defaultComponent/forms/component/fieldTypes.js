@@ -51,7 +51,7 @@ class FormFields extends React.Component {
             case 'reference':
                 return field.settings.referenceType === 'select' ? "REFERENCE SELECT COMING SOON" : null
             default:
-                throw `ASTEROID ERROR: undefined field type- ${fieldType}`
+                throw new Error(`ASTEROID ERROR: undefined field type- ${fieldType}`)
         }
     }
 }

@@ -41,12 +41,14 @@ class ExperimentLab extends React.Component {
             case "drop-sink":
                 dropInt = 6;
                 break;
+            default:
+                break;
         }
         let containerItems = items.list.filter(i => i.area === dropInt)
 
         let dropzones = []
 
-        for (var i = 0; i < amount; i++) {
+        for (let i = 0; i < amount; i++) {
             dropzones[i] = containerItems.filter(j => j.pos === i)[0] || {}
         }
         return <div class="DDcontainer">

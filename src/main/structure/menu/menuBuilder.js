@@ -35,11 +35,10 @@ class Menu extends React.Component {
 
   render = () => {
     const menuStructure = site.getMenu()
-    console.log(site.menu)
 
     return <div className={`${this.props.showMenu ? "mobile-menu-show" : "mobile-menu-hide"}`}>
       {menuStructure.map(menuOption =>
-        menuOption.isDropdown() ? <MenuDropdown menuOption={menuOption} toggleDropdown={this.props.toggleDropdown} /> : menuOption.printLink()
+          menuOption.isDropdown() ? <MenuDropdown key={menuOption.name} menuOption={menuOption} toggleDropdown={this.props.toggleDropdown} /> : menuOption.printLink()
       )}
     </div>
   }

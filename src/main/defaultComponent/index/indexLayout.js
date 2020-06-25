@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { curr_user, headers, Protect } from 'helpers/api'
 
 import Pagination from 'main/defaultComponent/index/featureComponents/pagination'
 import Search from 'main/defaultComponent/index/featureComponents/search'
@@ -75,7 +74,7 @@ class defaultIndex extends React.Component {
     }
 
     displayNewLink = () => {
-        const { settings, mainState } = this.props
+        const { settings } = this.props
         let permissionCheck = settings.checkPermission('new') 
         if (permissionCheck) {
             const component = <Link to={`${settings.get("urlPath")}/new`}>{settings.text.newLink || "Add New +"}</Link>

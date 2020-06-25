@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
 import {handleParameter} from './search_helpers'
 
 class Pagination extends React.Component {

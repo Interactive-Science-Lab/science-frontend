@@ -19,7 +19,7 @@ class Page extends React.Component {
 
             {field.settings.fieldType === 'icon' ? <span className={`fas fa-${field.value}`}></span> : ""}
 
-            {field.settings.fieldType === 'local-image' ? <img src={`/images/${field.value}`} /> : ""}
+            {field.settings.fieldType === 'local-image' ? <img src={`/images/${field.value}`} alt="" /> : ""}
 
             {field.settings.fieldType === 'number' ? field.value : ""}
 

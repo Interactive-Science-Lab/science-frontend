@@ -27,7 +27,7 @@ class DropdownOption extends React.Component {
   render = () => {
     const showMenu = this.state.showMenu
     const menuOption = this.props.menuOption
-    return menuOption.printDropdown(showMenu, this.toggleMenu)
+    return menuOption.printDropdown(showMenu, this.toggleMenu) || ""
   }
 }
 

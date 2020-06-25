@@ -4,6 +4,7 @@ import { Form } from 'react-bootstrap'
 class Field extends React.Component {
     constructor(props) {
         super(props)
+        this.state={}
     }
 
     handleChange = (e) => {
@@ -18,7 +19,7 @@ class Field extends React.Component {
     }
 
     render() {
-        const {field, item} = this.props.component.props
+        const {field} = this.props.component.props
         return <Form.Control
             type='text'
             as='textarea'
@@ -26,7 +27,7 @@ class Field extends React.Component {
             onChange={this.handleChange}
             name={field.name}
             placeholder={field.name}
-            value={ JSON.stringify(item[field.name]) }
+            value={ JSON.stringify(field.value) }
         />
     }
 }

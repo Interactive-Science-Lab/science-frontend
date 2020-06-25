@@ -1,7 +1,7 @@
 import React from 'react'
 import Menu from './menu/menuBuilder.js'
 import { NavLink, Switch, Route, withRouter } from 'react-router-dom'
-import { siteTitle, logoURL } from 'site/siteSettings'
+import { siteTitle, logoURL, menuOptions } from 'site/siteSettings'
 
 //An alternate sidebar for displaying the experiments
 import ExperimentSidebar from 'project/lab/sidebar'
@@ -37,7 +37,7 @@ class Header extends React.Component {
   }
 
   render = () => {
-    const menuPersist = false
+    const menuPersist = menuOptions.menuPersist
     const persistClass = menuPersist ? 'd-xs-none d-lg-none' : ''
 
     const { showMenu } = this.state
@@ -48,6 +48,9 @@ class Header extends React.Component {
 
     return <div>
       <Switch>
+        
+        {/* Special case for science lab where we switch out the header for something else in /lab/ */}
+       
         <Route path="/lab/:id?" >
           <div className='header' >
             <ExperimentSidebar />
@@ -55,16 +58,15 @@ class Header extends React.Component {
         </Route>
 
         {/* In this case, the header is not built on the home path. */}
-        <Route path="/" exact>
-        </Route>
+        { menuOptions.menuOnHome ? null : <Route path="/" exact></Route> }
 
         <Route path="/">
           <div className={showClass}>
             <br />
             {/* Toggle close button */}
-            <h1 className={`fas fa-window-close hmenu-mobile-toggle ${persistClass}`}
+            <span style={{fontSize: '32px'}} className={`fas fa-window-close hmenu-mobile-toggle ${persistClass}`}
               onClick={this.toggleMenu}>
-            </h1>
+            </span>
 
             <br /><br />
             <br />
@@ -79,8 +81,8 @@ class Header extends React.Component {
 
           </div>
           {/* Toggle open button */}
-          <h2 className={`fas fa-bars hmenu-mobile-toggle d-inline ${persistClass}`}
-            onClick={this.toggleMenu}></h2>
+          <span style={{fontSize: '28px'}} className={`fas fa-bars hmenu-mobile-toggle d-inline ${persistClass}`}
+            onClick={this.toggleMenu}></span>
         </Route>
 
       </Switch>

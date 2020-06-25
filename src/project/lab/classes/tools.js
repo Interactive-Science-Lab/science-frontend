@@ -1,7 +1,5 @@
 
 import React from 'react'
-import MasterListHelper from './masterList'
-import ContainerHelper from './containers'
 import { Mixture } from './mixture'
 import { ItemInstance } from './core'
 
@@ -83,6 +81,7 @@ export class ToolInstance extends ItemInstance {
             itemContents.map(i => {
                 if (i.getTemperature() > i.record.low_temp_point) { liquidContents.addItemToMixture(i) }
                 else { solidContents.addItemToMixture(i) }
+                return i
             })
 
             this.contents.combineMixture(solidContents)

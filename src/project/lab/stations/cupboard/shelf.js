@@ -18,7 +18,7 @@ class ExperimentLab extends React.Component {
     }
 
     render() {
-        const { list, side, itemType, filter } = this.props
+        const { list, itemType, filter } = this.props
 
         return <div className={`shelf ${this.props.openNum === this.props.num ? 'open' : 'close'}-shelf`}>
 
@@ -43,7 +43,7 @@ class ExperimentLab extends React.Component {
             <div style={{textAlign:'right'}}>
                 {this.props.openNum === this.props.num ?
                     <div className="" style={{ cursor: 'pointer' }} onClick={this.toggleOpen}>
-                        <h1 className="fas fa-chevron-down"></h1>
+                        <span className="fas fa-chevron-down" style={{fontSize:'32px'}}></span>
                         <p className="ttip">Close {this.props.itemType}</p>
                     </div>
 
@@ -51,7 +51,7 @@ class ExperimentLab extends React.Component {
                     :
 
                     <div className="" style={{ cursor: 'pointer' }} onClick={this.toggleOpen}>
-                        <h1 className="fas fa-chevron-up"></h1>
+                        <span className="fas fa-chevron-up" style={{fontSize:'32px'}}></span>
                         <p className="ttip">Open {this.props.itemType}</p>
                     </div>
 

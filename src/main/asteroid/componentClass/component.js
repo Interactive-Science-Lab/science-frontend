@@ -1,9 +1,9 @@
-import { PermissionSetting, Permission } from "../permission";
+import { PermissionSetting } from "../permission";
 import ComponentField from './componentField'
 import ComponentFeature from './componentFeature'
 import ComponentReference from './componentReference'
 
-import api, { curr_user, headers, apiPath } from 'helpers/api'
+import api, { headers } from 'helpers/api'
 import axios from 'axios'
 
 /* 
@@ -139,6 +139,8 @@ export default class Component {
                 return this.text.newTitle
             case "newText":
                 return this.text.newText
+            default:
+                throw new Error(`Incorrect selection for 'get'- ${shortcut}`)
         }
     }
     getId = (item) => {
@@ -202,6 +204,7 @@ export default class Component {
             let fieldRet = field
             if (item[field.settings.fieldName]) { fieldRet.value = item[field.settings.fieldName] }
             returnFields.push(fieldRet)
+            return field
         })
         return returnFields
     }
@@ -282,10 +285,12 @@ export default class Component {
             if (field.validations) {
                 field.validations.map(validation => {
                     if (validation === 'required') {
-                        ret = ret && item[fieldName] && item[fieldName] != ''
+                        ret = ret && item[fieldName] && item[fieldName] !== ''
                     }
+                    return validation
                 })
             }
+            return field
         })
 
         return ret

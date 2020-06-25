@@ -19,8 +19,7 @@ function dragEnd(component, e) {
 
 
     //Get the instance ids and possibly the parent id if it's being moved from a tool. 
-
-    const inst_id = Number.parseInt(e.target.getAttribute('data-instance'))
+    //const inst_id = Number.parseInt(e.target.getAttribute('data-instance'))
     const parent_inst_id = Number.parseInt(e.target.getAttribute('data-parent-instance'))
 
     const hoverInstance = itemsState.getInstance(hoverItem.instance)
@@ -206,7 +205,7 @@ function dragInventoryEnd(component, e) {
 
     if (itemsState.checkPosition(hoverPos) && dragItem.itemType && dragItem.id) {
         let dragRecord = MasterListHelper.getRecord(component.state.masterItemList, dragItem.itemType, dragItem)
-        let updateObj = itemsState.newInstance(dragRecord, dragItem, hoverPos)
+        itemsState.newInstance(dragRecord, dragItem, hoverPos)
         itemsState.updateState(component)
     } else {
         component.setState({ message: "You must move to an empty space first." })

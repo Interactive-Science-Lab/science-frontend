@@ -7,7 +7,11 @@ import Verify from './auth/verify'
 import Logout from './auth/logout'
 import ForgottenPassword from './auth/forgottenPassword'
 import ResetPassword from './auth/resetPassword'
-import UserProfile from './userProfile'
+import Dashboard from './account/dashboard'
+import FourOhFour from 'main/structure/404Component'
+
+import UserList from './account/userList'
+import UserPage from './account/userPage'
 
 class User extends React.Component {
   constructor(props) {
@@ -28,25 +32,13 @@ class User extends React.Component {
         <Route path="/auth/forgottenPassword" exact component={ForgottenPassword} />
         <Route path="/auth/resetPassword/:username/:verify_hash" exact component={ResetPassword} />
 
-
-        <Route path="/auth/dashboard" exact component={UserProfile} />
+        <Route path="/auth/dashboard" exact component={Dashboard} />
         <Route path="/auth/logout" exact component={Logout} />
+        
+        <Route path="/auth/user/list" exact component={UserList} />
+        <Route path="/auth/user/:id" exact component={UserPage} />
 
-
-
-        <Route path="/" render={() => <div className="controller"><div className="tpBlackBg">
-          <h2>We're Sorry</h2>
-          <h1>ERROR: 404 Page Not Found</h1>
-          <hr />
-          <h3>If you have accessed this page before:</h3>
-          <h4>Staff</h4>
-          <p>Please try logging out and logging back in.</p>
-          <h4>Athletes</h4>
-          <p>Please directly message the number for the team.</p>
-          <hr />
-          <p>Error Code: <i>ACCOUNT_ERROR</i></p>
-        </div></div>} />
-
+        <Route path="/" component={FourOhFour} />
 
       </Switch>
     </div>

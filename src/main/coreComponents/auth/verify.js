@@ -1,9 +1,7 @@
 import React from 'react'
-import {Form} from 'react-bootstrap'
 import axios from 'axios'
 import api from 'helpers/api'
 
-const curr_user = localStorage.user ?  JSON.parse(localStorage.user) : false
 
 class Profile extends React.Component {
     constructor(props) {

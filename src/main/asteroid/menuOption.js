@@ -30,7 +30,7 @@ export default class MenuOption {
 
     printLink = () => {
         if (this.permissions.check()) {
-            return <NavLink className="hmenu-item" to={this.link || '/'}>
+            return <NavLink key={this.name} className="hmenu-item" to={this.link || '/'}>
                 <span className={`fas fa-${this.symbol}`}></span><span>{this.name}</span>
             </NavLink>
         }

@@ -1,13 +1,16 @@
 import React from 'react';
 import './stylesheets/App.scss';
 import Helmet from 'react-helmet'
+import { withRouter } from 'react-router';
+import axios from 'axios'
 
 import Header from './main/structure/header';
 import Footer from './main/structure/footer';
 import Body from './main/structure/body';
 
-import { siteTitle, siteTagline, siteOptions } from './site/siteSettings'
+import { siteTitle, siteTagline, siteOptions, menuOptions } from './site/siteSettings'
 import { UserContext, userDefaults } from 'main/asteroid/contexts/userContext'
+import { checkUserPath, headers, curr_user } from 'helpers/api'
  
 class App extends React.Component {
 	constructor(props) {
@@ -16,6 +19,17 @@ class App extends React.Component {
 			user: userDefaults.user,
 			token: userDefaults.token
 		};
+	}
+
+	componentDidMount = async () => {
+		//This checks to see if a user's login is expired, logs them out, or just goes on. 
+		if(curr_user) {
+			axios.post(checkUserPath(), {}, headers)
+			
+			.then(i => console.log(i))
+			.catch(e => {console.log(e)
+				this.logout() })
+		}
 	}
 
 	logout = () => {
@@ -34,10 +48,15 @@ class App extends React.Component {
 
 	//App handles the user context, the placement of header & body, and a dynamic title bar.
 	render() {
+	
+		//This returns false if user is currently on the home page && the setting menuOnHome is true
+		let homeShow = (this.props.location.pathname === "/" ? menuOptions.menuOnHome : true)
+		let leftMarginShow = homeShow && menuOptions.menuPersistff
+
 		return <UserContext.Provider value={{ ...this.state, logout: this.logout, login: this.login }}>
 			<div className="App main-bg">
 				<Header />
-				<div className="main-screen">
+				<div className={`main-screen ${leftMarginShow ? 'main-screen-persist-menu' : null}`} >
 					<Helmet><title>{`${siteTitle}- ${siteTagline}`}</title></Helmet>
 					<Body />	
 					{siteOptions.displayFooter ? <Footer /> : ""}
@@ -47,4 +66,4 @@ class App extends React.Component {
 	}
 }
 
-export default App;
+export default withRouter(App);

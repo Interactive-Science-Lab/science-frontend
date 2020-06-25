@@ -20,7 +20,7 @@ component.addFeature('sort', [['page_title', 'Alphabetical'], ['page_order', 'Or
 component.setLoader({ filter: 'public' })
 
 /* MENU */
-component.addMenuOption({name: "Site Pages", view: 'admin', symbol: 'heart', order: 0, category: "Admin"})
+component.addMenuOption({name: "Edit Pages", view: 'admin', symbol: 'heart', order: 10, category: "Admin"})
 
 /* FIELDS */
 component.addField('page_status', {default: 'draft', fieldType: ["select-draft"] })

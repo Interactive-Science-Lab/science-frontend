@@ -4,6 +4,7 @@ import { Form } from 'react-bootstrap'
 class Field extends React.Component {
     constructor(props) {
         super(props)
+        this.state={}
     }
 
     handleChange = (e) => {
@@ -14,13 +15,13 @@ class Field extends React.Component {
     }
 
     render() {
-        const {field, item} = this.props.component.props
+        const {field} = this.props.component.props
         return <Form.Control
             type='number'
             onChange={this.handleChange}
             name={field.settings.fieldName}
             placeholder={field.settings.fieldName}
-            value={item.value}
+            value={field.value}
         />
     }
 }

@@ -4,9 +4,11 @@ import { withRouter } from 'react-router';
 import Home from '../../site/home';
 import FourOhFour from './404Component'
 
-import AccountComponent from 'main/coreComponents/account/controller';
+import CoreComponent from 'main/coreComponents/controller';
 import DefaultComponent from 'main/defaultComponent/controller';
 import ExperimentComponent from 'project/lab/core';
+
+import {menuOptions} from 'site/siteSettings'
 
 /* 
 
@@ -24,6 +26,7 @@ The home page has it's own route / page
 
 
 function Body(props) {
+	let labStyle = menuOptions.menuPersist ? {paddingLeft:'0'} : {paddingLeft:'25vw'}
 	return (
 		<Switch>
 			{/* HOME PAGE */}
@@ -37,7 +40,7 @@ function Body(props) {
 
 			{/* CUSTOM ROUTES */}
 			<Route path="/lab/:id?">
-				<div className="body" style={{paddingLeft:'25vw'}}>
+				<div className="body" style={ labStyle }>
 					<div className="">
 						<ExperimentComponent />
 					</div>
@@ -48,7 +51,7 @@ function Body(props) {
 			<Route path="/auth">
 				<div className="body">
 					<div className="page-container">
-						<AccountComponent />
+						<CoreComponent />
 					</div>
 				</div>
 			</Route>

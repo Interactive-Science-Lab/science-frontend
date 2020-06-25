@@ -7,7 +7,6 @@ let component = new Component('site_blog', {friendly: 'posts', upper: 'BlogPosts
 let noIndex = new PermissionSetting('noIndex')
 let hidden = new PermissionSetting('hidden')
 let mod = new PermissionSetting('mod')
-let staticField = new PermissionSetting('static').modifyPermissions('auto')
 
 component.addFeature('search')
 component.addFeature('paginate')
@@ -19,7 +18,7 @@ component.addReference('author_id', 'author_username', 'select', {title: "Author
 
 let thumb = component.addReference('image_id', 'thumbnail', 'control', {title: "Thumbnail Image", resourceName: 'thumbnails'})
 
-let imageDisplay = (item) => { return <img src={item.image_url} /> }
+let imageDisplay = (item) => { return <img src={item.image_url} alt="" /> }
 thumb.setCustomDisplay('display', imageDisplay)
 
 component.addTags('blog_tags', {})

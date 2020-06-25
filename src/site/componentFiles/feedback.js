@@ -1,6 +1,4 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
-
 import Component from '../../main/asteroid/componentClass/component'
 import { PermissionSetting } from '../../main/asteroid/permission'
 
@@ -17,7 +15,7 @@ component.turnOnFeature('filter')
 component.setFilterOptions(['logged', 'unlogged'])
 component.setLoader({filter: 'unlogged'})
 
-
+/*
 const list = (item) => {
     const from = item.feedback_name || item.feedback_email ?  `${item.feedback_name} ${item.feedback_email}` : "Anonymous"
     return <Link style={{display:'block'}} to={`feedback/${item.feedback_id}`}>
@@ -34,10 +32,10 @@ const page = (item) => {
         {item.logged ? "Logged" : "Unlogged"}
     </div>
 }
-const submit_message = (item) => { return <div>Thank You! Your feedback has been recieved.</div> }
-
 component.setCustomDisplay('listItem', list)
-//component.setCustomDisplay('view', page)
+component.setCustomDisplay('view', page)*/
+
+const submit_message = (item) => { return <div>Thank You! Your feedback has been recieved.</div> }
 component.addOption('submit_message', submit_message)
 
 component.addField('feedback_kind', {default: 1, fieldType: ['select-custom', [[1, 'Comment'], [2, 'Question'], [3, 'Concern']] ] })

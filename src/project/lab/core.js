@@ -6,7 +6,6 @@ import { withRouter } from 'react-router-dom'
 
 import {Row, Col} from 'react-bootstrap'
 
-import Tray from './stations/tray/component'
 import Table from './stations/table/component'
 import Cupboard from './stations/cupboard/component'
 import Examiner from './stations/examiner/component'
@@ -15,7 +14,7 @@ import {Link} from 'react-router-dom'
 import labSettings from './classes/fields'
 
 
-import { LabContext, labDefaults } from './labContext'
+import { LabContext } from './labContext'
 
 import DragHelper from './classes/drag'
 

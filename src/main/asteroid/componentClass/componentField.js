@@ -58,6 +58,8 @@ export default class ComponentField {
                 return this.customDisplay['edit'] || this.customDisplay['form']
             case "new":
                 return this.customDisplay['new'] || this.customDisplay['form']
+            default: 
+                throw new Error(`ASTEROID: Unknown display check- ${view}`)
         }
 
     }

@@ -1,11 +1,11 @@
 
 import React from 'react'
-import { Form } from 'react-bootstrap'
 import { Input } from 'reactstrap'
 
 class Field extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {}
     }
 
     handleChange = (e) => {

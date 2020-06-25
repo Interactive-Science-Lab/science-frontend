@@ -14,7 +14,7 @@ class Pagination extends React.Component {
 
     render() {
       const {pager} = this.props.component.state.loader
-      if(!pager) { throw "Trying to paginate but no pager found. Check result from backend." }
+      if(!pager) { throw new Error("Trying to paginate but no pager found. Check result from backend.") }
       const {pages, currentPage, totalPages} = pager
       const callback = this.handlePage
 
@@ -30,13 +30,13 @@ class Pagination extends React.Component {
               : "" }
 
             { pages ? pages.map(page =>
-              <span onClick={callback} page={page} style={{textDecoration: currentPage==page ? 'underline' : 'none'}}>
+              <span onClick={callback} page={page} style={{textDecoration: currentPage===page ? 'underline' : 'none'}}>
                 {page}
               </span>
             ) : "" }
 
             { currentPage && (currentPage < totalPages) ?
-              <span><i onClick={callback} page={currentPage + 1}  class="fas fa-angle-right"></i></span>
+              <span><i onClick={callback} page={currentPage + 1}  className="fas fa-angle-right"></i></span>
             : "" }
 
             { currentPage && (currentPage+1 < totalPages) ? //Same reason as above, no reason to show on second to last page.

@@ -1,6 +1,5 @@
 import React from 'react';
-import { siteTitle, logoURL } from '../site/siteSettings'
-import { Row, Col } from 'reactstrap'
+import { logoURL } from '../site/siteSettings'
 import { Link } from 'react-router-dom'
 import { curr_user } from 'helpers/api'
 
@@ -44,9 +43,9 @@ function Home(props) {
 		<h1>College Prep Science</h1>
 
 					{curr_user ? <div>
-					<h4></h4>
+					<br />
 					<h2>Welcome back!</h2>
-					<h4></h4>
+					<br />
 					</div> : <div>
 					<h2>Lab Portal</h2>
 					</div> }
@@ -57,13 +56,13 @@ function Home(props) {
 							<Link className="nice-button" to='/lab'>
 								<h3>Go To {curr_user.user_kind === 'end_user' ? ['', 'Biology', 'Chemistry', 'Physics'][curr_user.user_role] + ' ' : ''}Lab</h3>
 							</Link><br />
-							<Link className="nice-button" to='/feedback/new'><h3>Contact</h3></Link><br />
+							<Link className="nice-button" to='/pages/4'><h3>Help</h3></Link><br />
 							{ curr_user.user_kind === 'admin_user' ? <div>
 							<Link className="nice-button" to='/experiments'><h3>Admin Settings</h3></Link></div> : ""}
 							<Link className="nice-button" to='/auth/logout'><h3>Logout</h3></Link>
 						</div> :
 						squares.map(({ title, link }) =>
-							<div>
+							<div key={title}>
 								<Link className="nice-button" to={link}><h3>{title}</h3></Link>
 							</div>)}
 

@@ -1,12 +1,5 @@
 import React from 'react'
 
-import ClassHelpers from '../classes/itemsState'
-import ContainerHelper from '../classes/containers'
-import ToolHelper from '../classes/tools'
-import MasterListHelper from '../classes/masterList'
-
-
-
 class Item extends React.Component {
     constructor(props) {
         super(props)
@@ -19,7 +12,7 @@ class Item extends React.Component {
         if (this.props.item?.name) {
             return <ItemComponent {...this.props} />
         } else {
-            {/* IF there's no item, and we're looking at the exam zone, show the things.*/ }
+            // IF there's no item, and we're looking at the exam zone, show the things.
             if (this.props.i === 0 && ([2, 3].includes(this.props.dropInt) ) ){
                 return <BlankExaminer {...this.props}  />
             } else {
@@ -35,16 +28,11 @@ export default Item
 class ItemComponent extends React.Component {
     constructor(props) {
         super(props)
+        this.state={}
     }
     render() {
-        const { item, masterItemList, itemsState } = this.props
+        const { item } = this.props
         let record = item.record
-
-        let totalVolume = item.volume
-        let totalMass = item.mass
-        let temperature = item.temperature
-        let ph = item.ph
-        let time = item.time || item.usedItem?.time || 0
 
         return <span className={`drag-item lab-action instance-${item.instance_id}`} data-itemType={item.itemType} data-instance={item.instance_id} draggable >
             <span className="item-show-name">{item.name}</span>
@@ -56,11 +44,13 @@ class ItemComponent extends React.Component {
                         draggable={false}
                         src={`/images/${item.getSprite()}`}
                         style={{maxWidth:'none'}}
+                        alt=""
                     />
                     :
                     <img
                         draggable={false}
                         src={`/images/${item.getSprite()}`}
+                        alt=""
                     />
                     }
 
@@ -130,7 +120,7 @@ class ItemComponent extends React.Component {
 
 
                 <div className="item-used">{
-                    item.usedItem ? (item.usedItem.name && item.name != 'Dissection Tray' ? <div><hr />
+                    item.usedItem ? (item.usedItem.name && item.name !== 'Dissection Tray' ? <div><hr />
                         <div>Item:</div>
                         <div style={{ overFlowY: "scroll" }} className="tool-item ttipalt">
                             <span className='drag-item'
@@ -237,6 +227,7 @@ class ItemComponent extends React.Component {
 class BlankExaminer extends React.Component {
     constructor(props) {
         super(props)
+        this.state={}
     }
 
     render() {

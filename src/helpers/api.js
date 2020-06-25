@@ -1,4 +1,3 @@
-import React from 'react'
 import {apiPathLink} from '../site/siteSettings'
 
 export const apiPath = (path) => { return `${apiPathLink}${path}` }
@@ -9,6 +8,7 @@ export const authPath = (path = "") => { return userPath(`/auth${path}`) }
 export const adminPath = (path = "") => { return userPath(`/admin${path}`) }
 
 //Auth Paths
+export const checkUserPath = () => { return authPath(`/check`) }
 export const registerPath = () => { return authPath(`/register`) }
 export const verifyUserPath = (username, hash) => { return authPath(`/verify/${username}/${hash}`) }
 export const loginPath = () => { return authPath(`/login`) }
@@ -24,6 +24,7 @@ export default {
     userPath,
     authPath,
     adminPath,
+    checkUserPath,
     registerPath,
     verifyUserPath,
     loginPath,

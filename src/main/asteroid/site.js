@@ -18,6 +18,7 @@ export default class Site {
         component.menuOptions.map(mo => {
             mo.link = component.get('urlPath') + (mo.path || "")
             this.addToMenu(mo)
+            return mo
         })
     }
 
@@ -61,7 +62,7 @@ export default class Site {
     addToMenu = (options) => {
         if (options.category) {
             let category = this.getCategory(options.category)
-            if(!category) { throw `ASTEROID ERROR- site.js- menu category (${options.category}) not found, check siteSettings`}
+            if(!category) { throw new Error(`ASTEROID ERROR- site.js- menu category (${options.category}) not found, check siteSettings`)}
            
             return category.addLinkAsDropdown(options)
         } else {
@@ -93,9 +94,8 @@ export default class Site {
                 category: obj.page_category,
                 order: obj.page_order
               }
-
-              console.log(options)
             this.addToMenu(options)
+            return obj
         })
 
     }

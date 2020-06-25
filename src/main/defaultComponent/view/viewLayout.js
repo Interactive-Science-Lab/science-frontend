@@ -30,7 +30,7 @@ class Show extends React.Component {
                     <p>{settings.get('viewText')}</p>
 
                     {fields.map(field => 
-                        <FieldDisplay settings={settings} action={'view'} field={field} {...this.props} />        
+                        <FieldDisplay key={field.settings.fieldName} settings={settings} action={'view'} field={field} {...this.props} />        
                     )}
 
                 </div>

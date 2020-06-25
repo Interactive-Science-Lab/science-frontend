@@ -43,7 +43,6 @@ export class Mixture {
         let ph = itemInstance.getPh()
 
         let currentMass = this.mass
-        let currentVolume = this.volume
         let currentTemperature = this.temperature
         let currentPh = this.ph
 
@@ -146,6 +145,7 @@ export class Mixture {
         this.ingredients.map(ingredient => {
             ingredient.advanceTime(seconds)
             component.state.itemsState.updateInstance(ingredient)
+            return ingredient
         })
         component.state.itemsState.updateState(component)
     }
@@ -159,6 +159,7 @@ export class Mixture {
         this.ingredients.map(ingredient => {
             ingredient.setTemperature(this.temperature, this)
             component.state.itemsState.updateInstance(ingredient)
+            return ingredient
         })
         component.state.itemsState.updateState(component)
     }
@@ -168,6 +169,7 @@ export class Mixture {
         this.ingredients.map(ingredient => {
             ingredient.setTemperature(this.temperature, this)
             component.state.itemsState.updateInstance(ingredient)
+            return ingredient
         })
         component.state.itemsState.updateState(component)
     }
@@ -185,6 +187,7 @@ export class Mixture {
                 newMixture.addItemToMixture(second)
             }
             this.addItemToMixture(i)
+            return i
         })
 
         return newMixture
@@ -192,7 +195,6 @@ export class Mixture {
     }
 
     displayContents = () => {
-        console.log("IN MIXTURE")
         return this.ingredients
     }
 
@@ -205,6 +207,7 @@ export class Mixture {
                 solidMixture.addItemToMixture(i) 
                 this.removeItemFromMixture(i)
             }
+            return i
         })
         return solidMixture
     }

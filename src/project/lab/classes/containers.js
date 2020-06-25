@@ -101,18 +101,20 @@ export class ContainerInstance extends ItemInstance {
         delete massList.name
         let waterTemp = 0
         Object.keys(massList).map(tempRange => {
-            if (tempRange <= this.getTemperature() && (tempRange + 10 >= this.getTemperature() || tempRange == 42)) {
+            if (tempRange <= this.getTemperature() && (tempRange + 10 >= this.getTemperature() || tempRange  === 42)) {
                 waterTemp = tempRange
             }
+            return tempRange
         })
         
         let tempList = massList[waterTemp]
         let newMass = 0
         Object.keys(tempList).map(tempEntry => {
             tempEntry = Number.parseInt(tempEntry)
-            if (tempEntry <= this.getTime() && (tempEntry + 5 > this.getTime() || (tempEntry == 60 && this.getTime() < 120) || (tempEntry == 120 && this.getTime() > 120))) {
+            if (tempEntry <= this.getTime() && (tempEntry + 5 > this.getTime() || (tempEntry  === 60 && this.getTime() < 120) || (tempEntry  === 120 && this.getTime() > 120))) {
                 newMass = tempList[tempEntry]
             }
+            return tempEntry
         })
 
         newMass = newMass || seltzerInstance.getMass()
@@ -139,6 +141,7 @@ export class ContainerInstance extends ItemInstance {
             if(saltMass > (amount - 5.75) && saltMass < (amount + 5.75) ) {
                 tempRanges = amount
             }
+            return amount
         })
 
         let time = Math.floor(saltInstance.getTime() / 60) * 60

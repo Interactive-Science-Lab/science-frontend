@@ -59,7 +59,7 @@ export class ItemsState {
     }
 
     updateInstance = (instance) => {
-        let oldInstance = this.getInstance(instance.instance_id)
+        //let oldInstance = this.getInstance(instance.instance_id)
         this.removeItem(instance.instance_id)
         this.list.push(instance)
         return this

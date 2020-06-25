@@ -49,6 +49,8 @@ export class PermissionSetting {
     setPermissions = (string) => {
         switch (string) {
             case ALL:
+            case null:
+            case undefined:
                 this.setPermission(ALL, ALL)
                 break;
             case CONTENT:
@@ -108,6 +110,8 @@ export class PermissionSetting {
             case NOUSER:
                 this.setPermission(ALL, NOUSER)
                 break;
+            default:
+                throw new Error("ASTEROID: Unknown permissions type.")
         }
 
     }
@@ -146,6 +150,8 @@ export class PermissionSetting {
             case NEW:
                 permission = this.permissionObject.new || this.permissionObject.form || this.permissionObject.all
                 break;
+            default:
+                throw new Error("ASTEROID: Unknown view type.")
         }
 
         if (permission) {
@@ -182,17 +188,19 @@ export class Permission {
             case ALL:
                 return true;
             case MOD:
-                return curr_user.user_role >= 2
+                return curr_user?.user_role >= 2
             case ADMIN:
-                return curr_user.user_role === 3
+                return curr_user?.user_role === 3
             case LOGGEDIN:
                 return curr_user
             case NOUSER:
                 return !curr_user
             case SELF:
                 let selfCheck = selfId && item[selfId]
-                if (!selfCheck) { throw "ASTEROID: Self Check Error; selfID or item NOT SET" }
-                return item[selfId] === curr_user.user_id
+                if (!selfCheck) { throw new Error("ASTEROID: Self Check Error; selfID or item NOT SET") }
+                return item[selfId] === curr_user?.user_id
+            default:
+                throw new Error("ASTEROID: Unknown permission type")
 
         }
     }

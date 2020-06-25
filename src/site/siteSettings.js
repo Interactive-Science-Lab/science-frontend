@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const siteOptions = {
-    backendLive: true,
+    backendLive: false,
     displayFooter: true
 }
 
@@ -30,6 +30,9 @@ MENU OPTIONS
 
 
 export const menuOptions = {
+    menuPersist: false,
+    menuOnHome: true,
+    
     showComponents: true,
     /* Whether or not to show the Site Pages ("About Us") on the menu */
     showPages: true,

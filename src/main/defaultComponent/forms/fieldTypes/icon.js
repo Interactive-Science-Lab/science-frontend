@@ -4,6 +4,7 @@ import { Form } from 'react-bootstrap'
 class Field extends React.Component {
     constructor(props) {
         super(props)
+        this.state={}
     }
 
     handleChange = (e) => {
@@ -14,7 +15,7 @@ class Field extends React.Component {
     }
 
     render() {
-        const {field, item} = this.props.component.props
+        const {field} = this.props.component.props
         return <div><Form.Control
             type='text'
             onChange={this.handleChange}

@@ -12,7 +12,7 @@ class Dropzone extends React.Component {
     }
 
     render() {
-        const {dropType, item, i, dropInt, itemsState} = this.props
+        const {dropType, i, dropInt} = this.props
         return <div className={ `dropzone ${dropType}` } data-pos={i} data-area={dropInt}>
             <Item {...this.props} />
         </div>

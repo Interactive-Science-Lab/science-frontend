@@ -33,7 +33,6 @@ class ArrayField extends React.Component {
   
   field = () => {
     const { field, item } = this.props.component.props
-    console.log(field, item)
     if (item[field.settings.fieldName] && item[field.settings.fieldName].length > 0) {
       return item[field.settings.fieldName].map((i, index) => <div key={index}>
         <Form.Control
