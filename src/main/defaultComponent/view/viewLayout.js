@@ -15,27 +15,25 @@ class Show extends React.Component {
         this.state = {
         }
     }
-     
+
     render() {
         const item = this.props.item
         const settings = this.settings
         const fields = settings.getItemFields(item)
         return <div>
             {settings.checkPermission('index', item) ?
-                <Link to={`${settings.options?.back_to_all_link ? settings.options.back_to_all_link(item) : settings.get('urlPath') }`}>Back To All</Link>
+                <Link to={`${settings.options?.back_to_all_link ? settings.options.back_to_all_link(item) : settings.get('urlPath')}`}>Back To All</Link>
                 : ""}
 
-             <div>
-                    <h1>{settings.get('viewTitle')}</h1>
-                    <p>{settings.get('viewText')}</p>
+            <div>
+                <h1>{settings.get('viewTitle')}</h1>
+                <p>{settings.get('viewText')}</p>
 
-                    {fields.map(field => 
-                        <FieldDisplay key={field.settings.fieldName} settings={settings} action={'view'} field={field} {...this.props} />        
-                    )}
+                {fields.map(field =>
+                    <FieldDisplay key={field.settings.fieldName} settings={settings} action={'view'} field={field} {...this.props} />
+                )}
 
-                </div>
-
-
+            </div>
 
             {settings.features.user_info ? JSON.stringify(item.info) : ""}
 
