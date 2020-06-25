@@ -2,7 +2,6 @@ import React from 'react';
 import './stylesheets/App.scss';
 import Helmet from 'react-helmet'
 import { withRouter } from 'react-router';
-import axios from 'axios'
 
 import Header from './main/structure/header';
 import Footer from './main/structure/footer';
@@ -10,7 +9,7 @@ import Body from './main/structure/body';
 
 import { siteTitle, siteTagline, siteOptions, menuOptions } from './site/siteSettings'
 import { UserContext, userDefaults } from 'main/asteroid/contexts/userContext'
-import { checkUserPath, headers, curr_user } from 'helpers/api'
+import { curr_user, expireTokenCheck } from 'helpers/api'
  
 class App extends React.Component {
 	constructor(props) {
@@ -23,13 +22,7 @@ class App extends React.Component {
 
 	componentDidMount = async () => {
 		//This checks to see if a user's login is expired, logs them out, or just goes on. 
-		if(curr_user) {
-			axios.post(checkUserPath(), {}, headers)
-			
-			.then(i => console.log(i))
-			.catch(e => {console.log(e)
-				this.logout() })
-		}
+		if(curr_user) { if(expireTokenCheck()) { this.logout() } }
 	}
 
 	logout = () => {

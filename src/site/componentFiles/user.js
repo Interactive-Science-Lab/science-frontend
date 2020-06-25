@@ -27,7 +27,7 @@ let secret = new PermissionSetting('secret')
 
 component.addField('username', {validations: ['unique', 'required'], label: true})
 component.addField('user_email', {validations: ['unique', 'required'], permissions: privateField})
-component.addField('password', {validations: ['required'], permissions: hidden, label: true})
+component.addField('password', {fieldType: 'password', permissions: hidden, label: true})
 //component.addField('ban_notes', {fieldType: 'text', permissions: mod})
 component.addField('mailing_list', {default: true, fieldType: 'boolean', permissions: privateField})
 component.addField('user_role', {default: 1, fieldType: 'number', permissions: secret })

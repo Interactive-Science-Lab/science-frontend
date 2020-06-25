@@ -2,27 +2,24 @@
 Science Lab
 --------------
 Write help pages & form infos
-Experiment category in db
 --------------
-
-=============
-Front End
---------------
-USERS- make sure PW updates
-Menu option doubling when reconstructed
----------------
-
-==================
-BE
-------------------
-Password start null- don't return from BE, handle on BE
-------------------
 
 ==================
 Asteroid Overview
 -------------
 "Base site and application"
 -------------
+
+
+
+Drawer db object
+----------------
+Drawer school selection
+Drawer order
+Drawer item type
+Drawer name
+Item checklist
+
 
 
 FORM Data for images

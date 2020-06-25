@@ -10,6 +10,7 @@ import ArrayField from '../fieldTypes/array'
 import NumberField from '../fieldTypes/number'
 import BooleanField from '../fieldTypes/boolean'
 import ImageUploadField from '../fieldTypes/imageFile'
+import PasswordField from '../fieldTypes/password'
 
 //This component handles all the different field types- hooks up with the individual types and returns the correct types.
 class FormFields extends React.Component {
@@ -50,6 +51,8 @@ class FormFields extends React.Component {
                 return <ArrayField component={this} />
             case 'reference':
                 return field.settings.referenceType === 'select' ? "REFERENCE SELECT COMING SOON" : null
+            case 'password':
+                return <PasswordField component={this} />
             default:
                 throw new Error(`ASTEROID ERROR: undefined field type- ${fieldType}`)
         }

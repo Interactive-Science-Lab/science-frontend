@@ -14,9 +14,9 @@ component.setPermissions(submit)
 component.addFeature('search')
 component.addFeature('paginate')
 
-component.addFeature('filter', ['all', 'pending', 'open', 'closed'])
+component.addFeature('filter', ['all', 'pending', 'open', 'closed', 'solved', 'reopened'])
 
-component.setLoader({ sort: "created_at", sortdir: "DESC" })
+component.setLoader({ filter: 'pending' })
 
 component.addMenuOption({name: "Contact", permission:  'all', symbol: 'heart', order: 10, category: "Help and Support", path: "/new"})
 component.addMenuOption({name: "See Support Tickets", permission:  'admin', symbol: 'heart', order: 2, category: "Admin"})

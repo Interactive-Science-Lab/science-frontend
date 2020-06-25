@@ -22,7 +22,7 @@ var ALL = "all",
     //Display is the 'category' for index & view
     DISPLAY = "display", INDEX = "index", VIEW = "view",
     //Form is the 'category' for edit & new
-    FORM = "form", EDIT = "edit", NEW = "new",
+    FORM = "form", EDIT = "edit", NEW = "new", DELETE = 'delete',
 
     //==Quick Permission settings==
     //admin, mod, loggedin, nouser
@@ -150,8 +150,11 @@ export class PermissionSetting {
             case NEW:
                 permission = this.permissionObject.new || this.permissionObject.form || this.permissionObject.all
                 break;
+            case DELETE:
+                permission = this.permissionObject.delete
+                break;
             default:
-                throw new Error("ASTEROID: Unknown view type.")
+                throw new Error(`ASTEROID: Unknown view type- ${view}`)
         }
 
         if (permission) {
@@ -188,9 +191,9 @@ export class Permission {
             case ALL:
                 return true;
             case MOD:
-                return curr_user?.user_role >= 2
+                return curr_user?.user_role >= 2 && curr_user.user_kind === 'admin_user'
             case ADMIN:
-                return curr_user?.user_role === 3
+                return curr_user?.user_role === 3 && curr_user.user_kind === 'admin_user'
             case LOGGEDIN:
                 return curr_user
             case NOUSER:

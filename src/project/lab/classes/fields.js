@@ -1,7 +1,6 @@
 export default {
     chemistry: {
         backgroundImage: "background.png",
-        experimentList: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         drawerList: [
             ['objects', ['Osmium Chunk', 'Gold Piece', 'Bolt', 'Marble', 'Seltzer Tablet', 'Scrap Metal']],
             ['containers', ["Graduated Cylinder", "Beaker", "Crucible", "Small Dish"]],
@@ -15,7 +14,6 @@ export default {
     },
     biology: {
         backgroundImage: "biolab.png",
-        experimentList: [10,11,12,13,14,15,16,17,18,19],
         drawerList: [
             ['objects', ["Cell in Osmosis", "Cell in Diffusion", "Petri Dish With Agar (A)", "Petri Dish With Agar (B)", "Cell in Mitosis", "Mitochondrian Environment"]],
             ['objects', ["Blood Anitbody Card", "Urine Sample", ]],

@@ -6,6 +6,8 @@ let noIndex = new PermissionSetting('noIndex')
 
 component.addField('experiment_name', { validations: ["unique", 'required'], titleField: true, formInfo: "The name of the experiment as it displays in the list." } )
 
+component.addField('experiment_class', {fieldType: ['select-custom', [['chemistry', 'Chemistry'], ['biology', 'Biology'], ['physics', 'Physics']]] })
+
 component.addField('experiment_description', {formInfo: "A short one-liner to quick desribe the experiment."})
 component.addField('experiment_information', {formInfo: "Any background information about the experiment in general you wanted to display."})
 

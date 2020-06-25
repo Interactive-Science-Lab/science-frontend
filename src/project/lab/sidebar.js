@@ -39,9 +39,8 @@ class Header extends React.Component {
                         const labKind = props.location.search.split('=')[1] || 'chemistry'
                         let retExperiments = []
                         res.data.map( 
-                            i => labSettings[labKind].experimentList.includes(i.experiment_id) ? retExperiments.push(i) : null 
+                            i => i.experiment_class === labKind ? retExperiments.push(i) : null 
                         )
-                        console.log(res.data, retExperiments, labSettings[labKind].experimentList)
                         this.setState({ items: retExperiments, item: {} })
                     }
                 )
