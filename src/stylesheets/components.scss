@@ -167,7 +167,7 @@ img {
 select {
 	
 	border-radius:16px;
-	background-color:$ll-primary-color;
+	background-color:lighten($light-color, 8%);
 	border: none;
 	border-bottom: 5px outset $d-primary-color;
 	border-top: 1px outset $d-primary-color;
@@ -180,7 +180,7 @@ select {
 
 input, input.form-control, textarea.form-control{
 	border-radius:16px;
-	background-color:$ll-primary-color;
+	background-color:lighten($light-color, 8%);
 	border: none;
 	border-bottom: 5px outset $d-primary-color;
 	border-top: 1px outset $d-primary-color;

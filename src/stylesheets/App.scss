@@ -89,7 +89,10 @@ ul { list-style:none;padding:0;}
 }
 
 .body {
-	background-color: $primary-color;
+	$techbg: "/images/techbg.jpg";	
+	background: linear-gradient(rgba($l-primary-color, .8), rgba($primary-color, .8)), url($techbg);
+	background-size: cover;
+	background-attachment: fixed;
 }
 
 .page-field {

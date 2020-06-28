@@ -11,7 +11,7 @@ let mod = new PermissionSetting('mod')
 component.addFeature('search')
 component.addFeature('paginate')
 
-component.addFeature('filter', ['draft', 'public', 'private'])
+component.addFeature('filter', ['draft', 'public', 'private', 'asdf'])
 component.addFeature('sort', [['blog_title', 'Alphabetical'], ['created_at', 'Post Date']])
 //permissions: staticField, 
 component.addReference('author_id', 'author_username', 'select', {title: "Author"})

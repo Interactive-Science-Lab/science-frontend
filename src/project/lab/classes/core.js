@@ -16,6 +16,8 @@ export class ItemInstance {
         //Ingredients hold all the infos regarding temp, mass, ph, time, etc.
         this.ingredient = new Ingredient(record, this)
 
+        console.log(this.record)
+
         const randomize = this.record.properties.indexOf('random')
         if(randomize > -1) {
             let outOf = Number.parseInt(this.record.properties[randomize + 1])

@@ -53,25 +53,25 @@ class Header extends React.Component {
         return <div>
             {item.experiment_id ? <div>
             
-            <NavLink to="/" style={{ background: 'none' }}>Home</NavLink>
+            <NavLink to="/" style={{ background: 'none' }}>Back to Home</NavLink>
             <NavLink to="/lab" style={{ background: 'none' }}>Back To Experiments</NavLink>
             <h2 style={{ color: "white" }}>{item.experiment_name }</h2>
             <p><i style={{ color: "grey", textAlign: "left" }}>{item.experiment_description}</i></p>
             <p style={{color: '#ccc', textAlign: "left"}}>{item.experiment_information}</p>
             <h4 style={{ color: "white" }}>Method</h4>
 
-            {item.experiment_steps?.split('#').map(step => <div style={{ color: "white", textAlign: "left", marginBottom: '5px' }}>{step ? "#" + step : ""}</div>)}
+            {item.experiment_steps?.split('#').map(step => <div style={{ color: "white", textAlign: "left", marginBottom: '15px' }}>{step ? "#" + step : ""}</div>)}
 
             </div>
 
 
             : <div>
 
-            <NavLink to="/" style={{ background: 'none', display: 'block' }}>Home</NavLink>{items.length > 0 ? <div>
-                <p style={{ color: "grey" }}>Please choose an experiment, or continue in sandbox mode.</p>{
-                items.map((i, x) => <Link to={`/lab/${i.experiment_id}?l=${this.props.location.search.split('=')[1] || 'chemistry'}`}  style={{ display: 'block' }}>
-                    <p style={{ color: "white" }}>#{x+1} {i.experiment_name}
-                   </p>  
+            <NavLink to="/" style={{ background: 'none', display: 'block' }}>Back to Home</NavLink>{items.length > 0 ? <div>
+                <p style={{ color: "grey" }}>Please choose an experiment for further instructions.</p>{
+                items.map((i, x) => <Link to={`/lab/${i.experiment_id}?l=${this.props.location.search.split('=')[1] || 'chemistry'}`}  style={{ display: 'block', background: 'none' }}>
+                    <p style={{ color: "grey", marginBottom: "0" }}>Experiment #{x+1}:</p>
+                    <h4 style={{ color: "white", marginTop: "0" }}> {i.experiment_name}</h4>
                 </Link>)
             }</div> : "-" }
             

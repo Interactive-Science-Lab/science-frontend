@@ -2,8 +2,11 @@ import React from 'react'
 import {NavLink} from 'react-router-dom'
 import {siteTitle, logoURL} from '../../site/siteSettings'
 
+import {menuOptions} from 'site/siteSettings'
+let labStyle = menuOptions.menuPersist ? {paddingLeft:'25vw'} : {paddingLeft:'0'} 
+
 function Footer() {
-    return <div className="footer">
+    return <div className='footer' style={labStyle}>
       
         <div>
          ~ <NavLink to="/">Home</NavLink> ~

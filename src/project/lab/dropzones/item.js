@@ -233,8 +233,7 @@ class BlankExaminer extends React.Component {
     render() {
         return <div style={{ position: 'relative' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <p>Block {this.props.dropInt - 1}
-                </p>
+                <p className="block-number-text">Block {this.props.dropInt - 1}</p>
                 <div className="ttiphover" style={{ cursor: 'pointer', position: 'absolute', right: '0', top: '-4px' }}>
                     <h1>?</h1>
                     <p className="ttip" style={{width: '300px'}}>Drag items here to use them and see their information.</p>

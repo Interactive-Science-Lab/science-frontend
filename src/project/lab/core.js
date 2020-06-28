@@ -48,7 +48,6 @@ class ExperimentLab extends React.Component {
         containers = containers.data
         substances = substances.data
         tools = tools.data
-        
 
         this.setState({ masterItemList: { objects, containers, substances, tools } })
         this.setExperiment();
@@ -163,10 +162,13 @@ class ExperimentLab extends React.Component {
     }
 
     render() {
-        const devMode = true
+        const devMode = false
 
         return <LabContext.Provider value={{ masterItemList: this.state.masterItemList, itemsState: this.state.itemsState, state: this.state }} >
+             <div className='admin-bar'>
+                 Select a Class | 
              <a href="/lab?l=chemistry">Chemistry</a> | <a href="/lab?l=biology">Biology</a> | <Link to="/lab?l=physics">Physics</Link>
+             </div>
              <div id="labScreen" style={{backgroundImage: `url('/images/${labSettings[this.state.labType].backgroundImage}')` }}>
                 {this.state.message ?
                     <div id="gameMessage">{this.state.message} <span className="fas fa-times" onClick={this.clearMessage}></span></div> :

@@ -10,6 +10,7 @@ Asteroid Overview
 "Base site and application"
 -------------
 
+It looks like redirect_path on support tickets isn't accurate.
 
 
 Drawer db object

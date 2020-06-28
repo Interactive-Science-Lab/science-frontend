@@ -1,16 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
 $wood: rgba(#A28065, .75);
 $contrast: 40%;
 
@@ -202,12 +189,24 @@ $dropColor: rgba(180,180,180,.1);
 
 .dropzone:empty {
     border: 3px dashed #bbd;
+    color: grey;
+}
+
+.block-number-text {
+    color: $primary-color;
+    font-weight: bold;
+    font-size: 18px !important;
 }
 
 p.dropzoneempty {
     border: 3px dashed #bbd;
     height:100%;
+    color: $primary-color;
+    font-weight: bold;
+    font-size: 18px !important;
+
 }
+
 
 .drop-section {
     width: 23%;
@@ -434,3 +433,7 @@ p.dropzoneempty {
 }
 
 
+.admin-bar {
+    background-color: $ll-primary-color;
+    border-bottom:4px solid $dd-primary-color;
+}

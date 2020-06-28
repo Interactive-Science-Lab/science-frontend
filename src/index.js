@@ -2,6 +2,9 @@ import 'react-app-polyfill/ie9';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+//Currently semantic UI is pretty much JUST taking care of scrollbars
+import 'semantic-ui-css/semantic.min.css'
+
 import App from './App';
 import {BrowserRouter} from 'react-router-dom';
 

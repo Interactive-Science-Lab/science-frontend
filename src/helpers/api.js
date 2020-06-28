@@ -5,7 +5,7 @@ export const apiPath = (path) => { return `${apiPathLink}${path}` }
 
 //Component paths
 export const userPath = (path = "") => { return apiPath(`/users${path}`) }
-export const authPath = (path = "") => { return userPath(`/auth${path}`) }
+export const authPath = (path = "") => { return apiPath(`/auth${path}`) }
 export const adminPath = (path = "") => { return userPath(`/admin${path}`) }
 
 //Auth Paths

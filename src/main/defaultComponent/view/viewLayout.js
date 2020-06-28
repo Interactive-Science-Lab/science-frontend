@@ -25,21 +25,23 @@ class Show extends React.Component {
                 <Link to={`${settings.options?.back_to_all_link ? settings.options.back_to_all_link(item) : settings.get('urlPath')}`}>Back To All</Link>
                 : ""}
 
-            <div>
-                <h1>{settings.get('viewTitle')}</h1>
-                <p>{settings.get('viewText')}</p>
+<h1>{settings.get('viewTitle')}</h1>
+                    <p>{settings.get('viewText')}</p>
+            <div className='color-box'>
+                <div>
 
-                {fields.map(field =>
-                    <FieldDisplay key={field.settings.fieldName} settings={settings} action={'view'} field={field} {...this.props} />
-                )}
+                    {fields.map(field =>
+                        <FieldDisplay key={field.settings.fieldName} settings={settings} action={'view'} field={field} {...this.props} />
+                    )}
 
+                </div>
+
+                {settings.features.user_info ? JSON.stringify(item.info) : ""}
+
+                {settings.checkPermission('edit', item) ?
+                    <Link to={`${settings.get('urlPath')}/${this.props.match.params.id}/edit`}>Edit</Link>
+                    : ""}
             </div>
-
-            {settings.features.user_info ? JSON.stringify(item.info) : ""}
-
-            {settings.checkPermission('edit', item) ?
-                <Link to={`${settings.get('urlPath')}/${this.props.match.params.id}/edit`}>Edit</Link>
-                : ""}
         </div>
 
     }
