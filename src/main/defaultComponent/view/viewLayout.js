@@ -3,7 +3,7 @@ import { withRouter } from 'react-router'
 import { Link } from 'react-router-dom'
 
 //Contains the settings for the resource.
-import { ResourceContext } from '../../asteroid/contexts/resourceContext'
+import { ResourceContext, resourceDefaults } from '../../asteroid/contexts/resourceContext'
 
 import FieldDisplay from '../display/fieldDisplay'
 
@@ -20,14 +20,16 @@ class Show extends React.Component {
         const item = this.props.item
         const settings = this.settings
         const fields = settings.getItemFields(item)
-        return <div>
-            {settings.checkPermission('index', item) ?
-                <Link to={`${settings.options?.back_to_all_link ? settings.options.back_to_all_link(item) : settings.get('urlPath')}`}>Back To All</Link>
-                : ""}
+        const sub = this.props.sub
 
-<h1>{settings.get('viewTitle')}</h1>
-                    <p>{settings.get('viewText')}</p>
-            <div className='color-box'>
+        return <div>
+            {sub ? "" : <div>{settings.checkPermission('index', item) ?
+                <Link to={`${settings.options?.back_to_all_link ? settings.options.back_to_all_link(item) : settings.get('urlPath')}`}>Back To All</Link>
+                : ""}</div> }
+
+            {sub ?  <h3>{settings.get('viewTitle')}</h3> : <h1>{settings.get('viewTitle')}</h1> }
+            <p>{settings.get('viewText')}</p>
+            <div className={ sub ? "" : 'color-box' }>
                 <div>
 
                     {fields.map(field =>
@@ -36,13 +38,25 @@ class Show extends React.Component {
 
                 </div>
 
-                {settings.features.user_info ? JSON.stringify(item.info) : ""}
+                {settings.feature('userInfo') ? this.userInfo(item) : ""}
 
-                {settings.checkPermission('edit', item) ?
-                    <Link to={`${settings.get('urlPath')}/${this.props.match.params.id}/edit`}>Edit</Link>
-                    : ""}
+                {sub ? "" : <div>{settings.checkPermission('edit', item) ?
+                    <Link to={`${settings.get('urlPath')}/${settings.getId(item)}/edit`}>Edit</Link>
+                    : ""}</div> }
             </div>
         </div>
+
+    }
+
+    userInfo = (item) => {
+        const resourceSettings = resourceDefaults(`${item.user_kind}s`)
+        if (!resourceSettings) { throw new Error("ASTEROID: Error with user kind.") }
+
+        //Double check to make sure we have the settings. If not, most likely a typo on the url, so display a 404.
+        return <ResourceContext.Provider value={resourceSettings}>
+            {/** {JSON.stringify(item)}<br /><hr />{JSON.stringify(resourceSettings)} */}
+            <Show item={item.info} sub={true} />
+        </ResourceContext.Provider>
 
     }
 }

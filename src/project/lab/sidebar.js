@@ -50,11 +50,13 @@ class Header extends React.Component {
 
     render() {
         const {item, items} = this.state
+        
+        const labKind = this.props.location.search.split('=')[1] || 'chemistry'
         return <div>
             {item.experiment_id ? <div>
             
             <NavLink to="/" style={{ background: 'none' }}>Back to Home</NavLink>
-            <NavLink to="/lab" style={{ background: 'none' }}>Back To Experiments</NavLink>
+            <NavLink to={`/lab?l=${labKind}`} style={{ background: 'none' }}>Back To Experiments</NavLink>
             <h2 style={{ color: "white" }}>{item.experiment_name }</h2>
             <p><i style={{ color: "grey", textAlign: "left" }}>{item.experiment_description}</i></p>
             <p style={{color: '#ccc', textAlign: "left"}}>{item.experiment_information}</p>

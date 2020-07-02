@@ -42,7 +42,7 @@ class Page extends React.Component {
 
             {field.settings.fieldType === 'reference' ? <div>
                 {field.settings.info.title ? field.settings.info.title + ": " : ""} 
-                { this.props.item[field.settings.targetField] } 
+                { JSON.stringify(this.props.item[field.settings.targetField]) } 
             </div>: ""}
 
             {field.settings.suffix}

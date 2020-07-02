@@ -11,7 +11,8 @@ Asteroid Overview
 -------------
 
 It looks like redirect_path on support tickets isn't accurate.
-
+create new user & forgot password
+Set "class" on end_user accounts
 
 Drawer db object
 ----------------

@@ -1,16 +1,13 @@
 import Component from '../../main/asteroid/componentClass/component'
 import { PermissionSetting } from '../../main/asteroid/permission'
 
-let component = new Component('admin_user')
+let component = new Component('end_user')
 let pS = new PermissionSetting('all')
 
 component.setPermissions(pS)
 
+component.addField('user_link', {label: true, fieldType: ['select-custom', [['chemistry', "Chemistry"], ['biology', "Biology"], ['physics', "Physics"]]]})
 
-// fields: {
-//     public_email: {default: "", fieldType: "string", validations: ["unique", "required"] },
-//     phone_number: {default: "", fieldType: "string", validations: ["unique", "required"] },
-// },
-
+component.changeText('viewTitle', false)
 
 export default component
