@@ -1,4 +1,5 @@
 import React from 'react'
+import PhysicsExperiment from '../animation'
 
 class Item extends React.Component {
     constructor(props) {
@@ -13,10 +14,10 @@ class Item extends React.Component {
             return <ItemComponent {...this.props} />
         } else {
             // IF there's no item, and we're looking at the exam zone, show the things.
-            if (this.props.i === 0 && ([2, 3].includes(this.props.dropInt) ) ){
-                return <BlankExaminer {...this.props}  />
+            if (this.props.i === 0 && ([2, 3].includes(this.props.dropInt))) {
+                return <BlankExaminer {...this.props} />
             } else {
-                return <p className="dropzoneempty">Block {this.props.dropInt === 5 ? this.props.i+3 : 9}</p>
+                return <p className="dropzoneempty">Block {this.props.dropInt === 5 ? this.props.i + 3 : 9}</p>
             }
         }
     }
@@ -28,7 +29,7 @@ export default Item
 class ItemComponent extends React.Component {
     constructor(props) {
         super(props)
-        this.state={}
+        this.state = {}
     }
     render() {
         const { item } = this.props
@@ -38,20 +39,20 @@ class ItemComponent extends React.Component {
             <span className="item-show-name">{item.name}</span>
             <div className="">
                 <div className='item-name'>
-                    { (item.name === "Dissection Tray") || (item.name === "Petri Dish With Agar (A)") || (item.name === "Petri Dish With Agar (B)") ? 
-                    
-                    <img
-                        draggable={false}
-                        src={`/images/${item.getSprite()}`}
-                        style={{maxWidth:'none'}}
-                        alt=""
-                    />
-                    :
-                    <img
-                        draggable={false}
-                        src={`/images/${item.getSprite()}`}
-                        alt=""
-                    />
+                    {(item.name === "Dissection Tray") || (item.name === "Petri Dish With Agar (A)") || (item.name === "Petri Dish With Agar (B)") ?
+
+                        <img
+                            draggable={false}
+                            src={`/images/${item.getSprite()}`}
+                            style={{ maxWidth: 'none' }}
+                            alt=""
+                        />
+                        :
+                        <img
+                            draggable={false}
+                            src={`/images/${item.getSprite()}`}
+                            alt=""
+                        />
                     }
 
 
@@ -67,26 +68,26 @@ class ItemComponent extends React.Component {
                 </div>
                 <div className="item-properties">
                     {record.properties?.includes('display_volume') ? <div>
-                        <hr /> Reading: {Math.round( item.getFillVolume() * 100) / 100.0 || 0}mL
+                        <hr /> Reading: {Math.round(item.getFillVolume() * 100) / 100.0 || 0}mL
                         </div> : ""}
                     {record.properties?.includes('display_mass') ? <div>
                         <hr /> Reading: {Math.round(item.getItemMass() * 100) / 100.0 || 0}g
                         </div> : ""}
                     {record.properties?.includes('heatsource-useable') ? <div>
-                        <hr /> Mass: {Math.round( item.getHeatSourceMass() * 100) / 100.0 || 0}g
+                        <hr /> Mass: {Math.round(item.getHeatSourceMass() * 100) / 100.0 || 0}g
                         </div> : ""}
                     {record.properties?.includes('display_temperature') ? <div>
-                        <hr /> Reading: {item.getItemTemperature() === "None" ? "None" : `${Math.round( item.getItemTemperature() * 100)/ 100.0 || 20}deg C` }
-                        </div> : ""}
+                        <hr /> Reading: {item.getItemTemperature() === "None" ? "None" : `${Math.round(item.getItemTemperature() * 100) / 100.0 || 20}deg C`}
+                    </div> : ""}
                     {record.properties?.includes('display_ph') ? <div>
                         <hr /> Reading: {Math.round(item.getItemPh() * 100) / 100.0 || 7}
                     </div> : ""}
                     {record.properties?.includes('timer') ? <div>
                         <hr /> Reading: {this.printTime(item.getItemTime() || 0)}
                     </div> : ""}
-                    
+
                     {record.properties?.includes('atp-factory') ? <div>
-                        <hr /> Molecules Glucose: 
+                        <hr /> Molecules Glucose:
                         <select className="atp-molecules">
                             <option>1</option>
                             <option>2</option>
@@ -99,12 +100,21 @@ class ItemComponent extends React.Component {
                             <option>9</option>
                             <option>10</option>
                         </select>
-                        
+
                         <select className="atp-aerobic">
                             <option>Aerobic</option>
                             <option>Anaerobic</option>
                         </select>
                         <div className="atp-reading"></div>
+                    </div> : ""}
+
+
+                    {record.properties?.includes('experiment_window') ? <div id={`experiment-window-${item.instance_id}`}>
+
+
+                       <PhysicsExperiment animationKind={record.properties[1]} />
+
+
                     </div> : ""}
                 </div>
 
@@ -183,20 +193,20 @@ class ItemComponent extends React.Component {
                     {record.properties?.indexOf('progress') > -1 ? <span>
                         <span data-instance={item.instance_id} className='format-link lab-action fas fa-chevron-right advance-graphic time-lo'><span>Advance</span></span>
                     </span> : ""}
-                    
+
                     {record.properties?.indexOf('reveal-random') > -1 ? <span>
                         <span data-instance={item.instance_id} className='format-link lab-action fas fa-eye-dropper reveal-item'><span>Run Test</span></span>
 
                     </span> : ""}
-                    
+
                     {record.properties?.indexOf('atp-factory') > -1 ? <span>
                         <span data-instance={item.instance_id} className='format-link lab-action fas fa-chevron-right run-atp-item'><span>Run Test</span></span>
 
                     </span> : ""}
-                
-                
-                
-                
+
+
+
+
                 </div> : ""}
                 {item.itemType === 'substances' ? <div>
                     <span data-instance={item.instance_id} className='format-link lab-action fas fa-trash remove-item'><span>Put Away</span></span>
@@ -227,7 +237,7 @@ class ItemComponent extends React.Component {
 class BlankExaminer extends React.Component {
     constructor(props) {
         super(props)
-        this.state={}
+        this.state = {}
     }
 
     render() {
@@ -236,7 +246,7 @@ class BlankExaminer extends React.Component {
                 <p className="block-number-text">Block {this.props.dropInt - 1}</p>
                 <div className="ttiphover" style={{ cursor: 'pointer', position: 'absolute', right: '0', top: '-4px' }}>
                     <h1>?</h1>
-                    <p className="ttip" style={{width: '300px'}}>Drag items here to use them and see their information.</p>
+                    <p className="ttip" style={{ width: '300px' }}>Drag items here to use them and see their information.</p>
                 </div>
             </div>
             <div className="dropzoneempty" style={{ width: '100%', minHeight: '20px' }}></div>

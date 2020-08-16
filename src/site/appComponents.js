@@ -26,6 +26,11 @@ import substance from './componentFiles/substance'
 import object_item from './componentFiles/object_item'
 import tool from './componentFiles/tool'
 
+
+import resource from './componentFiles/resource'
+import resourceField from './componentFiles/resource_field'
+
+
 let site = new Site()
 
 site.addComponent(user)
@@ -43,6 +48,9 @@ site.addComponent(experiment)
 site.addComponent(container)
 site.addComponent(substance)
 site.addComponent(tool)
+
+site.addComponent(resource)
+site.addComponent(resourceField)
 
 
 export default site

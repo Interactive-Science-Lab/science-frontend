@@ -64,10 +64,7 @@ export default class Component {
             fieldList: []
         }
         this.permissions = new PermissionSetting('content')
-        this.features = {
-            thumbnail: false,
-            tags: false
-        }
+
         this.features = []
         // paginate: false,
         // search: false,
@@ -87,8 +84,6 @@ export default class Component {
             newRedirect: (item) => { return this.feEditPath(item) },
             editRedirect: (item) => { return this.feViewPath(item) },
             deleteRedirect: this.get('urlPath'),
-
-
         }
         this.text = {
             indexTitle: "All " + upper + 's',

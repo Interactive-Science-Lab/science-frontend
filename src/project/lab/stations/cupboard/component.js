@@ -29,17 +29,17 @@ class ExperimentLab extends React.Component {
 
         return <div id="shelveSection"  style={{ position: 'relative' }} >
             <div>
-            <Shelf num={1} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList[drawers[0][0]].filter(i => drawers[0][1].includes(i.display_name))} itemType={drawers[0][0]} />
-            <Shelf num={2} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList[drawers[1][0]].filter(i => drawers[1][1].includes(i.display_name))} itemType={drawers[1][0]} />
-            <Shelf num={3} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList[drawers[2][0]].filter(i => drawers[2][1].includes(i.display_name))} itemType={drawers[2][0]} />
-            <Shelf num={4} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList[drawers[3][0]].filter(i => drawers[3][1].includes(i.display_name))} itemType={drawers[3][0]} />
+            <Shelf num={1} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList[drawers[0][1]].filter(i => drawers[0][2].includes(i.display_name))} drawerName={drawers[0][0]} itemType={drawers[0][1]} />
+            <Shelf num={2} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList[drawers[1][1]].filter(i => drawers[1][2].includes(i.display_name))} drawerName={drawers[1][0]} itemType={drawers[1][1]} />
+            <Shelf num={3} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList[drawers[2][1]].filter(i => drawers[2][2].includes(i.display_name))} drawerName={drawers[2][0]} itemType={drawers[2][1]} />
+            <Shelf num={4} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList[drawers[3][1]].filter(i => drawers[3][2].includes(i.display_name))} drawerName={drawers[3][0]} itemType={drawers[3][1]} />
             </div>
 
             <div>
-            <Shelf num={5} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList[drawers[4][0]].filter(i => drawers[4][1].includes(i.display_name))} itemType={drawers[4][0]} />
-            <Shelf num={6} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList[drawers[5][0]].filter(i => drawers[5][1].includes(i.display_name))} itemType={drawers[5][0]} />
-            <Shelf num={7} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList[drawers[6][0]].filter(i => drawers[6][1].includes(i.display_name))} itemType={drawers[6][0]} />
-            <Shelf num={8} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList[drawers[7][0]].filter(i => drawers[7][1].includes(i.display_name))} itemType={drawers[7][0]} />
+            <Shelf num={5} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList[drawers[4][1]].filter(i => drawers[4][2].includes(i.display_name))} drawerName={drawers[4][0]} itemType={drawers[4][1]} />
+            <Shelf num={6} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList[drawers[5][1]].filter(i => drawers[5][2].includes(i.display_name))} drawerName={drawers[5][0]} itemType={drawers[5][1]} />
+            <Shelf num={7} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList[drawers[6][1]].filter(i => drawers[6][2].includes(i.display_name))} drawerName={drawers[6][0]} itemType={drawers[6][1]} />
+            <Shelf num={8} openNum={this.state.openNum} selectNum={this.selectNum} list={masterItemList[drawers[7][1]].filter(i => drawers[7][2].includes(i.display_name))} drawerName={drawers[7][0]} itemType={drawers[7][1]} />
             </div>
             <div>&nbsp;</div>
         </div>

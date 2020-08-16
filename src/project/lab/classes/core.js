@@ -113,6 +113,13 @@ export class ItemInstance {
         let result = aerobic * parseInt(molecules)
         item.querySelector('.atp-reading').innerHTML = `Yielded ${result} ATP`
     }
+
+    openPhysicsWindow = (e, component) => {
+        console.log(e, component)
+        let instance_id = e.target.getAttribute('data-instance')
+        let targetHTML = document.getElementById(`experiment-window-${instance_id}`)
+        targetHTML.style.display = "block"
+    }
     
     /* ------------------------  */
     /*      POSITION HELPERS     */

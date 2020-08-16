@@ -4,12 +4,12 @@ import axios from 'axios'
 import api, { curr_user } from 'helpers/api'
 import { withRouter } from 'react-router-dom'
 
-import {Row, Col} from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 
 import Table from './stations/table/component'
 import Cupboard from './stations/cupboard/component'
 import Examiner from './stations/examiner/component'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import labSettings from './classes/fields'
 
@@ -18,7 +18,8 @@ import { LabContext } from './labContext'
 
 import DragHelper from './classes/drag'
 
-import {ItemsState} from './classes/itemsState'
+import { ItemsState } from './classes/itemsState'
+
 
 class ExperimentLab extends React.Component {
     constructor(props) {
@@ -80,20 +81,7 @@ class ExperimentLab extends React.Component {
         const waterButtons = document.querySelectorAll('.waterButton')
         const emptyButtons = document.querySelectorAll('.empty-item')
         const removeButtons = document.querySelectorAll('.remove-item')
-
-
         
-        const strainButtons = document.querySelectorAll('.strain-item')
-        const combineStrainButtons = document.querySelectorAll('.combine-strain-item')
-        const heatButtons = document.querySelectorAll('.heat-item')
-        const timeButtons = document.querySelectorAll('.time-item')
-        const tareButtons = document.querySelectorAll('.tare-item')
-        const splitButtons = document.querySelectorAll('.split-item')
-
-        const revealButtons = document.querySelectorAll('.reveal-item')
-        const advanceButtons = document.querySelectorAll('.advance-graphic')
-        const atpButtons = document.querySelectorAll('.run-atp-item')
-
         for (const item of dragItems) {
             item.addEventListener('dragstart', this.dragStart)
             item.addEventListener('dragend', this.dragEnd)
@@ -116,16 +104,39 @@ class ExperimentLab extends React.Component {
         for (const removeButton of removeButtons) { removeButton.addEventListener('click', this.removeItem) }
         for (const emptyButton of emptyButtons) { emptyButton.addEventListener('click', this.emptyItem) }
 
-        
+
+
+        /* Chemistry Buttons */
+        const strainButtons = document.querySelectorAll('.strain-item')
+        const combineStrainButtons = document.querySelectorAll('.combine-strain-item')
+        const heatButtons = document.querySelectorAll('.heat-item')
+        const timeButtons = document.querySelectorAll('.time-item')
+        const tareButtons = document.querySelectorAll('.tare-item')
+        const splitButtons = document.querySelectorAll('.split-item')
+
         for (const strainButton of strainButtons) { strainButton.addEventListener('click', this.strainItem) }
         for (const combineStrainButton of combineStrainButtons) { combineStrainButton.addEventListener('click', this.combineStrainItem) }
         for (const heatButton of heatButtons) { heatButton.addEventListener('click', this.heatItem) }
         for (const timeButton of timeButtons) { timeButton.addEventListener('click', this.timeItem) }
         for (const tareButton of tareButtons) { tareButton.addEventListener('click', this.tareItem) }
         for (const splitButton of splitButtons) { splitButton.addEventListener('click', this.splitItem) }
+
+        /* Bio Buttons */
+        const revealButtons = document.querySelectorAll('.reveal-item')
+        const advanceButtons = document.querySelectorAll('.advance-graphic')
+        const atpButtons = document.querySelectorAll('.run-atp-item')
+        
         for (const revealButton of revealButtons) { revealButton.addEventListener('click', this.revealItem) }
         for (const advanceButton of advanceButtons) { advanceButton.addEventListener('click', this.advanceGraphic) }
         for (const atpButton of atpButtons) { atpButton.addEventListener('click', this.runAtpCalculation) }
+        
+        /* Physics Buttons */
+        const physics = document.querySelectorAll('.run-physics')
+
+        for (const physic of physics) { physic.addEventListener('click', this.openPhysicsWindow ) }
+
+
+       
     }
 
     emptyItem = (e) => {
@@ -138,8 +149,10 @@ class ExperimentLab extends React.Component {
     }
 
     removeItem = (e) => { this.state.itemsState.removeItemByEvent(e, this) }
-    fillWater =  (e) => { let w = this.state.itemsState.getInstanceByEvent(e) 
-        if (w.instance_id) { w.fillWithWater(e, this) }}
+    fillWater = (e) => {
+        let w = this.state.itemsState.getInstanceByEvent(e)
+        if (w.instance_id) { w.fillWithWater(e, this) }
+    }
     strainItem = (e) => { this.state.itemsState.getInstanceByEvent(e).strainSolidItems(e, this) }
     combineStrainItem = (e) => { this.state.itemsState.getInstanceByEvent(e).combineStrainItems(e, this) }
     heatItem = (e) => { this.state.itemsState.getInstanceByEvent(e).heatItem(e, this) }
@@ -149,6 +162,8 @@ class ExperimentLab extends React.Component {
     revealItem = (e) => { this.state.itemsState.getInstanceByEvent(e).revealItem(e, this) }
     advanceGraphic = (e) => { this.state.itemsState.getInstanceByEvent(e).advanceGraphic(e, this) }
     runAtpCalculation = (e) => { this.state.itemsState.getInstanceByEvent(e).runAtpCalculation(e, this) }
+
+    openPhysicsWindow = (e) => { this.state.itemsState.getInstanceByEvent(e).openPhysicsWindow(e, this) }
 
     dragInventoryStart = (e) => { DragHelper.dragInventoryStart(this, e) }
     dragInventoryEnd = (e) => { DragHelper.dragInventoryEnd(this, e) }
@@ -165,16 +180,16 @@ class ExperimentLab extends React.Component {
         const devMode = false
 
         return <LabContext.Provider value={{ masterItemList: this.state.masterItemList, itemsState: this.state.itemsState, state: this.state }} >
-             <div className='admin-bar'>
-                 Select a Class | 
+            <div className='admin-bar'>
+                Select a Class |
              <a href="/lab?l=chemistry">Chemistry</a> | <a href="/lab?l=biology">Biology</a> | <Link to="/lab?l=physics">Physics</Link>
-             </div>
-             <div id="labScreen" style={{backgroundImage: `url('/images/${labSettings[this.state.labType].backgroundImage}')` }}>
+            </div>
+            <div id="labScreen" style={{ backgroundImage: `url('/images/${labSettings[this.state.labType].backgroundImage}')` }}>
                 {this.state.message ?
                     <div id="gameMessage">{this.state.message} <span className="fas fa-times" onClick={this.clearMessage}></span></div> :
                     null}
                 <div id="topPart">
-                    <Examiner />  
+                    <Examiner />
                 </div>
                 <div id="midPart">
                     <Table />
@@ -187,15 +202,15 @@ class ExperimentLab extends React.Component {
             {devMode ? <div>
                 <h3>Developer Output for Testing:</h3>
                 <Row>
-                            <Col lg={1}>Name</Col>
-                            <Col lg={1}>itemType</Col>
-                            <Col lg={2}>Record</Col>
-                            <Col lg={2}>Ingredient</Col>
-                            <Col lg={2}>UsedItem</Col>
-                            <Col lg={2}>Contents</Col>
-                            <Col lg={1}>InstanceId</Col>
-                            <Col lg={1}>Area,Pos</Col>
-                        </Row>
+                    <Col lg={1}>Name</Col>
+                    <Col lg={1}>itemType</Col>
+                    <Col lg={2}>Record</Col>
+                    <Col lg={2}>Ingredient</Col>
+                    <Col lg={2}>UsedItem</Col>
+                    <Col lg={2}>Contents</Col>
+                    <Col lg={1}>InstanceId</Col>
+                    <Col lg={1}>Area,Pos</Col>
+                </Row>
                 <div>{
                     Object.entries(this.state.itemsState.list || {}).map(o => <div>
                         <Row>
@@ -221,6 +236,9 @@ class ExperimentLab extends React.Component {
                 }</div>
 
 
+
+
+
                 <div style={{ width: '200px' }}>{
                     Object.entries(this.state).map(stateObj => <div>
                         <h5>{stateObj[0]}</h5>
@@ -239,21 +257,21 @@ export default withRouter(ExperimentLab)
 class DevShow extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { 
-            show: false 
+        this.state = {
+            show: false
         }
     }
 
     toggleShow = () => {
-        this.setState({show: !this.state.show})
+        this.setState({ show: !this.state.show })
     }
 
     render() {
-        if(this.state.show) {
-            return <div style={{zIndex: '99', position:'absolute', textAlign:'left',width: '400px', backgroundColor: 'white'}}>
+        if (this.state.show) {
+            return <div style={{ zIndex: '99', position: 'absolute', textAlign: 'left', width: '400px', backgroundColor: 'white' }}>
                 <div onClick={this.toggleShow}>[x]</div>{
-                this.props.info ? Object.entries(this.props.info).map(i => <p>{i[0]}: {i[1]}</p>) : ""
-            }</div>
+                    this.props.info ? Object.entries(this.props.info).map(i => <p>{i[0]}: {i[1]}</p>) : ""
+                }</div>
         } else {
             return <span onClick={this.toggleShow}>[+]</span>
         }

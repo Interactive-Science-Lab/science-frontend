@@ -40,10 +40,12 @@ class ExperimentLab extends React.Component {
 
             </div>
 
-            <div style={{textAlign:'right'}}>
+            <div style={{textAlign:'center'}}>
                 {this.props.openNum === this.props.num ?
                     <div className="" style={{ cursor: 'pointer' }} onClick={this.toggleOpen}>
-                        <span className="fas fa-chevron-down" style={{fontSize:'32px'}}></span>
+                        <span className="fas fa-chevron-up" style={{fontSize:'20px'}}></span>
+                        {this.props.drawerName}
+                        <span className="fas fa-chevron-up" style={{fontSize:'20px'}}></span>
                         <p className="ttip">Close {this.props.itemType}</p>
                     </div>
 
@@ -51,7 +53,9 @@ class ExperimentLab extends React.Component {
                     :
 
                     <div className="" style={{ cursor: 'pointer' }} onClick={this.toggleOpen}>
-                        <span className="fas fa-chevron-up" style={{fontSize:'32px'}}></span>
+                    {this.props.drawerName != "" ? <span className="fas fa-chevron-down" style={{fontSize:'20px'}}></span> : ""}
+                    {this.props.drawerName} 
+                     {this.props.drawerName != "" ? <span className="fas fa-chevron-down" style={{fontSize:'20px'}}></span> : ""}
                         <p className="ttip">Open {this.props.itemType}</p>
                     </div>
 
