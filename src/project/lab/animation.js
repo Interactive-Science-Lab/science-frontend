@@ -465,7 +465,7 @@ let balloon = {
                 {
                     name: "Med", settings: {
                         dimensions: [400, 200],
-                        position: [200, 0],
+                        position: [115, 5],
                         background: "ballon-background-3.png"
                     }
                 },
@@ -473,14 +473,14 @@ let balloon = {
                 {
                     name: "High", settings: {
                         dimensions: [1000, 500],
-                        position: [500, 0],
+                        position: [344, 10],
                         background: "ballon-background-4.png"
                     }
                 },
                 {
                     name: "VHigh", settings: {
                         dimensions: [8000, 4000],
-                        position: [4000, 0],
+                        position: [2980, 50],
                         background: "ballon-background-5.png"
                     }
                 },
@@ -536,6 +536,7 @@ let momentum = {
                     name: "Baseball", settings: {
                         objectSize: [.1, .1],
                         speed: [45, 0],
+                        position: [1.9, 11],
                         mass: '.3'
                     }
                 },
@@ -553,6 +554,7 @@ let momentum = {
                     name: "Bowling Ball", settings: {
                         objectSize: [.3, .3],
                         speed: [8, 0],
+                        position: [1.7, 11],
                         mass: '12'
                     }
                 },
@@ -718,8 +720,8 @@ let cart = {
             maxSpd: 100,
         },
         displays: [
-            ['Height', (item) => { return `${Math.round(item.dimensions[1] - item.position[1])}m` }],
-            ['Speed', (item) => { return `${Math.round(item.speed[1])}m/s` }],
+            ['Distance', (item) => { return `${Math.round(item.position[0] - 1)}m` }],
+            ['Speed', (item) => { return `${Math.round(item.speed[0])}m/s` }],
             ['Time', (item) => { return null }]
         ],
         options: [

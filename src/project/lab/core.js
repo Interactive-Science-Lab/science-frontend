@@ -182,7 +182,7 @@ class ExperimentLab extends React.Component {
         return <LabContext.Provider value={{ masterItemList: this.state.masterItemList, itemsState: this.state.itemsState, state: this.state }} >
             <div className='admin-bar'>
                 Select a Class |
-             <a href="/lab?l=chemistry">Chemistry</a> | <a href="/lab?l=biology">Biology</a> | <Link to="/lab?l=physics">Physics</Link>
+             <a href="/lab?l=chemistry">Chemistry</a> | <a href="/lab?l=biology">Biology</a> | <a href="/lab?l=physics">Physics</a>
             </div>
             <div id="labScreen" style={{ backgroundImage: `url('/images/${labSettings[this.state.labType].backgroundImage}')` }}>
                 {this.state.message ?
