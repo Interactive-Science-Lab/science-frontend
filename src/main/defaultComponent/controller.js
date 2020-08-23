@@ -18,20 +18,21 @@ import Edit from './edit/editController.js'
 import New from './new/newController.js'
 import FourOhFour from 'main/structure/404Component'
 
+import { UserContext } from '../asteroid/contexts/userContext'
 
-import { ResourceContext, resourceDefaults } from '../asteroid/contexts/resourceContext'
+import { ResourceContext } from '../asteroid/contexts/resourceContext'
 
 
 class DefaultController extends React.Component {
-    constructor(props) {
-        super(props)
+    constructor(props, context) {
+        super(props, context)
         this.state = {}
     }
 
     render() {
         //Get the url and the settings based off of that. These go into a context to be used.
         const url = this.props.match.params.urlPath
-        const resourceSettings = resourceDefaults(url)
+        const resourceSettings = this.context.site.findComponent(url)
         if(!resourceSettings) { throw new Error("ASTEROID: Unable to find resource settings file.") }
 
         //Double check to make sure we have the settings. If not, most likely a typo on the url, so display a 404.
@@ -55,6 +56,7 @@ class DefaultController extends React.Component {
     }
 }
 
+DefaultController.contextType = UserContext
 export default withRouter(DefaultController)
 
 

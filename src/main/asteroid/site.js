@@ -1,5 +1,6 @@
 import MenuOption from "./menuOption"
 import { menuOptions } from "site/siteSettings"
+import Component from './componentClass/component'
 
 /* Essentially, this is just a class to hold all the components, 
 just a data structure to keep them all in with a few helpful functions */
@@ -12,19 +13,26 @@ export default class Site {
         this.initializeMenu()
     }
 
-    addComponent = (component) => {
+    addComponent = (data) => {
+        let component = new Component(data)
+        console.log(component)
+
         this.components.push(component)
-        //add to menu if any
+        /*add to menu if any
         component.menuOptions.map(mo => {
             mo.link = component.get('urlPath') + (mo.path || "")
             this.addToMenu(mo)
             return mo
-        })
+        })*/
     }
 
     findComponent = (path) => {
         let component = null
-        this.components.map(c => c.get('friendlyName') === path ? component = c : null)
+        this.components.map(c => {
+            console.log(c.get('friendly'), path)
+            if(c.get('friendly') === path) { component = c }
+        })
+        console.log(component)
         return component
     }
 

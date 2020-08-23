@@ -5,6 +5,7 @@ import site from 'site/appComponents'
 //Will throw an error if it doesn't find it.
 
 const resourceSettings = (url) => { return site.findComponent(url) }
+
 export const resourceDefaults = (url) => { 
     let ret = resourceSettings(url) 
     if(ret) { return ret }

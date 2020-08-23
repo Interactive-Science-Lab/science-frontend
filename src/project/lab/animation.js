@@ -190,13 +190,14 @@ class Screen extends React.Component {
 
     restartAnimation = () => {
         let props = JSON.parse(this.state.resetData)
+        props.ttotal = 0
         this.props.hideCallback()
         this.setProps(props)
     }
 
     animate = () => {
         if (this.state.play) {
-            let { dimensions, position, objectSize, frameCount, maxTime, resetData } = this.state
+            let { dimensions, position, objectSize, frameCount, maxTime, resetData, stop } = this.state
             frameCount += 1
             if (position[0] + objectSize[0] < (this.state.stop ? this.state.stop[0] : dimensions[0]) && 
                 position[1] + objectSize[1] < (this.state.stop ? this.state.stop[1] : dimensions[1]) && 
@@ -205,6 +206,13 @@ class Screen extends React.Component {
                 position = this.moveSprite()
                 setTimeout(() => { this.setState({ position, speed, frameCount }) }, FRAMERATE);
             } else {
+                if(frameCount * FRAMERATIO > maxTime) {
+                    let dleft = stop[1] - position[1] 
+                    let tleft = dleft / this.state.speed[1]
+                    let tcounted = frameCount * FRAMERATIO
+                    let ttotal = tleft + tcounted
+                    this.setState({ ttotal })
+                }
                 this.setState({ play: false, end: true })
             }
         }
@@ -300,7 +308,7 @@ class Screen extends React.Component {
                                 marginTop: (width < .5 || height < .5) ? '-8px' : '-50%',
                                 marginLeft: (width < .5 || height < .5) ? '-8px' : '0%',
                                 opacity:'1',
-                                backgroundImage: `url(${`/images/${ this.state.altEndSprite || ''  }`})`,
+                                backgroundImage: `url(${`/images/${ this.state.altEndSprite || ''  }?a={${Math.random()}`})`,
                                 backgroundSize: 'contain',
                                 backgroundRepeat: 'no-repeat',
                                 width: (width < .5 || height < .5) ? '16px' : `200%`, 
@@ -313,7 +321,7 @@ class Screen extends React.Component {
                                 marginTop: (width < .5 || height < .5) ? '-8px' : '-100%',
                                 marginLeft: (width < .5 || height < .5) ? '-8px' : '-100%',
                                 opacity:'1',
-                                backgroundImage: `url(${`/images/${ this.state.endSprite || ''  }`})`,
+                                backgroundImage: `url(${`/images/${ this.state.endSprite || ''  }?a={${Math.random()}`})`,
                                 backgroundSize: 'contain',
                                 backgroundRepeat: 'no-repeat',
                                 width: (width < .5 || height < .5) ? '16px' : `400%`, 
@@ -336,6 +344,9 @@ class Screen extends React.Component {
             </div>
 
             <div>
+
+                { this.state.ttotal && this.state.ttotal !== 0 ? <div>This might take a while. The total time would be {Math.round( this.state.ttotal * 100) / 100} seconds.</div> : ""}
+
                 {this.props.displays.map(d => {
                     if (d[0] !== 'Time') {
                         return <div style={{ display:'inline-block', textAlign: 'center', width: '125px', padding: '10px'}}>{d[0]}
@@ -429,7 +440,7 @@ let car = {
 let balloon = {
     data: {
         sprite: "balloon.png",
-        endSprite: "balloon-end.png",
+        endSprite: "small-explosion.gif",
         dimensions: [50, 100],
         position: [25, 0],
         objectSize: [1, 1],
@@ -657,7 +668,7 @@ let viscosity = {
         stop: [100, 42]
     },
     displays: [
-        ['Distance', (item) => { return `${Math.round(item.dimensions[1] - item.position[1])}cm` }],
+        ['Distance', (item) => { return `${Math.round( (item.dimensions[1] - item.position[1]) *100) / 100}cm` }],
         ['Time', (item) => { return null }]
     ],
     options: [
@@ -826,7 +837,7 @@ let metalBall = {
                     name: "Lg Wrecking Ball", settings: {
                         acceleration: [16, 0],
                         objectSize: [1, 1],
-                        altEndSprite: "wall-break.png"
+                        altEndSprite: "wll-crack.gif"
                     }
                 },
             ]

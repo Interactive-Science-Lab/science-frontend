@@ -10,12 +10,15 @@ import Body from './main/structure/body';
 import { siteTitle, siteTagline, siteOptions, menuOptions } from './site/siteSettings'
 import { UserContext, userDefaults } from 'main/asteroid/contexts/userContext'
 import { curr_user, expireTokenCheck, apiPath } from 'helpers/api'
+
+import Site from './main/asteroid/site'
 import axios from 'axios';
 
 class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			site: new Site(),
 			resources: [],
 			menuOptions: [],
 			permissions: [],
@@ -30,7 +33,10 @@ class App extends React.Component {
 		if (curr_user) { if (expireTokenCheck()) { this.logout() } }
 
 		axios.get(apiPath('/site')).then(res => {
-			this.setState({ resources: res.resources, menuOptions: res.menuOptions, permissions: res.permissions, loading: false })
+			let site = this.state.site
+			res = res.data
+			res.resources.map(resource => site.addComponent(resource) )
+			this.setState({ site, resources: res.resources, menuOptions: res.menuOptions, permissions: res.permissions, loading: false })
 		})
 	}
 

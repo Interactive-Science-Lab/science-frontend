@@ -39,7 +39,12 @@ The loader pretty much sets what "default" options are set when you first go a p
 
 export default class Component {
 
-    constructor(baseName, options = {}) {
+    constructor(data) {
+        this.permissions = new PermissionSetting('content')
+        Object.entries(data).map(obj => this[obj[0]] = obj[1])
+        console.log(this)
+
+        /*
         const plural = options.plural || baseName + 's'
         const upper = options.upper || baseName.charAt(0).toUpperCase() + baseName.substring(1);
         const friendly = options.friendly || plural
@@ -63,7 +68,7 @@ export default class Component {
             tagField: null,
             fieldList: []
         }
-        this.permissions = new PermissionSetting('content')
+        
 
         this.features = []
         // paginate: false,
@@ -105,7 +110,7 @@ export default class Component {
         this.loader = {}
         this.menuOptions = []
 
-
+        */
 
     }
 
@@ -114,7 +119,7 @@ export default class Component {
         switch (shortcut) {
             case "urlPath":
                 return this.names.urlPath
-            case "friendlyName":
+            case "friendly":
                 return this.names.friendly
             case "idField":
                 return this.fields.idField
