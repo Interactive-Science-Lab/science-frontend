@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const siteOptions = {
-    backendLive: false,
+    backendLive: true,
     displayFooter: true
 }
 
