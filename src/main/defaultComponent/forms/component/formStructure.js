@@ -106,12 +106,12 @@ class FormBuilder extends React.Component {
         } else {
             text = this.settings.text.newSubmit
         }
-        return <button type='submit'>{text}</button>
+        return <button type='submit'>{text || "Submit"}</button>
     }
 
     deleteButton = () => {
         if( this.props.action === 'edit' && this.settings.checkPermission('delete', this.props.item) ) {
-            return <button onClick={this.props.formCallbacks.deleteItem}>{this.settings.text.deleteLink}</button>
+            return <button onClick={this.props.formCallbacks.deleteItem}>{this.settings.text.deleteLink || "Delete"}</button>
         }
     }
 

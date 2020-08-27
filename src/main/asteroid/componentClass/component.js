@@ -41,7 +41,28 @@ export default class Component {
 
     constructor(data) {
         this.permissions = new PermissionSetting('content')
+        this.customDisplay = {}
+        
+
         Object.entries(data).map(obj => this[obj[0]] = obj[1])
+        
+        this.fields.fieldList = []
+
+        data.fields.list.map(f => this.addField(f.name, f))
+
+        this.options = {
+            //This option will not move you away from a form.
+            blockFormRedirect: false,
+            //This option will override where it redirects when a form is successfully submitted.
+            formRedirectPath: null,
+            //This changes whether or not a "delete" option is "confirmed" with a popup window
+            confirmDelete: true,
+            newRedirect: (item) => { return this.feEditPath(item) },
+            editRedirect: (item) => { return this.feViewPath(item) },
+            deleteRedirect: this.get('urlPath'),
+        }
+        
+        this.text = data.text || {}
         console.log(this)
 
         /*
@@ -79,17 +100,7 @@ export default class Component {
         //Options holds things like:
         // simple true/false things like newLink: true 
         // override links & stuff like that
-        this.options = {
-            //This option will not move you away from a form.
-            blockFormRedirect: false,
-            //This option will override where it redirects when a form is successfully submitted.
-            formRedirectPath: null,
-            //This changes whether or not a "delete" option is "confirmed" with a popup window
-            confirmDelete: true,
-            newRedirect: (item) => { return this.feEditPath(item) },
-            editRedirect: (item) => { return this.feViewPath(item) },
-            deleteRedirect: this.get('urlPath'),
-        }
+        
         this.text = {
             indexTitle: "All " + upper + 's',
             indexText: "",
@@ -106,7 +117,6 @@ export default class Component {
             deleteLink: "Delete",
             deleteWarning: "Are you sure you wish to completely delete the item?",
         }
-        this.customDisplay = {}
         this.loader = {}
         this.menuOptions = []
 
@@ -122,7 +132,7 @@ export default class Component {
             case "friendly":
                 return this.names.friendly
             case "idField":
-                return this.fields.idField
+                return this.fields.id
             case "indexTitle":
                 return this.text.indexTitle
             case "indexText":
@@ -154,18 +164,17 @@ export default class Component {
 
     addMenuOption = (options) => { this.menuOptions.push(options) }
 
-
     addTags = (tagFieldName, options) => {
         options = { fieldType: 'array', name: tagFieldName, default: [], ...options }
         this.addField(tagFieldName, options)
     }
-
 
     addReference = (idField, targetField, referenceType, options) => {
         let reference = new ComponentReference(idField, targetField, referenceType, options)
         this.fields.fieldList.push(reference)
         return reference
     }
+
     getControlReferences = () => {
         let ret = []
         this.fields.fieldList.map(fl => fl.referenceType === 'control' ? ret.push(fl) : null)

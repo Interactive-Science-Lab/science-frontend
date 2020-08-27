@@ -1,3 +1,5 @@
+import { PermissionSetting } from "../permission";
+
 /*
         ==Field Types==
         "string"- a string, gives a box
@@ -18,10 +20,11 @@
 
 export default class ComponentField {
     constructor(fieldName, options = {}) {
+        console.log(options)
         this.fieldName = fieldName
         this.default = options.default === null ? "" : options.default
-        this.fieldType = options.fieldType || "string"
-        this.permissions = options.permissions
+        this.fieldType = options.displayType || "string"
+        this.permissions = new PermissionSetting('all')
         this.validations = options.validations || []
 
         this.formInfo = options.formInfo

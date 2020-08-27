@@ -10,11 +10,12 @@ class Page extends React.Component {
 
     render() {
         const { settings, field } = this.props
+        /*console.log(field.settings)*/
         return <div>
             {field.settings.label ? <div>{field.settings.printifyName(settings)}:</div> : ""}
 
             {field.settings.fieldType === 'string' ? <div>
-               {field.settings.titleField ? this.displayTitle() : field.value}
+               { JSON.stringify(field.settings.titleField ? this.displayTitle() : field.value) }
             </div> : ""}
 
             {field.settings.fieldType === 'icon' ? <span className={`fas fa-${field.value}`}></span> : ""}

@@ -23,6 +23,8 @@ class FormFields extends React.Component {
         const { field } = this.props
 
         let fieldType = field.settings.fieldType
+        console.log(fieldType)
+
         if (Array.isArray(fieldType)) { fieldType = fieldType[0] }
 
         switch (fieldType) {
