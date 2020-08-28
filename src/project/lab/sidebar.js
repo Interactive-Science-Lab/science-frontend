@@ -62,7 +62,16 @@ class Header extends React.Component {
             <p style={{color: '#ccc', textAlign: "left"}}>{item.experiment_information}</p>
             <h4 style={{ color: "white" }}>Method</h4>
 
-            {item.experiment_steps?.split('#').map(step => <div style={{ color: "white", textAlign: "left", marginBottom: '15px' }}>{step ? "#" + step : ""}</div>)}
+            {item.experiment_steps?.split('#').map(step => 
+
+            <div>{step ? <div>
+                {step[0] === '-' ? 
+                    <b><div style={{ color: "white", textAlign: "left", marginBottom: '15px' }}> <br /><u style={{ color: "white"}}> {step} </u></div></b> : 
+                    <div style={{ color: "white", textAlign: "left", marginBottom: '15px' }}> #{step} </div> } 
+                
+                </div>: ""}
+            
+            </div>)}
 
             </div>
 
