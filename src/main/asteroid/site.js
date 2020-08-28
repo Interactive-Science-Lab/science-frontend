@@ -37,7 +37,7 @@ export default class Site {
         //Add all of the menu categories automatically.
         menuOptions.menuCategories.map(mc => this.addToMenu(mc))
         menuOptions.customMenuStructure.map(mo => this.addToMenu(mo))
-
+        //
         //If blogs are enabled,
         if (menuOptions.showBlogs) {
             //If the dropdown is enabled,
