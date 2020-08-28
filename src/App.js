@@ -36,6 +36,8 @@ class App extends React.Component {
 			let site = this.state.site
 			res = res.data
 			res.resources.map(resource => site.addComponent(resource) )
+			res.menuOptions.map(menuOpt => site.addToMenu(menuOpt) )
+			console.log(res)
 			this.setState({ site, resources: res.resources, menuOptions: res.menuOptions, permissions: res.permissions, loading: false })
 		})
 	}

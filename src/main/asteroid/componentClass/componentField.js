@@ -20,7 +20,6 @@ import { PermissionSetting } from "../permission";
 
 export default class ComponentField {
     constructor(fieldName, options = {}) {
-        console.log(options)
         this.fieldName = fieldName
         this.default = options.default === null ? "" : options.default
         this.fieldType = options.displayType || "string"

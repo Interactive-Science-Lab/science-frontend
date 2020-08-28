@@ -15,7 +15,6 @@ export default class Site {
 
     addComponent = (data) => {
         let component = new Component(data)
-        console.log(component)
 
         this.components.push(component)
         /*add to menu if any
@@ -29,10 +28,8 @@ export default class Site {
     findComponent = (path) => {
         let component = null
         this.components.map(c => {
-            console.log(c.get('friendly'), path)
             if(c.get('friendly') === path) { component = c }
         })
-        console.log(component)
         return component
     }
 

@@ -10,7 +10,7 @@ class Field extends React.Component {
     handleChange = (e) => {
         this.props.component.props.updateItem({
             ...this.props.component.props.item,
-            [e.target.name]: e.target.value
+            [e.target.name]: Number.parseInt(e.target.value)
         })
     }
 

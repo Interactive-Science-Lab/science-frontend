@@ -63,8 +63,6 @@ export default class Component {
         }
         
         this.text = data.text || {}
-        console.log(this)
-
         /*
         const plural = options.plural || baseName + 's'
         const upper = options.upper || baseName.charAt(0).toUpperCase() + baseName.substring(1);
