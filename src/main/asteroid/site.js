@@ -53,7 +53,7 @@ export default class Site {
             }
         }
     }
-    
+    //
     blogParse = (options, callback) => {
         let data = {
             name: options.displayName,
