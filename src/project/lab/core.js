@@ -81,7 +81,7 @@ class ExperimentLab extends React.Component {
         const waterButtons = document.querySelectorAll('.waterButton')
         const emptyButtons = document.querySelectorAll('.empty-item')
         const removeButtons = document.querySelectorAll('.remove-item')
-        
+
         for (const item of dragItems) {
             item.addEventListener('dragstart', this.dragStart)
             item.addEventListener('dragend', this.dragEnd)
@@ -125,18 +125,18 @@ class ExperimentLab extends React.Component {
         const revealButtons = document.querySelectorAll('.reveal-item')
         const advanceButtons = document.querySelectorAll('.advance-graphic')
         const atpButtons = document.querySelectorAll('.run-atp-item')
-        
+
         for (const revealButton of revealButtons) { revealButton.addEventListener('click', this.revealItem) }
         for (const advanceButton of advanceButtons) { advanceButton.addEventListener('click', this.advanceGraphic) }
         for (const atpButton of atpButtons) { atpButton.addEventListener('click', this.runAtpCalculation) }
-        
+
         /* Physics Buttons */
         const physics = document.querySelectorAll('.run-physics')
 
-        for (const physic of physics) { physic.addEventListener('click', this.openPhysicsWindow ) }
+        for (const physic of physics) { physic.addEventListener('click', this.openPhysicsWindow) }
 
 
-       
+
     }
 
     emptyItem = (e) => {
@@ -178,6 +178,8 @@ class ExperimentLab extends React.Component {
 
     render() {
         const devMode = false
+
+        
 
         return <LabContext.Provider value={{ masterItemList: this.state.masterItemList, itemsState: this.state.itemsState, state: this.state }} >
             <div className='admin-bar'>

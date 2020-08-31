@@ -65,6 +65,15 @@ export class ContainerInstance extends ItemInstance {
         let saltInstance = this.findIngredient('Salt')
         let waterInstance = this.findIngredient('Water')
         if(saltInstance && waterInstance) { this.handleSalt(saltInstance, component) } 
+        
+        let smInst = this.findIngredient('Hydrophillic Beads (sm)')
+        if(smInst && waterInstance) { this.handleSmBeads(smInst, waterInstance, component, seconds) } 
+        
+        let mdInst = this.findIngredient('Hydrophillic Beads (md)')
+        if(mdInst && waterInstance) { this.handleLgBeads(mdInst, waterInstance, component, seconds) } 
+        
+        let lgInst = this.findIngredient('Hydrophillic Beads (lg)')
+        if(lgInst && waterInstance) { this.handleLgBeads(lgInst, waterInstance, component, seconds) } 
 
         this.contents.advanceTime(seconds, component)
     }
@@ -130,8 +139,6 @@ export class ContainerInstance extends ItemInstance {
             massList = JSON.parse(record.properties[1])
         } catch { console.log("ERROR WITH JSON PARSE") }
 
-        console.log(massList)
-
         let saltMass = saltInstance.getMass()
         if(saltMass > 50) { saltMass = 50 }
 
@@ -150,6 +157,37 @@ export class ContainerInstance extends ItemInstance {
         let tempChange = massList[ `${tempRanges}` ][ `${time}` ]
 
         this.contents.adjustTemperature(tempChange, component)
+    }
+
+    handleSmBeads = (beadsInstance, waterInstance, component, seconds) => {
+
+        let beadRatio = 240
+        let amount = seconds / beadRatio
+
+        waterInstance.increaseMass(amount * -1)
+        waterInstance.increaseVolume(amount * -1)
+        beadsInstance.increaseMass(amount)
+    }
+
+    handleMdBeads = (beadsInstance, waterInstance, component, seconds) => {
+
+        let beadRatio = 120
+        let amount = seconds / beadRatio
+
+        waterInstance.increaseMass(amount * -1)
+        waterInstance.increaseVolume(amount * -1)
+        beadsInstance.increaseMass(amount)
+    }
+
+    handleLgBeads = (beadsInstance, waterInstance, component, seconds) => {
+
+        let beadRatio = 60
+        let amount = seconds / beadRatio
+
+        waterInstance.increaseMass(amount * -1)
+        waterInstance.increaseVolume(amount * -1)
+        beadsInstance.increaseMass(amount)
+        beadsInstance.increaseVolume(amount)
     }
 
 }

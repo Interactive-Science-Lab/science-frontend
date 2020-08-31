@@ -41,6 +41,7 @@ class Header extends React.Component {
                         res.data.map( 
                             i => i.experiment_class === labKind ? retExperiments.push(i) : null 
                         )
+                        
                         this.setState({ items: retExperiments, item: {} })
                     }
                 )
@@ -79,8 +80,10 @@ class Header extends React.Component {
             : <div>
 
             <NavLink to="/" style={{ background: 'none', display: 'block' }}>Back to Home</NavLink>{items.length > 0 ? <div>
-                <p style={{ color: "grey" }}>Please choose an experiment for further instructions.</p>{
-                items.map((i, x) => <Link to={`/lab/${i.experiment_id}?l=${this.props.location.search.split('=')[1] || 'chemistry'}`}  style={{ display: 'block', background: 'none' }}>
+                <p style={{ color: "grey" }}>Please choose an experiment for further instructions.</p>
+                
+                {
+                items.sort((a,b) => a.experiment_order - b.experiment_order).map((i, x) => <Link to={`/lab/${i.experiment_id}?l=${this.props.location.search.split('=')[1] || 'chemistry'}`}  style={{ display: 'block', background: 'none' }}>
                     <p style={{ color: "grey", marginBottom: "0" }}>Experiment #{x+1}:</p>
                     <h4 style={{ color: "white", marginTop: "0" }}> {i.experiment_name}</h4>
                 </Link>)

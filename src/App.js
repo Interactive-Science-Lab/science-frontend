@@ -2,6 +2,7 @@ import React from 'react';
 import './stylesheets/App.scss';
 import Helmet from 'react-helmet'
 import { withRouter } from 'react-router';
+import { logoURL } from './site/siteSettings'
 
 import Header from './main/structure/header';
 import Footer from './main/structure/footer';
@@ -9,6 +10,7 @@ import Body from './main/structure/body';
 
 import { siteTitle, siteTagline, siteOptions, menuOptions } from './site/siteSettings'
 import { UserContext, userDefaults } from 'main/asteroid/contexts/userContext'
+import { AppContext, appDefaults } from 'main/asteroid/contexts/userContext'
 import { curr_user, expireTokenCheck, apiPath } from 'helpers/api'
 
 import Site from './main/asteroid/site'
@@ -66,7 +68,17 @@ class App extends React.Component {
 		return <UserContext.Provider value={{ ...this.state, logout: this.logout, login: this.login }}>
 			<div className="App main-bg">
 				{this.state.loading ?
-					<div>Loading...</div>
+					<div style={{height: '100vh', width: '100vw'}} >
+						<div style={{height: '200px', position: 'relative'}}>
+							<img src={`/images/load.gif`} style={{position: 'absolute', width: '164px', height: '164px', marginLeft: '-82px', marginTop: '32px'}} />
+							<img alt="logo" src={logoURL} style={{position: 'absolute', width: '64px', height: '64px', marginLeft: '-32px', marginTop: '82px' }} />
+						</div>
+
+						<h1>College Prep Science</h1>
+						<h2>
+						<img src={`/images/rev-ell-load.gif`} style={{height:'12px'}} /> Loading Online Lab <img src={`/images/ellipse-load.gif`} style={{height:'12px'}} />
+						</h2>
+					</div>
 					: <div>
 						<Header />
 						<div className={`main-screen ${leftMarginShow ? 'main-screen-persist-menu' : null}`} >

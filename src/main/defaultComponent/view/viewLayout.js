@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 //Contains the settings for the resource.
 import { ResourceContext, resourceDefaults } from '../../asteroid/contexts/resourceContext'
+import { UserContext } from '../../asteroid/contexts/userContext'
 
 import FieldDisplay from '../display/fieldDisplay'
 
@@ -27,11 +28,11 @@ class Show extends React.Component {
         return <div>
             {sub ? "" : <div>{settings.checkPermission('index', item) ?
                 <Link to={`${settings.options?.back_to_all_link ? settings.options.back_to_all_link(item) : settings.get('urlPath')}`}>Back To All</Link>
-                : ""}</div> }
+                : ""}</div>}
 
-            {sub ?  <h3>{settings.get('viewTitle')}</h3> : <h1>{settings.get('viewTitle')}</h1> }
+            {sub ? <h3>{settings.get('viewTitle')}</h3> : <h1>{settings.get('viewTitle')}</h1>}
             <p>{settings.get('viewText')}</p>
-            <div className={ sub ? "" : 'color-box' }>
+            <div className={sub ? "" : 'color-box'}>
                 <div>
 
                     {fields.map(field =>
@@ -40,23 +41,16 @@ class Show extends React.Component {
 
                 </div>
 
-                { item.features ? <div>
-                    
+                {item.features ? <div>
+
                     FEATURES:
-                    {Object.entries(item.features).map(i => <div> 
-                        <h3>{i[0]}</h3>
-                        {JSON.stringify(i[1].info)} 
-                        <div>
-                            {i[1].items.map(item => <div> { JSON.stringify(item) } </div> )}
-                        </div>
-                        
-                    </div>)}
-                    
-                    </div> : ""}
+                    {Object.entries(item.features).map(i => <SubFeature feature={i} />)}
+
+                </div> : ""}
 
                 {sub ? "" : <div>{settings.checkPermission('edit', item) ?
                     <Link to={`${settings.get('urlPath')}/${settings.getId(item)}/edit`}>Edit</Link>
-                    : ""}</div> }
+                    : ""}</div>}
             </div>
         </div>
 
@@ -75,6 +69,55 @@ class Show extends React.Component {
     }
 }
 
+class SubFeature extends React.Component {
+    constructor(props, context) {
+        super(props, context)
+        this.state = {
+            open: false
+        }
+    }
+
+    toggleOpen = () => {
+        this.setState({open: !this.state.open})
+    }
+
+    render() {
+        let feature = this.props.feature
+        let settings = this.context.site.findComponent(feature[1].info.names.friendly)
+
+        return <div>
+            <h3>{feature[0]} <span onClick={this.toggleOpen}>{this.state.open ? 'cl' : 'op'}</span></h3>
+            { this.state.open ? <div>
+                {feature[1].items.map((item) => {
+                    let fields = settings.getItemFields(item)
+                    return <div>
+                        {fields.map(field => {
+                            console.log("FIELD", field, "SETTINGS", settings)
+                            return <FieldDisplay settings={settings} action={'view'} field={field} item {...this.props} />
+
+                        })
+                        }
+
+                        <Link to={`${settings.get('urlPath')}/${settings.getId(item)}/edit`}>Edit</Link>
+                    </div>
+                
+
+
+                })}
+
+
+                <Link to={`${settings.get('urlPath')}/new`}>Add New</Link>
+
+            </div> : "" }
+
+        </div>
+
+    }
+}
+
+
+
 Show.contextType = ResourceContext
+SubFeature.contextType = UserContext
 export default withRouter(Show)
 
