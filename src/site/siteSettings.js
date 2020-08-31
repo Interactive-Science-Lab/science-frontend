@@ -51,13 +51,14 @@ export const menuOptions = {
     ],
     customMenuStructure: [
         {name: "Visit The Lab", permission:  "logged_in", symbol: "star", link: "/lab", order: 1},
+        {name: "Experiments", permission:  "admin", symbol: "user", order: 2, link: '/experiments'},
         {name: "Login", permission:  "no_user", symbol: "user", order: 1, link: '/auth/login'},
         {name: "Logout", permission:  'logged_in', link: '/auth/logout', symbol: "sign-out-alt", order: 5},
     ],
     menuCategories: [
-        {name: "Help and Support", symbol: "newspaper", permission:  "all", order: 2},
+        /*{name: "Help and Support", symbol: "newspaper", permission:  "all", order: 2},
         {name: "Lab Settings", symbol: "newspaper", permission:  "admin", order: 3},
-        {name: "Admin", symbol: "newspaper", permission:  "admin", order: 4}
+        {name: "Admin", symbol: "newspaper", permission:  "admin", order: 4}*/
     ]
 
 }

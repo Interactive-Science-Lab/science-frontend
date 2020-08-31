@@ -16,10 +16,6 @@ function Home(props) {
 		{
 			title: "Biology",
 			link: "/auth/login?class=biology2020"
-		},
-		{
-			title: "Anatomy",
-			link: "/auth/login?class=anatomy2020"
 		}
 	]
 
