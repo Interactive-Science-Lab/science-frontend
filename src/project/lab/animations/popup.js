@@ -46,7 +46,7 @@ export default class Popup extends React.Component {
             background: 'rgba(27,43,56, .8)'
         }
 
-        return <div>
+        return <span>
             {this.state.open ? <div style={mainStyle}>
                 <span onClick={this.toggle} style={xStyle} className='fas fa-times'> </span>
                 <div style={childStyle}> 
@@ -54,8 +54,13 @@ export default class Popup extends React.Component {
                 </div>
             </div> : ""}
 
-            <span onClick={this.toggle}>{this.state.open ? "Close" : "Open"}</span>
-        </div>
+            <span onClick={this.toggle} className={'format-link lab-action fas fa-play'}> 
+            
+            <span>Open</span>
+            
+            
+            </span>
+        </span>
     }
 
 }

@@ -22,7 +22,7 @@ class ExperimentLab extends React.Component {
 
         return <div className={`shelf ${this.props.openNum === this.props.num ? 'open' : 'close'}-shelf`}>
 
-            <div className='shelf-contents' style={{margin:'0px 0 25px', position: 'absolute', bottom:'0', width: '100%',  paddingBottom: '0px'}}>
+            <div className='shelf-contents' style={{margin:'0px 0 0px', position: 'absolute', bottom:'100%', width: '100%',  paddingBottom: '0px'}}>
                 {list.map(item =>
                     <div
                         draggable

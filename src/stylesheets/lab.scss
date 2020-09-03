@@ -1,4 +1,4 @@
-$wood: rgba(#A28065, .75);
+$wood: rgba(#a28065, .75);
 $contrast: 40%;
 
 $floorColor: rgba(183, 203, 200, .85);
@@ -9,13 +9,12 @@ $woodImage2: '/images/texture_woodold.png';
 
 $darkWoodTexture: linear-gradient(darken($wood, $contrast), darken($wood, $contrast*2)), url($woodImage2);
 $backWoodTexture: linear-gradient($wood, darken($wood, $contrast/2)), url($woodImage);
-$frontWoodTexture: linear-gradient( lighten($wood, $contrast/2), lighten($wood, $contrast/4)), url($woodImage2);
+$frontWoodTexture: linear-gradient(lighten($wood, $contrast/2), lighten($wood, $contrast/4)), url($woodImage2);
 $woodBorder: 4px outset darken($wood, $contrast);
 
 $schoolBrick: '/images/brick1.png';
 $roughStone: '/images/texture_stonerough.png';
 $pattern: '/images/gray-tile-pattern.png';
-
 
 $wallTexture: linear-gradient(lighten($envColor, $contrast), darken($envColor, $contrast));
 $floorTexture: linear-gradient(darken($floorColor, $contrast/2), $floorColor);
@@ -25,414 +24,454 @@ $metal: '/images/texture_metalplate.png';
 $displayBox: rgba(130, 170, 172, .8);
 $displayBorder: 4px inset darken($displayBox, $contrast/2);
 
-#labScreen { 
-    width: 75vw;
-    position:relative;
-    height: 44.64vw;
+#labScreen {
+	width: 75vw;
+	position: relative;
+	height: 44.64vw;
 	background-color: $l-primary-color;
-    background-size: 100% 100%;
-    padding:15px;
-    margin:auto;
-    border-bottom:2px solid black;
-    * { font-size: 15px; }
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    
+	background-size: 100% 100%;
+	padding: 15px;
+	margin: auto;
+	border-bottom: 2px solid black;
+	* {
+		font-size: 15px;
+	}
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 .hold {
-    cursor: grabbing;
+	cursor: grabbing;
 }
 
 #topPart {
-    height:55%;
-    position:relative;
-    & > div {
-        display:flex;
-        align-items: space-between;
-        justify-content: space-between;
-        max-height: 300px;
-        height:300px;
-    }
+	height: 55%;
+	position: relative;
+	& > div {
+		display: flex;
+		align-items: space-between;
+		justify-content: space-between;
+		max-height: 300px;
+		height: 300px;
+	}
 }
 #midPart {
-    height:26%;
-    padding:30px;
+	height: 26%;
+	padding: 30px;
 }
 #bottomPart {
-    height: 19%;
+	height: 19%;
 }
 
-
 #studentTray {
-    background: linear-gradient($displayBox, $displayBox), url($metal);
-    margin: 2%;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    border: $displayBorder;
-    padding:10px;
-    border-radius: 20px;
-    .item-options { display:none;}
-    position:relative;
+	background: linear-gradient($displayBox, $displayBox), url($metal);
+	margin: 2%;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	border: $displayBorder;
+	padding: 10px;
+	border-radius: 20px;
+	.item-options {
+		display: none;
+	}
+	position: relative;
 }
 
 #shelveSection {
-    width: 100%;
-    height:100%;
-    display:flex;
-    
-    & > div {
-        width: 33.33%;
-        margin: 0 5% 0 2.5%;
-        height:100%;
-    }
+	width: 100%;
+	height: 100%;
+	display: flex;
+
+	& > div {
+		width: 33.33%;
+		margin: 0 5% 0 2.5%;
+		height: 100%;
+	}
 }
 
-.shelf{
-    width: 100%; 
-    height:25%;
-    position:relative;
-    &:hover {
-        background-color:rgba(255,255,255,.5)
-    }
+.shelf {
+	width: 100%;
+	height: 25%;
+	position: relative;
+	&:hover {
+		background-color: rgba(255, 255, 255, .5);
+	}
 }
 
 .open-shelf {
-    .shelf-contents {
-        background-color:#222;
-        display: block;
-    }
-
+	.shelf-contents {
+		background-color: #222;
+		display: block;
+	}
 }
 
 .close-shelf {
-    .shelf-contents {
-        display: none;
-    }
+	.shelf-contents {
+		display: none;
+	}
 }
 
-
-
-.item-weight, .item-volume, .item-description, .item-properties, .item-contents, .item-used { display: none; }
-
-.item-name { 
-    img {
-        width: 100%;
-        max-width: 60px;
-    }
+.item-weight,
+.item-volume,
+.item-description,
+.item-properties,
+.item-contents,
+.item-used {
+	display: none;
 }
 
-#examiner { 
-    width: 30%;
-    background-color: $displayBox;
-    text-align:center;
-    border: $displayBorder;
-    padding:10px;
-    .item-weight, .item-volume, .item-description, .item-properties, .item-contents, .item-used { display: block; }
-    border-radius: 20px;
-    max-height:100%;
-    bottom:10px;
-    position:absolute;
-    overflow-y:scroll;
-    overflow-x: visible;
+.item-name {
+	img {
+		width: 100%;
+		max-width: 60px;
+	}
+}
+
+#examiner {
+	width: 30%;
+	background-color: $displayBox;
+	text-align: center;
+	border: $displayBorder;
+	padding: 10px;
+	.item-weight,
+	.item-volume,
+	.item-description,
+	.item-properties,
+	.item-contents,
+	.item-used {
+		display: block;
+	}
+	border-radius: 20px;
+	max-height: 100%;
+	bottom: 10px;
+	position: absolute;
+	overflow-y: scroll;
+	overflow-x: visible;
 }
 
 #wholeTable {
-    width: 100%;
-    height:100%;
+	width: 100%;
+	height: 100%;
 }
 
 $tableColor: rgba(19, 17, 15, .65);
 
 #tableTop {
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
+	height: 100%;
+	display: flex;
+	flex-wrap: wrap;
 }
 
 #tableLeft {
-    width:75%;
-    height:100%;
+	width: 75%;
+	height: 100%;
 }
 
 #tableSink {
-    width:17%;
-    
+	width: 17%;
 }
 
 #drawers {
-    z-index:1;
-    padding: 1%;
-    height: 18%;
-    display: flex;
-    // background: $backWoodTexture;
-    // border-top:8px solid black;
-    // background-repeat: repeat;
+	z-index: 1;
+	padding: 1%;
+	height: 18%;
+	display: flex;
+	// background: $backWoodTexture;
+	// border-top:8px solid black;
+	// background-repeat: repeat;
 }
 
 .drawer {
-    width: 48%;
-    height: 100%;
-    margin: 1%;
-    // background: $frontWoodTexture;
-    // border: $woodBorder;
+	width: 48%;
+	height: 100%;
+	margin: 1%;
+	// background: $frontWoodTexture;
+	// border: $woodBorder;
 }
 
-
-$dropColor: rgba(180,180,180,.1);
+$dropColor: rgba(180, 180, 180, .1);
 
 .dropzone:empty {
-    border: 3px dashed #bbd;
-    color: grey;
+	border: 3px dashed #bbd;
+	color: grey;
 }
 
 .block-number-text {
-    color: $primary-color;
-    font-weight: bold;
-    font-size: 18px !important;
+	color: $primary-color;
+	font-weight: bold;
+	font-size: 18px !important;
 }
 
 p.dropzoneempty {
-    border: 3px dashed #bbd;
-    height:100%;
-    color: $primary-color;
-    font-weight: bold;
-    font-size: 18px !important;
-
+	border: 3px dashed #bbd;
+	height: 100%;
+	color: $primary-color;
+	font-weight: bold;
+	font-size: 18px !important;
 }
-
 
 .drop-section {
-    width: 23%;
-    min-width:80px;
-    height: 60px;
-    margin: 1%;
-    background-color: $dropColor; 
+	width: 23%;
+	min-width: 80px;
+	height: 60px;
+	margin: 1%;
+	background-color: $dropColor;
 }
 .drop-column {
-    width: 12%;
-    margin: 0 1%;
-    background-color: $dropColor;
+	width: 12%;
+	margin: 0 1%;
+	background-color: $dropColor;
 }
 
 .drop-sink {
-    width: 100%;
-    height:100%;
-    .item-options {display:none;}
-    .dropzone {border-color:transparent;}
+	width: 100%;
+	height: 100%;
+	.item-options {
+		display: none;
+	}
+	.dropzone {
+		border-color: transparent;
+	}
 }
 
 .drop-row {
-    width: 98%;
-    min-height:20px;
-    margin: 1%;
-    background-color: $dropColor;
+	width: 98%;
+	min-height: 20px;
+	margin: 1%;
+	background-color: $dropColor;
 }
 
 .waterButton {
-    cursor: pointer;
-    color: white;
-    border: 10px outset transparent;
-    padding: 10px;
-    border-radius: 20px;
+	cursor: pointer;
+	color: white;
+	border: 10px outset transparent;
+	padding: 10px;
+	border-radius: 20px;
 }
 
 .waterHot {
-    background-color: rgba(#d22, .3);
-    &:hover {
-        background-color: rgba(#d22, .6);
-    }
-    &:active {
-        border-color: rgba(#f99, .8);
-        background-color: rgba(#d22, 1);
-        border-width: 10px;
-    }
-
+	background-color: rgba(#d22, .3);
+	&:hover {
+		background-color: rgba(#d22, .6);
+	}
+	&:active {
+		border-color: rgba(#f99, .8);
+		background-color: rgba(#d22, 1);
+		border-width: 10px;
+	}
 }
 
 .waterCold {
-    background-color: rgba(#22d, .3);
-    &:hover {
-        background-color: rgba(#22d, .6);
-    }
-    &:active {
-        border-color: rgba(#99f, .8);
-        background-color: rgba(#22d, 1);
-        border-width: 10px;
-    }
+	background-color: rgba(#22d, .3);
+	&:hover {
+		background-color: rgba(#22d, .6);
+	}
+	&:active {
+		border-color: rgba(#99f, .8);
+		background-color: rgba(#22d, 1);
+		border-width: 10px;
+	}
 }
-
 
 .drag-item {
-    display: flex;
-    padding:20px;
-    border: 2px solid black;
-    height:100%;
-    max-height:100%;
-    align-items: center;
-    justify-content: center;
-    cursor: grab;
-    border-radius:4px;
+	border: 2px solid black;
+	border-radius: 4px;
+	padding:15px 0;
+	height: 100%;
+	min-height: 100px;
+
+	justify-content: center;
+	cursor: grab;
 }
 .drag-item:hover {
-    background-color:rgba(255,255,255,.4)
+	background-color: rgba(255, 255, 255, .4);
 }
 
 .tool-item > .drag-item {
-    display: flex;
-    padding:20px;
-    border: 2px solid #222;
-    height:100%;
-    max-height:100%;
-    align-items: center;
-    justify-content: center;
-    cursor: grab;
+	display: flex;
+	padding: 20px;
+	border: 2px solid #222;
+	height: 100%;
+	max-height: 100%;
+	align-items: center;
+	justify-content: center;
+	cursor: grab;
 }
 
-.drag-item:active, .hold-drag {
-    cursor: grabbing !important;
+.drag-item:active,
+.hold-drag {
+	cursor: grabbing !important;
 }
 
 .hover {
-    background-color: green;
+	background-color: green;
 }
 
 .invisible {
-    display: none;
+	display: none;
 }
 .inventory-item:hover {
-    background-color:rgba(180,180,180,.3)
+	background-color: rgba(180, 180, 180, .3);
 }
 
 .lab-action {
-    position:relative;
+	position: relative;
+}
+
+.lab-action .lab-hover-popup {
+	display: none;
+}
+
+.lab-action:hover .lab-hover-popup {
+	display: block;
+}
+
+.lab-action .lab-hover-popup-op {
+	position: absolute;
+	opacity: .3;
+	width: 100%;
+	top:0;
+	padding: 10px;
+}
+
+.format-link.lab-action:not(.remove-item) {
+    display: none;
+}
+
+#examiner .format-link.lab-action {
+    display: inline-block;
+}
+
+.lab-action:hover {
+	.lab-hover-popup-op {
+		opacity: 1;
+		background-color: #549fa8;
+    }
+}
+
+.lab-action .lab-hover-popup-op.item-show-name {
+	top: auto;
+	bottom: 0;
 }
 
 .lab-action > span {
-    display:none;
-    position:absolute;
-    background-color: $d-primary-color;
-    color: $ll-primary-color;
-    padding: 10px;
-    border-radius:4px;
-    bottom:100%;
-    width:max-content;
-    min-width:100%;
-    border: 2px solid black;
-    border-top-width:1px;
+	display: none;
+	position: absolute;
+	background-color: $d-primary-color;
+	color: $ll-primary-color;
+	padding: 10px;
+	border-radius: 4px;
+	bottom: 100%;
+	width: max-content;
+	min-width: 100%;
+	border: 2px solid black;
+	border-top-width: 1px;
 }
 
-.lab-action:hover > span{
-    display:inline-block;
-    
+.lab-action:hover > span {
+	display: inline-block;
 }
 
-.lab-action:active > span{
-    display:none;
+.lab-action:active > span {
+	display: none;
 }
 
-.item-options {
-    position:absolute;
-    width:max-content;
-    display:none;
-    top:100%;
-    min-width:100%; 
-    padding: 10px;
-    border-radius:4px;
-    margin:auto;
-    background-color: $d-primary-color;
-    color: $ll-primary-color;
+.iteem-options {
+	display: none;
+	top: 100%;
+	min-width: 100%;
+	padding: 10px;
+	border-radius: 4px;
+	margin: auto;
+	color: $ll-primary-color;
 }
 .item-options:hover {
-    display:inline-block;
+	display: inline-block;
 }
 
-.lab-action:hover .item-options, #examiner .item-options, #examiner .item-show-name {
-    display:inline-block;
+.lab-action:hover .item-options,
+#examiner .item-options {
+	display: inline-block;
 }
 
 .item-options .lab-action > span {
-    z-index:1000;
-    overflow:visible;
+	z-index: 1000;
+	overflow: visible;
 }
 
 #examiner .drag-item.lab-action {
-    margin:30px 0;
 }
 
 .content-display {
-    position:absolute;
-    background-color: $d-primary-color;
-    color: $ll-primary-color;
-    padding: 10px;
-    border-bottom-left-radius:4px;
-    right:0;
-    
+	position: absolute;
+	background-color: $d-primary-color;
+	color: $ll-primary-color;
+	padding: 10px;
+	border-bottom-left-radius: 4px;
+	right: 0;
 }
 
 .ttip {
-    position:absolute;
-    background-color: $d-primary-color;
-    color: $ll-primary-color;
-    padding: 10px;
-    bottom:0;
-    right:0;
-    border-radius:10px;
-    display:none;
+	position: absolute;
+	background-color: $d-primary-color;
+	color: $ll-primary-color;
+	padding: 10px;
+	bottom: 0;
+	right: 0;
+	border-radius: 10px;
+	display: none;
 }
 
 .ttiphover:hover > .ttip {
-    display:block;
+	display: block;
 }
 
 .ttiphover > h1 {
-    background: $d-primary-color;
-    display:inline-block;
-    padding:10px;
-    font-size:32px;
-    width:52px;
-    border-radius:50%;
+	background: $d-primary-color;
+	display: inline-block;
+	padding: 10px;
+	font-size: 32px;
+	width: 52px;
+	border-radius: 50%;
 }
 
-.ttipalt > h1{
-    display:inline-block;
-    font-family: $textFont;
+.ttipalt > h1 {
+	display: inline-block;
+	font-family: $textFont;
 }
 
 .ttipalt:hover > .ttip {
-    display:block;
-    width:100%;
+	display: block;
+	width: 100%;
 }
 
-
 #gameMessage {
-    position:absolute;
-    display:block;
-    bottom:32px;
-    width:80%;
-    margin:20px 10%;
-    text-align:center;
-    z-index:100;
-    background-color:$l-primary-color;
-    border:6px outset $d-primary-color;
-    padding:8px;
-    border-radius:20px;
+	position: absolute;
+	display: block;
+	bottom: 32px;
+	width: 80%;
+	margin: 20px 10%;
+	text-align: center;
+	z-index: 100;
+	background-color: $l-primary-color;
+	border: 6px outset $d-primary-color;
+	padding: 8px;
+	border-radius: 20px;
 }
 
 #gameMessage .fas {
-    border-radius:50%;
-    border:2px solid $dark-color;
-    padding:4px;
-    cursor: pointer;
+	border-radius: 50%;
+	border: 2px solid $dark-color;
+	padding: 4px;
+	cursor: pointer;
 }
 
-
 .admin-bar {
-    background-color: $ll-primary-color;
-    border-bottom:4px solid $dd-primary-color;
+	background-color: $ll-primary-color;
+	border-bottom: 4px solid $dd-primary-color;
 }
