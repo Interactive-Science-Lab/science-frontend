@@ -17,6 +17,7 @@ Then "display"      and      "form"        both include 2 views;
 var ALL = "all",
     //==Target specific users== 
     MOD = "mod", ADMIN = "admin", LOGGEDIN = "logged_in", NOUSER = 'no_user', NONE = "none", SELF = "self",
+    WEBMASTER = 'webmaster',
 
     //==Action / view list==
     //Display is the 'category' for index & view
@@ -41,9 +42,11 @@ var ALL = "all",
 
 
 export class PermissionSetting {
-    constructor(string) {
+    constructor(data) {
+        console.log(data)
         this.permissionObject = {}
-        this.setPermissions(string)
+        this.id = data.permisssion_id
+        this.setPermissions(data.all)
     }
 
     setPermissions = (string) => {
@@ -52,6 +55,9 @@ export class PermissionSetting {
             case null:
             case undefined:
                 this.setPermission(ALL, ALL)
+                break;
+            case NONE:
+                this.setPermission(ALL, NONE)
                 break;
             case CONTENT:
                 this.setPermission(DISPLAY, ALL)
@@ -68,6 +74,9 @@ export class PermissionSetting {
                 break;
             case LOGGEDIN:
                 this.setPermission(ALL, LOGGEDIN)
+                break;
+            case WEBMASTER:
+                this.setPermission(ALL, WEBMASTER)
                 break;
             case ADMIN:
                 this.setPermission(ALL, ADMIN)
@@ -111,7 +120,7 @@ export class PermissionSetting {
                 this.setPermission(ALL, NOUSER)
                 break;
             default:
-                throw new Error("ASTEROID: Unknown permissions type.")
+                throw new Error(`ASTEROID: Unknown permissions type, "${string}"`)
         }
 
     }
@@ -191,8 +200,10 @@ export class Permission {
             case ALL:
                 return true;
             case MOD:
-                return curr_user?.user_role >= 2 && curr_user.user_kind === 'admin_user'
+                return false
             case ADMIN:
+                return curr_user.user_kind === 'admin_user'
+            case WEBMASTER:
                 return curr_user?.user_role === 3 && curr_user.user_kind === 'admin_user'
             case LOGGEDIN:
                 return curr_user

@@ -1,4 +1,5 @@
 import MenuOption from "./menuOption"
+import {PermissionSetting} from "./permission"
 import { menuOptions } from "site/siteSettings"
 import Component from './componentClass/component'
 
@@ -10,6 +11,7 @@ export default class Site {
     constructor() {
         this.components = []
         this.menu = []
+        this.permissions = []
         this.initializeMenu()
     }
 
@@ -77,6 +79,10 @@ export default class Site {
                 return menuOption
             }
         }
+    }
+
+    addPermissionType = (data) => {
+        this.permissions.push(new PermissionSetting(data))
     }
 
     getCategory = (category) => {

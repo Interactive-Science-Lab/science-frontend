@@ -39,7 +39,7 @@ class App extends React.Component {
 			res = res.data
 			res.resources.map(resource => site.addComponent(resource) )
 			res.menuOptions.map(menuOpt => site.addToMenu(menuOpt) )
-			console.log(res)
+			res.permissions.map(perm => site.addPermissionType(perm) )
 			this.setState({ site, resources: res.resources, menuOptions: res.menuOptions, permissions: res.permissions, loading: false })
 		})
 	}
