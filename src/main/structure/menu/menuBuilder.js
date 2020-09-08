@@ -6,7 +6,8 @@ import { apiPath } from 'helpers/api'
 import { menuOptions } from 'site/siteSettings'
 
 import MenuDropdown from './menuDropdownLink'
-import site from 'site/appComponents'
+
+import { UserContext } from 'main/asteroid/contexts/userContext'
 
 /*
   This file is responsible for determining & displaying the menu.
@@ -20,8 +21,8 @@ import site from 'site/appComponents'
 */
 
 class Menu extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.state = {}
   }
 
@@ -29,12 +30,12 @@ class Menu extends React.Component {
   componentDidMount = async () => {
     if (menuOptions.showPages) {
       const pages = await axios.get(apiPath('/pages/menu'))
-      site.addPagesToMenu(pages.data)
+      this.context.site.addPagesToMenu(pages.data)
     }
   }
 
   render = () => {
-    const menuStructure = site.getMenu()
+    const menuStructure = this.context.site.getMenu()
 
     return <div className={`${this.props.showMenu ? "mobile-menu-show" : "mobile-menu-hide"}`}>
       {menuStructure.map(menuOption =>
@@ -44,4 +45,5 @@ class Menu extends React.Component {
   }
 }
 
+Menu.contextType = UserContext
 export default withRouter(Menu);

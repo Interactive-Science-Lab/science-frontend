@@ -1,31 +1,38 @@
 import { curr_user } from 'helpers/api'
 
 /* 
-PERMISSION SETTING controls who can see what versions of information.
+PERMISSIONS control who can see what versions of information.
 
-The object really only has one field, which can store "rules" or Permission class instances based on the action or view
+The info is pulled from the backend and these objects are created.
 
-There's 7 possible "action/views"- and they follow a specificity flow- 
-Most general is "all"- chich refers to, well, all.
-Then "display"      and      "form"        both include 2 views;
-"index" & "view"     +    "new" & "edit"       respectively
+The Permission Setting has a Object field which controls the visibility for each actions.
+
+There's 7 possible "actions"- and they follow a specificity flow- 
+
+Most general is "ALL"- chich refers to, well, all.
+Then "DISPLAY"      and      "FORM"        both include 2 views;
+"INDEX" & "VIEW"     +    "NEW" & "EDIT"       respectively.
 
 
 */
 
-//All is used for both targeting users & actions
-var ALL = "all",
-    //==Target specific users== 
-    MOD = "mod", ADMIN = "admin", LOGGEDIN = "logged_in", NOUSER = 'no_user', NONE = "none", SELF = "self",
+    //All is used for both targeting users & actions
+    var ALL = "all",
+    NONE = "none",
+
+    //!!==Target specific users== 
+    NOUSER = 'no_user',
+    LOGGEDIN = "logged_in",
+    SELF = "self",
+    MOD = "mod", ADMIN = "admin",    
     WEBMASTER = 'webmaster',
 
-    //==Action / view list==
-    //Display is the 'category' for index & view
-    DISPLAY = "display", INDEX = "index", VIEW = "view",
-    //Form is the 'category' for edit & new
-    FORM = "form", EDIT = "edit", NEW = "new", DELETE = 'delete',
+    //!!==Action list==
+    DISPLAY = "display", INDEX = "index", VIEW = "view", 
+    FORM = "form", EDIT = "edit", NEW = "new", 
+    DELETE = 'delete',
 
-    //==Quick Permission settings==
+    //!!==Quick Permission settings==
     //admin, mod, loggedin, nouser
     CONTENT = 'content', //Mod edit, all view
     SUBMIT = 'submit', //All submit, mod view
@@ -43,9 +50,8 @@ var ALL = "all",
 
 export class PermissionSetting {
     constructor(data) {
-        console.log(data)
         this.permissionObject = {}
-        this.id = data.permisssion_id
+        this.permission_id = data.permission_setting_id
         this.setPermissions(data.all)
     }
 
@@ -202,7 +208,7 @@ export class Permission {
             case MOD:
                 return false
             case ADMIN:
-                return curr_user.user_kind === 'admin_user'
+                return curr_user?.user_kind === 'admin_user'
             case WEBMASTER:
                 return curr_user?.user_role === 3 && curr_user.user_kind === 'admin_user'
             case LOGGEDIN:

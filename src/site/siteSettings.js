@@ -50,10 +50,10 @@ export const menuOptions = {
         {displayName: "Blog Posts", categoryName: "Blogs", symbol: "comments", permission:  "all"},
     ],
     customMenuStructure: [
-        {name: "Visit The Lab", permission:  "logged_in", symbol: "star", link: "/lab", order: 1},
-        {name: "Experiments", permission:  "admin", symbol: "user", order: 2, link: '/experiments'},
-        {name: "Login", permission:  "no_user", symbol: "user", order: 1, link: '/auth/login'},
-        {name: "Logout", permission:  'logged_in', link: '/auth/logout', symbol: "sign-out-alt", order: 5},
+        {displayText: "Visit The Lab", permission_id:  7, symbol: "star", link: "/lab", order: 1},
+        {displayText: "Experiments", permission_id:  4, symbol: "user", order: 2, link: '/experiments'},
+        {displayText: "Login", permission_id:  6, symbol: "user", order: 1, link: '/auth/login'},
+        {displayText: "Logout", permission_id:  7, link: '/auth/logout', symbol: "sign-out-alt", order: 5},
     ],
     menuCategories: [
         /*{name: "Help and Support", symbol: "newspaper", permission:  "all", order: 2},

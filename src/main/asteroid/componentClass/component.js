@@ -39,15 +39,20 @@ The loader pretty much sets what "default" options are set when you first go a p
 
 export default class Component {
 
-    constructor(data) {
-        this.permissions = new PermissionSetting('content')
+    constructor(data, site) {
+        //Finds the permission from the incoming site and stores it here.
+        this.permissions = site.findPermissionById( data.permission_id || 1)
+
         this.customDisplay = {}
         
+        //Set the id.
+        this.component_id = data.resource_id
 
+        //Directly copy over all of the incoming data.
         Object.entries(data).map(obj => this[obj[0]] = obj[1])
         
+        //Map over and add the fieldList.
         this.fields.fieldList = []
-
         data.fields.list.map(f => this.addField(f.name, f))
 
         this.options = {
@@ -63,6 +68,7 @@ export default class Component {
         }
         
         this.text = data.text || {}
+        
         /*
         const plural = options.plural || baseName + 's'
         const upper = options.upper || baseName.charAt(0).toUpperCase() + baseName.substring(1);

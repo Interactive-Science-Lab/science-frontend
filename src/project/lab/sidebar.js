@@ -3,6 +3,7 @@ import { NavLink, withRouter, Link } from 'react-router-dom'
 import axios from 'axios'
 import labSettings from './classes/fields'
 import api from 'helpers/api'
+import { curr_user } from 'helpers/api'
 
 class Header extends React.Component {
     constructor(props) {
@@ -56,7 +57,9 @@ class Header extends React.Component {
         return <div>
             {item.experiment_id ? <div>
             
-            <NavLink to="/" style={{ background: 'none' }}>Back to Home</NavLink>
+            <NavLink to="/" style={{ background: 'none' }}>Logout</NavLink>
+            
+
             <NavLink to={`/lab?l=${labKind}`} style={{ background: 'none' }}>Back To Experiments</NavLink>
             <h2 style={{ color: "white" }}>{item.experiment_name }</h2>
             <p><i style={{ color: "grey", textAlign: "left" }}>{item.experiment_description}</i></p>
@@ -79,7 +82,7 @@ class Header extends React.Component {
 
             : <div>
 
-            <NavLink to="/" style={{ background: 'none', display: 'block' }}>Back to Home</NavLink>{items.length > 0 ? <div>
+            <NavLink to="/" style={{ background: 'none', display: 'block' }}>Logout</NavLink>{items.length > 0 ? <div>
                 <p style={{ color: "grey" }}>Please choose an experiment for further instructions.</p>
                 
                 {
