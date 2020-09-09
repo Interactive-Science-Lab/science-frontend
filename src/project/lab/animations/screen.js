@@ -115,6 +115,21 @@ class Screen extends React.Component {
         return { top: `${Math.round((p[1] / d[1]) * 100)}%`, left: `${Math.round((p[0] / d[0]) * 100)}%` }
     }
 
+    offsetSpriteCoordinates = () => {
+        let p = [...this.state.position]
+        let d = this.state.dimensions
+        let s = this.state.speed
+        let size = this.state.objectSize
+
+        if(s[0] > 0) { p[1] = p[1] + (3*size[1]) }
+        if(s[0] < 0) { p[1] = p[1] + (3*size[1]) }
+        if(s[1] > 0) { p[0] = p[0] + (3*size[0]) }
+        if(s[1] < 0) { p[0] = p[0] + (3*size[0]) }
+
+
+        return { top: `${Math.round((p[1] / d[1]) * 100)}%`, left: `${Math.round((p[0] / d[0]) * 100)}%` }
+    }
+
     render() {
         let width = this.state.objectSize[0] * 100 / this.state.dimensions[0]
         let height = this.state.objectSize[1] * 100 / this.state.dimensions[1]
@@ -133,9 +148,10 @@ class Screen extends React.Component {
             display: 'inline-block'
         }
 
-        console.log(this.state)
-
         return <div style={{ width: 'min-content', background: 'linear-gradient(#c9dce5 0%, #9ACDE7 10%, #9ACDE7 90%, #5e8da5 100%)', borderRadius: '4px', border: '2px outset #333', padding: '20px' }} >
+            
+            { width < 5 && height < 5 ? <div>The object is too small to see! Find the bullseye.</div> : "" }
+
             <div style={{
                 width: '480px',
                 height: '320px',
@@ -146,6 +162,25 @@ class Screen extends React.Component {
                 border: '2px inset #444',
                 borderRadius: '4px'
             }} >
+
+
+
+            { width < 5 && height < 5 ? <div>
+            { this.state.speed[0] === 0 && this.state.speed[1] === 0 ? "":     
+                <div style={{
+                    position: 'absolute',
+                    ...this.offsetSpriteCoordinates(),
+                    width: `32px`,
+                    height: `32px`,
+
+
+                    backgroundImage: (this.state.end && this.state.altEndSprite) ?
+                        "" : `url(${`/images/${this.state.sprite || 'marble-purple.png'}`})`,
+                    backgroundSize: this.state.specialSprite === 'stretch' ? '100% 100%' : 'contain',
+                    backgroundRepeat: 'no-repeat'
+
+                }} >
+                </div> } </div> : ""}
 
 
                 <div style={{
@@ -162,10 +197,6 @@ class Screen extends React.Component {
                     backgroundRepeat: 'no-repeat'
 
                 }} >
-
-
-
-
 
 
 
@@ -198,7 +229,11 @@ class Screen extends React.Component {
                             }}
                             ></span> :
 
-                            ((width < 2 || height < 2) ? <span style={{ display: 'block', marginTop: '-8px', color: 'red', opacity: '.7' }}>o</span> : "")
+                            ((width < 2 || height < 2) ? 
+                            
+                            <span style={{ display: 'block', marginTop: '-8px', color: 'red', backgroundColor: 'white', borderRadius: '100%', height: '12px', width: '12px', border: "4px solid red" }}></span> 
+                            
+                            : "")
 
                         )}
 
