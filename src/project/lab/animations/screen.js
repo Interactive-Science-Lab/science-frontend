@@ -5,11 +5,15 @@ import { FRAMERATE, FRAMERATIO } from './experimentInfo'
 class Screen extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { ...this.handleProps(props) }
+        this.state = { ...this.handleProps(props)
+    
+    }
     }
 
     handleProps = (props) => {
-        return { ...props, frameCount: 0, play: false, end: false, resetData: JSON.stringify(props) }
+        return { ...props, frameCount: 0, play: false, end: false, resetData: JSON.stringify(props),
+            endSound:  (props.endSound ? new soundEffect(props.endSound) : null),
+            startSound:  (props.startSound ? new soundEffect(props.startSound) : null)  }
     }
 
     setProps = (props) => {
@@ -47,6 +51,7 @@ class Screen extends React.Component {
     toggleAnimation = () => {
         let newPlay = !this.state.play
         this.setState({ play: newPlay },)
+        if(newPlay && this.state.startSound) { this.state.startSound.play() }
        // this.props.hideCallback(!newPlay)
     }
 
@@ -68,6 +73,7 @@ class Screen extends React.Component {
                 position = this.moveSprite()
                 setTimeout(() => { this.setState({ position, speed, frameCount }) }, FRAMERATE);
             } else {
+                if(this.state.endSound) { this.state.endSound.play() }
                 if (frameCount * FRAMERATIO > maxTime) {
                     let dleft = stop[1] - position[1]
                     let tleft = dleft / this.state.speed[1]
@@ -261,3 +267,18 @@ var arraysMatch = function (arr1, arr2) {
 
 
 
+function soundEffect(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    this.sound.volume = .1
+    document.body.appendChild(this.sound);
+    this.play = function(){
+      this.sound.play();
+    }
+    this.stop = function(){
+      this.sound.pause();
+    }
+  }

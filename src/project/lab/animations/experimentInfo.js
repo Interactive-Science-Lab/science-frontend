@@ -19,20 +19,23 @@ let car = {
             optionName: "Speed",
             optionSelections: [
                 { name: "Slow", settings: { maxSpd: 10, acceleration: [2, 0]
-                    , sprite: "car-speed-1.png", background: "car-track-1.png" } },
+                    , sprite: "car-speed-1.png", background: "car-track-1.png",
+                    startSound: "/sounds/car slow.wav", } },
                 {
                     name: "Fast", settings: {
                         maxSpd: 27,
                         dimensions: [300, 150],
                         acceleration: [6, 0],
-                        position: [0, 75], sprite: "car-speed-3.png", background: "car-track-3.png"
+                        position: [0, 75], sprite: "car-speed-3.png", background: "car-track-3.png",
+                        startSound: "/sounds/car fast.wav"
                     }
                 },
                 {
                     name: "Very Fast", settings: {
                         maxSpd: 100, acceleration: [16, 0],
                         dimensions: [1000, 500],
-                        position: [0, 250], sprite: "car-speed-5.png", background: "car-track-5.png"
+                        position: [0, 250], sprite: "car-speed-5.png", background: "car-track-5.png",
+                        startSound: "/sounds/car vfast.wav"
                     }
                 },
             ]
@@ -45,6 +48,8 @@ let balloon = {
     data: {
         sprite: "balloon.png",
         endSprite: "small-explosion.gif",
+        startSound: "/sounds/dropwater.wav",
+        endSound: "/sounds/explosion.wav",
         dimensions: [50, 100],
         position: [25, 0],
         objectSize: [1, 1],
@@ -393,7 +398,6 @@ let metalBall = {
     data: {
         sprite: "metalball-obj.png",
         background: "wall-bg.png",
-        altEndSprite: ".png",
         dimensions: [6, 4.5],
         objectSize: [1, 1],
         position: [0, 2],
@@ -428,21 +432,24 @@ let metalBall = {
                     name: "Bowling Ball", settings: {
                         acceleration: [26, 0],
                         objectSize: [.25, .25],
-                        altEndSprite: "wall-crack.png"
+                        altEndSprite: "wall-crack.png",
+                        endSound: "/sounds/drop.wav",
                     }
                 },
                 {
                     name: "Sm Wrecking Ball", settings: {
                         acceleration: [20, 0],
                         objectSize: [.5, .5],
-                        altEndSprite: "wall-crack.png"
+                        altEndSprite: "wall-crack.png",
+                        endSound: "/sounds/drop.wav",
                     }
                 },
                 {
                     name: "Lg Wrecking Ball", settings: {
                         acceleration: [16, 0],
                         objectSize: [1, 1],
-                        altEndSprite: "wll-crack.gif"
+                        altEndSprite: "wll-crack.gif",
+                        endSound: "/sounds/brick-crumble.wav",
                     }
                 },
             ]

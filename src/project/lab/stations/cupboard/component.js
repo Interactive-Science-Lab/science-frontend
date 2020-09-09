@@ -10,15 +10,19 @@ class ExperimentLab extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            openNum: 0
+            openNum: 0,
+            openSound: new soundEffect("sounds/drawerOpen.wav"),
+            closeSound: new soundEffect("sounds/drawerClose.wav"),
         }
     }
 
     selectNum = (num) => {
         if(num === this.state.openNum) {
             this.setState({openNum: 0})
+            this.state.closeSound.play()
         } else {
             this.setState({openNum: num})
+            this.state.openSound.play()
         }
     }
 
@@ -49,3 +53,19 @@ class ExperimentLab extends React.Component {
 
 ExperimentLab.contextType = LabContext
 export default ExperimentLab
+
+function soundEffect(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    this.sound.volume = .01
+    document.body.appendChild(this.sound);
+    this.play = function(){
+      this.sound.play();
+    }
+    this.stop = function(){
+      this.sound.pause();
+    }
+  }
