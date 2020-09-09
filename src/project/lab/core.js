@@ -63,7 +63,7 @@ class ExperimentLab extends React.Component {
 
         this.setState({ masterItemList: { objects, containers, substances, tools } })
         this.setExperiment();
-        //this.toggleMusic();
+        this.toggleMusic();
 
         
 
