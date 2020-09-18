@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { Redirect } from "react-router-dom";
 import { withRouter } from 'react-router';
 import Home from '../../site/home';
 import FourOhFour from './404Component'
@@ -37,6 +38,21 @@ function Body(props) {
 					</div>
 				</div>
 			</Route>
+
+			<Route path="/chemistry">
+				<Redirect to="/auth/login"></Redirect>
+			</Route>
+			
+			<Route path="/physics">
+				<Redirect to="/auth/login"></Redirect>
+			</Route>
+
+
+			<Route path="/biology">
+				<Redirect to="/auth/login"></Redirect>
+			</Route>
+
+
 
 			{/* CUSTOM ROUTES */}
 			<Route path="/lab/:id?">

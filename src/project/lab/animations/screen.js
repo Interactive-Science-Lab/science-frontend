@@ -201,7 +201,20 @@ class Screen extends React.Component {
 
 
 
-                    {this.state.end && this.state.altEndSprite ?
+                    {this.state.end && this.state.altEndSprite2 ?
+                        <span style={{
+                            display: 'block',
+                            marginTop: (width < .5 || height < .5) ? '-8px' : '0%',
+                            marginLeft: (width < .5 || height < .5) ? '-8px' : '0%',
+                            backgroundPosition:'right',
+                            opacity: '1',
+                            backgroundImage: `url(${`/images/${this.state.altEndSprite2 || ''}?a={${Math.random()}`})`,
+                            backgroundSize: 'contain',
+                            backgroundRepeat: 'no-repeat',
+                            width: (width < .5 || height < .5) ? '16px' : `100%`,
+                            height: (width < .5 || height < .5) ? '16px' : `100%`
+                        }}></span> :
+                        (this.state.end && this.state.altEndSprite ?
                         <span style={{
                             display: 'block',
                             marginTop: (width < .5 || height < .5) ? '-8px' : '-50%',
@@ -235,7 +248,7 @@ class Screen extends React.Component {
                             
                             : "")
 
-                        )}
+                        ))}
 
                 </div>
 

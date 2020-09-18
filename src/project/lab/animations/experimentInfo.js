@@ -46,7 +46,7 @@ let car = {
 
 let balloon = {
     data: {
-        sprite: "balloon.png",
+        sprite: "metalball-obj.png",
         endSprite: "small-explosion.gif",
         startSound: "/sounds/dropwater.wav",
         endSound: "/sounds/explosion.wav",
@@ -114,6 +114,7 @@ let momentum = {
     //5 objects 
     data: {
         sprite: "metalball-obj.png",
+        altEndSprite2: "small-explosion.gif",
         background: "inside-track.png",
         dimensions: [25, 18],
         position: [0, 12],
@@ -136,18 +137,18 @@ let momentum = {
                 {
                     name: "Bike", settings: {
                         objectSize: [2, 1.5],
-                        speed: [7.5, 0],
+                        speed: [8, 0],
                         position: [0, 12],
-                        mass: '50',
+                        mass: '11.2',
                         sprite: "bike-moment.png"
                     }
                 },
                 {
                     name: "Truck", settings: {
                         objectSize: [5, 3],
-                        speed: [20, 0],
+                        speed: [19, 0],
                         position: [-3, 11],
-                        mass: '500',
+                        mass: '2742.6',
                         sprite: "truck-moment.png"
                     }
                 },
@@ -155,34 +156,34 @@ let momentum = {
                 {
                     name: "Baseball", settings: {
                         objectSize: [.1, .1],
-                        speed: [45, 0],
+                        speed: [35, 0],
                         position: [1.9, 11],
-                        mass: '.3'
+                        mass: '.1'
                     }
                 },
 
                 {
                     name: "Train", settings: {
                         objectSize: [16, 5],
-                        speed: [12, 0],
+                        speed: [13, 0],
                         position: [-14, 9],
-                        mass: '5000',
+                        mass: '24942.9',
                         sprite: "train-moment.png"
                     }
                 },
                 {
                     name: "Bowling Ball", settings: {
                         objectSize: [.3, .3],
-                        speed: [8, 0],
+                        speed: [7.5, 0],
                         position: [1.7, 11],
-                        mass: '12'
+                        mass: '4.6'
                     }
                 },
                 {
                     name: "Compact Car", settings: {
                         objectSize: [4, 1.75],
-                        speed: [30, 0],
-                        mass: '300',
+                        speed: [18, 0],
+                        mass: '465.4',
                         sprite: "car-moment.png"
                     }
                 },
