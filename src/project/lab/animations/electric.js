@@ -5,7 +5,13 @@ class Boat extends React.Component {
         super(props)
         this.state = {
             currentWire: 3,
-            currentVolts: 100
+            currentVolts: 100,
+            soundVHi: new soundEffect('sounds/e-vhi.wav'),
+            soundHi: new soundEffect('sounds/e-hi.wav'),
+            soundMid: new soundEffect('sounds/e-mid.wav'),
+            soundLo: new soundEffect('sounds/e-low.wav'),
+            currentSound: {}
+
         }
     }
 
@@ -22,12 +28,16 @@ class Boat extends React.Component {
 
         if (a >= 300) {
             suffix = "-big-sparks.gif"
+            this.state.soundVHi.play()
         } else if (a >= 200 && a <= 300) {
             suffix = "-sparks.gif"
+            this.state.soundVHi.play()
         } else if (a >= 100 && a < 200) {
             suffix = '-wire-glow.gif'
+            this.state.soundVHi.play()
         } else {
             suffix = '-wire.gif'
+            this.state.soundVHi.play()
         }
 
         return wire + suffix
@@ -84,3 +94,19 @@ class Boat extends React.Component {
 }
 
 export default Boat
+
+function soundEffect(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    this.sound.volume = .1
+    document.body.appendChild(this.sound);
+    this.play = function(){
+      this.sound.play();
+    }
+    this.stop = function(){
+      this.sound.pause();
+    }
+  }

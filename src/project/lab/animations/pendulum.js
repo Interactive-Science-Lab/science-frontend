@@ -155,10 +155,10 @@ class Pendulum extends React.Component {
             <br />
             <div style={{ backgroundColor: '#69C', borderRadius: '20px', border: '2px outset #333', margin: '10px 0' }}>
                 <b>Change Length</b><br />
-            <span style={{...xStyle, fontWeight: this.state.chosenLength === 25 ? "bold" : "" }} onClick={this.changeLength} data-choice={25}> 25 </span>
-                <span  style={{...xStyle, fontWeight: this.state.chosenLength === 50 ? "bold" : "" }} onClick={this.changeLength} data-choice={50}> 50 </span>
-                <span  style={{ ...xStyle,fontWeight: this.state.chosenLength === 100 ? "bold" : "" }} onClick={this.changeLength} data-choice={100}> 100 </span>
-                <span  style={{...xStyle, fontWeight: this.state.chosenLength === 200 ? "bold" : "" }} onClick={this.changeLength} data-choice={200}> 200 </span>
+            <span style={{...xStyle, fontWeight: this.state.chosenLength === 25 ? "bold" : "" }} onClick={this.changeLength} data-choice={25}> 25cm </span>
+                <span  style={{...xStyle, fontWeight: this.state.chosenLength === 50 ? "bold" : "" }} onClick={this.changeLength} data-choice={50}> 50cm </span>
+                <span  style={{ ...xStyle,fontWeight: this.state.chosenLength === 100 ? "bold" : "" }} onClick={this.changeLength} data-choice={100}> 100cm </span>
+                <span  style={{...xStyle, fontWeight: this.state.chosenLength === 200 ? "bold" : "" }} onClick={this.changeLength} data-choice={200}> 200cm </span>
             </div>
         </div>
     }
