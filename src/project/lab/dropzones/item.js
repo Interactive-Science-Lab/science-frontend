@@ -53,7 +53,7 @@ class ItemComponent extends React.Component {
         let record = item.record
         return <div className="">
             <div className='item-name'>
-                {(item.name === "Blood Antibody Card") || (item.name === "Petri Dish With Agar (A)") || (item.name === "Petri Dish With Agar (B)") ?
+                {(item.name === "Blood Antibody Card") || (item.name === "Petri Dish With Bacteria A") || (item.name === "Petri Dish With Bacteria B") ?
 
                     <img
                         draggable={false}
