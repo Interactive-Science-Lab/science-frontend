@@ -53,7 +53,6 @@ function Home(props) {
 							<Link className="nice-button" to={`/lab?l=${['', 'chemistry', 'biology', 'physics'][curr_user.user_role]}`}>
 								<h3>Go To {curr_user.user_kind === 'end_user' ? ['', 'Chemistry',  'Biology', 'Physics'][curr_user.user_role] + ' ' : ''}Lab</h3>
 							</Link><br />
-							<Link className="nice-button" to='/pages/4'><h3>Help</h3></Link><br />
 							{ curr_user.user_kind === 'admin_user' ? <div>
 							<Link className="nice-button" to='/experiments'><h3>Admin Settings</h3></Link></div> : ""}
 							<Link className="nice-button" to='/auth/logout'><h3>Logout</h3></Link>

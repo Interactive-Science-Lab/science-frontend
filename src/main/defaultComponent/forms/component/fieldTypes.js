@@ -50,6 +50,7 @@ class FormFields extends React.Component {
             case 'object':
                 return <ObjectField component={this} />
             case 'array':
+            case "Array":
                 return <ArrayField component={this} />
             case 'reference':
                 return field.settings.referenceType === 'select' ? "REFERENCE SELECT COMING SOON" : null

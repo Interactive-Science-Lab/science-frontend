@@ -11,8 +11,8 @@ class ExperimentLab extends React.Component {
         super(props)
         this.state = {
             openNum: 0,
-            openSound: new soundEffect("sounds/drawerOpen.wav"),
-            closeSound: new soundEffect("sounds/drawerClose.wav"),
+            openSound: new soundEffect("sounds/draweropen.wav"),
+            closeSound: new soundEffect("sounds/drawerclose.wav"),
         }
     }
 
@@ -60,7 +60,7 @@ function soundEffect(src) {
     this.sound.setAttribute("preload", "auto");
     this.sound.setAttribute("controls", "none");
     this.sound.style.display = "none";
-    this.sound.volume = .01
+    this.sound.volume = .5
     document.body.appendChild(this.sound);
     this.play = function(){
       this.sound.play();

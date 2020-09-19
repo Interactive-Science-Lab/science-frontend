@@ -16,7 +16,7 @@ export default {
         backgroundImage: "background-bio.png",
         drawerList: [
             ['Microscopic Specimens', 'objects', ["Cell in Osmosis", "Cell in Diffusion", "Petri Dish With Agar (A)", "Petri Dish With Agar (B)", "Cell in Mitosis", "Mitochondrian Environment"]],
-            ['Fluid Specimens', 'objects', ["Blood Anitbody Card", "Urine Sample", ]],
+            ['Fluid Specimens', 'objects', ["Blood Antibody Card", "Urine Sample", ]],
             ['Animal Specimens', 'objects', ['Frog', 'Worm']],
             ['Dissection Tools', 'tools', ["Forceps", "Scalpel", "Dissection Tray"]],
             ['Test Kits', 'objects', ["A Protein (DNA)", "T Protein (DNA)", "C Protein (DNA)", "U Protein (RNA)", "A Protein (RNA)", "G Protein (RNA)", ]],

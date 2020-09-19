@@ -2,7 +2,7 @@ import React from 'react'
 
 export const siteOptions = {
     backendLive: true,
-    displayFooter: true
+    displayFooter: false
 }
 
 export const localBeLink = `http://localhost:4001/api` 

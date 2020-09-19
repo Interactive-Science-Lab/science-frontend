@@ -150,7 +150,7 @@ class Screen extends React.Component {
 
         return <div style={{ width: 'min-content', background: 'linear-gradient(#c9dce5 0%, #9ACDE7 10%, #9ACDE7 90%, #5e8da5 100%)', borderRadius: '4px', border: '2px outset #333', padding: '20px' }} >
             
-            { width < 5 && height < 5 ? <div>The object is too small to see! Find the bullseye.</div> : "" }
+            {/* width < 5 && height < 5 ? <div>The object is too small to see! Find the bullseye.</div> : "" */}
 
             <div style={{
                 width: '480px',

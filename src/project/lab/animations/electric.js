@@ -4,7 +4,7 @@ class Boat extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            currentWire: 1,
+            currentWire: 3,
             currentVolts: 100
         }
     }
@@ -25,9 +25,9 @@ class Boat extends React.Component {
         } else if (a >= 200 && a <= 300) {
             suffix = "-sparks.gif"
         } else if (a >= 100 && a < 200) {
-            suffix = '-wire-glow.png'
+            suffix = '-wire-glow.gif'
         } else {
-            suffix = '-wire.png'
+            suffix = '-wire.gif'
         }
 
         return wire + suffix
@@ -57,21 +57,26 @@ class Boat extends React.Component {
             display: 'inline-block'
         }
 
+
+
         return <div style={{ width: '480px' }}>
             <img src={`/images/${this.calculateEffect()}`} height='320px' width='480px' />
 
 
 
             <div style={{ backgroundColor: '#69C', borderRadius: '20px', border: '2px outset #333', margin: '10px 0' }}>
-                <b>Change Wire</b> <span style={{...xStyle, fontWeight: this.state.currentWire === 1 ? "bold" : "" }} onClick={this.changeWire} data-choice={1}> Thin </span>
-                <span style={{...xStyle, fontWeight: this.state.currentWire === 2 ? "bold" : "" }} onClick={this.changeWire} data-choice={2}> Mid </span>
-                <span style={{...xStyle, fontWeight: this.state.currentWire === 3 ? "bold" : "" }} onClick={this.changeWire} data-choice={3}> Thick </span>
-            </div>
+                <b>Resistance (Ohms)</b> 
+                <span style={{...xStyle, fontWeight: this.state.currentWire === 3 ? "bold" : "", textDecoration: this.state.currentWire === 3 ? "underline" : "", color: this.state.currentWire === 3 ? "white" : "#9ACDE7" }} onClick={this.changeWire} data-choice={3}> 6 </span>
+                <span style={{...xStyle, fontWeight: this.state.currentWire === 2 ? "bold" : "", textDecoration: this.state.currentWire === 2 ? "underline" : "", color: this.state.currentWire === 2 ? "white" : "#9ACDE7" }} onClick={this.changeWire} data-choice={2}> 8 </span>
+        
+                
+                <span style={{...xStyle, fontWeight: this.state.currentWire === 1 ? "bold" : "", textDecoration: this.state.currentWire === 1 ? "underline" : "", color: this.state.currentWire === 1 ? "white" : "#9ACDE7" }} onClick={this.changeWire} data-choice={1}> 12 </span>
+                     </div>
 
             <div style={{ backgroundColor: '#69C', borderRadius: '20px', border: '2px outset #333', margin: '10px 0' }}>
-                <b>Change Volts</b> <span style={{...xStyle, fontWeight: this.state.currentVolts === 100 ? "bold" : "" }} onClick={this.changeVolts} data-choice={100}> Low </span>
-                <span style={{...xStyle, fontWeight: this.state.currentVolts === 200 ? "bold" : "" }} onClick={this.changeVolts} data-choice={200}> Mid </span>
-                <span style={{...xStyle, fontWeight: this.state.currentVolts === 300 ? "bold" : "" }} onClick={this.changeVolts} data-choice={300}> High </span>
+                <b>Volts</b> <span style={{...xStyle, fontWeight: this.state.currentVolts === 100 ? "bold" : "", textDecoration: this.state.currentVolts === 100 ? "underline" : "", color: this.state.currentVolts === 100 ? "white" : "#9ACDE7" }} onClick={this.changeVolts} data-choice={100}> 60 </span>
+                <span style={{...xStyle, fontWeight: this.state.currentVolts === 200 ? "bold" : "", textDecoration: this.state.currentVolts === 200 ? "underline" : "", color: this.state.currentVolts === 200 ? "white" : "#9ACDE7"  }} onClick={this.changeVolts} data-choice={200}> 120 </span>
+                <span style={{...xStyle, fontWeight: this.state.currentVolts === 300 ? "bold" : "", textDecoration: this.state.currentVolts === 300 ? "underline" : "", color: this.state.currentVolts === 300 ? "white" : "#9ACDE7"  }} onClick={this.changeVolts} data-choice={300}> 220 </span>
             </div>
 
         </div>

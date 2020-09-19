@@ -34,8 +34,10 @@ class ItemComponent extends React.Component {
     render() {
         const { item } = this.props
         let record = item.record
+        let style = {}
+        if (item.name === "Dissection Tray" || item.name === "Frog") { style = {width: "max-content"}}
 
-        return <div className={`drag-item lab-action instance-${item.instance_id}`} data-itemType={item.itemType} data-instance={item.instance_id} draggable >
+        return <div style={style} className={`drag-item lab-action instance-${item.instance_id}`} data-itemType={item.itemType} data-instance={item.instance_id} draggable >
 
             <div className="lab-hover-popup-op" style={{zIndex: '100'}}>{this.itemOptions()}</div>
 
@@ -51,12 +53,20 @@ class ItemComponent extends React.Component {
         let record = item.record
         return <div className="">
             <div className='item-name'>
-                {(item.name === "Dissection Tray") || (item.name === "Petri Dish With Agar (A)") || (item.name === "Petri Dish With Agar (B)") ?
+                {(item.name === "Blood Antibody Card") || (item.name === "Petri Dish With Agar (A)") || (item.name === "Petri Dish With Agar (B)") ?
 
                     <img
                         draggable={false}
                         src={`/images/${item.getSprite()}`}
-                        style={{ maxWidth: 'none' }}
+                        style={{ maxWidth: '100%' }}
+                        alt=""
+                    />
+                    : (
+                        (item.name === "Dissection Tray") || (item.name === "Frog") ?
+                        <img
+                        draggable={false}
+                        src={`/images/${item.getSprite()}`}
+                        style={{ maxWidth: 'none', width: '600px' }}
                         alt=""
                     />
                     :
@@ -65,6 +75,8 @@ class ItemComponent extends React.Component {
                         src={`/images/${item.getSprite()}`}
                         alt=""
                     />
+
+                    )
                 }
 
 
@@ -98,6 +110,7 @@ class ItemComponent extends React.Component {
                 </div> : ""}
 
                 {record.properties?.includes('atp-factory') ? <div>
+                    <div className="atp-reading"></div>
                     <hr /> Molecules Glucose:
                 <select className="atp-molecules">
                         <option>1</option>
@@ -116,7 +129,6 @@ class ItemComponent extends React.Component {
                         <option>Aerobic</option>
                         <option>Anaerobic</option>
                     </select>
-                    <div className="atp-reading"></div>
                 </div> : ""}
 
 
@@ -194,7 +206,7 @@ class ItemComponent extends React.Component {
                 {this.optionButton('trash', 'remove-item', 'Put Away')}
                 {this.optionButton('chevron-right', 'advance-graphic', 'Advance', 'progress')}
                 {this.optionButton('eye-dropper', 'reveal-item', 'Run Test', 'reveal-random')}
-                {this.optionButton('chrevron-right', 'run-atp-item', 'Run Text', 'atp-factory')}
+                {this.optionButton('chevron-right', 'run-atp-item', 'Run Test', 'atp-factory')}
 
                 {record.properties?.includes('experiment_window') ? 
                 <span id={`experiment-window-${item.instance_id}`} >

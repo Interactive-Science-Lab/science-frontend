@@ -16,7 +16,7 @@ class Boat extends React.Component {
     }
 
     boatHeight = () => {
-        return `${38 - this.state.currentNumber * 3}%`
+        return `${36 - this.state.currentNumber * 3}%`
     }
     ballHeight = () => {
         return `${60 - this.state.currentNumber * 3}%`
