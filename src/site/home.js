@@ -36,7 +36,8 @@ function Home(props) {
 		<div>
 
 		<img alt="logo" height="150px" src={logoURL} />
-		<h1>College Prep Science</h1>
+		<h3>Professor Landry's</h3>
+		<h1>Virtual Science Lab</h1>
 
 					{curr_user ? <div>
 					<br />

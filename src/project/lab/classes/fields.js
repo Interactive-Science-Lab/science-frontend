@@ -15,12 +15,12 @@ export default {
     biology: {
         backgroundImage: "background-bio.png",
         drawerList: [
-            ['Microscopic Specimens', 'objects', ["Cell in Osmosis", "Cell in Diffusion", "Petri Dish With Bacteria A", "Petri Dish With Bacteria B", "Cell in Mitosis", "Mitochondrian Environment"]],
+            ['Microscopic Specimens', 'objects', ["Cell in Osmosis", "Cell in Diffusion", "Petri Dish With Bacteria A", "Petri Dish With Bacteria B", "Cell in Mitosis", "Mitochondrian"]],
             ['Fluid Specimens', 'objects', ["Blood Antibody Card", "Urine Sample", ]],
             ['Animal Specimens', 'objects', ['Frog', 'Worm']],
             ['Dissection Tools', 'tools', ["Forceps", "Scalpel", "Dissection Tray"]],
-            ['Test Kits', 'objects', ["A Protein (DNA)", "T Protein (DNA)", "C Protein (DNA)", "U Protein (RNA)", "A Protein (RNA)", "G Protein (RNA)", ]],
-            ['', 'containers', ["Graduated Cylinder", "Beaker", "Crucible", "Small Dish"]],
+            ['DNA', 'objects', ["Codon Sequences", ]],
+            ['Miscellaneous ', 'objects', ["Whistle"]],
             ['', 'objects', ['Osmium Chunk', 'Gold Piece', 'Bolt', 'Marble', 'Seltzer Tablet', 'Scrap Metal']],
             ['', 'tools', ['Balance', 'Thermometer', 'pH Meter', 'Timer', "Micro Pipette", "Measuring Cup (50mL)", "Measuring Cup (10mL)", "Measuring Spoon (5mL)", "Measuring Spoon (1mL)", 'Eyedropper']]
         ]

@@ -17,7 +17,7 @@ class Item extends React.Component {
             if (this.props.i === 0 && ([2, 3].includes(this.props.dropInt))) {
                 return <BlankExaminer {...this.props} />
             } else {
-                return <p className="dropzoneempty">Block {this.props.dropInt === 5 ? this.props.i + 3 : 9}</p>
+                return <p className="dropzoneempty">Area {this.props.dropInt === 5 ? this.props.i + 3 : 9}</p>
             }
         }
     }
@@ -53,7 +53,7 @@ class ItemComponent extends React.Component {
         let record = item.record
         return <div className="">
             <div className='item-name'>
-                {(item.name === "Blood Antibody Card") || (item.name === "Petri Dish With Bacteria A") || (item.name === "Petri Dish With Bacteria B") ?
+                {(item.name === "Urine Sample") || (item.name === "Codon Sequences") || (item.name === "Blood Antibody Card") || (item.name === "Petri Dish With Bacteria A") || (item.name === "Petri Dish With Bacteria B") ?
 
                     <img
                         draggable={false}
@@ -230,7 +230,7 @@ class ItemComponent extends React.Component {
 
         if (display) {
             return <span>
-                <span data-instance={this.props.item.instance_id} className={`format-link lab-action fas fa-${sprite} ${action}`}><span>{text}</span></span>
+                <span data-instance={this.props.item.instance_id} className={`format-link lab-action fas fa-${sprite} ${action}`}>{text === "Run Test" ? " " + text : ""}<span>{text}</span></span>
             </span>
         } else {
             return ""
@@ -262,7 +262,7 @@ class BlankExaminer extends React.Component {
     render() {
         return <div style={{ position: 'relative' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <p className="block-number-text">Block {this.props.dropInt - 1}</p>
+                <p className="block-number-text">Lab Area {this.props.dropInt - 1}</p>
                 <div className="ttiphover" style={{ cursor: 'pointer', position: 'absolute', right: '0', top: '-4px' }}>
                     <h1>?</h1>
                     <p className="ttip" style={{ width: '300px' }}>Drag items here to use them and see their information.</p>
