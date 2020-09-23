@@ -7,8 +7,8 @@ import Shelf from './shelf'
 import labSettings from '../../classes/fields'
 
 class ExperimentLab extends React.Component {
-    constructor(props) {
-        super(props)
+    constructor(props, context) {
+        super(props, context)
         this.state = {
             openNum: 0,
             openSound: new soundEffect("sounds/draweropen.wav"),
@@ -19,10 +19,10 @@ class ExperimentLab extends React.Component {
     selectNum = (num) => {
         if(num === this.state.openNum) {
             this.setState({openNum: 0})
-            this.state.closeSound.play()
+            this.state.closeSound.play(this.context)
         } else {
             this.setState({openNum: num})
-            this.state.openSound.play()
+            this.state.openSound.play(this.context)
         }
     }
 
@@ -62,8 +62,10 @@ function soundEffect(src) {
     this.sound.style.display = "none";
     this.sound.volume = .5
     document.body.appendChild(this.sound);
-    this.play = function(){
-      this.sound.play();
+    this.play = function(obj){
+        if(obj.soundEffects){
+            this.sound.play();
+        }
     }
     this.stop = function(){
       this.sound.pause();

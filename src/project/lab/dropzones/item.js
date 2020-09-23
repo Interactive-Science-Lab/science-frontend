@@ -129,6 +129,7 @@ class ItemComponent extends React.Component {
                         <option>Aerobic</option>
                         <option>Anaerobic</option>
                     </select>
+                    <br />&nbsp;<br />&nbsp;<br/>
                 </div> : ""}
 
 

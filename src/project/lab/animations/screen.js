@@ -1,10 +1,11 @@
 import React from 'react'
 
+import {LabContext} from 'project/lab/labContext'
 import { FRAMERATE, FRAMERATIO } from './experimentInfo'
 
 class Screen extends React.Component {
-    constructor(props) {
-        super(props)
+    constructor(props, context) {
+        super(props, context)
         this.state = { ...this.handleProps(props)
     
     }
@@ -51,7 +52,7 @@ class Screen extends React.Component {
     toggleAnimation = () => {
         let newPlay = !this.state.play
         this.setState({ play: newPlay },)
-        if(newPlay && this.state.startSound) { this.state.startSound.play() }
+        if(newPlay && this.state.startSound) { this.state.startSound.play(this.context) }
        // this.props.hideCallback(!newPlay)
     }
 
@@ -73,7 +74,7 @@ class Screen extends React.Component {
                 position = this.moveSprite()
                 setTimeout(() => { this.setState({ position, speed, frameCount }) }, FRAMERATE);
             } else {
-                if(this.state.endSound) { this.state.endSound.play() }
+                if(this.state.endSound) { this.state.endSound.play(this.context) }
                 if (frameCount * FRAMERATIO > maxTime) {
                     let dleft = stop[1] - position[1]
                     let tleft = dleft / this.state.speed[1]
@@ -292,6 +293,7 @@ class Screen extends React.Component {
     }
 }
 
+Screen.contextType = LabContext
 export default Screen
 
 
@@ -323,8 +325,10 @@ function soundEffect(src) {
     this.sound.style.display = "none";
     this.sound.volume = .1
     document.body.appendChild(this.sound);
-    this.play = function(){
-      this.sound.play();
+    this.play = function(obj){
+        if(obj.soundEffects){
+            this.sound.play();
+        }
     }
     this.stop = function(){
       this.sound.pause();

@@ -4,7 +4,7 @@ export default {
         drawerList: [
             ['Basic Objects','objects', ['Osmium Chunk', 'Gold Piece', 'Bolt', 'Marble', 'Seltzer Tablet', 'Scrap Metal']],
             ['Basic Containers', 'containers', ["Graduated Cylinder", "Beaker", "Crucible", "Small Dish"]],
-            ['Mystery Items', 'objects', ["Mystery #1", "Mystery #2", "Mystery #3", "Mystery #4", "Mystery #5", "Mystery #6", "Mystery #7", "Mystery #8", "Mystery #9", "Mystery #10"]],
+            ['Mystery Elements', 'objects', ["Element #1", "Element #2", "Element #3", "Element #4", "Element #5", "Element #6", "Element #7", "Element #8", "Element #9", "Element #10"]],
             ['Tools', 'tools', ['Bunsen Burner', "Strainer", "Filter Paper", "Candle"]],
             ['Solid Chemicals', 'substances', ['Hydrophillic Beads (lg)', 'Hydrophillic Beads (sm)', 'Salt', "Sodium Carbonate", "Magnesium Sulfate", "Potassium Chlorate",]],
             ['Liquid Chemicals', 'substances', ['Weak Base', 'Weak Acid']],

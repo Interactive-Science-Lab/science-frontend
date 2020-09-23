@@ -35,6 +35,7 @@ class ExperimentLab extends React.Component {
             message: "Welcome! Please choose an experiment.",
             labType: props.location.search.split('=')[1] || 'chemistry',
             music: false,
+            soundEffects: true,
             musicObj: new sound("science soundtrack.mp3"),
             sounds: {
                 drag: new soundEffect("sounds/drag.wav"),
@@ -87,6 +88,10 @@ class ExperimentLab extends React.Component {
             this.state.musicObj.stop();
         }
         
+    }
+
+    toggleSoundFx = () => {
+        this.setState({soundEffects: !this.state.soundEffects})
     }
 
     setExperiment = async () => {
@@ -169,13 +174,13 @@ class ExperimentLab extends React.Component {
         const instance = this.state.itemsState.getInstanceByEvent(e)
         //Empty the container
         instance.emptyContents(this)
-        this.state.sounds.remove.play();
+        this.state.sounds.remove.play(this.state);
         //Update the item in state
         this.state.itemsState.updateInstanceAndState(instance, this)
     }
 
     removeItem = (e) => { 
-        this.state.sounds.remove.play();
+        this.state.sounds.remove.play(this.state);
         this.state.itemsState.removeItemByEvent(e, this) 
     }
     fillWater = (e) => {
@@ -183,47 +188,47 @@ class ExperimentLab extends React.Component {
         if (w.instance_id) { w.fillWithWater(e, this) }
     }
     strainItem = (e) => { 
-        this.state.sounds.click.play();
+        this.state.sounds.click.play(this.state);
         this.state.itemsState.getInstanceByEvent(e).strainSolidItems(e, this) }
     combineStrainItem = (e) => {
-        this.state.sounds.click.play();
+        this.state.sounds.click.play(this.state);
          this.state.itemsState.getInstanceByEvent(e).combineStrainItems(e, this) }
     heatItem = (e) => {
-        this.state.sounds.click.play();
+        this.state.sounds.click.play(this.state);
          this.state.itemsState.getInstanceByEvent(e).heatItem(e, this) }
     timeItem = (e) => { 
-        this.state.sounds.click.play();
+        this.state.sounds.click.play(this.state);
         this.state.itemsState.getInstanceByEvent(e).timeItem(e, this) }
     tareItem = (e) => { 
-        this.state.sounds.click.play();
+        this.state.sounds.click.play(this.state);
         this.state.itemsState.getInstanceByEvent(e).setTare(e, this) }
     splitItem = (e) => { 
-        this.state.sounds.click.play();
+        this.state.sounds.click.play(this.state);
         this.state.itemsState.getInstanceByEvent(e).splitMixture(e, this) }
     revealItem = (e) => { 
-        this.state.sounds.click.play();
+        this.state.sounds.click.play(this.state);
         this.state.itemsState.getInstanceByEvent(e).revealItem(e, this) }
     advanceGraphic = (e) => { 
-        this.state.sounds.click.play();
+        this.state.sounds.click.play(this.state);
         this.state.itemsState.getInstanceByEvent(e).advanceGraphic(e, this) }
     runAtpCalculation = (e) => { 
-        this.state.sounds.click.play();
+        this.state.sounds.click.play(this.state);
         this.state.itemsState.getInstanceByEvent(e).runAtpCalculation(e, this) }
 
     openPhysicsWindow = (e) => { 
-        this.state.sounds.click.play();
+        this.state.sounds.click.play(this.state);
         this.state.itemsState.getInstanceByEvent(e).openPhysicsWindow(e, this) }
 
     dragInventoryStart = (e) => { 
-        this.state.sounds.drag.play();
+        this.state.sounds.drag.play(this.state);
         DragHelper.dragInventoryStart(this, e) 
     }
     dragInventoryEnd = (e) => { 
-        this.state.sounds.drop.play();
+        this.state.sounds.drop.play(this.state);
         DragHelper.dragInventoryEnd(this, e) 
     }
     dragStart = (e) => { 
-        this.state.sounds.click.play();
+        this.state.sounds.click.play(this.state);
         DragHelper.dragStart(this, e) 
     }
     dragOver = (e) => { 
@@ -231,7 +236,7 @@ class ExperimentLab extends React.Component {
     }
     dragEnter = (e) => { DragHelper.dragEnter(this, e) }
     dragEnd = (e) => { 
-        this.state.sounds.drop.play();
+        this.state.sounds.drop.play(this.state);
         DragHelper.dragEnd(this, e) 
     }
 
@@ -244,7 +249,7 @@ class ExperimentLab extends React.Component {
 
         
 
-        return <LabContext.Provider value={{ masterItemList: this.state.masterItemList, itemsState: this.state.itemsState, state: this.state }} >
+        return <LabContext.Provider value={{ soundEffects: this.state.soundEffects, masterItemList: this.state.masterItemList, itemsState: this.state.itemsState, state: this.state }} >
             { curr_user.user_kind === 'admin_user'  ?
             <div className='admin-bar'>
                 Select a Class |
@@ -268,6 +273,7 @@ class ExperimentLab extends React.Component {
             </div>
 
             Music: <div onClick={this.toggleMusic}>{ this.state.music ? <span class="fas fa-music"> On</span> : <span class="fas fa-volume-mute"> Off</span> }</div>
+            Sound FX: <div onClick={this.toggleSoundFx}>{ this.state.soundEffects ? <span class="fas fa-music"> On</span> : <span class="fas fa-volume-mute"> Off</span> }</div>
 
             {devMode ? <div>
                 <h3>Developer Output for Testing:</h3>
@@ -356,8 +362,10 @@ function soundEffect(src) {
     this.sound.style.display = "none";
     this.sound.volume = .025
     document.body.appendChild(this.sound);
-    this.play = function(){
-      this.sound.play();
+    this.play = function(obj){
+        if(obj.soundEffects){
+            this.sound.play();
+        }
     }
     this.stop = function(){
       this.sound.pause();
@@ -372,7 +380,7 @@ function soundEffect(src) {
     this.sound.style.display = "none"
     document.body.appendChild(this.sound);
     this.play = function(){
-      this.sound.play();
+        this.sound.play();
     }
     this.stop = function(){
       this.sound.pause();

@@ -1,8 +1,9 @@
 import React from "react"
+import {LabContext} from 'project/lab/labContext'
 
 class Boat extends React.Component {
-    constructor(props) {
-        super(props)
+    constructor(props, context) {
+        super(props, context)
         this.state = {
             currentWire: 3,
             currentVolts: 100,
@@ -28,16 +29,16 @@ class Boat extends React.Component {
 
         if (a >= 300) {
             suffix = "-big-sparks.gif"
-            this.state.soundVHi.play()
+            this.state.soundVHi.play(this.context)
         } else if (a >= 200 && a <= 300) {
             suffix = "-sparks.gif"
-            this.state.soundVHi.play()
+            this.state.soundVHi.play(this.context)
         } else if (a >= 100 && a < 200) {
             suffix = '-wire-glow.gif'
-            this.state.soundVHi.play()
+            this.state.soundVHi.play(this.context)
         } else {
             suffix = '-wire.gif'
-            this.state.soundVHi.play()
+            this.state.soundVHi.play(this.context)
         }
 
         return wire + suffix
@@ -93,6 +94,7 @@ class Boat extends React.Component {
     }
 }
 
+Boat.contextType = LabContext
 export default Boat
 
 function soundEffect(src) {
@@ -103,8 +105,10 @@ function soundEffect(src) {
     this.sound.style.display = "none";
     this.sound.volume = .1
     document.body.appendChild(this.sound);
-    this.play = function(){
-      this.sound.play();
+    this.play = function(obj){
+        if(obj.soundEffects){
+            this.sound.play();
+        }
     }
     this.stop = function(){
       this.sound.pause();
