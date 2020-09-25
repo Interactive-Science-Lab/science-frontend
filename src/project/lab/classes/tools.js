@@ -64,7 +64,7 @@ export class ToolInstance extends ItemInstance {
     }
     getItemPh = () => {
         if (this.usedItem.instance_id) { return this.usedItem.getPh() } 
-        else { return 7 }
+        else { return false }
     }
     getItemTime = () => {
         if (this.usedItem.instance_id) { return this.usedItem.getTime() } 

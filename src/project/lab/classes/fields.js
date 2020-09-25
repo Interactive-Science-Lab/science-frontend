@@ -7,7 +7,7 @@ export default {
             ['Mystery Elements', 'objects', ["Element #1", "Element #2", "Element #3", "Element #4", "Element #5", "Element #6", "Element #7", "Element #8", "Element #9", "Element #10"]],
             ['Tools', 'tools', ['Bunsen Burner', "Strainer", "Filter Paper", "Candle"]],
             ['Solid Chemicals', 'substances', ['Hydrophillic Beads (lg)', 'Hydrophillic Beads (sm)', 'Salt', "Sodium Carbonate", "Magnesium Sulfate", "Potassium Chlorate",]],
-            ['Liquid Chemicals', 'substances', ['Weak Base', 'Weak Acid']],
+            ['Liquid Chemicals', 'objects', ['Lemon Juice', 'Bleach', 'Human Blood Vial', 'Pure Water', 'Stomach Acid', 'Soapy Water', 'Baking Soda Solution', 'Seawater', 'Orange Juice', 'Urine']],
             ['Freezer', 'substances', ['Water']],
             ['Measuring Equipment', 'tools', ['Balance', 'Thermometer', 'pH Meter', 'Timer', "Micro Pipette", "Measuring Cup (50mL)", "Measuring Cup (10mL)", "Measuring Spoon (5mL)", "Measuring Spoon (1mL)", 'Eyedropper']]
         ]
@@ -15,10 +15,10 @@ export default {
     biology: {
         backgroundImage: "background-bio.png",
         drawerList: [
-            ['Microscopic Specimens', 'objects', ["Cell in Osmosis", "Cell in Diffusion", "Petri Dish With Bacteria A", "Petri Dish With Bacteria B", "Cell in Mitosis", "Mitochondrian"]],
+            ['Microscopic Specimens', 'objects', ["Osmosis Cells", "Diffusion Cells", "Petri Dish With Bacteria A", "Petri Dish With Bacteria B", "Mitosis Microscope Slides", "Mitochondrian"]],
             ['Fluid Specimens', 'objects', ["Blood Antibody Card", "Urine Sample", ]],
-            ['Animal Specimens', 'objects', ['Frog', 'Worm']],
-            ['Dissection Tools', 'tools', ["Forceps", "Scalpel", "Dissection Tray"]],
+            ['Animal Specimens', 'objects', ['Frog']],
+            ['', 'tools', []],
             ['DNA', 'objects', ["Codon Sequences", ]],
             ['Miscellaneous ', 'objects', ["Whistle"]],
             ['', 'objects', ['Osmium Chunk', 'Gold Piece', 'Bolt', 'Marble', 'Seltzer Tablet', 'Scrap Metal']],

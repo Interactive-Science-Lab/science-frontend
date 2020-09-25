@@ -133,7 +133,6 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
 }
 
 #examiner {
-	width: 30%;
 	background-color: $displayBox;
 	text-align: center;
 	border: $displayBorder;
@@ -402,9 +401,6 @@ p.dropzoneempty {
 .item-options .lab-action > span {
 	z-index: 1000;
 	overflow: visible;
-}
-
-#examiner .drag-item.lab-action {
 }
 
 .content-display {

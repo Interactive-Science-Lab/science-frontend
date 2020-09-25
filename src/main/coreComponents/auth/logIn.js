@@ -68,7 +68,7 @@ class LogIn extends React.Component {
                 
           <h2>Login</h2>
                 <Form.Group>
-                    <Form.Label>Class name:</Form.Label>
+                    <Form.Label>Username:</Form.Label>
                     <Form.Control
                       onChange={this.handleChange} type="text"
                       name="username" placeholder="username"
@@ -76,7 +76,7 @@ class LogIn extends React.Component {
                     <Form.Text>Please enter.</Form.Text>
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Access code:</Form.Label>
+                    <Form.Label>Password:</Form.Label>
                     <Form.Control
                       onChange={this.handleChange} type="password"
                       name="password" placeholder="Password"

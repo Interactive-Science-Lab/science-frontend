@@ -35,7 +35,11 @@ class ItemComponent extends React.Component {
         const { item } = this.props
         let record = item.record
         let style = {}
-        if (item.name === "Dissection Tray" || item.name === "Frog") { style = {width: "max-content"}}
+        if ([2, 3].includes(this.props.dropInt)) {
+            style.padding = '65px 0 40px'
+            //if (item.name === "Dissection Tray" || item.name === "Frog") { style.width = "max-content" }
+        }
+        
 
         return <div style={style} className={`drag-item lab-action instance-${item.instance_id}`} data-itemType={item.itemType} data-instance={item.instance_id} draggable >
 
@@ -53,7 +57,7 @@ class ItemComponent extends React.Component {
         let record = item.record
         return <div className="">
             <div className='item-name'>
-                {(item.name === "Urine Sample") || (item.name === "Codon Sequences") || (item.name === "Blood Antibody Card") || (item.name === "Petri Dish With Bacteria A") || (item.name === "Petri Dish With Bacteria B") ?
+                {(item.name === "Frog") || (item.name === "Diffusion Cells") || (item.name === "Osmosis Cells") || (item.name === "Mitosis Microscope Slides") || (item.name === "Urine Sample") || (item.name === "Codon Sequences") || (item.name === "Blood Antibody Card") || (item.name === "Petri Dish With Bacteria A") || (item.name === "Petri Dish With Bacteria B") ?
 
                     <img
                         draggable={false}
@@ -62,7 +66,7 @@ class ItemComponent extends React.Component {
                         alt=""
                     />
                     : (
-                        (item.name === "Dissection Tray") || (item.name === "Frog") ?
+                        (item.name === "Frog" && [2, 3].includes(this.props.dropInt)) ?
                         <img
                         draggable={false}
                         src={`/images/${item.getSprite()}`}
@@ -103,7 +107,7 @@ class ItemComponent extends React.Component {
                     <hr /> Reading: {item.getItemTemperature() === "None" ? "None" : `${Math.round(item.getItemTemperature() * 100) / 100.0 || 20}'C`}
                 </div> : ""}
                 {record.properties?.includes('display_ph') ? <div>
-                    <hr /> Reading: {Math.round(item.getItemPh() * 100) / 100.0 || 7}
+                    <hr /> Reading: {item.getItemPh() ? Math.round(item.getItemPh() * 100) / 100.0 : "None"}
                 </div> : ""}
                 {record.properties?.includes('timer') ? <div>
                     <hr /> Reading: {this.printTime(item.getItemTime() || 0)}
@@ -129,7 +133,6 @@ class ItemComponent extends React.Component {
                         <option>Aerobic</option>
                         <option>Anaerobic</option>
                     </select>
-                    <br />&nbsp;<br />&nbsp;<br/>
                 </div> : ""}
 
 
@@ -193,8 +196,8 @@ class ItemComponent extends React.Component {
                 {this.optionButton('filter', 'strain-item', 'Strain', 'strain')}
                 {this.optionButton('sync', 'combine-strain-item', 'Combine', 'strain')}
 
-                {this.optionButton('burn', 'heat-item heat-lo', 'Heat Low', 'heatsource-flame')}
-                {this.optionButton('fire-alt', 'heat-item heat-mid', 'Heat Mid', 'heatsource-flame')}
+                {/* this.optionButton('burn', 'heat-item heat-lo', 'Heat Low', 'heatsource-flame')}
+                {this.optionButton('fire-alt', 'heat-item heat-mid', 'Heat Mid', 'heatsource-flame') */}
                 {this.optionButton('fire', 'heat-item heat-hi', 'Heat Hi', 'heatsource-flame')}
 
                 {this.optionButton('stopwatch', 'time-item time-lo', '5 Secs', 'timer')}

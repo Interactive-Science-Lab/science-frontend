@@ -98,6 +98,12 @@ export class ItemsState {
         return posFree
     }
 
+    getPosition = ({ pos, area }) => {
+        let res = {}
+        this.list.map(item => item.pos === pos && item.area === area ? res = item : null)
+        return res
+    }
+
     getSinkObject = () => {
         let updateObj = {}
         this.list.map(obj => 4 === obj.area && 0 === obj.pos ? updateObj = obj : null)
