@@ -272,8 +272,13 @@ class ExperimentLab extends React.Component {
                 </div>
             </div>
 
-            Music: <div onClick={this.toggleMusic}>{ this.state.music ? <span class="fas fa-music"> On</span> : <span class="fas fa-volume-mute"> Off</span> }</div>
-            Sound FX: <div onClick={this.toggleSoundFx}>{ this.state.soundEffects ? <span class="fas fa-music"> On</span> : <span class="fas fa-volume-mute"> Off</span> }</div>
+            <span style={{display:"inline-block", padding: '10px'}}>
+                Music: <span onClick={this.toggleMusic}>{ this.state.music ? <span class="fas fa-music"> On</span> : <span class="fas fa-volume-mute"> Off</span> }</span>
+            </span>
+            
+            <span style={{display:"inline-block", padding: '10px'}}>
+            Sound FX: <span onClick={this.toggleSoundFx}>{ this.state.soundEffects ? <span class="fas fa-music"> On</span> : <span class="fas fa-volume-mute"> Off</span> }</span>
+            </span>
 
             {devMode ? <div>
                 <h3>Developer Output for Testing:</h3>

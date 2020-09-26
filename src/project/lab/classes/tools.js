@@ -110,6 +110,12 @@ export class ToolInstance extends ItemInstance {
 
     heatItem = (event, component) => {
         const cList = event.target.classList
+        let unlitSprite = this.record.sprite
+        let litSprite = unlitSprite + 'lit'
+        this.record.sprite = litSprite
+        this.update(component)
+        setTimeout(() => { this.record.sprite = unlitSprite; this.update(component)}, 1000);
+
         const heat = (cList.contains('heat-hi') ? 50 : (
             cList.contains('heat-mid') ? 25 : (
                 5
