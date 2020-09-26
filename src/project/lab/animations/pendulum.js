@@ -1,8 +1,11 @@
 import React from "react"
+import {LabContext} from 'project/lab/labContext'
+
+var animation;
 
 class Pendulum extends React.Component {
-    constructor(props) {
-        super(props)
+    constructor(props, context) {
+        super(props, context)
 
         window.requestAnimFrame = (function () {
             return window.requestAnimationFrame ||
@@ -15,6 +18,9 @@ class Pendulum extends React.Component {
                 };
         })();
 
+        
+       
+
 
 
         this.state = {
@@ -26,7 +32,8 @@ class Pendulum extends React.Component {
             chosenLength: 25,
             pendulum: {},
             canvas: false,
-            ctx: false
+            ctx: false,
+            tickSound: new soundEffect('sounds/ticktock.wav'),
         }
     }
 
@@ -49,8 +56,15 @@ class Pendulum extends React.Component {
 
         this.setState({ canvas, ctx, pendulum })
 
-        window.requestAnimFrame(this.loop);
+        animation = window.requestAnimFrame(this.loop);
 
+        
+    }
+
+    componentWillUnmount = () => {
+        console.log("WTF")
+      
+        cancelAnimationFrame(animation)
     }
 
     changeLength = (e) => {
@@ -99,9 +113,14 @@ class Pendulum extends React.Component {
         /* Current acceleration */
         var alpha = T / pendulum.J;
 
+        let oldOmega = Number.parseFloat(pendulum.omega)
         /* Calculate current velocity from last frame's velocity and 
             average of last frame's acceleration with this frame's acceleration. */
         pendulum.omega += 0.5 * (alpha + pendulum.alpha) * deltaT;
+
+        if( (oldOmega < 0 && pendulum.omega > 0) || (oldOmega > 0 && pendulum.omega < 0) ) {
+            this.state.tickSound.play(this.context)
+        }
 
         /* Update acceleration */
         pendulum.alpha = alpha;
@@ -129,7 +148,7 @@ class Pendulum extends React.Component {
         ctx.closePath();
 
         lastTime = new Date();
-        window.requestAnimFrame(this.loop);
+        animation = window.requestAnimFrame(this.loop);
 
     }
 
@@ -165,4 +184,23 @@ class Pendulum extends React.Component {
 }
 
 
+Pendulum.contextType = LabContext
 export default Pendulum
+
+function soundEffect(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    this.sound.volume = .3
+    document.body.appendChild(this.sound);
+    this.play = function(obj){
+        if(obj.soundEffects){
+            this.sound.play();
+        }
+    }
+    this.stop = function(){
+      this.sound.pause();
+    }
+  }

@@ -28,7 +28,7 @@ export default {
     physics: {
         backgroundImage: "background-phys.png",
         drawerList: [
-            ['Physics', 'objects', ['Car Simulation', 'Big Iron Ball', 'Whistle', 'Pendulum', 'Liquid Tray', 'Grocery Cart', 'Ocean', 'Momentum Simulator', 'Metal Ball', 'Circuit Board']],
+            ['Physics', 'objects', ['Car Simulation', 'Big Iron Ball', 'Whistle', 'Pendulum', 'Liquid Tray', 'Grocery Cart', 'Ocean', 'Momentum Simulator', 'Circuit Board']],
             ['', 'objects', ['Physics Test']],
             ['', 'objects', ['Physics Test']],
             ['', 'objects', ['Physics Test']],

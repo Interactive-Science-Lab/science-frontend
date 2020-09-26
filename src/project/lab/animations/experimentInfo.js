@@ -116,6 +116,8 @@ let momentum = {
         sprite: "metalball-obj.png",
         altEndSprite2: "small-explosion.gif",
         background: "inside-track.png",
+        startSound: "/sounds/startgo.wav",
+        endSound: "/sounds/explosion.wav",
         dimensions: [25, 18],
         position: [0, 12],
         objectSize: [1, 1],
@@ -136,9 +138,9 @@ let momentum = {
             optionSelections: [
                 {
                     name: "Bike", settings: {
-                        objectSize: [2, 1.5],
+                        objectSize: [4, 4],
                         speed: [8, 0],
-                        position: [0, 12],
+                        position: [0, 10],
                         mass: '11.2',
                         sprite: "bike-moment.png"
                     }
@@ -197,6 +199,8 @@ let stairs = {
     data: {
         sprite: "person-test.png",
         background: "stair-bg.png",
+        startSound: "/sounds/whistle.wav",
+        buttonText: "Blow Whistle To Start",
         dimensions: [8, 6],
         position: [.85, 4.1],
         objectSize: [.5, 2],
@@ -333,6 +337,7 @@ let cart = {
         data: {
             sprite: "cart-obj.png",
             background: "inside-track.png",
+            startSound: '/sounds/cartloud.wav',
             dimensions: [12, 8],
             position: [1, 4],
             objectSize: [2, 2],

@@ -7,10 +7,10 @@ class Boat extends React.Component {
         this.state = {
             currentWire: 3,
             currentVolts: 100,
-            soundVHi: new soundEffect('sounds/e-vhi.wav'),
-            soundHi: new soundEffect('sounds/e-hi.wav'),
-            soundMid: new soundEffect('sounds/e-mid.wav'),
-            soundLo: new soundEffect('sounds/e-low.wav'),
+            soundVHi: new soundEffect('sounds/ewhoa.wav'),
+            soundHi: new soundEffect('sounds/electric.wav'),
+            soundMid: new soundEffect('sounds/electric-mid.wav'),
+            soundLo: new soundEffect('sounds/e-vhi.wav'),
             currentSound: {}
 
         }
@@ -32,13 +32,13 @@ class Boat extends React.Component {
             this.state.soundVHi.play(this.context)
         } else if (a >= 200 && a <= 300) {
             suffix = "-sparks.gif"
-            this.state.soundVHi.play(this.context)
+            this.state.soundHi.play(this.context)
         } else if (a >= 100 && a < 200) {
             suffix = '-wire-glow.gif'
-            this.state.soundVHi.play(this.context)
+            this.state.soundMid.play(this.context)
         } else {
             suffix = '-wire.gif'
-            this.state.soundVHi.play(this.context)
+            this.state.soundLo.play(this.context)
         }
 
         return wire + suffix
@@ -103,7 +103,7 @@ function soundEffect(src) {
     this.sound.setAttribute("preload", "auto");
     this.sound.setAttribute("controls", "none");
     this.sound.style.display = "none";
-    this.sound.volume = .1
+    this.sound.volume = .3
     document.body.appendChild(this.sound);
     this.play = function(obj){
         if(obj.soundEffects){

@@ -285,7 +285,12 @@ class Screen extends React.Component {
                 }
             </div>
 
-            {this.state.end ? "" : <span style={xStyle} onClick={this.toggleAnimation}>{this.state.play ? <span class="fas fa-pause" style={{ color: 'white' }}> Pause</span> : <span style={{ color: 'white' }} class="fas fa-play"> Play</span>}</span>}
+            {this.state.end ? "" : <span style={xStyle} onClick={this.toggleAnimation}>{this.state.play ? <span class="fas fa-pause" style={{ color: 'white' }}> Pause</span> : <span style={{ color: 'white' }} class="fas fa-play"> 
+            
+            {this.state.buttonText || "Play"}
+            
+            
+            </span>}</span>}
             {!this.state.play && this.state.frameCount !== 0 ? <span style={xStyle} onClick={this.restartAnimation}><span style={{ color: 'white' }} class="fas fa-undo"> Restart</span></span> : ""}
 
         </div>
