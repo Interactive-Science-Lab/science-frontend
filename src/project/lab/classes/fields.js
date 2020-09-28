@@ -20,9 +20,9 @@ export default {
             ['Miscellaneous ', 'objects', ["Whistle"]],
             ['Basic Objects','objects', ['Osmium Chunk', 'Gold Piece', 'Bolt', 'Marble', 'Seltzer Tablet', 'Scrap Metal']],
             ['Basic Containers', 'containers', ["Graduated Cylinder", "Beaker", "Crucible", "Small Dish"]],
-            ['Measuring Equipment', 'tools', ['Balance', 'Thermometer', 'pH Meter', 'Timer', "Micro Pipette", "Measuring Cup (50mL)", "Measuring Cup (10mL)", "Measuring Spoon (5mL)", "Measuring Spoon (1mL)", 'Eyedropper']]
-            ['', 'objects', []],
-            ['', 'objects', [ ]],
+            ['Measuring Equipment', 'tools', ['Balance', 'Thermometer', 'pH Meter', 'Timer', "Micro Pipette", "Measuring Cup (50mL)", "Measuring Cup (10mL)", "Measuring Spoon (5mL)", "Measuring Spoon (1mL)", 'Eyedropper']],
+            ['', 'objects', ['']],
+            ['', 'objects', ['']],
         
         
         ]
@@ -33,7 +33,7 @@ export default {
             ['Physics', 'objects', ['Car Simulation', 'Big Iron Ball', 'Whistle', 'Pendulum', 'Liquid Tray', 'Grocery Cart', 'Ocean', 'Momentum Simulator', 'Circuit Board']],
             ['Basic Objects','objects', ['Osmium Chunk', 'Gold Piece', 'Bolt', 'Marble', 'Seltzer Tablet', 'Scrap Metal']],
             ['Basic Containers', 'containers', ["Graduated Cylinder", "Beaker", "Crucible", "Small Dish"]],
-            ['Measuring Equipment', 'tools', ['Balance', 'Thermometer', 'pH Meter', 'Timer', "Micro Pipette", "Measuring Cup (50mL)", "Measuring Cup (10mL)", "Measuring Spoon (5mL)", "Measuring Spoon (1mL)", 'Eyedropper']]
+            ['Measuring Equipment', 'tools', ['Balance', 'Thermometer', 'pH Meter', 'Timer', "Micro Pipette", "Measuring Cup (50mL)", "Measuring Cup (10mL)", "Measuring Spoon (5mL)", "Measuring Spoon (1mL)", 'Eyedropper']],
             ['', 'objects', ['Physics Test']],
             ['', 'objects', ['Physics Test']],
             ['', 'objects', ['Physics Test']],
