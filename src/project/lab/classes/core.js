@@ -109,7 +109,7 @@ export class ItemInstance {
         let item = e.target.closest('.drag-item')
         let molecules = item.querySelector('.atp-molecules').value 
         let aerobic = item.querySelector('.atp-aerobic').value
-        aerobic = aerobic === "Aerobic" ? 32 : 2
+        aerobic = aerobic === "Aerobic" ? 36 : 2
         let result = aerobic * parseInt(molecules)
         item.querySelector('.atp-reading').innerHTML = `Yielded ${result} ATP`
     }

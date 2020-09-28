@@ -195,7 +195,7 @@ class ExperimentLab extends React.Component {
          this.state.itemsState.getInstanceByEvent(e).combineStrainItems(e, this) }
     heatItem = (e) => {
         this.state.sounds.click.play(this.state);
-         this.state.itemsState.getInstanceByEvent(e).heatItem(e, this) }
+        this.state.itemsState.getInstanceByEvent(e).heatItem(e, this) }
     timeItem = (e) => { 
         this.state.sounds.click.play(this.state);
         this.state.itemsState.getInstanceByEvent(e).timeItem(e, this) }
@@ -209,7 +209,7 @@ class ExperimentLab extends React.Component {
         this.state.sounds.click.play(this.state);
         this.state.itemsState.getInstanceByEvent(e).revealItem(e, this) }
     advanceGraphic = (e) => { 
-        this.state.sounds.click.play(this.state);
+        this.state.sounds.click.play(this.state, 'loud');
         this.state.itemsState.getInstanceByEvent(e).advanceGraphic(e, this) }
     runAtpCalculation = (e) => { 
         this.state.sounds.click.play(this.state);
@@ -367,7 +367,10 @@ function soundEffect(src) {
     this.sound.style.display = "none";
     this.sound.volume = .025
     document.body.appendChild(this.sound);
-    this.play = function(obj){
+    this.play = function(obj, vol){
+        if(vol === 'loud') {
+            this.sound.volume = .1
+        }
         if(obj.soundEffects){
             this.sound.play();
         }

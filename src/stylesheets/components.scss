@@ -21,7 +21,7 @@ button {
 	border: $defaultNiceButtonBorder;
 	font-size: 28px;
 	font-family: $headerFont;
-	background: linear-gradient(rgba($defaultNiceButtonColor, .4), rgba($defaultNiceButtonColor, .4));
+	background: linear-gradient(rgba($defaultNiceButtonColor, .8), rgba($defaultNiceButtonColor, .8));
 	@media only screen and (max-width: 911px) {
 		width: 90%;
 		margin: 10px auto;
@@ -30,6 +30,12 @@ button {
 		width: 350px;
 		max-width:90%;
 		margin: 10px auto;
+	}
+}
+
+.nice-button {
+	&:hover {
+		color:$defaultNiceButtonHighlightTextColor;
 	}
 }
 

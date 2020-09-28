@@ -22,10 +22,12 @@ class Examiner extends React.Component {
 
         let dims = { w1: 30, w2: 30, left: 33, display1: 'block', display2: 'block'}
 
-        if(item1.name === 'Frog') {
+        let bigImages = ['Frog', 'Osmosis Cells', 'Diffusion Cells', 'Petri Dish With Bacteria A', 'Petri Dish With Bacteria B']
+
+        if(bigImages.includes(item1.name)) {
             dims = {w1: 66, left: 0, w2: 0, display1: 'block', display2: 'none'}
         }
-        else if(item2.name === 'Frog') {
+        else if(bigImages.includes(item2.name)) {
             dims = {w1: 0, left: 0, w2: 66, display1: 'none', display2: 'block'}
         }
 

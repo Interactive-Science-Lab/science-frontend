@@ -47,7 +47,13 @@ class ItemComponent extends React.Component {
 
             {this.displayItem()}
 
-            <div className="item-show-name lab-hover-popup-op">{item.name}</div>
+            <div className="item-show-name lab-hover-popup-op">
+                {item.name}
+            
+                {record.properties?.includes('displayProgress') ? <span> #{record.color}</span> : "" }
+            
+            
+            </div>
         </div>
     }
 

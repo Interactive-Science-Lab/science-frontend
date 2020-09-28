@@ -14,7 +14,7 @@ class LogIn extends React.Component {
         const params = new URLSearchParams(window.location.search)
         this.state = {
           user: {
-            username: params.get('class'),
+            username: "",
             password: ""
           },
           formColor: 'transparent',

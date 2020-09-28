@@ -59,13 +59,13 @@ ul { list-style:none;padding:0;}
 	background-position:center;
 }
 .main-screen {
-	$weights: "/images/homeb.jpg";	
+	$weights: "/images/widebackground.png";	
 	background: linear-gradient(
-		rgba($backgroundOpacityColor, .8) 10%,
-		rgba($backgroundOpacityColor, .65) 20%,
-		rgba($backgroundOpacityColor, .45) 40%,
-		rgba($backgroundOpacityColor, .5) 70%,
-		rgba($backgroundOpacityColor, .7) 100%
+		rgba($backgroundOpacityColor, .65) 10%,
+		rgba($backgroundOpacityColor, .45) 20%,
+		rgba($backgroundOpacityColor, .55) 40%,
+		rgba($backgroundOpacityColor, .7) 70%,
+		rgba($backgroundOpacityColor, .95) 100%
 	), url($weights);
 	background-position:right;
 	background-size: cover;
