@@ -96,9 +96,10 @@ class ItemComponent extends React.Component {
                     : null}
 
             </div>
+            {item.itemType !== 'containers' ? 
             <div className='item-description'>
                 <i style={{ fontSize: '16px' }}>{record.description}</i>
-            </div>
+            </div> : "" }
             <div className="item-properties">
                 {record.properties?.includes('display_volume') ? <div>
                     <hr /> Reading: {Math.round(item.getFillVolume() * 100) / 100.0 || 0}mL
@@ -214,9 +215,9 @@ class ItemComponent extends React.Component {
             {item.itemType === 'objects' ? <>
 
                 {this.optionButton('trash', 'remove-item', 'Put Away')}
-                {this.optionButton('chevron-right', 'advance-graphic', 'Advance', 'progress')}
+                {this.optionButton('chevron-right', 'advance-graphic', 'Advance Time', 'progress')}
                 {this.optionButton('eye-dropper', 'reveal-item', 'Run Test', 'reveal-random')}
-                {this.optionButton('chevron-right', 'run-atp-item', 'Run Test', 'atp-factory')}
+                {this.optionButton('chevron-right', 'run-atp-item', 'Run Cellular Respiration', 'atp-factory')}
 
                 {record.properties?.includes('experiment_window') ? 
                 <span id={`experiment-window-${item.instance_id}`} >

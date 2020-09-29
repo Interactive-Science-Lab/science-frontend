@@ -25,10 +25,10 @@ class Examiner extends React.Component {
         let bigImages = ['Frog', 'Osmosis Cells', 'Diffusion Cells', 'Petri Dish With Bacteria A', 'Petri Dish With Bacteria B']
 
         if(bigImages.includes(item1.name)) {
-            dims = {w1: 66, left: 0, w2: 0, display1: 'block', display2: 'none'}
+            dims = {w1: 50, left: 0, w2: 0, display1: 'block', display2: 'none'}
         }
         else if(bigImages.includes(item2.name)) {
-            dims = {w1: 0, left: 0, w2: 66, display1: 'none', display2: 'block'}
+            dims = {w1: 0, left: 0, w2: 50, display1: 'none', display2: 'block'}
         }
 
         console.log(this.context.itemsState, dims, item1, item2, item1.display_name === 'Frog', item2.display_name === 'Frog')
