@@ -14,7 +14,8 @@ class Screen extends React.Component {
     handleProps = (props) => {
         return { ...props, frameCount: 0, play: false, end: false, resetData: JSON.stringify(props),
             endSound:  (props.endSound ? new soundEffect(props.endSound) : null),
-            startSound:  (props.startSound ? new soundEffect(props.startSound) : null)  }
+            startSound:  (props.startSound ? new soundEffect(props.startSound) : null),
+            stepSound:  (props.stepSound ? new soundEffect(props.stepSound) : null)  }
     }
 
     setProps = (props) => {
@@ -72,6 +73,7 @@ class Screen extends React.Component {
                 frameCount * FRAMERATIO < maxTime) {
                 let speed = this.applyAcceleration()
                 position = this.moveSprite()
+                if(this.state.stepSound) { this.state.stepSound.play(this.context) }
                 setTimeout(() => { this.setState({ position, speed, frameCount }) }, FRAMERATE);
             } else {
                 if(this.state.endSound) { this.state.endSound.play(this.context) }

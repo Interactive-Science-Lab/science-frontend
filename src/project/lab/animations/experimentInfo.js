@@ -200,6 +200,7 @@ let stairs = {
         sprite: "person-test.png",
         background: "stair-bg.png",
         startSound: "/sounds/whistle.wav",
+        stepSound: "/sounds/footstep.wav",
         buttonText: "Blow Whistle To Start",
         dimensions: [8, 6],
         position: [.85, 4.1],

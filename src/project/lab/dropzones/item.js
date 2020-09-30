@@ -215,7 +215,12 @@ class ItemComponent extends React.Component {
             {item.itemType === 'objects' ? <>
 
                 {this.optionButton('trash', 'remove-item', 'Put Away')}
-                {this.optionButton('chevron-right', 'advance-graphic', 'Advance Time', 'progress')}
+
+
+                {item.name === "Frog" ? 
+                this.optionButton('chevron-right', 'advance-graphic', 'Dissect', 'progress') : 
+                this.optionButton('chevron-right', 'advance-graphic', 'Advance Time', 'progress') }
+
                 {this.optionButton('eye-dropper', 'reveal-item', 'Run Test', 'reveal-random')}
                 {this.optionButton('chevron-right', 'run-atp-item', 'Run Cellular Respiration', 'atp-factory')}
 

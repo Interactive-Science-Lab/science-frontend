@@ -18,7 +18,7 @@ export default {
             ['Microscopic Specimens', 'objects', ["Codon Sequences", "Osmosis Cells", "Diffusion Cells", "Petri Dish With Bacteria A", "Petri Dish With Bacteria B", "Mitosis Microscope Slides", "Mitochondrian"]],
             ['Specimens', 'objects', ['Frog', "Blood Antibody Card", "Urine Sample", ]],
             ['Miscellaneous ', 'objects', ["Whistle"]],
-            ['Basic Objects','objects', ['Scalpel', 'Osmium Chunk', 'Gold Piece', 'Bolt', 'Marble', 'Seltzer Tablet', 'Scrap Metal']],
+            ['Basic Objects','objects', ['Scalpel', 'Osmium Chunk', 'Gold Piece', 'Bolt', 'Marble', 'Scrap Metal']],
             ['Basic Containers', 'containers', ["Graduated Cylinder", "Beaker", "Crucible", "Small Dish"]],
             ['Measuring Equipment', 'tools', ['Balance', 'Thermometer', 'pH Meter', 'Timer', "Micro Pipette", "Measuring Cup (50mL)", "Measuring Cup (10mL)", "Measuring Spoon (5mL)", "Measuring Spoon (1mL)", 'Eyedropper']],
             ['Dissection Tools', 'tools', ['Scalpel']],
