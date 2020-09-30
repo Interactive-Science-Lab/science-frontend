@@ -121,7 +121,7 @@ class ItemComponent extends React.Component {
                 </div> : ""}
 
                 {record.properties?.includes('atp-factory') ? <div>
-                    <div className="atp-reading"></div>
+                    <div className="atp-reading">Yielded <h3>-</h3> ATP</div>
                     <hr /> Molecules Glucose:
                 <select className="atp-molecules">
                         <option>1</option>

@@ -1,4 +1,5 @@
 import { Ingredient } from './ingredient'
+import React from 'react'
 
 
 //The class for moving around the screen.
@@ -72,6 +73,7 @@ export class ItemInstance {
         let maxLoop = Number.parseInt(this.record.properties[progressInt + 1])
         if(maxLoop === currentColor) {currentColor = 0}
         this.record.color = currentColor + 1
+        this.flash(1.5)
         component.state.itemsState.updateInstanceAndState(this, component)
     }
 
@@ -81,6 +83,7 @@ export class ItemInstance {
         let value = Math.ceil(Math.random() * outOf)
         this.record.color = value
         this.record.properties[randomPos] = ""
+        this.flash(1.5)
         component.state.itemsState.updateInstanceAndState(this, component)
     }
 
@@ -111,7 +114,9 @@ export class ItemInstance {
         let aerobic = item.querySelector('.atp-aerobic').value
         aerobic = aerobic === "Aerobic" ? 36 : 2
         let result = aerobic * parseInt(molecules)
-        item.querySelector('.atp-reading').innerHTML = `Yielded ${result} ATP`
+        this.flash(1.5)
+        item.querySelector('.atp-reading').innerHTML = `Yielded <h3>${result}</h3> ATP`
+        
     }
 
     openPhysicsWindow = (e, component) => {
