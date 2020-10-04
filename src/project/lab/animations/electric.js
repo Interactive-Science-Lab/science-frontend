@@ -86,7 +86,7 @@ class Boat extends React.Component {
 
             <div style={{ backgroundColor: '#69C', borderRadius: '20px', border: '2px outset #333', margin: '10px 0' }}>
                 <b>Volts</b> <span style={{...xStyle, fontWeight: this.state.currentVolts === 100 ? "bold" : "", textDecoration: this.state.currentVolts === 100 ? "underline" : "", color: this.state.currentVolts === 100 ? "white" : "#9ACDE7" }} onClick={this.changeVolts} data-choice={100}> 60 </span>
-                <span style={{...xStyle, fontWeight: this.state.currentVolts === 200 ? "bold" : "", textDecoration: this.state.currentVolts === 200 ? "underline" : "", color: this.state.currentVolts === 200 ? "white" : "#9ACDE7"  }} onClick={this.changeVolts} data-choice={200}> 120 </span>
+                <span style={{...xStyle, fontWeight: this.state.currentVolts === 200 ? "bold" : "", textDecoration: this.state.currentVolts === 200 ? "underline" : "", color: this.state.currentVolts === 200 ? "white" : "#9ACDE7"  }} onClick={this.changeVolts} data-choice={200}> 110 </span>
                 <span style={{...xStyle, fontWeight: this.state.currentVolts === 300 ? "bold" : "", textDecoration: this.state.currentVolts === 300 ? "underline" : "", color: this.state.currentVolts === 300 ? "white" : "#9ACDE7"  }} onClick={this.changeVolts} data-choice={300}> 220 </span>
             </div>
 

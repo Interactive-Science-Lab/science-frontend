@@ -34,6 +34,7 @@ class Pendulum extends React.Component {
             canvas: false,
             ctx: false,
             tickSound: new soundEffect('sounds/ticktock.wav'),
+            lastPeriod: new Date().getTime(),
         }
     }
 
@@ -46,7 +47,7 @@ class Pendulum extends React.Component {
         ctx.fillStyle = "gold";
 
         let pendulum = {
-            mass: 200,
+            mass: 60,
             length: this.state.chosenLength,
             theta: (Math.PI / 2) - 0.5,
             omega: 0,
@@ -71,7 +72,7 @@ class Pendulum extends React.Component {
         let chosenLength = Number.parseInt(e.target.getAttribute('data-choice'))
 
         let pendulum = {
-            mass: 200,
+            mass: 60,
             length: chosenLength,
             theta: (Math.PI / 2) - 0.5,
             omega: 0,
@@ -120,6 +121,9 @@ class Pendulum extends React.Component {
 
         if( (oldOmega < 0 && pendulum.omega > 0) || (oldOmega > 0 && pendulum.omega < 0) ) {
             this.state.tickSound.play(this.context)
+            //console.log( (this.state.lastPeriod - timeMs) / 500)
+            //this.setState({lastPeriod: new Date().getTime()})
+            
         }
 
         /* Update acceleration */
