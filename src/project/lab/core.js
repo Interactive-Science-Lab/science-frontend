@@ -50,8 +50,6 @@ class ExperimentLab extends React.Component {
     componentDidMount = async () => {
         this.dragListeners();
 
-        
-
         let objects = await axios.get(api.apiPath('/objects'), curr_user)
         let containers = await axios.get(api.apiPath('/containers'), curr_user)
         let substances = await axios.get(api.apiPath('/substances'), curr_user)
@@ -244,6 +242,11 @@ class ExperimentLab extends React.Component {
         this.setState({ message: null })
     }
 
+    removeImage = (e) => {
+        console.log(e)
+
+    }
+
     render() {
         const devMode = false
 
@@ -261,6 +264,15 @@ class ExperimentLab extends React.Component {
                 {this.state.message ?
                     <div id="gameMessage">{this.state.message} <span className="fas fa-times" onClick={this.clearMessage}></span></div> :
                     null}
+                    <div  onClick={this.removeImage} style={{position:'absolute', right:'1%', width: '8%'}} >
+                        <span onClick={this.removeImage} style={{textAlign: 'center', height: '80px', width: '100%'}} >
+                            <img style={{width: '24px', height: 'auto', right: '0'}} onClick={this.removeImage}  src="/images/goggles.png" />
+                        </span>
+                        <br />
+                        <span onClick={this.removeImage} style={{textAlign: 'center', height: '80px', width: '100%'}} >
+                            <img style={{width: '62px', right: '0'}}  src="/images/labcoat.png" />
+                        </span>
+                    </div>
                 <div id="topPart">
                     <Examiner />
                 </div>
