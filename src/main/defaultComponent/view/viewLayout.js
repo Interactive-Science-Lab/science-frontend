@@ -18,32 +18,35 @@ class Show extends React.Component {
     }
 
     render() {
-        const item = this.props.item
+        const item = this.props.item || {}
         const settings = this.settings
-        const fields = settings.getItemFields(item)
+        let fields = settings.getItemFields(item)
         const sub = this.props.sub
 
-        console.log("ITEM", item, "SETTINGS", settings)
+        //fields = fields.sort((a, b) =>  a.settings.info[settings.loader.sort] - b.settings.info[settings.loader.sort] )
+  
 
         return <div>
             {sub ? "" : <div>{settings.checkPermission('index', item) ?
                 <Link to={`${settings.options?.back_to_all_link ? settings.options.back_to_all_link(item) : settings.get('urlPath')}`}>Back To All</Link>
                 : ""}</div>}
 
-            {sub ? <h3>{settings.get('viewTitle')}</h3> : <h1>{settings.get('viewTitle')}</h1>}
+            {sub ? <h3>{settings.get('viewTitle')}</h3> : <h1>{settings.get('viewTitle', item)}</h1>}
             <p>{settings.get('viewText')}</p>
             <div className={sub ? "" : 'color-box'}>
                 <div>
 
                     {fields.map(field =>
+                        
+                        
                         <FieldDisplay key={field.settings.fieldName} settings={settings} action={'view'} field={field} {...this.props} />
+                    
                     )}
 
                 </div>
 
                 {item.features ? <div>
 
-                    FEATURES:
                     {Object.entries(item.features).map(i => <SubFeature feature={i} />)}
 
                 </div> : ""}
@@ -92,7 +95,6 @@ class SubFeature extends React.Component {
                     let fields = settings.getItemFields(item)
                     return <div>
                         {fields.map(field => {
-                            console.log("FIELD", field, "SETTINGS", settings)
                             return <FieldDisplay settings={settings} action={'view'} field={field} item {...this.props} />
 
                         })

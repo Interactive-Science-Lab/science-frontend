@@ -129,7 +129,7 @@ export default class Component {
     }
 
     //This is just a shortcut getter function to get commonly used things without tons of dots in code
-    get = (shortcut) => {
+    get = (shortcut, item = null) => {
         switch (shortcut) {
             case "urlPath":
                 return this.names.urlPath
@@ -142,7 +142,7 @@ export default class Component {
             case "indexText":
                 return this.text.indexText
             case "viewTitle":
-                return this.text.viewTitle
+                return this.safeProcess(this.text.viewTitle || "", item)
             case "viewText":
                 return this.text.viewText
             case "editTitle":
@@ -157,6 +157,22 @@ export default class Component {
                 throw new Error(`Incorrect selection for 'get'- ${shortcut}`)
         }
     }
+
+    safeProcess = (value, item) => {
+        if(!item) { throw new Error("You need to pass in an item.") }
+        let arr = value.split('{')
+        let arr2 = arr.map( segment => {
+            let split = segment.split('}')
+            console.log(split)
+            if(split[1] !== undefined) {
+                split[0] = item[split[0]]
+            }
+            console.log(split.join(""))
+            return split.join("")
+        })
+        return arr2.join("")
+    }
+
     getId = (item) => {
         return item[this.get('idField')]
     }

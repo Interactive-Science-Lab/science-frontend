@@ -12,7 +12,7 @@ class Page extends React.Component {
         const { settings, field } = this.props
         /*console.log(field.settings)*/
         return <div>
-            {field.settings.label ? <div>{field.settings.printifyName(settings)}:</div> : ""}
+            {field.settings.label ? <div><b><u>{field.settings.printifyName(settings)}:</u></b></div> : ""}
 
             {field.settings.fieldType === 'string' ? <div>
                { JSON.stringify(field.settings.titleField ? this.displayTitle() : field.value) }
@@ -24,7 +24,9 @@ class Page extends React.Component {
 
             {field.settings.fieldType === 'number' ? field.value : ""}
 
-            {field.settings.fieldType === 'text' ? field.value : ""}
+            {field.settings.fieldType === 'text' ? 
+            (this.props.action === "index" ? field.value.substring(0, 215) + (field.value.length > 215 ? "... [Click to read more]" : "") : 
+            field.value) : ""}
 
             {field.settings.fieldType === 'html' ? <div dangerouslySetInnerHTML={{ __html: field.value }} /> : ""}
 

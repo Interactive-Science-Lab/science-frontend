@@ -243,7 +243,9 @@ class ExperimentLab extends React.Component {
     }
 
     removeImage = (e) => {
+        e.preventDefault()
         console.log(e)
+        e.target.remove()
 
     }
 
@@ -264,9 +266,9 @@ class ExperimentLab extends React.Component {
                 {this.state.message ?
                     <div id="gameMessage">{this.state.message} <span className="fas fa-times" onClick={this.clearMessage}></span></div> :
                     null}
-                    <div  onClick={this.removeImage} style={{position:'absolute', right:'1%', width: '8%'}} >
-                        <span onClick={this.removeImage} style={{textAlign: 'center', height: '80px', width: '100%'}} >
-                            <img style={{width: '24px', height: 'auto', right: '0'}} onClick={this.removeImage}  src="/images/goggles.png" />
+                    <div  style={{position:'absolute', right:'1%', width: '8%', zIndex: 999}} >
+                        <span onClick={this.removeImage}   style={{textAlign: 'center', height: '80px', width: '100%'}} >
+                            <img style={{width: '24px', height: 'auto', right: '0'}} src="/images/goggles.png" />
                         </span>
                         <br />
                         <span onClick={this.removeImage} style={{textAlign: 'center', height: '80px', width: '100%'}} >
