@@ -50,6 +50,7 @@ let balloon = {
         endSprite: "small-explosion.gif",
         startSound: "/sounds/dropwater.wav",
         endSound: "/sounds/explosion.wav",
+        buttonText: "Drop Ball",
         dimensions: [50, 100],
         position: [25, 0],
         objectSize: [1, 1],
@@ -59,7 +60,7 @@ let balloon = {
         maxSpd: 1000,
     },
     displays: [
-        ['Height', (item) => { return `${Math.round(item.dimensions[1] - item.position[1])}m` }],
+        //['Height', (item) => { return `${Math.round(item.dimensions[1] - item.position[1])}m` }],
         ['Speed', (item) => { return `${Math.round(item.speed[1])}m/s` }],
         ['Time', (item) => { return null }]
     ],
@@ -119,7 +120,7 @@ let momentum = {
         startSound: "/sounds/startgo.wav",
         endSound: "/sounds/explosion.wav",
         dimensions: [25, 18],
-        position: [0, 12],
+        position: [-2, 12],
         objectSize: [1, 1],
         speed: [0, 0],
         acceleration: [0, 0],
@@ -140,7 +141,7 @@ let momentum = {
                     name: "Bike", settings: {
                         objectSize: [4, 4],
                         speed: [8, 0],
-                        position: [0, 10],
+                        position: [-2, 10],
                         mass: '11.2',
                         sprite: "bike-moment.png"
                     }
@@ -185,6 +186,7 @@ let momentum = {
                     name: "Compact Car", settings: {
                         objectSize: [4, 1.75],
                         speed: [18, 0],
+                        
                         mass: '465.4',
                         sprite: "car-moment.png"
                     }
@@ -339,6 +341,7 @@ let cart = {
             sprite: "cart-obj.png",
             background: "inside-track.png",
             startSound: '/sounds/cartloud.wav',
+            buttonText: "Push Cart",
             dimensions: [12, 8],
             position: [1, 4],
             objectSize: [2, 2],
@@ -349,7 +352,7 @@ let cart = {
         },
         displays: [
             ['Distance', (item) => { return `${Math.round(item.position[0] - 1)}m` }],
-            ['Speed', (item) => { return `${Math.round(item.speed[0])}m/s` }],
+            //['Speed', (item) => { return `${Math.round(item.speed[0])}m/s` }],
             ['Time', (item) => { return null }]
         ],
         options: [
@@ -374,26 +377,26 @@ let cart = {
                 ]
             },
             {
-                optionName: "Bag Mass",
+                optionName: "Cart Mass",
                 optionSelections: [
                     {
-                        name: "0kg", settings: { sprite: "cart-obj.png"
+                        name: "2kg", settings: { sprite: "cart-obj.png"
                         }, effects: { acceleration: 1 }
                     },
                     {
-                        name: "2kg", settings: { sprite: "cart-2.png"
+                        name: "7kg", settings: { sprite: "cart-2.png"
                         }, effects: { acceleration: .85 }
                     },
                     {
-                        name: "5kg", settings: { sprite: "cart-4.png"
+                        name: "18kg", settings: { sprite: "cart-4.png"
                         }, effects: { acceleration: .5 }
                     },
                     {
-                        name: "12kg", settings: { sprite: "cart-6.png"
+                        name: "31kg", settings: { sprite: "cart-6.png"
                         }, effects: { acceleration: .3 }
                     },
                     {
-                        name: "43kg", settings: { sprite: "cart-8.png"
+                        name: "47kg", settings: { sprite: "cart-8.png"
                         }, effects: { acceleration: .2 }
                     }
                 ]

@@ -13,13 +13,12 @@ class Page extends React.Component {
 
     render() {
         const {item, settings}  = this.props        
-        const fields = settings.getItemFields(item)
-
+        let fields = settings.getItemFields(item)
         console.log(fields)
 
         return <Link to={`${settings.get("urlPath")}/${item[settings.get('idField')]}`} style={{ display: "block" }}>
             {fields.map(field => <div key={field.settings.fieldName} >
-                {field.settings.info.permission_id !== 3 ?
+                { field.settings.info.permission_id !== 3 &&  field.settings.info.permission_id !== 5 ?
                 <FieldDisplay action={'index'} field={field} {...this.props} /> : "" }
                 
             </div>

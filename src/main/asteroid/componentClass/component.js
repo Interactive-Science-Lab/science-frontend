@@ -68,7 +68,14 @@ export default class Component {
         }
         
         this.text = data.text || {}
-        
+
+        if(data.names.ls === 'experiment') {
+            this.features = [{name: 'search'}, {name: 'sort', options: [['experiment_order', 'experiment_order'], ['experiment_name', 'experiment_name']]}, {name: 'filter', options: ['all', 'biology', 'chemistry', 'physics']}]
+        } else {
+            this.features = [{name: 'search'} ]
+        }
+
+
         /*
         const plural = options.plural || baseName + 's'
         const upper = options.upper || baseName.charAt(0).toUpperCase() + baseName.substring(1);
@@ -235,7 +242,7 @@ export default class Component {
             returnFields.push(fieldRet)
             return field
         })
-        return returnFields
+        return returnFields.sort( (a, b) => { return a.settings.info.order - b.settings.info.order })
     }
 
     addFeature = (name, options = null, permissions = null) => {

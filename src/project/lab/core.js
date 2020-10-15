@@ -30,7 +30,7 @@ class ExperimentLab extends React.Component {
             hoverItem: {},
             dragItem: {},
             debug: "",
-            masterItemList: { objects: [], containers: [], substances: [], tools: [] },
+            masterItemList: { objects: [], containers: [], substances: [], tools: [], drawers: [] },
             experiment: {},
             message: "Welcome! Please choose an experiment.",
             labType: props.location.search.split('=')[1] || 'chemistry',
@@ -54,13 +54,15 @@ class ExperimentLab extends React.Component {
         let containers = await axios.get(api.apiPath('/containers'), curr_user)
         let substances = await axios.get(api.apiPath('/substances'), curr_user)
         let tools = await axios.get(api.apiPath('/tools'), curr_user)
+        let drawers = await axios.get(api.apiPath('/drawers'), curr_user)
 
         objects = objects.data
         containers = containers.data
         substances = substances.data
         tools = tools.data
+        drawers = drawers.data
 
-        this.setState({ masterItemList: { objects, containers, substances, tools } })
+        this.setState({ masterItemList: { objects, containers, substances, tools, drawers } })
         this.setExperiment();
         this.toggleMusic();
 

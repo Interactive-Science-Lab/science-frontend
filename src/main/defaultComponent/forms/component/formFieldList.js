@@ -15,21 +15,51 @@ class FormFields extends React.Component {
 
     render() {
         let action = this.props.action
-        return this.settings.getItemFields(this.props.item).map(field => {
+        let lastCategory = ""
 
-            if(field.settings.checkPermission(action, this.props.item, this.settings.fields.selfId)){
+
+
+        return this.settings.getItemFields(this.props.item).sort((a, b) => {
+
+            let aCat = a.settings.info.category || ""
+            let bCat = b.settings.info.category || ""
+
+            let aOrder = a.settings.info.order || 100
+            let bOrder = b.settings.info.order || 100
+
+            console.log(aCat, bCat, aOrder, bOrder)
+
+            if (aCat !== bCat) { return aCat.localeCompare(bCat) }
+            else { return aOrder - bOrder }
+
+        }).map(field => {
+
+            if (field.settings.checkPermission(action, this.props.item, this.settings.fields.selfId)) {
                 let customForm = field.settings.checkCustomDisplay(action)
 
-                if(customForm) {
+                if (customForm) {
                     return customForm(this.props.updateItem)
                 } else {
                     //Essentially we map through each fieldOBJECT and pass through the item
-                    return <DefaultFormField field={field} {...this.props} />
+
+                    if (field.settings.info.category !== lastCategory) {
+                        lastCategory = field.settings.info.category
+                        return <div>
+                            <h3>{lastCategory}</h3>
+                            <DefaultFormField field={field} {...this.props} />
+
+                        </div>
+                    }
+                    else {
+                        return <DefaultFormField field={field} {...this.props} />
+                    }
+
+
                 }
 
             } else {
                 return null
-            }      
+            }
 
         })
     }

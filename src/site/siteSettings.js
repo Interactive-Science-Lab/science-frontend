@@ -51,9 +51,14 @@ export const menuOptions = {
     ],
     customMenuStructure: [
         {displayText: "Visit The Lab", permission_id:  7, symbol: "star", link: "/lab", order: 1},
-        {displayText: "Experiments", permission_id:  4, symbol: "user", order: 2, link: '/experiments'},
+        {displayText: "Experiments", permission_id:  4, symbol: "star", order: 2, link: '/experiments'},
+        {displayText: "Objects", permission_id:  4, symbol: "star", order: 20, link: '/objects'},
+        {displayText: "Tools", permission_id:  4, symbol: "star", order: 21, link: '/tools'},
+        {displayText: "Containers", permission_id:  4, symbol: "star", order: 22, link: '/containers'},
+        {displayText: "Substances", permission_id:  4, symbol: "star", order: 23, link: '/substances'},
+        {displayText: "Drawers", permission_id:  4, symbol: "star", order: 24, link: '/drawers'},
         {displayText: "Login", permission_id:  6, symbol: "user", order: 1, link: '/auth/login'},
-        {displayText: "Logout", permission_id:  7, link: '/auth/logout', symbol: "sign-out-alt", order: 5},
+        {displayText: "Logout", permission_id:  7, link: '/auth/logout', symbol: "sign-out-alt", order: 3},
     ],
     menuCategories: [
         /*{name: "Help and Support", symbol: "newspaper", permission:  "all", order: 2},

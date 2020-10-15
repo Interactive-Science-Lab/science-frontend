@@ -23,7 +23,7 @@ class Show extends React.Component {
         let fields = settings.getItemFields(item)
         const sub = this.props.sub
 
-        //fields = fields.sort((a, b) =>  a.settings.info[settings.loader.sort] - b.settings.info[settings.loader.sort] )
+        //fields = fields.sort((a, b) =>  a.category > b.category )
   
 
         return <div>

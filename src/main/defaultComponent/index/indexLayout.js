@@ -36,6 +36,7 @@ class defaultIndex extends React.Component {
     displaySearch = () => {
         const { settings, mainState } = this.props
         const optionSettings = settings.feature('search')
+        console.log("Hey look here", optionSettings)
         if (optionSettings) {
             const component = <Search component={mainState} />
             return this.displayOption(component, optionSettings)
