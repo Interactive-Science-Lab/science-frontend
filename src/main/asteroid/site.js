@@ -31,7 +31,11 @@ export default class Site {
     findPermissionById = (id) => {
         let permission = null
         this.permissions.map(c => { if(c.permission_id === id) { permission = c } })
-        if(!permission) { throw new Error(`ASTEROID: Unable to find Permission id#:"${id}"`) }
+        if(!permission) { 
+            //throw new Error(`ASTEROID: Unable to find Permission id#:"${id}"`) 
+            this.permissions.map(c => { if(c.permission_id === 1) { permission = c } })
+        
+        }
         return permission
     }
 
