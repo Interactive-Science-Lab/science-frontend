@@ -13,7 +13,7 @@ class ExperimentLab extends React.Component {
         }
     }
 
-    toggleOpen = () => {
+    toggleOpen = (e) => {
         this.props.selectNum(this.props.num)
     }
 
@@ -30,7 +30,9 @@ class ExperimentLab extends React.Component {
 
             return <div className={`shelf ${this.props.openNum === this.props.num ? 'open' : 'close'}-shelf`}>
 
-                <div className='shelf-contents' style={{ margin: '0px 0 0px', position: 'absolute', bottom: '100%', width: '100%', paddingBottom: '0px' }}>
+                <div className='shelf-contents' 
+                style={{ margin: '0', borderRadius: '4px', position: 'absolute', 
+                bottom: '100%', width: '100%', paddingBottom: '0px', border: '3px inset #406375' }}>
                     {list.map(item =>
                         <div
                             draggable
@@ -39,18 +41,21 @@ class ExperimentLab extends React.Component {
                             data-shelf-option={filter}
                             data-id={item.container_id || item.tool_id || item.object_item_id || item.substance_id}
                             data-name={item.display_name}>
-                            <p style={{ cursor: 'grab', color: 'white', padding: '5px', borderBottom: '2px solid #0f0a04', borderTop: '2px solid #2f2a24' }}><span style={{ cursor: 'grab', color: 'white' }} class="fas fa-caret-right"></span>
+                            <p 
+                            style={{ cursor: 'grab', color: '#ccc', padding: '10px', border: '3px outset #406385' }}>
+                                <span style={{ cursor: 'grab', color: 'white' }}></span>
                             &nbsp;{item.display_name} {filter === 'frozen' ? "(Frozen)" : null}
-                            </p>
+                            <span className="fas fa-caret-right" style={{ fontSize: '12px', margin: "0 6px", color: 'grey', opacity:'.8' }}></span> </p>
+                            
                         </div>)}
                 </div>
 
-                <div style={{ textAlign: 'center' }}>
+                <div id="drawerName" style={{ textAlign: 'center', fontWeight: 'bold' }}>
                     {this.props.openNum === this.props.num ?
-                        <div className="" style={{ cursor: 'pointer' }} onClick={this.toggleOpen}>
-                            <span className="fas fa-chevron-up" style={{ fontSize: '20px' }}></span>
+                        <div className="" style={{ cursor: 'pointer'}} onClick={this.toggleOpen}>
+                            <span className="fas fa-chevron-up" style={{ fontSize: '12px', margin: "0 6px" }}></span>
                             {drawer.name}
-                            <span className="fas fa-chevron-up" style={{ fontSize: '20px' }}></span>
+                            <span className="fas fa-chevron-up" style={{ fontSize: '12px', margin: "0 6px" }}></span>
                             <p className="ttip">Close {itemType}</p>
                         </div>
 
@@ -58,9 +63,9 @@ class ExperimentLab extends React.Component {
                         :
 
                         <div className="" style={{ cursor: 'pointer' }} onClick={this.toggleOpen}>
-                            {drawer.name != "" ? <span className="fas fa-chevron-down" style={{ fontSize: '20px' }}></span> : ""}
+                            {drawer.name != "" ? <span className="fas fa-chevron-down" style={{ fontSize: '12px', margin: "0 6px" }}></span> : ""}
                             {drawer.name}
-                            {drawer.name != "" ? <span className="fas fa-chevron-down" style={{ fontSize: '20px' }}></span> : ""}
+                            {drawer.name != "" ? <span className="fas fa-chevron-down" style={{ fontSize: '12px', margin: "0 6px" }}></span> : ""}
                             <p className="ttip">Open {itemType}</p>
                         </div>
 

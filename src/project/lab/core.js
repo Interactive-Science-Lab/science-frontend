@@ -13,7 +13,6 @@ import { Link } from 'react-router-dom'
 
 import labSettings from './classes/fields'
 
-
 import { LabContext } from './labContext'
 
 import DragHelper from './classes/drag'
@@ -34,14 +33,17 @@ class ExperimentLab extends React.Component {
             experiment: {},
             message: "Welcome! Please choose an experiment.",
             labType: props.location.search.split('=')[1] || 'chemistry',
-            music: false,
-            soundEffects: true,
+            music: this.defaultSound('music'),
+            soundEffects: this.defaultSound('soundfx') ,
+            light: false,
             musicObj: new sound("science soundtrack.mp3"),
             sounds: {
                 drag: new soundEffect("sounds/drag.wav"),
                 drop: new soundEffect("sounds/drop.wav"),
                 click: new soundEffect("sounds/click.wav"),
                 remove: new soundEffect("sounds/remove.wav"),
+                light: new soundEffect("sounds/lightswitch.wav"),
+                error: new soundEffect("sounds/error.wav")
             }
             
         }
@@ -64,7 +66,7 @@ class ExperimentLab extends React.Component {
 
         this.setState({ masterItemList: { objects, containers, substances, tools, drawers } })
         this.setExperiment();
-        this.toggleMusic();
+        this.initiateMusic();
 
         
 
@@ -79,10 +81,31 @@ class ExperimentLab extends React.Component {
         }
     }
 
+    defaultSound = (string) => {
+        let lS = localStorage.getItem(string) || 'on'
+        return lS
+    }
+
+    initiateMusic = () => {
+        let newVal = this.state.music
+
+        if(newVal === 'on'){
+            if(! this.state.musicObj.play()) {
+                this.toggleMusic()
+            }
+        } else {
+            this.state.musicObj.stop();
+        }
+        
+    }
+
     toggleMusic = () => {
-        let newVal = !this.state.music
+        let newVal = this.state.music === 'off' ? 'on' : 'off'
+
         this.setState({music: newVal})
-        if(newVal){
+        localStorage.setItem('music', newVal)
+
+        if(newVal === 'on'){
             this.state.musicObj.play();
         } else {
             this.state.musicObj.stop();
@@ -91,7 +114,13 @@ class ExperimentLab extends React.Component {
     }
 
     toggleSoundFx = () => {
-        this.setState({soundEffects: !this.state.soundEffects})
+        let newVal = this.state.soundEffects === 'off' ? 'on' : 'off'
+        this.setState({soundEffects: newVal})
+        localStorage.setItem('soundfx', newVal)
+    }
+
+    setMessage = (string) => {
+        this.setState({message: string})
     }
 
     setExperiment = async () => {
@@ -164,9 +193,6 @@ class ExperimentLab extends React.Component {
         const physics = document.querySelectorAll('.run-physics')
 
         for (const physic of physics) { physic.addEventListener('click', this.openPhysicsWindow) }
-
-
-
     }
 
     emptyItem = (e) => {
@@ -185,7 +211,13 @@ class ExperimentLab extends React.Component {
     }
     fillWater = (e) => {
         let w = this.state.itemsState.getInstanceByEvent(e)
-        if (w.instance_id) { w.fillWithWater(e, this) }
+        if (w.instance_id) { 
+            this.state.sounds.drop.play(this.state);
+            w.fillWithWater(e, this) 
+        } else {
+            this.state.sounds.error.play(this.state);
+            this.setMessage('You must use a container.')
+        }
     }
     strainItem = (e) => { 
         this.state.sounds.click.play(this.state);
@@ -244,9 +276,13 @@ class ExperimentLab extends React.Component {
         this.setState({ message: null })
     }
 
+    turnOnLight = () => {
+        this.state.sounds.light.play(this.state, 'loud');
+        this.setState({light: !this.state.light})
+    }
+
     removeImage = (e) => {
         e.preventDefault()
-        console.log(e)
         e.target.remove()
 
     }
@@ -264,17 +300,31 @@ class ExperimentLab extends React.Component {
             </div>
             : "" }
 
+
+
+
             <div id="labScreen" style={{ backgroundImage: `url('/images/${labSettings[this.state.labType].backgroundImage}')` }}>
+
+            {!this.state.light ?
+            <div id="lightTransparency" style={{width:'100%',height:'100%', backgroundColor: 'rgba(0,0,0,.9)', position:'absolute', zIndex:'9999'}}></div>
+            : ""}
+           
+
+
+            <div id="lightSwitch" onClick={this.turnOnLight} 
+            style={{boxShadow: '0px 0px 8px white', borderRadius: '8px', width:'8%', height:'12%', right: '10px', top: '40%', backgroundPosition: 'center center', backgroundImage: `url('/images/light${this.state.light ? "on":"off"}.png')`, backgroundSize: 'contain', backgroundRepeat: 'none none', position:'absolute', zIndex:'99999'}}></div>
+
+
                 {this.state.message ?
                     <div id="gameMessage">{this.state.message} <span className="fas fa-times" onClick={this.clearMessage}></span></div> :
                     null}
                     <div  style={{position:'absolute', right:'1%', width: '8%', zIndex: 999}} >
                         <span onClick={this.removeImage}   style={{textAlign: 'center', height: '80px', width: '100%'}} >
-                            <img style={{width: '24px', height: 'auto', right: '0'}} src="/images/goggles.png" />
+                            <img style={{width: '50%', height: 'auto', right: '0'}} src="/images/goggles.png" />
                         </span>
                         <br />
                         <span onClick={this.removeImage} style={{textAlign: 'center', height: '80px', width: '100%'}} >
-                            <img style={{width: '62px', right: '0'}}  src="/images/labcoat.png" />
+                            <img style={{width: '100%', right: '0'}}  src="/images/labcoat.png" />
                         </span>
                     </div>
                 <div id="topPart">
@@ -289,11 +339,11 @@ class ExperimentLab extends React.Component {
             </div>
 
             <span style={{display:"inline-block", padding: '10px'}}>
-                Music: <span onClick={this.toggleMusic}>{ this.state.music ? <span class="fas fa-music"> On</span> : <span class="fas fa-volume-mute"> Off</span> }</span>
+                Music: <span onClick={this.toggleMusic}>{ this.state.music === 'on' ? <span class="fas fa-music"> On</span> : <span class="fas fa-volume-mute"> Off</span> }</span>
             </span>
             
             <span style={{display:"inline-block", padding: '10px'}}>
-            Sound FX: <span onClick={this.toggleSoundFx}>{ this.state.soundEffects ? <span class="fas fa-music"> On</span> : <span class="fas fa-volume-mute"> Off</span> }</span>
+            Sound FX: <span onClick={this.toggleSoundFx}>{ this.state.soundEffects === 'on' ? <span class="fas fa-music"> On</span> : <span class="fas fa-volume-mute"> Off</span> }</span>
             </span>
 
             {devMode ? <div>
@@ -381,13 +431,13 @@ function soundEffect(src) {
     this.sound.setAttribute("preload", "auto");
     this.sound.setAttribute("controls", "none");
     this.sound.style.display = "none";
-    this.sound.volume = .025
+    this.sound.volume = .05
     document.body.appendChild(this.sound);
     this.play = function(obj, vol){
         if(vol === 'loud') {
-            this.sound.volume = .1
+            this.sound.volume = .2
         }
-        if(obj.soundEffects){
+        if(obj.soundEffects === 'on'){
             this.sound.play();
         }
     }
@@ -404,7 +454,12 @@ function soundEffect(src) {
     this.sound.style.display = "none"
     document.body.appendChild(this.sound);
     this.play = function(){
+        try {
         this.sound.play();
+        return true}
+        catch {
+            return false
+        }
     }
     this.stop = function(){
       this.sound.pause();

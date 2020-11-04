@@ -15,11 +15,14 @@ export class ContainerInstance extends ItemInstance {
     /* ------------------------ */
     //Takes in an ObjectItemInstance or a SubstanceItemInstance
     addToContents = (itemInstance, component = null) => {
-        if (this.record.hold_volume > itemInstance.getVolume() + this.getFillVolume()) {
+        if (this.record.hold_volume >= itemInstance.getVolume() + this.getFillVolume()) {
             itemInstance.area = null
             itemInstance.pos = null
             this.flash(2)
             this.contents = this.contents.addItemToMixture(itemInstance, component)
+            component.setMessage('Added successfully.')
+        } else {
+            component.setMessage('This container is too full!')
         }
         return this
     }
@@ -96,6 +99,7 @@ export class ContainerInstance extends ItemInstance {
         waterRecord.volume = 10
         let waterInstance = component.state.itemsState.newInstance(waterRecord, { itemType: 'substances' }, {})
         this.addToContents(waterInstance, component)
+
         this.flash()
         component.state.itemsState.updateInstanceAndState(this, component)
     }

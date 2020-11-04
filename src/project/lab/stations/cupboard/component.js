@@ -67,7 +67,6 @@ class ExperimentLab extends React.Component {
                     <Shelf num={7} openNum={this.state.openNum} selectNum={this.selectNum} drawer={drawers[6]} list={this.getList(drawers[6])} />
                     <Shelf num={8} openNum={this.state.openNum} selectNum={this.selectNum} drawer={drawers[7]} list={this.getList(drawers[7])} />
                 </div>
-                <div>&nbsp;</div>
             </div>
         } else {
             return ""

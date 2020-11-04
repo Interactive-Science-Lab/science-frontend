@@ -41,7 +41,9 @@ class FormFields extends React.Component {
                     return customForm(this.props.updateItem)
                 } else {
                     //Essentially we map through each fieldOBJECT and pass through the item
-
+                    if(field.settings.info.permission_id !== 5){
+                        
+                        
                     if (field.settings.info.category !== lastCategory) {
                         lastCategory = field.settings.info.category
                         return <div>
@@ -53,6 +55,8 @@ class FormFields extends React.Component {
                     else {
                         return <DefaultFormField field={field} {...this.props} />
                     }
+
+                }
 
 
                 }

@@ -72,7 +72,7 @@ export default class Component {
         if(data.names.ls === 'experiment') {
             this.features = [{name: 'search'}, {name: 'sort', options: [['experiment_order', 'experiment_order'], ['experiment_name', 'experiment_name']]}, {name: 'filter', options: ['all', 'biology', 'chemistry', 'physics']}]
         } else {
-            this.features = [{name: 'search'} ]
+            this.features = [{name: 'search'}]
         }
 
 

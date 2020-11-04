@@ -3,6 +3,22 @@ import MasterListHelper from './masterList'
 
 function dragStart(component, e) {
     e.dataTransfer.effectAllowed = "move";
+
+    let imgSrc = e.target.getAttribute('data-imgSrc')
+    // console.log(imgSrc)
+    // var img = new Image();
+    // img.src = imgSrc;  
+    // img.style.width = '48px !important' 
+    // e.dataTransfer.setDragImage(img, 6, 6);
+
+    var dragIcon = document.createElement('img');
+    dragIcon.src = imgSrc;
+    dragIcon.height = '64';
+    var div = document.createElement('div');
+    div.appendChild(dragIcon);
+    document.querySelector('body').appendChild(div);
+    e.dataTransfer.setDragImage(div, -10, -10);
+
     component.setState({
         dragItem: {
             instance: Number.parseInt(e.target.getAttribute('data-instance')),
