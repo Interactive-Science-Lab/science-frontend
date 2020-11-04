@@ -10,9 +10,10 @@
 	overflow-y:scroll;
 	z-index: 10;
 	padding-left:10px;
-	border-right:5px solid $menuAccentColor;
+	border-right:3px solid $menuAccentColor;
+	box-shadow: 2px 0 8px black;
 	top: 0;
-	background-color: $headerMenuColor;
+	background: linear-gradient(lighten($headerMenuColor, 8%), darken($headerMenuColor, 8%));
 	transition: background-color 100ms linear;
 	&:hover {
 		background-color: $headerMenuColor;

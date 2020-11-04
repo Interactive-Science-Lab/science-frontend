@@ -41,7 +41,7 @@ class ItemComponent extends React.Component {
         }
         
 
-        return <div style={style} className={`drag-item lab-action instance-${item.instance_id}`} data-itemType={item.itemType} data-instance={item.instance_id} draggable >
+        return <div style={style} className={`drag-item lab-action instance-${item.instance_id}`} data-itemType={item.itemType} data-imgSrc={`/images/${item.getSprite()}`} data-instance={item.instance_id} draggable >
 
             <div className="lab-hover-popup-op" style={{zIndex: '100'}}>{this.itemOptions()}</div>
 
@@ -198,13 +198,17 @@ class ItemComponent extends React.Component {
                 {this.optionButton('filter', 'split-item', 'Suck Up', 'scoop')}
                 {this.optionButton('sync', 'combine-strain-item', 'Combine', 'scoop')}
 
-                {this.optionButton('filter', 'tare-item', 'Tare Balance', 'display_mass')}
 
                 {this.optionButton('filter', 'strain-item', 'Strain', 'strain')}
                 {this.optionButton('sync', 'combine-strain-item', 'Combine', 'strain')}
 
-                {/* this.optionButton('burn', 'heat-item heat-lo', 'Heat Low', 'heatsource-flame')}
-                {this.optionButton('fire-alt', 'heat-item heat-mid', 'Heat Mid', 'heatsource-flame') */}
+                {/* 
+                {this.optionButton('filter', 'tare-item', 'Tare Balance', 'display_mass')}
+                
+                
+                this.optionButton('burn', 'heat-item heat-lo', 'Heat Low', 'heatsource-flame')}
+                {this.optionButton('fire-alt', 'heat-item heat-mid', 'Heat Mid', 'heatsource-flame')
+                 */}
                 {this.optionButton('fire', 'heat-item heat-hi', 'Heat Hi', 'heatsource-flame')}
 
                 {this.optionButton('stopwatch', 'time-item time-lo', '5 Secs', 'timer')}

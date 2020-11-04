@@ -37,10 +37,11 @@ class Show extends React.Component {
                 <div>
 
                     {fields.map(field =>
+                        <div>{ field.settings.info.permission_id !== 5 ?
                         
                         
                         <FieldDisplay key={field.settings.fieldName} settings={settings} action={'view'} field={field} {...this.props} />
-                    
+                            : "" }</div>
                     )}
 
                 </div>

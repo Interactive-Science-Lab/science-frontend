@@ -62,8 +62,8 @@ class Header extends React.Component {
 
             <NavLink to={`/lab?l=${labKind}`} style={{ background: 'none' }}>Back To Experiments</NavLink>
             <h2 style={{ color: "white" }}>{item.experiment_name }</h2>
-            <p><i style={{ color: "grey", textAlign: "left" }}>{item.experiment_description}</i></p>
-            <p style={{color: '#ccc', textAlign: "left"}}>{item.experiment_information}</p>
+            {/*<p><i style={{ color: "grey", textAlign: "left" }}>{item.experiment_description}</i></p>
+            <p style={{color: '#ccc', textAlign: "left"}}>{item.experiment_information}</p>*/}
             <h4 style={{ color: "white" }}>Method</h4>
 
             {item.experiment_steps?.split('#').map(step => 
@@ -81,14 +81,17 @@ class Header extends React.Component {
 
 
             : <div>
-
             <NavLink to="/" style={{ background: 'none', display: 'block' }}>Logout</NavLink>{items.length > 0 ? <div>
+            <h4 style={{ color: "white", textShadow: '2px 2px 4px black'}} >Experiment List</h4>
                 <p style={{ color: "grey" }}>Please choose an experiment for further instructions.</p>
                 
                 {
-                items.sort((a,b) => a.experiment_order - b.experiment_order).map((i, x) => <Link to={`/lab/${i.experiment_id}?l=${this.props.location.search.split('=')[1] || 'chemistry'}`}  style={{ display: 'block', background: 'none' }}>
-                    <p style={{ color: "grey", marginBottom: "0" }}>Experiment #{x+1}:</p>
-                    <h4 style={{ color: "white", marginTop: "0" }}> {i.experiment_name}</h4>
+                items.sort((a,b) => a.experiment_order - b.experiment_order).map((i, x) => 
+                <Link  className="experimentListName"  to={`/lab/${i.experiment_id}?l=${this.props.location.search.split('=')[1] || 'chemistry'}`}  
+                style={{ display: 'block', padding: '15px', boxShadow: '2px 2px 4px black' }}>
+<span className="fas fa-caret-right" style={{color: 'white', display: 'block', position: 'absolute', right:'15px', opacity: '.2'}}></span>
+<h5 style={{ marginTop: "0", textAlign: 'left', textDecoration: 'none' }}><span style={{ color: "grey"}}>#{x+1}</span> <span style={{ color: "white"}}>{i.experiment_name}</span> </h5>
+                    
                 </Link>)
             }</div> : "-" }
             

@@ -30,7 +30,7 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
 	height: 44.64vw;
 	background-color: $l-primary-color;
 	background-size: 100% 100%;
-	padding: 15px;
+	//padding: 1%;
 	margin: auto;
 	border-bottom: 2px solid black;
 	* {
@@ -49,7 +49,8 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
 }
 
 #topPart {
-	height: 55%;
+	height: 54%;
+	padding: 1%;
 	position: relative;
 	& > div {
 		display: flex;
@@ -61,10 +62,10 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
 }
 #midPart {
 	height: 26%;
-	padding: 30px;
+	padding: 3%;
 }
 #bottomPart {
-	height: 19%;
+	height: 20%;
 }
 
 #studentTray {
@@ -85,34 +86,51 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
 #shelveSection {
 	width: 100%;
 	height: 100%;
-	display: flex;
+	padding: 0 0 1.5% 1%;
 
 	& > div {
-		width: 33.33%;
-		margin: 0 5% 0 2.5%;
+		width: 31%;
+		margin: 0 1.75% 0 0%;
 		height: 100%;
+		text-align:left;
+		float:left;
 	}
 }
 
 .shelf {
 	width: 100%;
-	height: 25%;
+	height: 25% !important;
 	position: relative;
+	display:flex;
+	align-items: center;
+	justify-content: center;
 	&:hover {
-		background-color: rgba(255, 255, 255, .5);
+		background: linear-gradient(transparent, rgba(white, .6), transparent);
+		text-shadow: 1px 1px 3px $d-primary-color;
 	}
 }
 
 .open-shelf {
 	.shelf-contents {
-		background-color: #222;
-		display: block;
+		font-weight:500;
+		background-color: $primary-color;
+		height:auto;
+		max-height:400px;
+		overflow: hidden scroll;
+		opacity:100%;
+		transition: all 500ms ease-in-out;
 	}
 }
 
 .close-shelf {
+
 	.shelf-contents {
-		display: none;
+		max-height:0px;
+		opacity:0%;
+		height:auto;
+		transition: all 500ms ease-in-out;
+		overflow:hidden;
+
 	}
 }
 
@@ -133,7 +151,7 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
 }
 
 #examiner {
-	background-color: $displayBox;
+	background-color: rgba(94, 161, 169, .8);
 	text-align: center;
 	border: $displayBorder;
 	padding: 10px;
@@ -145,7 +163,7 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
 	.item-used {
 		display: block;
 	}
-	border-radius: 20px;
+	border-radius: 8px;
 	max-height: 100%;
 	bottom: 10px;
 	position: absolute;
@@ -167,12 +185,12 @@ $tableColor: rgba(19, 17, 15, .65);
 }
 
 #tableLeft {
-	width: 75%;
+	width: 75.25%;
 	height: 100%;
 }
 
 #tableSink {
-	width: 17%;
+	width: 15.25%;
 }
 
 #drawersCom {
@@ -238,6 +256,11 @@ p.dropzoneempty {
 	}
 }
 
+.sink-controls {
+	display:flex;
+	justify-content: space-evenly;
+}
+
 .drop-row {
 	width: 98%;
 	min-height: 20px;
@@ -250,7 +273,7 @@ p.dropzoneempty {
 	color: white;
 	border: 10px outset transparent;
 	padding: 10px;
-	border-radius: 20px;
+	border-radius: 10%;
 }
 
 .waterHot {
@@ -314,8 +337,28 @@ p.dropzoneempty {
 .invisible {
 	display: none;
 }
+.inventory-item > p {
+	padding:10px;
+	font-weight:600;
+	border-radius:4px;
+}
+.inventory-item {
+	background: linear-gradient($primary-color, darken($primary-color, 10%));
+	background: linear-gradient(darken(#7b8e99, 15%), darken(#7b8e99, 30%));
+	text-shadow: 1px 1px 4px black;
+	
+}
+
+.shelf #drawerName {
+	opacity: .5;
+}
+.shelf:hover #drawerName {
+	opacity: .8;
+}
 .inventory-item:hover {
-	background-color: rgba(180, 180, 180, .3);
+	background: linear-gradient( transparent, rgba(180, 180, 180, .3), transparent), darken($primary-color, 10%);
+	text-shadow: 1px 1px 4px $d-primary-color,  1px 1px 4px $primary-color;
+	& > p { color:white !important; }
 }
 
 .lab-action {
@@ -336,7 +379,12 @@ p.dropzoneempty {
 	width: 100%;
 	top:0;
 	padding: 10px;
+	text-shadow: 2px 2px 4px white, -2px 2px 4px white, 2px -2px 4px white, -2px -2px 4px white;
+	& span {
+		text-shadow: none;
+	}
 }
+
 
 .format-link.lab-action:not(.remove-item) {
     display: none;
@@ -349,7 +397,7 @@ p.dropzoneempty {
 .lab-action:hover {
 	.lab-hover-popup-op {
 		opacity: 1;
-		background-color: #549fa8;
+		background-color: transparent;
     }
 }
 
@@ -414,12 +462,11 @@ p.dropzoneempty {
 
 .ttip {
 	position: absolute;
-	background-color: $d-primary-color;
+	background-color: #37676D;
 	color: $ll-primary-color;
 	padding: 10px;
 	bottom: 0;
 	right: 0;
-	border-radius: 10px;
 	display: none;
 }
 
@@ -428,17 +475,21 @@ p.dropzoneempty {
 }
 
 .ttiphover > h1 {
-	background: $d-primary-color;
+	background-color: #37676D;
 	display: inline-block;
 	padding: 10px;
 	font-size: 32px;
 	width: 52px;
-	border-radius: 50%;
+	border-radius: 10%;
 }
 
 .ttipalt > h1 {
 	display: inline-block;
 	font-family: $textFont;
+	font-size:100% !important;
+	padding:10%;
+	height:100%;
+	width:100%;
 }
 
 .ttipalt:hover > .ttip {
@@ -470,4 +521,12 @@ p.dropzoneempty {
 .admin-bar {
 	background-color: $ll-primary-color;
 	border-bottom: 4px solid $dd-primary-color;
+}
+
+.experimentListName {
+	background: linear-gradient(rgba(255, 255, 255, .1), transparent, rgba(0, 0, 0, .1));
+}
+
+.experimentListName:hover {
+	background: linear-gradient( rgba(white, .2),  rgba(0, 0, 0, .2), rgba(white, .2));
 }
