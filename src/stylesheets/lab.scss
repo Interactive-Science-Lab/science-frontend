@@ -117,7 +117,7 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
 		height:auto;
 		max-height:400px;
 		overflow: hidden scroll;
-		opacity:100%;
+		opacity:1;
 		transition: all 500ms ease-in-out;
 	}
 }
@@ -126,7 +126,7 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
 
 	.shelf-contents {
 		max-height:0px;
-		opacity:0%;
+		opacity:0;
 		height:auto;
 		transition: all 500ms ease-in-out;
 		overflow:hidden;
