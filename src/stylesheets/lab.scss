@@ -1,3 +1,5 @@
+
+
 $wood: rgba(#a28065, .75);
 $contrast: 40%;
 
@@ -30,11 +32,10 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
 	height: 44.64vw;
 	background-color: $l-primary-color;
 	background-size: 100% 100%;
-	//padding: 1%;
 	margin: auto;
 	border-bottom: 2px solid black;
 	* {
-		font-size: 15px;
+		font-size: 1em;
 	}
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
@@ -56,8 +57,8 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
 		display: flex;
 		align-items: space-between;
 		justify-content: space-between;
-		max-height: 300px;
-		height: 300px;
+		//max-height: 300px;
+		//height: 300px;
 	}
 }
 #midPart {
@@ -146,7 +147,7 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
 .item-name {
 	img {
 		width: 100%;
-		max-width: 60px;
+		max-width: 3.4vw;
 	}
 }
 
@@ -154,7 +155,7 @@ $displayBorder: 4px inset darken($displayBox, $contrast/2);
 	background-color: rgba(94, 161, 169, .8);
 	text-align: center;
 	border: $displayBorder;
-	padding: 10px;
+	//padding: 10px;
 	.item-weight,
 	.item-volume,
 	.item-description,
@@ -221,7 +222,7 @@ $dropColor: rgba(180, 180, 180, .1);
 .block-number-text {
 	color: $primary-color;
 	font-weight: bold;
-	font-size: 18px !important;
+	font-size: 1.2em !important;
 }
 
 p.dropzoneempty {
@@ -229,13 +230,13 @@ p.dropzoneempty {
 	height: 100%;
 	color: $primary-color;
 	font-weight: bold;
-	font-size: 18px !important;
+	font-size: 1.2em !important;
 }
 
 .drop-section {
 	width: 23%;
-	min-width: 80px;
-	height: 60px;
+	//min-width: 80px;
+	//height: 60px;
 	margin: 1%;
 	background-color: $dropColor;
 }
@@ -272,7 +273,7 @@ p.dropzoneempty {
 	cursor: pointer;
 	color: white;
 	border: 10px outset transparent;
-	padding: 10px;
+	//padding: 10px;
 	border-radius: 10%;
 }
 
@@ -303,9 +304,9 @@ p.dropzoneempty {
 .drag-item {
 	border: 2px solid black;
 	border-radius: 4px;
-	padding:15px 0;
+	//padding:15px 0;
 	height: 100%;
-	min-height: 100px;
+	//min-height: 100px;
 
 	justify-content: center;
 	cursor: grab;
@@ -316,7 +317,6 @@ p.dropzoneempty {
 
 .tool-item > .drag-item {
 	display: flex;
-	padding: 20px;
 	border: 2px solid #222;
 	height: 100%;
 	max-height: 100%;
@@ -338,9 +338,7 @@ p.dropzoneempty {
 	display: none;
 }
 .inventory-item > p {
-	padding:10px;
 	font-weight:600;
-	border-radius:4px;
 }
 .inventory-item {
 	background: linear-gradient($primary-color, darken($primary-color, 10%));
@@ -378,7 +376,6 @@ p.dropzoneempty {
 	opacity: .3;
 	width: 100%;
 	top:0;
-	padding: 10px;
 	text-shadow: 2px 2px 4px white, -2px 2px 4px white, 2px -2px 4px white, -2px -2px 4px white;
 	& span {
 		text-shadow: none;
@@ -478,7 +475,7 @@ p.dropzoneempty {
 	background-color: #37676D;
 	display: inline-block;
 	padding: 10px;
-	font-size: 32px;
+	font-size: 2em;
 	width: 52px;
 	border-radius: 10%;
 }

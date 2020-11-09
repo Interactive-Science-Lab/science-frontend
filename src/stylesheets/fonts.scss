@@ -2,10 +2,12 @@ $textFont: 'Open Sans', serif;
 $headerFont: 'Signika';
 $topFont: 'Bowlby One SC', cursive;
 
+html, body { font-size: 1vw; }
+
 p,
 a,
 * {
-	font-size: 14px;
+	font-size: 1em;
 	font-family: $textFont;
 	color: $textFontColor;
 }
@@ -25,27 +27,27 @@ h1 {
 		font-size: 8vw;
 	}
 	@media only screen and (max-width: 911px) and (min-width: 481px) {
-		font-size: 38px;
+		font-size: 2em;
 	}
 	@media only screen and (min-width: 912px) {
-		font-size: 48px;
+		font-size: 2em;
 	}
 }
 
 h2 {
 	@include h-tag;
-	font-size: 32px;
+	font-size: 1.6em;
 }
 h3 {
 	@include h-tag;
-	font-size: 24px;
+	font-size: 1.4em;
 }
 h4 {
 	@include h-tag($font: $textFont);
-	font-size: 20px;
+	font-size: 1.2em;
 }
 h5 {
 	@include h-tag($font: $textFont);
-	font-size: 18px;
+	font-size: 1.1em;
 	text-decoration: underline;
 }

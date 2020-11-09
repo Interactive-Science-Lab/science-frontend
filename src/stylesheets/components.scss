@@ -4,7 +4,6 @@
 button {
 	color: $l-light-color;
 	padding: 10px;
-	font-size: 18px;
 	border: 8px solid $l-grey-color;
 	background: linear-gradient(rgba($l-secondary-color, .2), rgba($d-secondary-color, .2));
 	font-family: $headerFont;
@@ -19,7 +18,6 @@ button {
 	padding: 10px;
 	line-height:1.2;
 	border: $defaultNiceButtonBorder;
-	font-size: 28px;
 	font-family: $headerFont;
 	background: linear-gradient(rgba($defaultNiceButtonColor, .8), rgba($defaultNiceButtonColor, .8));
 	@media only screen and (max-width: 911px) {
@@ -180,7 +178,7 @@ select {
 	color: $d-dark-color;
 	padding:10px 20px;
 	margin:3px;
-	font-size:18px;
+	font-size:1.2em;
 	cursor:pointer;
 }
 
@@ -193,7 +191,7 @@ input, input.form-control, textarea.form-control{
 	color: $dark-color;
 	padding:10px 20px;
 	margin:3px;
-	font-size:18px;
+	font-size:1.2em;
 }
 input, input.form-control:focus, textarea.form-control:focus{
 	background-color:$l-light-color;
