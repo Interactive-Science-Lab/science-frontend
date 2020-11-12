@@ -7,7 +7,6 @@
 	position: fixed;
 	width: 25vw;
 	height:100vh;
-	overflow-y:scroll;
 	z-index: 10;
 	padding-left:10px;
 	border-right:3px solid $menuAccentColor;
@@ -97,14 +96,7 @@
 	// 	}
 		
 	// }
-	
-	@media only screen and (max-width: 911px) {
-		.header {
-			width:80%;
-			min-width:280px;
-		}
-		
-	}
+
 
 	
 	.hide-menu {
