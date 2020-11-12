@@ -32,7 +32,7 @@ class ExperimentLab extends React.Component {
 
                 <div className='shelf-contents' 
                 style={{ margin: '0', borderRadius: '4px', position: 'absolute', 
-                bottom: '100%', width: '100%', paddingBottom: '0px', border: '3px inset #406375' }}>
+                 width: '100%', paddingBottom: '0px', border: '3px inset #406375' }}>
                     {list.map(item =>
                         <div
                             draggable
@@ -42,7 +42,7 @@ class ExperimentLab extends React.Component {
                             data-id={item.container_id || item.tool_id || item.object_item_id || item.substance_id}
                             data-name={item.display_name}>
                             <p 
-                            style={{ cursor: 'grab', color: '#ccc', padding: '10px', border: '3px outset #406385' }}>
+                            style={{ cursor: 'grab', color: '#ccc', padding: '5px', border: '3px outset #406385' }}>
                                 <span style={{ cursor: 'grab', color: 'white' }}></span>
                             &nbsp;{item.display_name} {filter === 'frozen' ? "(Frozen)" : null}
                             <span className="fas fa-caret-right" style={{ fontSize: '12px', margin: "0 6px", color: 'grey', opacity:'.8' }}></span> </p>
