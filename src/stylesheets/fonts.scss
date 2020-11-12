@@ -2,7 +2,12 @@ $textFont: 'Open Sans', serif;
 $headerFont: 'Signika';
 $topFont: 'Bowlby One SC', cursive;
 
+
 html, body { font-size: 1vw; }
+
+@media only screen and (min-width: 1400px) {
+	html, body { font-size: .75vw; }
+}
 
 p,
 a,
@@ -22,16 +27,8 @@ h1 {
 	@include h-tag($font: $topFont, $color: $topFontColor);
 	@include text-shadow($ll-highlight-color, 1px, -1px, 0px);
 	font-weight: bolder;
-
-	@media only screen and (max-width: 480px) {
-		font-size: 8vw;
-	}
-	@media only screen and (max-width: 911px) and (min-width: 481px) {
-		font-size: 2em;
-	}
-	@media only screen and (min-width: 912px) {
-		font-size: 2em;
-	}
+	font-size: 2em;
+	
 }
 
 h2 {
