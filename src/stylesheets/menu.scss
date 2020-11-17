@@ -9,6 +9,7 @@
 	height:100vh;
 	z-index: 10;
 	padding-left:10px;
+	overflow-y: scroll;
 	border-right:3px solid $menuAccentColor;
 	box-shadow: 2px 0 8px black;
 	top: 0;
