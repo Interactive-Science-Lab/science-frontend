@@ -19,7 +19,7 @@ export default class Popup extends React.Component {
         let mainStyle = {
             position:'fixed', 
             width: 'min-content', 
-            zIndex: '100',
+            zIndex: '100000',
             top: '0',
             background: `url('${'/images/techbg.jpg'}')`, 
             backgroundSize: "cover",
