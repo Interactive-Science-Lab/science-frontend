@@ -24,7 +24,7 @@ export default class Popup extends React.Component {
             background: `url('${'/images/techbg.jpg'}')`, 
             backgroundSize: "cover",
             border: '4px outset #000077',
-            borderRadius: '4px'
+            borderRadius: '4px',
         }
         
 
@@ -48,9 +48,11 @@ export default class Popup extends React.Component {
 
         return <span>
             {this.state.open ? <div style={mainStyle}>
+                <div style={{maxHeight: '90vh', overflowY: "scroll"}}>
                 <span onClick={this.toggle} style={xStyle} className='fas fa-times'> </span>
                 <div style={childStyle}> 
                 {this.props.children}
+                </div>
                 </div>
             </div> : ""}
 
