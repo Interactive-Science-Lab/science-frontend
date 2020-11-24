@@ -76,6 +76,7 @@ class Screen extends React.Component {
                 if(this.state.stepSound) { this.state.stepSound.play(this.context) }
                 setTimeout(() => { this.setState({ position, speed, frameCount }) }, FRAMERATE);
             } else {
+                if(this.state.stepSound) { this.state.stepSound.stop() }
                 if(this.state.endSound) { this.state.endSound.play(this.context) }
                 if (frameCount * FRAMERATIO > maxTime) {
                     let dleft = stop[1] - position[1]
