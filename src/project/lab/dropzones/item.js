@@ -90,35 +90,35 @@ class ItemComponent extends React.Component {
                 }
 
 
-                {item.usedItem ? <span className={`content-display ${
+                {/*item.usedItem ? <span className={`content-display ${
                     item.usedItem.name ? "far fa-check-circle" : 'far fa-circle'}`}>
                 </span>
-                    : null}
+                : null*/}
 
             </div>
             {item.itemType !== 'containers' ? 
             <div className='item-description'>
-                <i style={{ fontSize: '16px' }}>{record.description}</i>
+                <i>{record.instructions || record.description}</i>
             </div> : "" }
             <div className="item-properties">
-                {record.properties?.includes('display_volume') ? <div>
-                    <hr /> Reading: {Math.round(item.getFillVolume() * 100) / 100.0 || 0}mL
-                </div> : ""}
-                {record.properties?.includes('display_mass') ? <div>
-                    <hr /> Reading: {Math.round(item.getItemMass() * 100) / 100.0 || 0}g
-                </div> : ""}
-                {record.properties?.includes('heatsource-useable') ? <div>
-                    <hr /> Mass: {Math.round(item.getHeatSourceMass() * 100) / 100.0 || 0}g
-                </div> : ""}
-                {record.properties?.includes('display_temperature') ? <div>
-                    <hr /> Reading: {item.getItemTemperature() === "None" ? "None" : `${Math.round(item.getItemTemperature() * 100) / 100.0 || 20}'C`}
-                </div> : ""}
-                {record.properties?.includes('display_ph') ? <div>
-                    <hr /> Reading: {item.getItemPh() ? Math.round(item.getItemPh() * 100) / 100.0 : "None"}
-                </div> : ""}
-                {record.properties?.includes('timer') ? <div>
-                    <hr /> Reading: {this.printTime(item.getItemTime() || 0)}
-                </div> : ""}
+                {record.properties?.includes('display_volume') ? <h2>
+                    Reading: {Math.round(item.getFillVolume() * 100) / 100.0 || 0}mL
+                </h2> : ""}
+                {record.properties?.includes('display_mass') ? <h2>
+                    Reading: {Math.round(item.getItemMass() * 100) / 100.0 || 0}g
+                </h2> : ""}
+                {record.properties?.includes('heatsource-useable') ? <h2>
+                    Mass: {Math.round(item.getHeatSourceMass() * 100) / 100.0 || 0}g
+                </h2> : ""}
+                {record.properties?.includes('display_temperature') ? <h2>
+                    Reading: {item.getItemTemperature() === "None" ? "None" : `${Math.round(item.getItemTemperature() * 100) / 100.0 || 20}'C`}
+                </h2> : ""}
+                {record.properties?.includes('display_ph') ? <h2>
+                    Reading: {item.getItemPh() ? Math.round(item.getItemPh() * 100) / 100.0 : "None"}
+                </h2> : ""}
+                {record.properties?.includes('timer') ? <h2>
+                    Reading: {this.printTime(item.getItemTime() || 0)}
+                </h2> : ""}
 
                 {record.properties?.includes('atp-factory') ? <div>
                     <div className="atp-reading">Yielded <h3>-</h3> ATP</div>
@@ -155,7 +155,7 @@ class ItemComponent extends React.Component {
                     <div style={{ overFlowY: "scroll" }}>
                         {item.displayContents()}
                     </div>
-                </div> : (item.itemType === 'containers' ? <p><hr />Drag objects to add them to this container.</p> : "")) : null
+                </div> : ""/*(item.itemType === 'containers' ? <p><hr />Drag objects to add them to this container.</p> : "")*/) : null
             }</div>
 
 
@@ -171,7 +171,7 @@ class ItemComponent extends React.Component {
                         </span>
                         <p className="ttip">Click and drag to take the item off of the tool.</p>
                     </div>
-                </div> : <p><hr />{record.instructions}</p>) : null
+                </div> : "") : null
             }</div>
 
 
@@ -283,12 +283,14 @@ class BlankExaminer extends React.Component {
         return <div style={{ position: 'relative' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <p className="block-number-text">Lab Area {this.props.dropInt - 1}</p>
-                <div className="ttiphover" style={{ cursor: 'pointer', position: 'absolute', right: '0', top: '-4px' }}>
-                    <h1>?</h1>
-                    <p className="ttip" style={{ width: '300px' }}>Drag items here to use them and see their information.</p>
+
+                <div className="ttiphover" style={{ cursor: 'pointer', position: 'absolute', width: '100%', height: '100%'}}>
+                    <h1 style={{margin: 0, right: 0, top: 0, position: 'absolute' }}>?</h1>
+                    <p className="ttip" style={{ width: '100%' }}>Drag items here to use them and see their information.</p>
                 </div>
+
             </div>
-            <div className="dropzoneempty" style={{ width: '100%', minHeight: '20px' }}></div>
+            <div className="dropzoneempty" style={{ width: '100%', height: '10vh' }}></div>
         </div>
     }
 }
