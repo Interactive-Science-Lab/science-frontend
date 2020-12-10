@@ -161,7 +161,6 @@ class Pendulum extends React.Component {
         let canvasStyle = { display: 'block', margin: '0px auto', height: '300px', width: '500px', border: "none" }
         
         let xStyle = {
-            fontSize: '16px',
             color: '#9ACDE7',
             cursor: 'pointer',
             background: "#1B2B38",

@@ -68,7 +68,6 @@ class AnimationControls extends React.Component {
 
 
         let xStyle = {
-            fontSize: '16px',
             color: '#9ACDE7',
             cursor: 'pointer',
             background: "#1B2B38",

@@ -62,12 +62,12 @@ function dragEnd(component, e) {
             }
             //If it's a container, and the other object is an item, move in into the container.
             else if (hoverInstance.isType('containers') && dragInstance.isType('objects')) {
-                itemsState.updateInstanceAndState(hoverInstance.addToContents(dragInstance), component)
+                itemsState.updateInstanceAndState(hoverInstance.addToContents(dragInstance, component), component)
             }
             //[Reverse of above- allowing dragging a container to an obect] 
             //If it's a object, and the other object is a container, move it to the container. 
             else if (hoverInstance.isType('objects') && dragInstance.isType('containers')) {
-                itemsState.updateInstanceAndState(dragInstance.addToContents(hoverInstance), component)
+                itemsState.updateInstanceAndState(dragInstance.addToContents(hoverInstance, component), component)
             }
 
             //If it's a tool, and the other object is an object/container, move it to the tool. 
@@ -117,16 +117,6 @@ function dragEnd(component, e) {
                 itemsState.updateState(component)
             }
         }
-        //Otherwise, we'll throw an error.
-        // else
-        //     if (hoverItem.instance && hoverItem.itemType === 'tools' && dragItem.itemType === 'tools') {
-        //         component.setState({ message: "You cannot drag a tool to a tool." })
-        //     } else if (dragItem.itemType === 'substances' && parent_inst_id) {
-        //         component.setState({ message: "You need to drag the scoop to a container." })
-        //     } else if (dragItem.itemType === 'substances' && !parent_inst_id) {
-        //         component.setState({ message: "You need to use a scoop tool to get the substance out." })
-        //     }
-        // }
     }
 
 

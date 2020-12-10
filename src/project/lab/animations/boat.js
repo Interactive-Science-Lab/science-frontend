@@ -19,7 +19,7 @@ class Boat extends React.Component {
         return `${36 - this.state.currentNumber * 3}%`
     }
     ballHeight = () => {
-        return `${60 - this.state.currentNumber * 3}%`
+        return `${68 - this.state.currentNumber * 3}%`
     }
 
     waterHeight = () => {
@@ -43,7 +43,7 @@ class Boat extends React.Component {
         let ret = []
 
         for (var j = 0; j < i; j++) {
-            ret.push(<div style={{ width: '56px', margin: '-15px 3px 0', position: "relative", display: 'inline-block', zIndex: '0', height: '60px', backgroundColor: 'grey', borderRadius: '100%' }}> </div>)
+            ret.push(<div style={{ width: '14%', top: '-50%', margin: '0 1%', position: "relative", display: 'inline-block', zIndex: '0', height: '5vh', backgroundColor: 'grey', borderRadius: '100%' }}> </div>)
         }
 
         return ret
@@ -55,43 +55,45 @@ class Boat extends React.Component {
     render() {
 
         let xStyle = {
-            fontSize: '16px',
             color: '#9ACDE7',
             cursor: 'pointer',
             background: "#1B2B38",
             border: '1px outset #888',
-            padding: '10px 1%',
-            margin: '10px 2%',
+            padding: '1%',
+            margin: '1%',
             borderRadius: '6px',
             display: 'inline-block',
-            width:'29%'
+            top: 0
         }
 
 
-        return <div style={{ position: 'relative', background: "linear-gradient(to right bottom, white, #559FA8)", height: '300px', width: '500px' }}>
+        return <div style={{ position: 'relative', 
+        background: "linear-gradient(to right bottom, white, #559FA8)", 
+        height: '20vw', width: '30vw' }}>
             <div>
-                <div style={xStyle} onClick={this.increaseBalls}>Increase (+)</div>
+                <div style={xStyle} onClick={this.increaseBalls}>Add</div>
+                <div style={xStyle} onClick={this.decreaseBalls}>Remove</div> 
                 
-                <div style={xStyle}>Displaced Water<br/> {this.state.waterArr[this.state.currentNumber]}L</div>
+                <div style={xStyle}>Displaced: {this.state.waterArr[this.state.currentNumber]}L</div>
                 
-                <div style={xStyle} onClick={this.decreaseBalls}>Decrease (-)</div> </div>
+            </div>
             
             
             <div id="boat" style={{
                 zIndex: '50',
                 position: 'absolute',
-                margin: '0 50px',
+                margin: '0 10%',
                 backgroundImage: "url('/images/boat.png')",
                 backgroundSize: '100% 100%',
                 backgroundRepeat: 'no-repeat',
-                width: '400px', height: '130px',
+                width: '80%', height: '50%',
                 bottom: this.boatHeight()
             }}>
             </div>
 
             <div style={{
                 zIndex: '0', position: 'absolute', bottom: this.ballHeight(),
-                margin: '0 50px',
+                margin: '0 12%', width: '76%'
             }} >{this.printBalls().map(i => i)}</div>
 
             

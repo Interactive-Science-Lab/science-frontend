@@ -36,7 +36,7 @@ class ItemComponent extends React.Component {
         let record = item.record
         let style = {}
         if ([2, 3].includes(this.props.dropInt)) {
-            style.padding = '65px 0 40px'
+            style.padding = '5vh 0 3vh'
             //if (item.name === "Dissection Tray" || item.name === "Frog") { style.width = "max-content" }
         }
         
@@ -164,6 +164,7 @@ class ItemComponent extends React.Component {
                     <div>Item:</div>
                     <div style={{ overFlowY: "scroll" }} className="tool-item ttipalt">
                         <span className='drag-item'
+                            style={{width: '50%', margin: '0 auto', padding: '5%', background: 'rgba(255,255,255,.5)'}}
                             data-itemType={item.usedItem.itemType}
                             data-parent-instance={item.instance_id}
                             data-instance={item.usedItem.instance_id} draggable >
@@ -284,9 +285,9 @@ class BlankExaminer extends React.Component {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <p className="block-number-text">Lab Area {this.props.dropInt - 1}</p>
 
-                <div className="ttiphover" style={{ cursor: 'pointer', position: 'absolute', width: '100%', height: '100%'}}>
-                    <h1 style={{margin: 0, right: 0, top: 0, position: 'absolute' }}>?</h1>
-                    <p className="ttip" style={{ width: '100%' }}>Drag items here to use them and see their information.</p>
+                <div className="ttiphover" style={{ cursor: 'pointer', position: 'absolute', width: '100%', top: 0}}>
+                    <h1 style={{margin: 0, right: 0, top: 0, position: 'absolute', padding: '3%', borderRadius: '100%'}}>?</h1>
+                    <p className="ttip" style={{ width: '100%', bottom: '-9vh' }}>Drag items here to use them and see their information.</p>
                 </div>
 
             </div>

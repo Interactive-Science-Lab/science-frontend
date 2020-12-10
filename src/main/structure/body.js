@@ -28,6 +28,8 @@ The home page has it's own route / page
 
 function Body(props) {
 	let labStyle = menuOptions.menuPersist ? {paddingLeft:'0'} : {paddingLeft:'25vw'}
+	let user = localStorage.getItem('user')
+
 	return (
 		<Switch>
 			{/* HOME PAGE */}
@@ -58,7 +60,9 @@ function Body(props) {
 			<Route path="/lab/:id?">
 				<div className="body" style={ labStyle }>
 					<div className="">
-						<ExperimentComponent />
+						{user ? 
+						<ExperimentComponent />  : 
+						<Route path="/" component={FourOhFour} />}
 					</div>
 				</div>
 			</Route>

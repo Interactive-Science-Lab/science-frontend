@@ -34,7 +34,6 @@ export default class Popup extends React.Component {
 
 
         let xStyle = {
-            fontSize: '18px',
             right: "0",
             color: 'white',
             position: 'absolute',
@@ -53,7 +52,7 @@ export default class Popup extends React.Component {
 
         return <span>
             {this.state.open ? <div style={mainStyle}>
-                <div style={{ maxHeight: '90vh', overflowY: "scroll", cursor: 'default' }} draggable="true"
+                <div style={{ maxHeight: '90vh', cursor: 'default' }} draggable="true"
                     onDragStart={this.stopDrag}>
                     <span onClick={this.toggle} style={xStyle} className='fas fa-times'> </span>
                     <div style={childStyle}>

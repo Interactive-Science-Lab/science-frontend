@@ -180,7 +180,7 @@ $tableColor: rgba(19, 17, 15, .65);
 	margin: 1%;
 }
 
-$dropColor: rgba(180, 180, 180, .1);
+$dropColor: rgba(180, 180, 180, .3);
 
 .dropzone:empty {
 	border: 3% dashed #bbd;
@@ -193,8 +193,12 @@ $dropColor: rgba(180, 180, 180, .1);
 	font-size: 1.2em !important;
 }
 
+.dropzoneempty {
+	background-color: $dropColor;
+
+}
+
 p.dropzoneempty {
-	border: 3% dashed #bbd;
 	height: 100%;
 	color: $primary-color;
 	font-weight: bold;
@@ -204,12 +208,10 @@ p.dropzoneempty {
 .drop-section {
 	width: 23%;
 	margin: 1%;
-	background-color: $dropColor;
 }
 .drop-column {
 	width: 12%;
 	margin: 0 1%;
-	background-color: $dropColor;
 }
 
 .drop-sink {
