@@ -52,6 +52,7 @@ export const menuOptions = {
     customMenuStructure: [
         {displayText: "Visit The Lab", permission_id:  7, symbol: "star", link: "/lab", order: 1},
         {displayText: "Experiments", permission_id:  4, symbol: "star", order: 2, link: '/experiments'},
+        {displayText: "User Accounts", permission_id:  4, symbol: "star", order: 3, link: '/users'},
         {displayText: "Objects", permission_id:  4, symbol: "star", order: 20, link: '/objects'},
         {displayText: "Tools", permission_id:  4, symbol: "star", order: 21, link: '/tools'},
         {displayText: "Containers", permission_id:  4, symbol: "star", order: 22, link: '/containers'},
