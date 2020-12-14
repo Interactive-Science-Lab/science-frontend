@@ -17,6 +17,10 @@ class ExperimentLab extends React.Component {
         this.props.selectNum(this.props.num)
     }
 
+    close = () => {
+        this.props.selectNum(0)
+    }
+
     render() {
 
         let { drawer, filter, list } = this.props
@@ -36,6 +40,7 @@ class ExperimentLab extends React.Component {
                     {list.map(item =>
                         <div
                             draggable
+                            onDragEnd={this.close}
                             className={`inventory-item `}
                             data-itemType={itemType}
                             data-shelf-option={filter}

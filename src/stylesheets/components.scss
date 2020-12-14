@@ -70,8 +70,8 @@ a, .format-link {
 	cursor: pointer;
 	color: $linkColor;
 	text-decoration: none;
-	padding: 10px;
-	margin: 5px;
+	padding: .5vw;
+	margin: 2%;
 	border-radius: $borderRadius;
 	display: inline-block;
 	background: linear-gradient(rgba($linkBackground, .1),  rgba($linkBackground, .5));

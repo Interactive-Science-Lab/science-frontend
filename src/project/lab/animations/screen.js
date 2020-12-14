@@ -76,6 +76,7 @@ class Screen extends React.Component {
                 if(this.state.stepSound) { this.state.stepSound.play(this.context) }
                 setTimeout(() => { this.setState({ position, speed, frameCount }) }, FRAMERATE);
             } else {
+                if(this.state.stepSound) { this.state.stepSound.stop() }
                 if(this.state.endSound) { this.state.endSound.play(this.context) }
                 if (frameCount * FRAMERATIO > maxTime) {
                     let dleft = stop[1] - position[1]
@@ -140,7 +141,6 @@ class Screen extends React.Component {
 
 
         let xStyle = {
-            fontSize: '16px',
             color: '#9ACDE7',
             cursor: 'pointer',
             background: "#1B2B38",
@@ -156,10 +156,10 @@ class Screen extends React.Component {
             {/* width < 5 && height < 5 ? <div>The object is too small to see! Find the bullseye.</div> : "" */}
 
             <div style={{
-                width: '480px',
-                height: '320px',
+                width: '30vw',
+                height: '20vw',
                 backgroundImage: `url(${`/images/${this.state.background || ''}`})`,
-                backgroundSize: 'cover',
+                backgroundSize: '100% 100%',
                 position: 'relative',
                 overflow: 'hidden',
                 border: '2px inset #444',

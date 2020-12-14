@@ -2,16 +2,7 @@ $contrast: 40%;
 $metal: '/images/texture_metalplate.png';
 
 $displayBox: rgba(130, 170, 172, .8);
-$displayBorder: 1% inset darken($displayBox, $contrast/2);
-
-.display {
-	padding: 1%;
-	border-radius: 1%;
-}
-
-@mixin text-shadow($color: black) {
-	text-shadow: 0 0 .2vw $color;
-}
+$displayBorder: 4px inset darken($displayBox, $contrast/2);
 
 #labScreen {
 	width: 75vw;
@@ -20,6 +11,7 @@ $displayBorder: 1% inset darken($displayBox, $contrast/2);
 	background-color: $l-primary-color;
 	background-size: 100% 100%;
 	margin: auto;
+	border-bottom: 2px solid black;
 	* {
 		font-size: 1em;
 	}
@@ -53,6 +45,21 @@ $displayBorder: 1% inset darken($displayBox, $contrast/2);
 	height: 20%;
 }
 
+#studentTray {
+	background: linear-gradient($displayBox, $displayBox), url($metal);
+	margin: 2%;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	border: $displayBorder;
+	padding: 10px;
+	border-radius: 20px;
+	.item-options {
+		display: none;
+	}
+	position: relative;
+}
+
 #shelveSection {
 	width: 100%;
 	height: 100%;
@@ -76,7 +83,7 @@ $displayBorder: 1% inset darken($displayBox, $contrast/2);
 	justify-content: center;
 	&:hover {
 		background: linear-gradient(transparent, rgba(white, .6), transparent);
-		@include text-shadow($d-primary-color);
+		text-shadow: 1px 1px 3px $d-primary-color;
 	}
 }
 
@@ -127,6 +134,7 @@ $displayBorder: 1% inset darken($displayBox, $contrast/2);
 	background-color: rgba(94, 161, 169, .8);
 	text-align: center;
 	border: $displayBorder;
+	//padding: 10px;
 	.item-weight,
 	.item-volume,
 	.item-description,
@@ -135,11 +143,9 @@ $displayBorder: 1% inset darken($displayBox, $contrast/2);
 	.item-used {
 		display: block;
 	}
-	border-radius: 2%;
+	border-radius: 8px;
 	max-height: 100%;
-
 	bottom: 10px;
-
 	position: absolute;
 	overflow-y: scroll;
 	overflow-x: visible;
@@ -172,18 +178,23 @@ $tableColor: rgba(19, 17, 15, .65);
 	padding: 1%;
 	height: 18%;
 	display: flex;
+	// background: $backWoodTexture;
+	// border-top:8px solid black;
+	// background-repeat: repeat;
 }
 
 .drawer {
 	width: 48%;
 	height: 100%;
 	margin: 1%;
+	// background: $frontWoodTexture;
+	// border: $woodBorder;
 }
 
-$dropColor: rgba(180, 180, 180, .3);
+$dropColor: rgba(180, 180, 180, .1);
 
 .dropzone:empty {
-	border: 3% dashed #bbd;
+	border: 3px dashed #bbd;
 	color: grey;
 }
 
@@ -193,12 +204,8 @@ $dropColor: rgba(180, 180, 180, .3);
 	font-size: 1.2em !important;
 }
 
-.dropzoneempty {
-	background-color: $dropColor;
-
-}
-
 p.dropzoneempty {
+	border: 3px dashed #bbd;
 	height: 100%;
 	color: $primary-color;
 	font-weight: bold;
@@ -207,11 +214,15 @@ p.dropzoneempty {
 
 .drop-section {
 	width: 23%;
+	//min-width: 80px;
+	//height: 60px;
 	margin: 1%;
+	background-color: $dropColor;
 }
 .drop-column {
 	width: 12%;
 	margin: 0 1%;
+	background-color: $dropColor;
 }
 
 .drop-sink {
@@ -232,6 +243,7 @@ p.dropzoneempty {
 
 .drop-row {
 	width: 98%;
+	min-height: 20px;
 	margin: 1%;
 	background-color: $dropColor;
 }
@@ -239,6 +251,8 @@ p.dropzoneempty {
 .waterButton {
 	cursor: pointer;
 	color: white;
+	border: 10px outset transparent;
+	//padding: 10px;
 	border-radius: 10%;
 }
 
@@ -250,6 +264,7 @@ p.dropzoneempty {
 	&:active {
 		border-color: rgba(#f99, .8);
 		background-color: rgba(#d22, 1);
+		border-width: 10px;
 	}
 }
 
@@ -261,13 +276,16 @@ p.dropzoneempty {
 	&:active {
 		border-color: rgba(#99f, .8);
 		background-color: rgba(#22d, 1);
+		border-width: 10px;
 	}
 }
 
 .drag-item {
-	border: 2% solid black;
-	border-radius: 4%;
+	border: 2px solid black;
+	border-radius: 4px;
+	//padding:15px 0;
 	height: 100%;
+	//min-height: 100px;
 
 	justify-content: center;
 	cursor: grab;
@@ -278,7 +296,7 @@ p.dropzoneempty {
 
 .tool-item > .drag-item {
 	display: flex;
-	border: 2% solid #222;
+	border: 2px solid #222;
 	height: 100%;
 	max-height: 100%;
 	align-items: center;
@@ -304,7 +322,7 @@ p.dropzoneempty {
 .inventory-item {
 	background: linear-gradient($primary-color, darken($primary-color, 10%));
 	background: linear-gradient(darken(#7b8e99, 15%), darken(#7b8e99, 30%));
-	@include text-shadow($d-primary-color);
+	text-shadow: 1px 1px 4px black;
 	
 }
 
@@ -320,10 +338,8 @@ p.dropzoneempty {
 	opacity: .8;
 }
 .inventory-item:hover {
-	
-	@include text-shadow($d-primary-color);
 	background: linear-gradient( transparent, rgba(180, 180, 180, .3), transparent), darken($primary-color, 10%);
-	
+	text-shadow: 1px 1px 4px $d-primary-color,  1px 1px 4px $primary-color;
 	& > p { color:white !important; }
 }
 
@@ -344,7 +360,7 @@ p.dropzoneempty {
 	opacity: .3;
 	width: 100%;
 	top:0;
-	@include text-shadow(white);
+	text-shadow: 2px 2px 4px white, -2px 2px 4px white, 2px -2px 4px white, -2px -2px 4px white;
 	& span {
 		text-shadow: none;
 	}
@@ -371,6 +387,19 @@ p.dropzoneempty {
 	bottom: 0;
 }
 
+.lab-action > span {
+	display: none;
+	position: absolute;
+	background-color: $d-primary-color;
+	color: $ll-primary-color;
+	padding: 10px;
+	border-radius: 4px;
+	bottom: 100%;
+	width: max-content;
+	min-width: 100%;
+	border: 2px solid black;
+	border-top-width: 1px;
+}
 
 .lab-action:hover > span {
 	display: inline-block;
@@ -380,10 +409,12 @@ p.dropzoneempty {
 	display: none;
 }
 
-.item-options {
+.iteem-options {
 	display: none;
 	top: 100%;
 	min-width: 100%;
+	padding: 10px;
+	border-radius: 4px;
 	margin: auto;
 	color: $ll-primary-color;
 }
@@ -396,29 +427,20 @@ p.dropzoneempty {
 	display: inline-block;
 }
 
-.lab-action > span {
-	display: none;
-	position: absolute;
-	background-color: $d-primary-color;
-	color: $ll-primary-color;
-}
-
 .item-options .lab-action > span {
-	
 	z-index: 1000;
 	overflow: visible;
-	height:min-content;
-	padding: 10%;
-	border-radius: 1%;
-	bottom:-80%;
-	left: -50%;
-	width:max-content;
+	top: 0;
+	left: 100%;
+	height:100%;
 }
 
 .content-display {
 	position: absolute;
 	background-color: $d-primary-color;
 	color: $ll-primary-color;
+	padding: 10px;
+	border-bottom-left-radius: 4px;
 	right: 0;
 }
 
@@ -426,6 +448,7 @@ p.dropzoneempty {
 	position: absolute;
 	background-color: #37676D;
 	color: $ll-primary-color;
+	padding: 10px;
 	bottom: 0;
 	right: 0;
 	display: none;
@@ -438,9 +461,10 @@ p.dropzoneempty {
 .ttiphover > h1 {
 	background-color: #37676D;
 	display: inline-block;
+	padding: 10px;
 	font-size: 2em;
-
-	border-radius: 1%;
+	width: 52px;
+	border-radius: 10%;
 }
 
 .ttipalt > h1 {
@@ -460,25 +484,27 @@ p.dropzoneempty {
 #gameMessage {
 	position: absolute;
 	display: block;
-	bottom: 10vh;
+	bottom: 32px;
 	width: 80%;
-	
-	margin: 0 10%;
-
+	margin: 20px 10%;
 	text-align: center;
 	z-index: 100;
 	background-color: $l-primary-color;
-
+	border: 6px outset $d-primary-color;
+	padding: 8px;
+	border-radius: 20px;
 }
 
 #gameMessage .fas {
 	border-radius: 50%;
-	padding: 1%;
+	border: 2px solid $dark-color;
+	padding: 4px;
 	cursor: pointer;
 }
 
 .admin-bar {
 	background-color: $ll-primary-color;
+	border-bottom: 4px solid $dd-primary-color;
 }
 
 .experimentListName {

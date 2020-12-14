@@ -1,6 +1,8 @@
 let car = {
     data: {
         sprite: "car",
+        buttonText: "Go",
+        stepSound: "/sounds/carrun.wav",
         dimensions: [100, 50],
         objectSize: [5, 2],
         position: [0, 25],
@@ -276,6 +278,7 @@ let stairs = {
 let viscosity = {
     data: {
         sprite: "balloon.png",
+        buttonText: "Drop",
         dimensions: [90, 60],
         position: [45, 26.1],
         objectSize: [3, 3],
@@ -408,6 +411,7 @@ let metalBall = {
     data: {
         sprite: "metalball-obj.png",
         background: "wall-bg.png",
+        buttonText: "Go",
         dimensions: [6, 4.5],
         objectSize: [1, 1],
         position: [0, 2],
