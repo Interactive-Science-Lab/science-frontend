@@ -24,7 +24,6 @@ class ExperimentLab extends React.Component {
     render() {
 
         let { drawer, filter, list } = this.props
-        const { masterItemList, state } = this.context
 
 
         if (drawer) {
@@ -68,9 +67,9 @@ class ExperimentLab extends React.Component {
                         :
 
                         <div className="" style={{ cursor: 'pointer' }} onClick={this.toggleOpen}>
-                            {drawer.name != "" ? <span className="fas fa-chevron-down" style={{ fontSize: '12px', margin: "0 6px" }}></span> : ""}
+                            {drawer.name !== "" ? <span className="fas fa-chevron-down" style={{ fontSize: '12px', margin: "0 6px" }}></span> : ""}
                             {drawer.name}
-                            {drawer.name != "" ? <span className="fas fa-chevron-down" style={{ fontSize: '12px', margin: "0 6px" }}></span> : ""}
+                            {drawer.name !== "" ? <span className="fas fa-chevron-down" style={{ fontSize: '12px', margin: "0 6px" }}></span> : ""}
                             <p className="ttip">Open {itemType}</p>
                         </div>
 

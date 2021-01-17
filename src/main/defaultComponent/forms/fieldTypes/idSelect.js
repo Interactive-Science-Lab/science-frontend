@@ -16,7 +16,7 @@ class IdList extends React.Component {
   componentDidMount = () => {
     this.updateItems()
   }
-  componentWillReceiveProps = (newProps) => { this.updateItems(newProps); }
+  UNSAFE_componentWillReceiveProps = (newProps) => { this.updateItems(newProps); }
 
   updateItems = async (props = this.props) => {
     await this.gatherItemsAPI(props)

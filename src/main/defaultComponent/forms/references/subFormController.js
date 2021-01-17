@@ -16,7 +16,7 @@ class subFormController extends React.Component {
 
   //UPDATE INFO just resets state with new props
   componentDidMount = () => { this.updateInfo(); }
-  componentWillReceiveProps = (newProps) => {this.updateInfo(newProps);}
+  UNSAFE_componentWillReceiveProps = (newProps) => {this.updateInfo(newProps);}
   updateInfo = (props = this.props) => { this.setState({item: props.item}) }
 
   //UPDATE ITEM is a wrapper function passed as a callback to update this state

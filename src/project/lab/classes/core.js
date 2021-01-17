@@ -1,5 +1,4 @@
 import { Ingredient } from './ingredient'
-import React from 'react'
 
 
 //The class for moving around the screen.

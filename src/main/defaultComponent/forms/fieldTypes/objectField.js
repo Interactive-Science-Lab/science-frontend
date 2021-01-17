@@ -21,7 +21,7 @@ class Field extends React.Component {
     }
 
     handleKeyChange = (e) => {
-        let { value, name, id } = e.target
+        let { value, name } = e.target
 
         const fieldProps = this.props.component.props
         const field = fieldProps.field
@@ -37,7 +37,7 @@ class Field extends React.Component {
 
 
     handleValueChange = (e) => {
-        let { value, name, id } = e.target
+        let { value, name } = e.target
 
         const fieldProps = this.props.component.props
         const field = fieldProps.field

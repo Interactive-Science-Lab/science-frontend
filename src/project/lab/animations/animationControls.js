@@ -34,7 +34,7 @@ class AnimationControls extends React.Component {
 
             if (settings.effects) { effects.push(settings.effects) }
             ret = { ...ret, ...settings.settings }
-
+            return null
         })
 
         ret = JSON.parse(JSON.stringify(ret))
@@ -51,7 +51,7 @@ class AnimationControls extends React.Component {
 
             }
             )
-
+            return null
         })
 
         return ret

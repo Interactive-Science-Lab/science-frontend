@@ -25,7 +25,7 @@ class Screen extends React.Component {
         this.setState({ ...this.handleProps(props) })
     }
 
-    componentWillReceiveProps = (props) => {
+    UNSAFE_componentWillReceiveProps = (props) => {
         let update = true
 
         let p = this.state.play

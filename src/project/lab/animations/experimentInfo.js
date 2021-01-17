@@ -118,6 +118,7 @@ let momentum = {
     data: {
         sprite: "metalball-obj.png",
         altEndSprite2: "small-explosion.gif",
+        buttonText: "Go",
         background: "inside-track.png",
         startSound: "/sounds/startgo.wav",
         endSound: "/sounds/explosion.wav",
@@ -163,7 +164,8 @@ let momentum = {
                         objectSize: [.1, .1],
                         speed: [35, 0],
                         position: [1.9, 11],
-                        mass: '.1'
+                        mass: '.1',
+                        sprite: "baseball.png"
                     }
                 },
 
@@ -181,7 +183,8 @@ let momentum = {
                         objectSize: [.3, .3],
                         speed: [7.5, 0],
                         position: [1.7, 11],
-                        mass: '4.6'
+                        mass: '4.6',
+                        sprite: "bowlingball.png"
                     }
                 },
                 {
