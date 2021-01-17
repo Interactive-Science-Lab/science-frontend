@@ -17,10 +17,13 @@ class ExperimentLab extends React.Component {
         this.props.selectNum(this.props.num)
     }
 
+    close = () => {
+        this.props.selectNum(0)
+    }
+
     render() {
 
         let { drawer, filter, list } = this.props
-        const { masterItemList, state } = this.context
 
 
         if (drawer) {
@@ -36,8 +39,9 @@ class ExperimentLab extends React.Component {
                     {list.map(item =>
                         <div
                             draggable
+                            onDragEnd={this.close}
                             className={`inventory-item `}
-                            data-itemType={itemType}
+                            data-itemtype={itemType}
                             data-shelf-option={filter}
                             data-id={item.container_id || item.tool_id || item.object_item_id || item.substance_id}
                             data-name={item.display_name}>
@@ -63,9 +67,9 @@ class ExperimentLab extends React.Component {
                         :
 
                         <div className="" style={{ cursor: 'pointer' }} onClick={this.toggleOpen}>
-                            {drawer.name != "" ? <span className="fas fa-chevron-down" style={{ fontSize: '12px', margin: "0 6px" }}></span> : ""}
+                            {drawer.name !== "" ? <span className="fas fa-chevron-down" style={{ fontSize: '12px', margin: "0 6px" }}></span> : ""}
                             {drawer.name}
-                            {drawer.name != "" ? <span className="fas fa-chevron-down" style={{ fontSize: '12px', margin: "0 6px" }}></span> : ""}
+                            {drawer.name !== "" ? <span className="fas fa-chevron-down" style={{ fontSize: '12px', margin: "0 6px" }}></span> : ""}
                             <p className="ttip">Open {itemType}</p>
                         </div>
 
@@ -86,12 +90,12 @@ export default ExperimentLab
 
 
 // <div className="shelf">
-// {masterItemList.objects.map(item => <div draggable className="inventory-item" data-itemType='objects' data-id={item.id}  data-name={item.display_name}>
+// {masterItemList.objects.map(item => <div draggable className="inventory-item" data-itemtype='objects' data-id={item.id}  data-name={item.display_name}>
 //     <h5 style={{cursor:'grab'}}>+ {item.display_name}</h5>
 // </div>)}
 // </div>
 // <div className="shelf">
-// {masterItemList.containers.map(item => <div draggable className="inventory-item" data-itemType='containers' data-id={item.id}  data-name={item.display_name}>
+// {masterItemList.containers.map(item => <div draggable className="inventory-item" data-itemtype='containers' data-id={item.id}  data-name={item.display_name}>
 //     <h5>+ {item.display_name}</h5>
 // </div>)}
 // </div>

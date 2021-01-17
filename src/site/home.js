@@ -7,15 +7,15 @@ function Home(props) {
 	const squares = [
 		{
 			title: "Chemistry",
-			link: "/auth/login?class=chemistry20207"
+			link: "/auth/login?className=chemistry20207"
 		},
 		{
 			title: "Biology",
-			link: "/auth/login?class=biology20207"
+			link: "/auth/login?className=biology20207"
 		},
 		{
 			title: "Physics",
-			link: "/auth/login?class=physics20207"
+			link: "/auth/login?className=physics20207"
 		},
 	]
 

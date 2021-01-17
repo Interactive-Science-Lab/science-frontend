@@ -18,7 +18,6 @@ function calculateChange(component, itemArr) {
     mathArr.map((entry) => {
         totalTemp += (entry.mass / totalMass) * entry.temperature
     })
-    console.log(totalTemp)
 
     return totalTemp
 }

@@ -9,10 +9,7 @@ import experimentInfo from './experimentInfo'
 
 
 class PhysicsExperiment extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
+   
     animation = () => {
         let comp = ""
         switch (this.props.animationKind) {
@@ -46,6 +43,8 @@ class PhysicsExperiment extends React.Component {
             case "experiment_10":
                 comp = <ElectricTest />
                 break;
+            default: 
+                console.log("ERROR! EXPERIMENT NOT FOUND")
         }
 
         return comp

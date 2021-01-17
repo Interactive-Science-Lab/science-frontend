@@ -16,7 +16,7 @@ class PageEdit extends React.Component {
   }
 
   componentDidMount = () => { this.updateInfo(); }
-  componentWillReceiveProps = (newProps) => {this.updateInfo(newProps);}
+  UNSAFE_componentWillReceiveProps = (newProps) => {this.updateInfo(newProps);}
 
 
   updateInfo = (props = this.props) => {

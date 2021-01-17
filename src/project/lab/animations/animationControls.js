@@ -1,8 +1,10 @@
 import React from 'react'
 import Screen from './screen'
+import { LabContext } from 'project/lab/labContext'
 
 
 class AnimationControls extends React.Component {
+    static contextType = LabContext
     constructor(props) {
         super(props)
 
@@ -32,7 +34,7 @@ class AnimationControls extends React.Component {
 
             if (settings.effects) { effects.push(settings.effects) }
             ret = { ...ret, ...settings.settings }
-
+            return null
         })
 
         ret = JSON.parse(JSON.stringify(ret))
@@ -49,7 +51,7 @@ class AnimationControls extends React.Component {
 
             }
             )
-
+            return null
         })
 
         return ret
@@ -59,6 +61,7 @@ class AnimationControls extends React.Component {
     setOption = (e) => {
         let option = e.target.getAttribute('data-option')
         let select = e.target.getAttribute('data-select')
+        this.context.state.sounds.click.play(this.context.state)
         this.setState({ selections: { ...this.state.selections, [option]: select } })
 
     }
@@ -68,7 +71,6 @@ class AnimationControls extends React.Component {
 
 
         let xStyle = {
-            fontSize: '16px',
             color: '#9ACDE7',
             cursor: 'pointer',
             background: "#1B2B38",
@@ -97,5 +99,5 @@ class AnimationControls extends React.Component {
         </div>
     }
 }
-
+AnimationControls.contextType = LabContext
 export default AnimationControls

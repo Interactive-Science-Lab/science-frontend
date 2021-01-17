@@ -22,7 +22,9 @@ class Examiner extends React.Component {
 
         let dims = { w1: 30, w2: 30, left: 33, display1: 'block', display2: 'block'}
 
-        let bigImages = ['Frog', 'Osmosis Cells', 'Diffusion Cells', 'Petri Dish With Bacteria A', 'Petri Dish With Bacteria B']
+        let bigImages = ['Frog', 'Osmosis Cells', 'Diffusion Cells', 
+        'Petri Dish With Bacteria A', 'Petri Dish With Bacteria B', "Mitosis Microscope Slides",
+        "Blood Antibody Card"]
 
         if(bigImages.includes(item1.name)) {
             dims = {w1: 50, left: 0, w2: 0, display1: 'block', display2: 'none'}
@@ -30,8 +32,6 @@ class Examiner extends React.Component {
         else if(bigImages.includes(item2.name)) {
             dims = {w1: 0, left: 0, w2: 50, display1: 'none', display2: 'block'}
         }
-
-        console.log(this.context.itemsState, dims, item1, item2, item1.display_name === 'Frog', item2.display_name === 'Frog')
 
         return <div>
             <div id="examiner" style={{width: `${dims.w1}%`, display: `${dims.display1}`, }}>

@@ -44,27 +44,30 @@ class Header extends React.Component {
     const showClass = `header ${showMenu || persistClass ? "show-menu" : "hide-menu"}`
 
 
+    let user = localStorage.getItem('user')
 
 
     return <div>
       <Switch>
-        
+
         {/* Special case for science lab where we switch out the header for something else in /lab/ */}
-       
         <Route path="/lab/:id?" >
           <div className='header' >
-            <ExperimentSidebar />
+            {user ?
+              <ExperimentSidebar /> : ""}
           </div>
         </Route>
 
+
+
         {/* In this case, the header is not built on the home path. */}
-        { menuOptions.menuOnHome ? null : <Route path="/" exact></Route> }
+        {menuOptions.menuOnHome ? null : <Route path="/" exact></Route>}
 
         <Route path="/">
           <div className={showClass}>
             <br />
             {/* Toggle close button */}
-            <span style={{fontSize: '32px'}} className={`fas fa-window-close hmenu-mobile-toggle ${persistClass}`}
+            <span style={{ fontSize: '32px' }} className={`fas fa-window-close hmenu-mobile-toggle ${persistClass}`}
               onClick={this.toggleMenu}>
             </span>
 
@@ -81,7 +84,7 @@ class Header extends React.Component {
 
           </div>
           {/* Toggle open button */}
-          <span style={{fontSize: '28px'}} className={`fas fa-bars hmenu-mobile-toggle d-inline ${persistClass}`}
+          <span style={{ fontSize: '28px' }} className={`fas fa-bars hmenu-mobile-toggle d-inline ${persistClass}`}
             onClick={this.toggleMenu}></span>
         </Route>
 

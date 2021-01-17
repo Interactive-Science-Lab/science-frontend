@@ -46,10 +46,12 @@ class Boat extends React.Component {
     }
 
     changeWire = (e) => {
+        this.context.state.sounds.click.play(this.context.state)
         this.setState({ currentWire: Number.parseInt(e.target.getAttribute('data-choice')) })
     }
 
     changeVolts = (e) => {
+        this.context.state.sounds.click.play(this.context.state)
         this.setState({ currentVolts: Number.parseInt(e.target.getAttribute('data-choice')) })
     }
 
@@ -57,7 +59,6 @@ class Boat extends React.Component {
     render() {
 
         let xStyle = {
-            fontSize: '16px',
             color: '#9ACDE7',
             cursor: 'pointer',
             background: "#1B2B38",
@@ -70,8 +71,8 @@ class Boat extends React.Component {
 
 
 
-        return <div style={{ width: '480px' }}>
-            <img src={`/images/${this.calculateEffect()}`} height='320px' width='480px' />
+        return <div style={{ width: '30vw' }}>
+            <img src={`/images/${this.calculateEffect()}`} width='100%' />
 
 
 

@@ -20,7 +20,7 @@ class Header extends React.Component {
         this.loadPage()
     }
 
-    componentWillReceiveProps = (newProps) => {
+    UNSAFE_componentWillReceiveProps = (newProps) => {
         this.loadPage(newProps)
     }
 
@@ -87,7 +87,7 @@ class Header extends React.Component {
                 
                 {
                 items.sort((a,b) => a.experiment_order - b.experiment_order).map((i, x) => 
-                <Link  className="experimentListName"  to={`/lab/${i.experiment_id}?l=${this.props.location.search.split('=')[1] || 'chemistry'}`}  
+                <Link key={JSON.stringify(i) + x} className="experimentListName"  to={`/lab/${i.experiment_id}?l=${this.props.location.search.split('=')[1] || 'chemistry'}`}  
                 style={{ display: 'block', padding: '15px', boxShadow: '2px 2px 4px black' }}>
 <span className="fas fa-caret-right" style={{color: 'white', display: 'block', position: 'absolute', right:'15px', opacity: '.2'}}></span>
 <h5 style={{ marginTop: "0", textAlign: 'left', textDecoration: 'none' }}><span style={{ color: "grey"}}>#{x+1}</span> <span style={{ color: "white"}}>{i.experiment_name}</span> </h5>

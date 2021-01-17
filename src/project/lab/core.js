@@ -9,7 +9,6 @@ import { Row, Col } from 'react-bootstrap'
 import Table from './stations/table/component'
 import Cupboard from './stations/cupboard/component'
 import Examiner from './stations/examiner/component'
-import { Link } from 'react-router-dom'
 
 import labSettings from './classes/fields'
 
@@ -82,39 +81,28 @@ class ExperimentLab extends React.Component {
     }
 
     defaultSound = (string) => {
-        let lS = localStorage.getItem(string) || 'on'
+        let lS =  localStorage.getItem(string) || '50'
         return lS
     }
 
     initiateMusic = () => {
-        let newVal = this.state.music
-
-        if(newVal === 'on'){
-            if(! this.state.musicObj.play()) {
-                this.toggleMusic()
-            }
-        } else {
-            this.state.musicObj.stop();
-        }
-        
+        if(this.state.music !== '0') {
+           this.state.musicObj.play(this.state)
+        }  
     }
 
-    toggleMusic = () => {
-        let newVal = this.state.music === 'off' ? 'on' : 'off'
+    toggleMusic = async (e) => {
+        let newVal = e.target.value
 
-        this.setState({music: newVal})
+        await this.setState({music: newVal})
         localStorage.setItem('music', newVal)
 
-        if(newVal === 'on'){
-            this.state.musicObj.play();
-        } else {
-            this.state.musicObj.stop();
-        }
-        
+        this.state.musicObj.stop()
+        this.state.musicObj.play( this.state );
     }
 
-    toggleSoundFx = () => {
-        let newVal = this.state.soundEffects === 'off' ? 'on' : 'off'
+    toggleSoundFx = (e) => {
+        let newVal = e.target.value
         this.setState({soundEffects: newVal})
         localStorage.setItem('soundfx', newVal)
     }
@@ -191,8 +179,11 @@ class ExperimentLab extends React.Component {
 
         /* Physics Buttons */
         const physics = document.querySelectorAll('.run-physics')
-
         for (const physic of physics) { physic.addEventListener('click', this.openPhysicsWindow) }
+
+        
+        const closeButtons = document.querySelectorAll('.close-sound-effect')
+        for (const closeButton of closeButtons) { closeButton.addEventListener('click', this.closeButtonEffect) }
     }
 
     emptyItem = (e) => {
@@ -241,7 +232,7 @@ class ExperimentLab extends React.Component {
         this.state.sounds.click.play(this.state);
         this.state.itemsState.getInstanceByEvent(e).revealItem(e, this) }
     advanceGraphic = (e) => { 
-        this.state.sounds.click.play(this.state, 'loud');
+        this.state.sounds.click.play(this.state);
         this.state.itemsState.getInstanceByEvent(e).advanceGraphic(e, this) }
     runAtpCalculation = (e) => { 
         this.state.sounds.click.play(this.state);
@@ -249,7 +240,10 @@ class ExperimentLab extends React.Component {
 
     openPhysicsWindow = (e) => { 
         this.state.sounds.click.play(this.state);
-        this.state.itemsState.getInstanceByEvent(e).openPhysicsWindow(e, this) }
+    }
+    closeButtonEffect = (e) => { 
+        this.state.sounds.remove.play(this.state);
+    }
 
     dragInventoryStart = (e) => { 
         this.state.sounds.drag.play(this.state);
@@ -283,6 +277,7 @@ class ExperimentLab extends React.Component {
 
     removeImage = (e) => {
         e.preventDefault()
+        this.state.sounds.click.play(this.state);
         e.target.remove()
 
     }
@@ -319,11 +314,11 @@ class ExperimentLab extends React.Component {
                     <div id="gameMessage">{this.state.message} <span className="fas fa-times" onClick={this.clearMessage}></span></div> :
                     null}
                     <div  style={{position:'absolute', right:'1%', width: '8%', zIndex: 999}} >
-                        <span onClick={this.removeImage}   style={{textAlign: 'center', height: '80px', width: '100%'}} >
+                        <span onClick={this.removeImage} style={{textAlign: 'center', cursor: 'pointer', height: '80px', width: '100%'}} >
                             <img style={{width: '50%', height: 'auto', right: '0'}} src="/images/goggles.png" />
                         </span>
                         <br />
-                        <span onClick={this.removeImage} style={{textAlign: 'center', height: '80px', width: '100%'}} >
+                        <span onClick={this.removeImage} style={{textAlign: 'center', cursor: 'pointer', height: '80px', width: '100%'}} >
                             <img style={{width: '100%', right: '0'}}  src="/images/labcoat.png" />
                         </span>
                     </div>
@@ -338,12 +333,18 @@ class ExperimentLab extends React.Component {
                 </div>
             </div>
 
-            <span style={{display:"inline-block", padding: '10px'}}>
-                Music: <span onClick={this.toggleMusic}>{ this.state.music === 'on' ? <span class="fas fa-music"> On</span> : <span class="fas fa-volume-mute"> Off</span> }</span>
+            <span style={{padding: '10px', display: "inline-flex", alignItems: 'center' }}>
+                Music: <span>
+                    <input onChange={this.toggleMusic} type='range' value={Number.parseInt(this.state.music)} min="0" max="100" className='slider' id='musicRange' style={{padding:'0 !important'}}  /> 
+                </span>
+                {this.state.music}   
             </span>
             
-            <span style={{display:"inline-block", padding: '10px'}}>
-            Sound FX: <span onClick={this.toggleSoundFx}>{ this.state.soundEffects === 'on' ? <span class="fas fa-music"> On</span> : <span class="fas fa-volume-mute"> Off</span> }</span>
+            <span style={{padding: '10px', display: "inline-flex", alignItems: 'center' }}>
+            Effects: <span>
+                    <input onChange={this.toggleSoundFx} type='range' value={Number.parseInt(this.state.soundEffects)} min="0" max="100"  className='slider'  id='effectRange' style={{padding:'0 !important'}} /> 
+                </span>
+                {this.state.soundEffects}
             </span>
 
             {devMode ? <div>
@@ -431,15 +432,15 @@ function soundEffect(src) {
     this.sound.setAttribute("preload", "auto");
     this.sound.setAttribute("controls", "none");
     this.sound.style.display = "none";
-    this.sound.volume = .05
+    this.sound.volume = 1
     document.body.appendChild(this.sound);
     this.play = function(obj, vol){
         if(vol === 'loud') {
-            this.sound.volume = .2
+            this.sound.volume = ( Number.parseInt(obj.soundEffects) / 100) 
+        } else {
+            this.sound.volume = ( Number.parseInt(obj.soundEffects) / 300) 
         }
-        if(obj.soundEffects === 'on'){
-            this.sound.play();
-        }
+        this.sound.play();
     }
     this.stop = function(){
       this.sound.pause();
@@ -453,13 +454,10 @@ function soundEffect(src) {
     this.sound.setAttribute("controls", "none");
     this.sound.style.display = "none"
     document.body.appendChild(this.sound);
-    this.play = function(){
-        try {
+    this.play = function(obj){
+        this.sound.volume = ( Number.parseInt(obj.music) / 100) 
         this.sound.play();
-        return true}
-        catch {
-            return false
-        }
+       
     }
     this.stop = function(){
       this.sound.pause();

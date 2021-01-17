@@ -11,7 +11,6 @@ import { UserContext } from 'main/asteroid/contexts/userContext'
 class LogIn extends React.Component {
     constructor(props) {
         super(props)
-        const params = new URLSearchParams(window.location.search)
         this.state = {
           user: {
             username: "",

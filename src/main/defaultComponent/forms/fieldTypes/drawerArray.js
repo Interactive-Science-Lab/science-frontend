@@ -1,8 +1,6 @@
 import React from 'react'
-import { Form } from 'react-bootstrap'
 import { LabContext } from 'project/lab/labContext'
 import axios from 'axios'
-import { withRouter } from 'react-router-dom'
 import api from 'helpers/api'
 
 class ArrayField extends React.Component {
@@ -168,7 +166,7 @@ class ArrayField extends React.Component {
           { item.objects && item.objects.includes( `${(o.container_id || o.tool_id || o.object_item_id || o.substance_id)}` ) ? "" : 
           <div>
             {o.display_name}  
-            <a onClick={this.addToArray} data-id={(o.container_id || o.tool_id || o.object_item_id || o.substance_id)} >Add</a> 
+            <button onClick={this.addToArray} data-id={(o.container_id || o.tool_id || o.object_item_id || o.substance_id)} >Add</button> 
           </div>
           }
         </div> )}

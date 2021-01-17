@@ -1,5 +1,4 @@
 import { Ingredient } from './ingredient'
-import React from 'react'
 
 
 //The class for moving around the screen.
@@ -17,7 +16,6 @@ export class ItemInstance {
         //Ingredients hold all the infos regarding temp, mass, ph, time, etc.
         this.ingredient = new Ingredient(record, this)
 
-        console.log(this.record)
 
         const randomize = this.record.properties.indexOf('random')
         if(randomize > -1) {
@@ -120,7 +118,6 @@ export class ItemInstance {
     }
 
     openPhysicsWindow = (e, component) => {
-        console.log(e, component)
         let instance_id = e.target.getAttribute('data-instance')
         let targetHTML = document.getElementById(`experiment-window-${instance_id}`)
         targetHTML.style.display = "block"

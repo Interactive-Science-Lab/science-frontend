@@ -55,7 +55,7 @@ let balloon = {
         buttonText: "Drop Ball",
         dimensions: [50, 100],
         position: [25, 0],
-        objectSize: [1, 1],
+        objectSize: [1.28, 1],
         speed: [0, 0],
         acceleration: [0, 9.8],
         maxTime: 100,
@@ -118,6 +118,7 @@ let momentum = {
     data: {
         sprite: "metalball-obj.png",
         altEndSprite2: "small-explosion.gif",
+        buttonText: "Go",
         background: "inside-track.png",
         startSound: "/sounds/startgo.wav",
         endSound: "/sounds/explosion.wav",
@@ -163,7 +164,8 @@ let momentum = {
                         objectSize: [.1, .1],
                         speed: [35, 0],
                         position: [1.9, 11],
-                        mass: '.1'
+                        mass: '.1',
+                        sprite: "baseball.png"
                     }
                 },
 
@@ -181,7 +183,8 @@ let momentum = {
                         objectSize: [.3, .3],
                         speed: [7.5, 0],
                         position: [1.7, 11],
-                        mass: '4.6'
+                        mass: '4.6',
+                        sprite: "bowlingball.png"
                     }
                 },
                 {
@@ -214,7 +217,7 @@ let stairs = {
         maxTime: 100,
         maxSpd: 100,
         specialSprite: 'stretch',
-        stop: [6.5, 10]
+        stop: [6.5, 0.8]
     },
     displays: [
         ['Stair Height', (item) => { return `3.9m` }],
@@ -279,17 +282,19 @@ let viscosity = {
     data: {
         sprite: "balloon.png",
         buttonText: "Drop",
+        startSound: "/sounds/dropwater.wav",
+        endSound: "/sounds/click.wav",
         dimensions: [90, 60],
-        position: [45, 26.1],
+        position: [45, 25],
         objectSize: [3, 3],
         speed: [0, 0],
         acceleration: [0, 9800],
         maxTime: 30,
         maxSpd: 9800,
-        stop: [100, 58.88]
+        stop: [50, 58]
     },
     displays: [
-        ['Distance', (item) => { return `${Math.round( (item.dimensions[1] - item.position[1] - 3.8) *100) / 100}cm` }],
+        ['Distance', (item) => { return `${Math.round( (item.dimensions[1] - item.position[1] - 5) *100) / 100}cm` }],
         ['Time', (item) => { return null }]
     ],
     options: [
@@ -344,6 +349,7 @@ let cart = {
             sprite: "cart-obj.png",
             background: "inside-track.png",
             startSound: '/sounds/cartloud.wav',
+            endSound: '/sounds/cartloud.wav',
             buttonText: "Push Cart",
             dimensions: [12, 8],
             position: [1, 4],

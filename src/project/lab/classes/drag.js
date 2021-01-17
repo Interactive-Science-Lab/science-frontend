@@ -5,11 +5,6 @@ function dragStart(component, e) {
     e.dataTransfer.effectAllowed = "move";
 
     let imgSrc = e.target.getAttribute('data-imgSrc')
-    // console.log(imgSrc)
-    // var img = new Image();
-    // img.src = imgSrc;  
-    // img.style.width = '48px !important' 
-    // e.dataTransfer.setDragImage(img, 6, 6);
 
     var dragIcon = document.createElement('img');
     dragIcon.src = imgSrc;
@@ -22,7 +17,7 @@ function dragStart(component, e) {
     component.setState({
         dragItem: {
             instance: Number.parseInt(e.target.getAttribute('data-instance')),
-            itemType: e.target.getAttribute('data-itemType')
+            itemType: e.target.getAttribute('data-itemtype')
         }
     })
     setTimeout(() => (component.className = 'invisible'))
@@ -46,10 +41,8 @@ function dragEnd(component, e) {
         if (itemsState.checkPosition(hoverPos) && !(dragItem.itemType === 'substances' && parent_inst_id)) {
             dragInstance.updatePosition(hoverPos)
             if (parent_inst_id) {
-                console.log(parent_inst_id)
                 let parentInstance = itemsState.getInstance(parent_inst_id)
                 parentInstance.clearItem()
-                console.log(parentInstance)
                 itemsState.updateInstanceAndState(parentInstance, component)
             }
         }
@@ -62,22 +55,20 @@ function dragEnd(component, e) {
             }
             //If it's a container, and the other object is an item, move in into the container.
             else if (hoverInstance.isType('containers') && dragInstance.isType('objects')) {
-                itemsState.updateInstanceAndState(hoverInstance.addToContents(dragInstance), component)
+                itemsState.updateInstanceAndState(hoverInstance.addToContents(dragInstance, component), component)
             }
             //[Reverse of above- allowing dragging a container to an obect] 
             //If it's a object, and the other object is a container, move it to the container. 
             else if (hoverInstance.isType('objects') && dragInstance.isType('containers')) {
-                itemsState.updateInstanceAndState(dragInstance.addToContents(hoverInstance), component)
+                itemsState.updateInstanceAndState(dragInstance.addToContents(hoverInstance, component), component)
             }
 
             //If it's a tool, and the other object is an object/container, move it to the tool. 
             else if (hoverInstance.isType('tools') && dragInstance.isType(['objects', 'containers'])) {
                 hoverInstance.addItem(dragInstance, component)
                 if (parent_inst_id) {
-                    console.log(parent_inst_id)
                     let parentInstance = itemsState.getInstance(parent_inst_id)
                     parentInstance.clearItem()
-                    console.log(parentInstance)
                     itemsState.updateInstance(parentInstance)
                 }
                 itemsState.updateInstance(hoverInstance)
@@ -88,10 +79,8 @@ function dragEnd(component, e) {
             else if (hoverInstance.isType(['objects', 'containers']) && dragInstance.isType('tools')) {
                 dragInstance.addItem(hoverInstance, component)
                 if (parent_inst_id) {
-                    console.log(parent_inst_id)
                     let parentInstance = itemsState.getInstance(parent_inst_id)
                     parentInstance.clearItem()
-                    console.log(parentInstance)
                     itemsState.updateInstance(parentInstance)
                 }
                 itemsState.updateInstance(dragInstance)
@@ -117,16 +106,6 @@ function dragEnd(component, e) {
                 itemsState.updateState(component)
             }
         }
-        //Otherwise, we'll throw an error.
-        // else
-        //     if (hoverItem.instance && hoverItem.itemType === 'tools' && dragItem.itemType === 'tools') {
-        //         component.setState({ message: "You cannot drag a tool to a tool." })
-        //     } else if (dragItem.itemType === 'substances' && parent_inst_id) {
-        //         component.setState({ message: "You need to drag the scoop to a container." })
-        //     } else if (dragItem.itemType === 'substances' && !parent_inst_id) {
-        //         component.setState({ message: "You need to use a scoop tool to get the substance out." })
-        //     }
-        // }
     }
 
 
@@ -161,7 +140,7 @@ function dragEnter(component, e) {
         component.setState({
             hoverItem: {
                 instance: Number.parseInt(e.target.getAttribute('data-instance')),
-                itemType: e.target.getAttribute('data-itemType')
+                itemType: e.target.getAttribute('data-itemtype')
             },
             hoverPos: { pos, area }
         })
@@ -176,7 +155,7 @@ function dragEnter(component, e) {
             component.setState({
                 hoverItem: {
                     instance: Number.parseInt(dragItem.getAttribute('data-instance')),
-                    itemType: dragItem.getAttribute('data-itemType')
+                    itemType: dragItem.getAttribute('data-itemtype')
                 },
                 hoverPos: { pos, area }
             })
@@ -200,7 +179,7 @@ function dragEnter(component, e) {
 function dragInventoryStart(component, e) {
     e.dataTransfer.effectAllowed = "copy";
 
-    const itemType = e.target.getAttribute('data-itemType')
+    const itemType = e.target.getAttribute('data-itemtype')
     const id = Number.parseInt(e.target.getAttribute('data-id'))
     const name = e.target.getAttribute('data-name')
     const options = e.target.getAttribute('data-shelf-option')
