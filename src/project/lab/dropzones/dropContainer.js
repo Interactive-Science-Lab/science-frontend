@@ -51,11 +51,11 @@ class ExperimentLab extends React.Component {
         for (let i = 0; i < amount; i++) {
             dropzones[i] = containerItems.filter(j => j.pos === i)[0] || {}
         }
-        return <div class="DDcontainer">
+        return <div className="DDcontainer">
             {
             dropType === 'drop-sink' ? 
-            dropzones.map((item, i) => <Sinkzone item={item} i={i} dropInt={dropInt} {...this.context} {...this.props} />) : 
-            dropzones.map((item, i) => <Dropzone {...this.props} item={item} i={i} dropInt={dropInt}  dropType={dropType} {...this.context}  />)
+            dropzones.map((item, i) => <Sinkzone key={JSON.stringify(item) + i} item={item} i={i} dropInt={dropInt} {...this.context} {...this.props} />) : 
+            dropzones.map((item, i) => <Dropzone key={JSON.stringify(item) + i} {...this.props} item={item} i={i} dropInt={dropInt}  dropType={dropType} {...this.context}  />)
             }
 
         </div>

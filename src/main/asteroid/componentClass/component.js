@@ -170,11 +170,9 @@ export default class Component {
         let arr = value.split('{')
         let arr2 = arr.map( segment => {
             let split = segment.split('}')
-            console.log(split)
             if(split[1] !== undefined) {
                 split[0] = item[split[0]]
             }
-            console.log(split.join(""))
             return split.join("")
         })
         return arr2.join("")

@@ -1,6 +1,8 @@
 import React from "react"
+import { LabContext } from 'project/lab/labContext'
 
 class Boat extends React.Component {
+    static contextType = LabContext
     constructor(props) {
         super(props)
         this.state = {
@@ -27,12 +29,14 @@ class Boat extends React.Component {
     }
 
     increaseBalls = () => {
+        this.context.state.sounds.click.play(this.context.state)
         if (this.state.currentNumber < 6) {
             this.setState({ currentNumber: this.state.currentNumber + 1 })
         }
     }
 
     decreaseBalls = () => {
+        this.context.state.sounds.click.play(this.context.state)
         if (this.state.currentNumber > 0) {
             this.setState({ currentNumber: this.state.currentNumber - 1 })
         }
@@ -107,4 +111,5 @@ class Boat extends React.Component {
     }
 }
 
+Boat.contextType = LabContext
 export default Boat

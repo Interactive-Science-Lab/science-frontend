@@ -53,7 +53,6 @@ class FormBuilder extends React.Component {
             const results = await this.props.formCallbacks.submitForm();
             const res = results.apiCall
             const redirectPath = results.redirect
-            console.log(redirectPath)
 
             //This indicates the call was a success.
             if (res.status === 201 || res.status === 200) {

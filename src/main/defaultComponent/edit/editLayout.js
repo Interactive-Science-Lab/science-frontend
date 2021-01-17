@@ -38,7 +38,7 @@ class Edit extends React.Component {
 
       {/** Features!- Additional features that have their own forms. */}
       { settings.getControlReferences().map( referenceField => {
-        console.log(referenceField)
+        
         let resourceSettings = resourceDefaults( referenceField.info.resourceName )
         return <ResourceContext.Provider value={resourceSettings}>
           <RelationshipForm {...this.props} referenceField={referenceField} />

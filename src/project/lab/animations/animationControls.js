@@ -1,8 +1,10 @@
 import React from 'react'
 import Screen from './screen'
+import { LabContext } from 'project/lab/labContext'
 
 
 class AnimationControls extends React.Component {
+    static contextType = LabContext
     constructor(props) {
         super(props)
 
@@ -59,6 +61,7 @@ class AnimationControls extends React.Component {
     setOption = (e) => {
         let option = e.target.getAttribute('data-option')
         let select = e.target.getAttribute('data-select')
+        this.context.state.sounds.click.play(this.context.state)
         this.setState({ selections: { ...this.state.selections, [option]: select } })
 
     }
@@ -96,5 +99,5 @@ class AnimationControls extends React.Component {
         </div>
     }
 }
-
+AnimationControls.contextType = LabContext
 export default AnimationControls

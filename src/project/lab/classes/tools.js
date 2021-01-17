@@ -202,10 +202,8 @@ export class ToolInstance extends ItemInstance {
     }
 
     checkDissection = (other, component) => {
-        console.log(this, other)
         if(this.name === 'Dissection Tray') {
             if(this.usedItem.name) {
-                console.log(this.usedItem)
                 let dissectPos = this.usedItem.record.properties.indexOf('disect')
                 if(dissectPos > -1) {
                     let dissectInfo = this.usedItem.record.properties[dissectPos+1].split('-')

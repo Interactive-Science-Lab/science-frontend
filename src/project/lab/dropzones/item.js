@@ -41,7 +41,7 @@ class ItemComponent extends React.Component {
         }
         
 
-        return <div style={style} className={`drag-item lab-action instance-${item.instance_id}`} data-itemType={item.itemType} data-imgSrc={`/images/${item.getSprite()}`} data-instance={item.instance_id} draggable >
+        return <div style={style} className={`drag-item lab-action instance-${item.instance_id}`} data-itemtype={item.itemType} data-imgSrc={`/images/${item.getSprite()}`} data-instance={item.instance_id} draggable >
 
             <div className="lab-hover-popup-op" style={{zIndex: '100'}}>{this.itemOptions()}</div>
 
@@ -165,7 +165,7 @@ class ItemComponent extends React.Component {
                     <div style={{ overFlowY: "scroll" }} className="tool-item ttipalt">
                         <span className='drag-item'
                             style={{width: '50%', margin: '0 auto', padding: '5%', background: 'rgba(255,255,255,.5)'}}
-                            data-itemType={item.usedItem.itemType}
+                            data-itemtype={item.usedItem.itemType}
                             data-parent-instance={item.instance_id}
                             data-instance={item.usedItem.instance_id} draggable >
                             {item.usedItem.name}

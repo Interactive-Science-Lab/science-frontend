@@ -20,7 +20,6 @@ export class SubstanceInstance extends ItemInstance {
             let burnSettings = this.record.properties[burning+1].split('-')
             let burnPercent = Number.parseFloat('.' + burnSettings[1])
             let burnTemp = Number.parseInt(burnSettings[2])
-            console.log(burnPercent, burnTemp)
             if(temperature > burnTemp && !this.option.burned) {
                 let newMass = burnPercent * this.ingredient.mass
                 this.option.burned = true
@@ -29,7 +28,6 @@ export class SubstanceInstance extends ItemInstance {
                 }
                 this.ingredient.mass = newMass
             }
-            console.log(this.ingredient.mass)
         }
         this.ingredient.temperature = temperature 
     }
@@ -48,7 +46,6 @@ export class SubstanceInstance extends ItemInstance {
     //creates a new substance item, sets accordingly
     split = (splitPercent, component) => {
         let newSubstance = component.state.itemsState.duplicate(this)
-        console.log(this, newSubstance)
         
         let remainPercent = 1.0 - splitPercent
 

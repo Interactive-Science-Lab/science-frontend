@@ -46,10 +46,12 @@ class Boat extends React.Component {
     }
 
     changeWire = (e) => {
+        this.context.state.sounds.click.play(this.context.state)
         this.setState({ currentWire: Number.parseInt(e.target.getAttribute('data-choice')) })
     }
 
     changeVolts = (e) => {
+        this.context.state.sounds.click.play(this.context.state)
         this.setState({ currentVolts: Number.parseInt(e.target.getAttribute('data-choice')) })
     }
 

@@ -5,11 +5,6 @@ function dragStart(component, e) {
     e.dataTransfer.effectAllowed = "move";
 
     let imgSrc = e.target.getAttribute('data-imgSrc')
-    // console.log(imgSrc)
-    // var img = new Image();
-    // img.src = imgSrc;  
-    // img.style.width = '48px !important' 
-    // e.dataTransfer.setDragImage(img, 6, 6);
 
     var dragIcon = document.createElement('img');
     dragIcon.src = imgSrc;
@@ -22,7 +17,7 @@ function dragStart(component, e) {
     component.setState({
         dragItem: {
             instance: Number.parseInt(e.target.getAttribute('data-instance')),
-            itemType: e.target.getAttribute('data-itemType')
+            itemType: e.target.getAttribute('data-itemtype')
         }
     })
     setTimeout(() => (component.className = 'invisible'))
@@ -46,10 +41,8 @@ function dragEnd(component, e) {
         if (itemsState.checkPosition(hoverPos) && !(dragItem.itemType === 'substances' && parent_inst_id)) {
             dragInstance.updatePosition(hoverPos)
             if (parent_inst_id) {
-                console.log(parent_inst_id)
                 let parentInstance = itemsState.getInstance(parent_inst_id)
                 parentInstance.clearItem()
-                console.log(parentInstance)
                 itemsState.updateInstanceAndState(parentInstance, component)
             }
         }
@@ -74,10 +67,8 @@ function dragEnd(component, e) {
             else if (hoverInstance.isType('tools') && dragInstance.isType(['objects', 'containers'])) {
                 hoverInstance.addItem(dragInstance, component)
                 if (parent_inst_id) {
-                    console.log(parent_inst_id)
                     let parentInstance = itemsState.getInstance(parent_inst_id)
                     parentInstance.clearItem()
-                    console.log(parentInstance)
                     itemsState.updateInstance(parentInstance)
                 }
                 itemsState.updateInstance(hoverInstance)
@@ -88,10 +79,8 @@ function dragEnd(component, e) {
             else if (hoverInstance.isType(['objects', 'containers']) && dragInstance.isType('tools')) {
                 dragInstance.addItem(hoverInstance, component)
                 if (parent_inst_id) {
-                    console.log(parent_inst_id)
                     let parentInstance = itemsState.getInstance(parent_inst_id)
                     parentInstance.clearItem()
-                    console.log(parentInstance)
                     itemsState.updateInstance(parentInstance)
                 }
                 itemsState.updateInstance(dragInstance)
@@ -151,7 +140,7 @@ function dragEnter(component, e) {
         component.setState({
             hoverItem: {
                 instance: Number.parseInt(e.target.getAttribute('data-instance')),
-                itemType: e.target.getAttribute('data-itemType')
+                itemType: e.target.getAttribute('data-itemtype')
             },
             hoverPos: { pos, area }
         })
@@ -166,7 +155,7 @@ function dragEnter(component, e) {
             component.setState({
                 hoverItem: {
                     instance: Number.parseInt(dragItem.getAttribute('data-instance')),
-                    itemType: dragItem.getAttribute('data-itemType')
+                    itemType: dragItem.getAttribute('data-itemtype')
                 },
                 hoverPos: { pos, area }
             })
@@ -190,7 +179,7 @@ function dragEnter(component, e) {
 function dragInventoryStart(component, e) {
     e.dataTransfer.effectAllowed = "copy";
 
-    const itemType = e.target.getAttribute('data-itemType')
+    const itemType = e.target.getAttribute('data-itemtype')
     const id = Number.parseInt(e.target.getAttribute('data-id'))
     const name = e.target.getAttribute('data-name')
     const options = e.target.getAttribute('data-shelf-option')

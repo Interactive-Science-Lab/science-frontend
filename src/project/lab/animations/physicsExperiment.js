@@ -9,10 +9,7 @@ import experimentInfo from './experimentInfo'
 
 
 class PhysicsExperiment extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
+   
     animation = () => {
         let comp = ""
         switch (this.props.animationKind) {

@@ -27,8 +27,6 @@ class FormFields extends React.Component {
             let aOrder = a.settings.info.order || 100
             let bOrder = b.settings.info.order || 100
 
-            console.log(aCat, bCat, aOrder, bOrder)
-
             if (aCat !== bCat) { return aCat.localeCompare(bCat) }
             else { return aOrder - bOrder }
 

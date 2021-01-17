@@ -63,8 +63,6 @@ class Pendulum extends React.Component {
     }
 
     componentWillUnmount = () => {
-        console.log("WTF")
-      
         cancelAnimationFrame(animation)
     }
 
@@ -79,6 +77,7 @@ class Pendulum extends React.Component {
             alpha: 0,
             J: 100 * chosenLength * chosenLength / 500
         }
+        this.context.state.sounds.click.play(this.context.state)
 
         this.setState({ pendulum, chosenLength })
     }
@@ -121,7 +120,6 @@ class Pendulum extends React.Component {
 
         if( (oldOmega < 0 && pendulum.omega > 0) || (oldOmega > 0 && pendulum.omega < 0) ) {
             this.state.tickSound.play(this.context)
-            //console.log( (this.state.lastPeriod - timeMs) / 500)
             //this.setState({lastPeriod: new Date().getTime()})
             
         }

@@ -10,7 +10,7 @@ class Page extends React.Component {
 
     render() {
         const { settings, field } = this.props
-        /*console.log(field.settings)*/
+        
         return <div>
             {field.settings.label ? <div><b><u>{field.settings.printifyName(settings)}:</u></b></div> : ""}
 

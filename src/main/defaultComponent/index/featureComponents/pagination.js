@@ -20,13 +20,13 @@ class Pagination extends React.Component {
 
       return <div>
 
-            <div class="paginationLinks">
+            <div className="paginationLinks">
             { currentPage && currentPage > 2 ? //"2" because there's no reason to show "prev" and "first" on the second page
-              <span><i class="fas fa-angle-double-left" onClick={callback} page={1}></i></span>
+              <span><i className="fas fa-angle-double-left" onClick={callback} page={1}></i></span>
             : "" }
 
             { currentPage && currentPage > 1 ? //Only show if there IS a previous page
-                <span><i class="fas fa-angle-left" onClick={callback} page={currentPage - 1} ></i></span>
+                <span><i className="fas fa-angle-left" onClick={callback} page={currentPage - 1} ></i></span>
               : "" }
 
             { pages ? pages.map(page =>
@@ -40,7 +40,7 @@ class Pagination extends React.Component {
             : "" }
 
             { currentPage && (currentPage+1 < totalPages) ? //Same reason as above, no reason to show on second to last page.
-              <span><i class="fas fa-angle-double-right" onClick={callback} page={totalPages} ></i></span>
+              <span><i className="fas fa-angle-double-right" onClick={callback} page={totalPages} ></i></span>
             : "" }
             </div>
 

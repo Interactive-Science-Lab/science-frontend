@@ -14,7 +14,6 @@ class Page extends React.Component {
     render() {
         const {item, settings}  = this.props        
         let fields = settings.getItemFields(item)
-        console.log(fields)
 
         return <Link to={`${settings.get("urlPath")}/${item[settings.get('idField')]}`} style={{ display: "block" }}>
             {fields.map(field => <div key={field.settings.fieldName} >

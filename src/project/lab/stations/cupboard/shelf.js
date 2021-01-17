@@ -42,7 +42,7 @@ class ExperimentLab extends React.Component {
                             draggable
                             onDragEnd={this.close}
                             className={`inventory-item `}
-                            data-itemType={itemType}
+                            data-itemtype={itemType}
                             data-shelf-option={filter}
                             data-id={item.container_id || item.tool_id || item.object_item_id || item.substance_id}
                             data-name={item.display_name}>
@@ -91,12 +91,12 @@ export default ExperimentLab
 
 
 // <div className="shelf">
-// {masterItemList.objects.map(item => <div draggable className="inventory-item" data-itemType='objects' data-id={item.id}  data-name={item.display_name}>
+// {masterItemList.objects.map(item => <div draggable className="inventory-item" data-itemtype='objects' data-id={item.id}  data-name={item.display_name}>
 //     <h5 style={{cursor:'grab'}}>+ {item.display_name}</h5>
 // </div>)}
 // </div>
 // <div className="shelf">
-// {masterItemList.containers.map(item => <div draggable className="inventory-item" data-itemType='containers' data-id={item.id}  data-name={item.display_name}>
+// {masterItemList.containers.map(item => <div draggable className="inventory-item" data-itemtype='containers' data-id={item.id}  data-name={item.display_name}>
 //     <h5>+ {item.display_name}</h5>
 // </div>)}
 // </div>

@@ -33,8 +33,6 @@ class Examiner extends React.Component {
             dims = {w1: 0, left: 0, w2: 50, display1: 'none', display2: 'block'}
         }
 
-        console.log(this.context.itemsState, dims, item1, item2, item1.display_name === 'Frog', item2.display_name === 'Frog')
-
         return <div>
             <div id="examiner" style={{width: `${dims.w1}%`, display: `${dims.display1}`, }}>
                 <div className="DDcontainer">

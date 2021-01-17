@@ -1,6 +1,8 @@
 import React from 'react'
+import { LabContext } from 'project/lab/labContext'
 
-export default class Popup extends React.Component {
+class Popup extends React.Component {
+    static contextType = LabContext
     constructor(props) {
         super(props)
         this.state = {
@@ -10,12 +12,13 @@ export default class Popup extends React.Component {
 
 
     toggle = () => {
+        if(this.state.open) { this.context.state.sounds.remove.play(this.context.state) }
         this.setState({ open: !this.state.open })
     }
 
     stopDrag = (event) => {
         event.preventDefault();
-        event.stopPropagation(); 
+        event.stopPropagation();
     }
 
 
@@ -50,24 +53,25 @@ export default class Popup extends React.Component {
             background: 'rgba(27,43,56, .8)'
         }
 
+
         return <span>
             {this.state.open ? <div style={mainStyle}>
-                <div style={{ maxHeight: '90vh', cursor: 'default' }} draggable="true"
-                    onDragStart={this.stopDrag}>
-                    <span onClick={this.toggle} style={xStyle} className='fas fa-times'> </span>
+                <div style={{ maxHeight: '90vh', cursor: 'default' }} draggable="true" onDragStart={this.stopDrag}>
+                    <span onClick={this.toggle} style={xStyle} className={'fas fa-times close-sound-effect'}> </span>
                     <div style={childStyle}>
                         {this.props.children}
                     </div>
                 </div>
             </div> : ""}
 
-            <span style={{cursor: 'pointer'}} onClick={this.toggle} className={'format-link lab-action fas fa-play'}>
-
-            <span style={{cursor: 'pointer'}} >Open</span>
-
-
+            <span style={{ cursor: 'pointer' }} onClick={this.toggle} className={'format-link lab-action fas fa-play run-physics'}>
+                <span style={{ cursor: 'pointer' }} >Open</span>
             </span>
+
         </span>
     }
 
 }
+
+Popup.contextType = LabContext
+export default Popup
