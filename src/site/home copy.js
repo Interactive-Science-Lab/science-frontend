@@ -6,8 +6,16 @@ import { curr_user } from 'helpers/api'
 function Home(props) {
 	const squares = [
 		{
-			title: "Demo",
-			link: "/auth"
+			title: "Chemistry",
+			link: "/auth/login?className=chemistry20207"
+		},
+		{
+			title: "Biology",
+			link: "/auth/login?className=biology20207"
+		},
+		{
+			title: "Physics",
+			link: "/auth/login?className=physics20207"
 		},
 	]
 
@@ -43,10 +51,11 @@ function Home(props) {
 					{curr_user ?
 						<div>
 							
-							<Link className="nice-button" to={`/lab`}>
-								<h3>Demo Lab</h3>
-							</Link><br />
+							<Link className="nice-button" to={`/lab?l=${['', 'chemistry', 'biology', 'physics'][curr_user.user_role]}`}>
 
+								<h3>{curr_user.user_kind === 'end_user' ? ['', 'Chemistry',  'Biology', 'Physics'][curr_user.user_role] + ' ' : ''}Lab</h3>
+								
+							</Link><br />
 							{ curr_user.user_kind === 'admin_user' ? <div>
 							<Link className="nice-button" to='/experiments'><h3>Admin Settings</h3></Link></div> : ""}
 							<Link className="nice-button" to='/auth/logout'><h3>Logout</h3></Link>
