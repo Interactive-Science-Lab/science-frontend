@@ -6,7 +6,7 @@ import { curr_user } from 'helpers/api'
 function Home(props) {
 	const squares = [
 		{
-			title: "Demo",
+			title: "Average Velocity Demo Lab - Click Here to Try It",
 			link: "/auth/login"
 		},
 	]
