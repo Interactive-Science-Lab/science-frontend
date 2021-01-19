@@ -37,7 +37,7 @@ class Header extends React.Component {
             axios
                 .get(api.apiPath(`/experiments`))
                 .then(res => {
-                        const labKind = props.location.search.split('=')[1] || 'chemistry'
+                        const labKind = props.location.search.split('=')[1] || 'demo'
                         let retExperiments = []
                         res.data.map( 
                             i => i.experiment_class === labKind ? retExperiments.push(i) : null 
@@ -53,7 +53,7 @@ class Header extends React.Component {
     render() {
         const {item, items} = this.state
         
-        const labKind = this.props.location.search.split('=')[1] || 'chemistry'
+        const labKind = this.props.location.search.split('=')[1] || 'demo'
         return <div>
             {item.experiment_id ? <div>
             

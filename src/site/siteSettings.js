@@ -6,7 +6,7 @@ export const siteOptions = {
 }
 
 export const localBeLink = `http://localhost:4001/api` 
-export const liveBeLink = `https://interactivelabscience.herokuapp.com/api` 
+export const liveBeLink = `https://interactivesciencedemo.herokuapp.com/api` 
 export const apiPathLink = siteOptions.backendLive ? liveBeLink : localBeLink
 
 export const siteTitle = "Science Lab"

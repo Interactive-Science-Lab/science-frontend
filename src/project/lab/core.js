@@ -31,7 +31,7 @@ class ExperimentLab extends React.Component {
             masterItemList: { objects: [], containers: [], substances: [], tools: [], drawers: [] },
             experiment: {},
             message: "Welcome! Please choose an experiment.",
-            labType: props.location.search.split('=')[1] || 'chemistry',
+            labType: props.location.search.split('=')[1] || 'demo',
             music: this.defaultSound('music'),
             soundEffects: this.defaultSound('soundfx') ,
             light: false,
@@ -288,17 +288,8 @@ class ExperimentLab extends React.Component {
         
 
         return <LabContext.Provider value={{ soundEffects: this.state.soundEffects, masterItemList: this.state.masterItemList, itemsState: this.state.itemsState, state: this.state }} >
-            { curr_user.user_kind === 'admin_user'  ?
-            <div className='admin-bar'>
-                Select a Class |
-             <a href="/lab?l=chemistry">Chemistry</a> | <a href="/lab?l=biology">Biology</a> | <a href="/lab?l=physics">Physics</a>
-            </div>
-            : "" }
-
-
-
-
-            <div id="labScreen" style={{ backgroundImage: `url('/images/${labSettings[this.state.labType].backgroundImage}')` }}>
+            
+            <div id="labScreen" style={{ backgroundImage: `url('/images/background-phys.png')` }}>
 
             {!this.state.light ?
             <div id="lightTransparency" style={{width:'100%',height:'100%', backgroundColor: 'rgba(0,0,0,.9)', position:'absolute', zIndex:'9999'}}></div>
