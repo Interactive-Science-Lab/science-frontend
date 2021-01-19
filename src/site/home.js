@@ -7,7 +7,7 @@ function Home(props) {
 	const squares = [
 		{
 			title: "Demo",
-			link: "/auth"
+			link: "/auth/login"
 		},
 	]
 
