@@ -82,6 +82,7 @@ class ExperimentLab extends React.Component {
 
     defaultSound = (string) => {
         let lS =  localStorage.getItem(string) || '50'
+        if(lS === 'on' || lS === 'off') { lS = '50' }
         return lS
     }
 
