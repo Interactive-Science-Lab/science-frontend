@@ -21,6 +21,14 @@ let eventListenerHelper = null
 class ExperimentLab extends React.Component {
     constructor(props) {
         super(props)
+        let params = this.props.location.search?.substr(1).split("&") || []
+        let labKind = 'chemistry'
+
+        params.map((p) => {
+            let pair = p.split('=')
+            if (pair[0] === 'l') { labKind = pair[1] }
+        })
+
         this.state = {
             //Class that holds the position of where all the items in the lab are
             itemsState: new ItemsState(),
@@ -31,7 +39,7 @@ class ExperimentLab extends React.Component {
 
             masterItemList: { objects: [], containers: [], substances: [], tools: [], drawers: [] },
 
-            labType: props.location.search.split('=')[1].split("&")[0] || 'chemistry',
+            labType: labKind, 
             
         }
     }

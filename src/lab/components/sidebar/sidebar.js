@@ -26,8 +26,8 @@ class Sidebar extends React.Component {
     }
 
     loadPage = async (props = this.props) => {
-        let params = this.props.location.search.substr(1).split("&")
-        let labKind = null
+        let params = this.props.location.search?.substr(1).split("&") || []
+        let labKind = 'chemistry'
         let experiment_id = null
         let items = []
         let item = {}
@@ -70,7 +70,14 @@ class Sidebar extends React.Component {
     render() {
         const { item, items } = this.state
 
-        const labKind = this.props.location.search.split('=')[1].split("&")[0] || 'chemistry'
+        let params = this.props.location.search?.substr(1).split("&") || []
+        let labKind = 'chemistry'
+
+        params.map((p) => {
+            let pair = p.split('=')
+            if (pair[0] === 'l') { labKind = pair[1] }
+        })
+
         if (!labKind) { console.log("Lab.Sidebar- labKind should not be null but is.") }
 
         if (item.experiment_id) {
