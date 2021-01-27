@@ -1,11 +1,14 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
+import { curr_user } from 'helpers/api'
 
 import './labLayout.scss'
 
 import Table from './table/component'
 import Cupboard from './cupboard/component'
 import Examiner from './examiner/component'
+
+import SoundControls from "./soundControls"
 
 import labSettings from '../../classes/fields'
 
@@ -42,10 +45,22 @@ class LabLayout extends React.Component {
 
     }
 
+    adminBar = () => {
+        if (curr_user.user_kind === 'admin_user') {
+            return <div className='admin-bar'>
+                Select a Class |
+                <a href="/lab?l=chemistry">Chemistry</a> |
+                <a href="/lab?l=biology">Biology</a> |
+                <a href="/lab?l=physics">Physics</a>
+            </div>
+        }
+    }
+
     render() {
         //The layout of the whole lab screen.
         return (
             <div>
+                {this.adminBar()}
                 {/* Dynamically set the background depending on the class. */}
                 <div className="lab-core-lab-layout" id="labScreen" style={{ backgroundImage: `url('/images/${labSettings[this.props.coreComponent.state.labType].backgroundImage}')` }}>
 
@@ -53,7 +68,7 @@ class LabLayout extends React.Component {
                     {!this.state.light ? <div id="lab-layout-light-transparency" /> : ""}
 
                     {/* Dynamically set the background depending on the class. */}
-                    <div id="lab-layout-light-switch" onClick={this.turnOnLight} style={{backgroundImage: `url('/images/light${this.state.light ? "on" : "off"}.png')`}} />
+                    <div id="lab-layout-light-switch" onClick={this.turnOnLight} style={{ backgroundImage: `url('/images/light${this.state.light ? "on" : "off"}.png')` }} />
 
 
                     {
@@ -83,6 +98,7 @@ class LabLayout extends React.Component {
                     </div>
 
                 </div>
+                <SoundControls soundPlayer={this.props.soundPlayer} />
             </div>
         )
     }

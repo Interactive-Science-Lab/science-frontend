@@ -4,25 +4,22 @@ import { LabContext } from 'lab/labContext'
 
 import Shelf from './shelf'
 
-import labSettings from '../../../classes/fields'
 
 class ExperimentLab extends React.Component {
     constructor(props, context) {
         super(props, context)
         this.state = {
-            openNum: 0,
-            openSound: new soundEffect("sounds/draweropen.wav"),
-            closeSound: new soundEffect("sounds/drawerclose.wav"),
+            openNum: 0
         }
     }
 
     selectNum = (num) => {
         if (num === this.state.openNum) {
             this.setState({ openNum: 0 })
-            this.state.closeSound.play(this.context)
+            this.context.soundPlayer.playEffect('closeDrawer')
         } else {
             this.setState({ openNum: num })
-            this.state.openSound.play(this.context)
+            this.context.soundPlayer.playEffect('openDrawer')
         }
     }
 
@@ -45,8 +42,6 @@ class ExperimentLab extends React.Component {
 
     render() {
         const { masterItemList, state } = this.context
-
-        //let drawers = labSettings[state.labType].drawerList
 
         let drawers = []
         masterItemList.drawers.map((d) => d.class === state.labType ? drawers.push(d) : "")
@@ -77,21 +72,3 @@ class ExperimentLab extends React.Component {
 
 ExperimentLab.contextType = LabContext
 export default ExperimentLab
-
-function soundEffect(src) {
-    this.sound = document.createElement("audio");
-    this.sound.src = src;
-    this.sound.setAttribute("preload", "auto");
-    this.sound.setAttribute("controls", "none");
-    this.sound.style.display = "none";
-    this.sound.volume = .5
-    document.body.appendChild(this.sound);
-    this.play = function (obj) {
-        if (obj.soundEffects) {
-            this.sound.play();
-        }
-    }
-    this.stop = function () {
-        this.sound.pause();
-    }
-}

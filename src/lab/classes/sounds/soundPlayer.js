@@ -14,7 +14,9 @@ class soundPlayer {
             click: new soundEffect("sounds/click.wav"),
             remove: new soundEffect("sounds/remove.wav"),
             light: new soundEffect("sounds/lightswitch.wav"),
-            error: new soundEffect("sounds/error.wav")
+            error: new soundEffect("sounds/error.wav"),
+            openDrawer: new soundEffect("sounds/draweropen.wav"),
+            closeDrawer: new soundEffect("sounds/drawerclose.wav")
         }
 
         if(this.musicVolume !== '0') {

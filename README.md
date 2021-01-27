@@ -16,9 +16,9 @@ Folder Structure
     |-  /classes - code regarding behavior of the frond end, including the drag & drop items & general info.
     |-  /components - the UI components for the lab.
         |-  /animations - code regarding the physics animations
+        |-  /item - the component for the drag & drop items
         |-  /labLayout - the acutal layout of the lab
-        |-  core.js - the main code/component for the lab
-        |-  item.js - the component for the drag & drop items 
+        |-  core.js - the main code/component for the lab, handles state & context, etc.
     |-  labContext.js - holds information to pass down through the lab components
 |-  /portal - code regarding the UI of the admin portal.
 |-  /site - settings for the app
@@ -30,9 +30,3 @@ Folder Structure
 |-  index.js - the react wrapper
 
 
-
-
-=======================
-Lab Structure
-=======================
-Core- handles state for most lab functions.
