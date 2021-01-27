@@ -31,13 +31,13 @@ class LabLayout extends React.Component {
     }
 
     turnOnLight = () => {
-        this.props.coreComponent.state.sounds.light.play(this.props.coreComponent.state, "loud");
+        this.props.soundPlayer.playEffect('light', "loud");
         this.setState({ light: !this.state.light })
     }
 
     removeImage = (e) => {
         e.preventDefault()
-        this.props.coreComponent.state.sounds.click.play(this.props.coreComponent.state);
+        this.props.soundPlayer.playEffect('click');
         e.target.remove()
 
     }

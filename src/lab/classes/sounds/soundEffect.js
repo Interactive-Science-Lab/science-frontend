@@ -7,18 +7,13 @@ export default function soundEffect(src) {
     this.sound.volume = 1
     this.sound.crossOrigin = 'anonymous';
     document.body.appendChild(this.sound);
-    this.play = function (obj, vol) {
-        try {
-            console.log(obj)
-            if (vol === 'loud') {
-                this.sound.volume = (Number.parseInt(obj.soundEffects) / 100)
-            } else {
-                this.sound.volume = (Number.parseInt(obj.soundEffects) / 300)
-            }
-            this.sound.play();
-        } catch (err) {
-            console.log(`Project.Lab.Core.soundEffect- ${err}`)
+    this.play = function (vol, multiplier) {
+        if (multiplier === 'loud') {
+            this.sound.volume = (Number.parseInt(vol) / 100)
+        } else {
+            this.sound.volume = (Number.parseInt(vol) / 300)
         }
+        this.sound.play();
     }
     this.stop = function () {
         this.sound.pause();

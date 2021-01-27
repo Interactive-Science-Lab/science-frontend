@@ -6,8 +6,8 @@ export default function sound(src) {
     this.sound.style.display = "none"
     this.sound.crossOrigin = 'anonymous';
     document.body.appendChild(this.sound);
-    this.play = function (obj) {
-        this.sound.volume = (Number.parseInt(obj.music) / 100)
+    this.play = function (volume) {
+        this.sound.volume = (Number.parseInt(volume) / 100)
         this.sound.play()
         
     }

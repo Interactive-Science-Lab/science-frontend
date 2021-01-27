@@ -2,6 +2,7 @@
 Science Lab Frontend
 ---------------------
 
+=====================
 Folder Structure
 =====================
 /public
@@ -28,3 +29,10 @@ Folder Structure
 |-  App.js - component regarding App state
 |-  index.js - the react wrapper
 
+
+
+
+=======================
+Lab Structure
+=======================
+Core- handles state for most lab functions.
