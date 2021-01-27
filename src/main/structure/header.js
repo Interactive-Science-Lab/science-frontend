@@ -4,7 +4,7 @@ import { NavLink, Switch, Route, withRouter } from 'react-router-dom'
 import { siteTitle, logoURL, menuOptions } from 'site/siteSettings'
 
 //An alternate sidebar for displaying the experiments
-import ExperimentSidebar from 'project/lab/sidebar'
+import ExperimentSidebar from 'project/lab/sidebar/sidebar'
 
 
 class Header extends React.Component {
@@ -54,7 +54,7 @@ class Header extends React.Component {
         <Route path="/lab/:id?" >
           <div className='header' >
             {user ?
-              <ExperimentSidebar /> : ""}
+              <ExperimentSidebar key={this.props.location.search} /> : ""}
           </div>
         </Route>
 

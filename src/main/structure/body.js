@@ -7,7 +7,7 @@ import FourOhFour from './404Component'
 
 import CoreComponent from 'main/coreComponents/controller';
 import DefaultComponent from 'main/defaultComponent/controller';
-import ExperimentComponent from 'project/lab/core';
+import ExperimentComponent from 'project/lab/coreComponent/core';
 
 import {menuOptions} from 'site/siteSettings'
 

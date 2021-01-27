@@ -129,11 +129,17 @@ class ItemComponent extends React.Component {
                         <option>3</option>
                         <option>4</option>
                         <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>
                         <option>10</option>
+                        <option>15</option>
+                        <option>20</option>
+                        <option>25</option>
+                        <option>30</option>
+                        <option>35</option>
+                        <option>40</option>
+                        <option>45</option>
+                        <option>50</option>
+                        <option>75</option>
+                        <option>100</option>
                     </select>
 
                     <select className="atp-aerobic">

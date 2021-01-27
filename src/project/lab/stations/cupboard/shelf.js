@@ -38,6 +38,7 @@ class ExperimentLab extends React.Component {
                  width: '100%', paddingBottom: '0px', border: '3px inset #406375' }}>
                     {list.map(item =>
                         <div
+                            key={ JSON.stringify(item) }
                             draggable
                             onDragEnd={this.close}
                             className={`inventory-item `}
