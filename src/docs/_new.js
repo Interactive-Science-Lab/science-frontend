@@ -1,6 +1,6 @@
 import React from 'react'
-import Component from '../main/component'
-import { PermissionSetting } from '../main/permission'
+import Component from '../portal/component'
+import { PermissionSetting } from '../portal/permission'
 
 let component = new Component('example') 
 

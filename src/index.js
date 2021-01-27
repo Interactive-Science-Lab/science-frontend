@@ -9,7 +9,7 @@ import App from './App';
 import {BrowserRouter} from 'react-router-dom';
 
 //Automatically makes the page go to the top on a new click.
-import ScrollToTop from './main/structure/scrollToTop'
+import ScrollToTop from './structure/scrollToTop'
 
 //Pulls in the array of google fonts and puts it nicely in a string to call.
 import {googleFonts} from './site/siteSettings'
