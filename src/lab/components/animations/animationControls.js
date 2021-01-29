@@ -61,7 +61,7 @@ class AnimationControls extends React.Component {
     setOption = (e) => {
         let option = e.target.getAttribute('data-option')
         let select = e.target.getAttribute('data-select')
-        this.context.state.sounds.click.play(this.context.state)
+        this.context.soundPlayer.playEffect('click')
         this.setState({ selections: { ...this.state.selections, [option]: select } })
 
     }

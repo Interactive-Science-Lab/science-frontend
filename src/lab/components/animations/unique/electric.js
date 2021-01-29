@@ -1,6 +1,8 @@
 import React from "react"
 import {LabContext} from 'lab/labContext'
 
+import soundEffect from '../../../classes/sounds/soundEffect'
+
 class Boat extends React.Component {
     constructor(props, context) {
         super(props, context)
@@ -29,16 +31,16 @@ class Boat extends React.Component {
 
         if (a >= 300) {
             suffix = "-big-sparks.gif"
-            this.state.soundVHi.play(this.context)
+            this.context.soundPlayer.customSoundEffect(this.state.soundVHi)
         } else if (a >= 200 && a <= 300) {
             suffix = "-sparks.gif"
-            this.state.soundHi.play(this.context)
+            this.context.soundPlayer.customSoundEffect(this.state.soundHi)
         } else if (a >= 100 && a < 200) {
             suffix = '-wire-glow.gif'
-            this.state.soundMid.play(this.context)
+            this.context.soundPlayer.customSoundEffect(this.state.soundMid)
         } else {
             suffix = '-wire.gif'
-            this.state.soundLo.play(this.context)
+            this.context.soundPlayer.customSoundEffect(this.state.soundLo)
         }
 
         return wire + suffix
@@ -46,12 +48,12 @@ class Boat extends React.Component {
     }
 
     changeWire = (e) => {
-        this.context.state.sounds.click.play(this.context.state)
+        this.context.soundPlayer.playEffect('click')
         this.setState({ currentWire: Number.parseInt(e.target.getAttribute('data-choice')) })
     }
 
     changeVolts = (e) => {
-        this.context.state.sounds.click.play(this.context.state)
+        this.context.soundPlayer.playEffect('click')
         this.setState({ currentVolts: Number.parseInt(e.target.getAttribute('data-choice')) })
     }
 
@@ -97,21 +99,3 @@ class Boat extends React.Component {
 
 Boat.contextType = LabContext
 export default Boat
-
-function soundEffect(src) {
-    this.sound = document.createElement("audio");
-    this.sound.src = src;
-    this.sound.setAttribute("preload", "auto");
-    this.sound.setAttribute("controls", "none");
-    this.sound.style.display = "none";
-    this.sound.volume = .3
-    document.body.appendChild(this.sound);
-    this.play = function(obj){
-        if(obj.soundEffects){
-            this.sound.play();
-        }
-    }
-    this.stop = function(){
-      this.sound.pause();
-    }
-  }

@@ -55,6 +55,10 @@ class soundPlayer {
         this.sounds[name].play( this.soundEffectVolume, vol )
     }
 
+    customSoundEffect = (soundEffect, vol = null) => {
+        soundEffect.play( this.soundEffectVolume, vol )
+    }
+
 }
 
 export default soundPlayer

@@ -12,7 +12,7 @@ class Popup extends React.Component {
 
 
     toggle = () => {
-        if(this.state.open) { this.context.state.sounds.remove.play(this.context.state) }
+        if(this.state.open) { this.context.soundPlayer.playEffect('remove') }
         this.setState({ open: !this.state.open })
     }
 

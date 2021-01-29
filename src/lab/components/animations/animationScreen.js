@@ -3,6 +3,8 @@ import React from 'react'
 import { LabContext } from 'lab/labContext'
 import { FRAMERATE, FRAMERATIO } from '../../classes/experimentInfo'
 
+import soundEffect from '../../classes/sounds/soundEffect'
+
 class Screen extends React.Component {
     constructor(props, context) {
         super(props, context)
@@ -54,7 +56,7 @@ class Screen extends React.Component {
     toggleAnimation = () => {
         let newPlay = !this.state.play
         this.setState({ play: newPlay },)
-        if (newPlay && this.state.startSound) { this.state.startSound.play(this.context) }
+        if (newPlay && this.state.startSound) { this.context.soundPlayer.customSoundEffect(this.state.startSound) }
         // this.props.hideCallback(!newPlay)
     }
 
@@ -90,11 +92,11 @@ class Screen extends React.Component {
 
                 let speed = this.applyAcceleration()
                 position = this.moveSprite()
-                if (this.state.stepSound) { this.state.stepSound.play(this.context) }
+                if (this.state.stepSound) { this.context.soundPlayer.customSoundEffect(this.state.stepSound) }
                 setTimeout(() => { this.setState({ position, speed, frameCount }) }, FRAMERATE);
             } else {
                 if (this.state.stepSound) { this.state.stepSound.stop() }
-                if (this.state.endSound) { this.state.endSound.play(this.context) }
+                if (this.state.endSound) { this.context.soundPlayer.customSoundEffect(this.state.endSound) }
 
                 if(this.state.speed[0] > 0 || this.state.speed[0] < 0) { position[0] = (this.state.stop ? this.state.stop[0] : dimensions[0]) - objectSize[0] }
                 if(this.state.speed[1] > 0 || this.state.speed[1] < 0) { position[1] = (this.state.stop ? this.state.stop[1] : dimensions[1]) - objectSize[1] }
@@ -351,23 +353,3 @@ var arraysMatch = function (arr1, arr2) {
     return true;
 
 };
-
-
-
-function soundEffect(src) {
-    this.sound = document.createElement("audio");
-    this.sound.src = src;
-    this.sound.setAttribute("preload", "auto");
-    this.sound.setAttribute("controls", "none");
-    this.sound.style.display = "none";
-    this.sound.volume = .2
-    document.body.appendChild(this.sound);
-    this.play = function (obj) {
-        if (obj.soundEffects) {
-            this.sound.play();
-        }
-    }
-    this.stop = function () {
-        this.sound.pause();
-    }
-}

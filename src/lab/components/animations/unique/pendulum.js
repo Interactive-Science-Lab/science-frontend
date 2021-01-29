@@ -1,6 +1,8 @@
 import React from "react"
 import {LabContext} from 'lab/labContext'
 
+import soundEffect from '../../../classes/sounds/soundEffect'
+
 var animation;
 
 class Pendulum extends React.Component {
@@ -77,7 +79,7 @@ class Pendulum extends React.Component {
             alpha: 0,
             J: 100 * chosenLength * chosenLength / 500
         }
-        this.context.state.sounds.click.play(this.context.state)
+        this.context.soundPlayer.playEffect('click')
 
         this.setState({ pendulum, chosenLength })
     }
@@ -119,7 +121,7 @@ class Pendulum extends React.Component {
         pendulum.omega += 0.5 * (alpha + pendulum.alpha) * deltaT;
 
         if( (oldOmega < 0 && pendulum.omega > 0) || (oldOmega > 0 && pendulum.omega < 0) ) {
-            this.state.tickSound.play(this.context)
+            this.context.soundPlayer.customSoundEffect(this.state.tickSound)
             //this.setState({lastPeriod: new Date().getTime()})
             
         }
@@ -187,21 +189,3 @@ class Pendulum extends React.Component {
 
 Pendulum.contextType = LabContext
 export default Pendulum
-
-function soundEffect(src) {
-    this.sound = document.createElement("audio");
-    this.sound.src = src;
-    this.sound.setAttribute("preload", "auto");
-    this.sound.setAttribute("controls", "none");
-    this.sound.style.display = "none";
-    this.sound.volume = .3
-    document.body.appendChild(this.sound);
-    this.play = function(obj){
-        if(obj.soundEffects){
-            this.sound.play();
-        }
-    }
-    this.stop = function(){
-      this.sound.pause();
-    }
-  }

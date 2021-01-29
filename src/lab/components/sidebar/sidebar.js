@@ -41,12 +41,10 @@ class Sidebar extends React.Component {
         items = axios
             .get(api.apiPath(`/experiments`))
             .then(res => {
-
                 let retExperiments = []
                 res.data.map(
                     i => i.experiment_class === labKind ? retExperiments.push(i) : null
                 )
-
                 return retExperiments
             }
             )
