@@ -11,7 +11,7 @@ import Examiner from './examiner/component'
 import SoundControls from "./soundControls"
 
 import labSettings from '../../classes/fields'
-
+import {siteOptions} from '../../../site/siteSettings'
 
 class LabLayout extends React.Component {
     constructor(props) {
@@ -46,7 +46,7 @@ class LabLayout extends React.Component {
     }
 
     adminBar = () => {
-        if (curr_user.user_kind === 'admin_user') {
+        if (curr_user.user_kind === 'admin_user' && !siteOptions.demoSite) {
             return <div className='admin-bar'>
                 Select a Class |
                 <a href="/lab?l=chemistry">Chemistry</a> |
