@@ -15,19 +15,15 @@ import SoundPlayer from '../classes/sounds/soundPlayer'
 //EventListenerHelper contains all the logic for drags and button clicks- very important
 import EventListenerHelper from '../classes/eventListeners'
 
+import {labKindHelper} from '../classes/fields'
+
 let soundPlayer = new SoundPlayer()
 let eventListenerHelper = null
 
 class ExperimentLab extends React.Component {
     constructor(props) {
         super(props)
-        let params = this.props.location.search?.substr(1).split("&") || []
-        let labKind = 'chemistry'
-
-        params.map((p) => {
-            let pair = p.split('=')
-            if (pair[0] === 'l') { labKind = pair[1] }
-        })
+        let labKind = labKindHelper(this.props) 
 
         this.state = {
             //Class that holds the position of where all the items in the lab are
