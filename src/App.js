@@ -15,6 +15,10 @@ import { curr_user, expireTokenCheck, apiPath } from 'helpers/api'
 import Site from './portal/asteroid/site'
 import axios from 'axios';
 
+import { demoGoogleId, liveGoogleId } from './site/siteSettings'
+let googleId = siteOptions.demoSite ? demoGoogleId : liveGoogleId
+
+
 class App extends React.Component {
 	constructor(props) {
 		super(props);
@@ -72,6 +76,14 @@ class App extends React.Component {
 							<Helmet><title>{`${siteTitle}- ${siteTagline}`}</title></Helmet>
 							<Body />
 							{siteOptions.displayFooter ? <Footer /> : ""}
+
+							{/* Global site tag (gtag.js) - Google Analytics */}
+							<script
+								async
+								src={`https://www.googletagmanager.com/gtag/js?id=${googleId}`}
+							/>
+							<script>{injectGA()}</script>
+
 						</div>
 					</div>}
 			</div>
@@ -90,5 +102,18 @@ let loadingScreenHtml = <div style={{ height: '100vh', width: '100vw' }} >
 		<img src={`/images/rev-ell-load.gif`} style={{ height: '12px' }} /> Loading Online Lab <img src={`/images/ellipse-load.gif`} style={{ height: '12px' }} />
 	</h2>
 </div>
+
+const injectGA = () => {
+	if (typeof window == 'undefined') {
+	  return;
+	}
+	window.dataLayer = window.dataLayer || [];
+	function gtag() {
+	  window.dataLayer.push(arguments);
+	}
+	gtag('js', new Date());
+
+	gtag('config', googleId);
+  };
 
 export default withRouter(App);
