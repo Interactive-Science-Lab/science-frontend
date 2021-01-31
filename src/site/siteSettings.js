@@ -2,12 +2,18 @@ import React from 'react'
 
 export const siteOptions = {
     backendLive: true,
+    demoSite: true,
     displayFooter: false
 }
 
 export const localBeLink = `http://localhost:4001/api` 
 export const liveBeLink = `https://interactivelabscience.herokuapp.com/api` 
-export const apiPathLink = siteOptions.backendLive ? liveBeLink : localBeLink
+export const liveBeDemoLink = `https://interactivesciencedemo.herokuapp.com/api` 
+
+export const demoGoogleId = 'G-Q7EZECRL97'
+export const liveGoogleId = 'G-FZWZVMCGYJ'
+
+export const apiPathLink = siteOptions.backendLive ? (siteOptions.demoSite ? liveBeDemoLink : liveBeLink) : localBeLink
 
 export const siteTitle = "Science Lab"
 export const logoURL = "/images/cpslogo.png"

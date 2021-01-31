@@ -6,6 +6,8 @@ import api from 'helpers/api'
 import ExperimentList from './experimentList'
 import Experiment from './experiment'
 
+import {labKindHelper} from '../../classes/fields'
+
 class Sidebar extends React.Component {
     constructor(props) {
         super(props);
@@ -13,6 +15,8 @@ class Sidebar extends React.Component {
             item: {},
             items: []
         }
+
+        this.labKind = labKindHelper(props)
     }
 
 
@@ -26,16 +30,15 @@ class Sidebar extends React.Component {
     }
 
     loadPage = async (props = this.props) => {
+        this.labKind = labKindHelper(props)
         let params = this.props.location.search?.substr(1).split("&") || []
-        let labKind = 'chemistry'
         let experiment_id = null
         let items = []
         let item = {}
 
         params.map((p) => {
             let pair = p.split('=')
-            if (pair[0] === 'l') { labKind = pair[1] }
-            else if (pair[0] === 'e') { experiment_id = pair[1] }
+            if (pair[0] === 'e') { experiment_id = pair[1] }
         })
 
         items = axios
@@ -43,7 +46,7 @@ class Sidebar extends React.Component {
             .then(res => {
                 let retExperiments = []
                 res.data.map(
-                    i => i.experiment_class === labKind ? retExperiments.push(i) : null
+                    i => i.experiment_class === this.labKind ? retExperiments.push(i) : null
                 )
                 return retExperiments
             }
@@ -68,26 +71,16 @@ class Sidebar extends React.Component {
     render() {
         const { item, items } = this.state
 
-        let params = this.props.location.search?.substr(1).split("&") || []
-        let labKind = 'chemistry'
-
-        params.map((p) => {
-            let pair = p.split('=')
-            if (pair[0] === 'l') { labKind = pair[1] }
-        })
-
-        if (!labKind) { console.log("Lab.Sidebar- labKind should not be null but is.") }
-
         if (item.experiment_id) {
             return <div>
                 <NavLink to="/" style={{ background: 'none' }}>Logout</NavLink>
-                <NavLink to={`/lab?l=${labKind}`} style={{ background: 'none' }}>Back To Experiments</NavLink>
+                <NavLink to={`/lab?l=${this.labKind}`} style={{ background: 'none' }}>Back To Experiments</NavLink>
                 <Experiment item={item} />
             </div>
         } else {
             return <div>
                 <NavLink to="/" style={{ background: 'none', display: 'block' }}>Logout</NavLink>
-                {items.length > 0 ? <ExperimentList items={items} labKind={labKind} /> : "-LOADING-"}
+                {items.length > 0 ? <ExperimentList items={items} labKind={this.labKind} /> : "-LOADING-"}
             </div>
         }
 

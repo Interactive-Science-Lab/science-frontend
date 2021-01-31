@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Redirect } from "react-router-dom";
 import { withRouter } from 'react-router';
+import DemoHome from '../site/demoHome';
 import Home from '../site/home';
 import FourOhFour from './404Component'
 
@@ -9,7 +10,7 @@ import CoreComponent from 'portal/coreComponents/controller';
 import DefaultComponent from 'portal/defaultComponent/controller';
 import ExperimentComponent from 'lab/components/core';
 
-import {menuOptions} from 'site/siteSettings'
+import {menuOptions, siteOptions} from 'site/siteSettings'
 
 /* 
 
@@ -34,7 +35,7 @@ function Body(props) {
 			<Route path="/" exact>
 				<div className="">
 					<div className="page-container">
-						<Home />
+						{ siteOptions.demoSite ? <DemoHome /> : <Home /> }
 					</div>
 				</div>
 			</Route>

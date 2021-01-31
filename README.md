@@ -2,6 +2,7 @@
 Science Lab Frontend
 ---------------------
 
+
 =====================
 Folder Structure
 =====================
@@ -30,3 +31,10 @@ Folder Structure
 |-  index.js - the react wrapper
 
 
+
+====================
+"Environments"
+====================
+Testing
+Main
+Demo
