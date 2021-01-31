@@ -2,7 +2,7 @@ import React from 'react'
 
 export const siteOptions = {
     backendLive: true,
-    demoSite: false,
+    demoSite: true,
     displayFooter: false
 }
 
