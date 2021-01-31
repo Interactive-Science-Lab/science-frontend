@@ -4,15 +4,15 @@ import Helmet from 'react-helmet'
 import { withRouter } from 'react-router';
 import { logoURL } from './site/siteSettings'
 
-import Header from './main/structure/header';
-import Footer from './main/structure/footer';
-import Body from './main/structure/body';
+import Header from './structure/header';
+import Footer from './structure/footer';
+import Body from './structure/body';
 
 import { siteTitle, siteTagline, siteOptions, menuOptions } from './site/siteSettings'
-import { UserContext, userDefaults } from 'main/asteroid/contexts/userContext'
+import { UserContext, userDefaults } from 'portal/asteroid/contexts/userContext'
 import { curr_user, expireTokenCheck, apiPath } from 'helpers/api'
 
-import Site from './main/asteroid/site'
+import Site from './portal/asteroid/site'
 import axios from 'axios';
 
 class App extends React.Component {

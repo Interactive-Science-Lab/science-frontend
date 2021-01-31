@@ -1,6 +1,5 @@
-import Site from '../main/asteroid/site'
+import Site from '../portal/asteroid/site'
 
 let site = new Site()
-
 
 export default site
