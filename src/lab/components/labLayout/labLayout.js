@@ -11,7 +11,7 @@ import Examiner from './examiner/component'
 import SoundControls from "./soundControls"
 
 import labSettings from '../../classes/fields'
-import {siteOptions} from '../../../site/siteSettings'
+import { siteOptions } from '../../../site/siteSettings'
 
 class LabLayout extends React.Component {
     constructor(props) {
@@ -27,7 +27,7 @@ class LabLayout extends React.Component {
 
     componentDidUpdate = async () => {
         if (this.state.message) {
-            setTimeout(() => { this.setState({ message: null }) }, 3000);
+            setTimeout(() => { this.setState({ message: null }) }, 5000);
         }
     }
 
@@ -36,8 +36,18 @@ class LabLayout extends React.Component {
     }
 
     turnOnLight = () => {
-        this.props.soundPlayer.playEffect('light', "loud");
-        this.setState({ light: !this.state.light })
+        if (this.state.light) {
+            if (this.state.goggles && this.state.coat) {
+                this.props.soundPlayer.playEffect('light', "loud");
+                this.setState({ light: !this.state.light })
+            } else {
+                this.props.soundPlayer.playEffect('error');
+                this.setState({ message: "Please replace the coat and goggles before turning off the light." })
+            }
+        } else if (!this.state.light) {
+            this.props.soundPlayer.playEffect('light', "loud");
+            this.setState({ light: !this.state.light })
+        }
     }
 
     toggleGoggles = (e) => {
@@ -87,20 +97,20 @@ class LabLayout extends React.Component {
 
                     <div id="lab-layout-safety-gear">
                         <span onClick={this.toggleGoggles}>
-                            { 
-                            this.state.goggles ? 
-                            <img src="/images/goggles.png" id="lab-layout-goggle-image" /> : 
-                            <span className="fas fa-undo" style={{color: "#aaa"}}/>
+                            {
+                                this.state.goggles ?
+                                    <img src="/images/goggles.png" id="lab-layout-goggle-image" /> :
+                                    <span className="fas fa-undo" style={{ color: "#aaa" }} />
                             }
                         </span>
 
                         <br />
 
                         <span onClick={this.toggleCoat}>
-                            { 
-                            this.state.coat ? 
-                            <img src="/images/labcoat.png" id="lab-layout-coat-image" />: 
-                            <span className="fas fa-undo" style={{color: "#aaa"}} />
+                            {
+                                this.state.coat ?
+                                    <img src="/images/labcoat.png" id="lab-layout-coat-image" /> :
+                                    <span className="fas fa-undo" style={{ color: "#aaa" }} />
                             }
                         </span>
 
@@ -113,7 +123,7 @@ class LabLayout extends React.Component {
                         <Table />
                     </div>
                     <div id="bottomPart">
-                        <Cupboard />
+                        <Cupboard parentComponent={this} />
                     </div>
 
                 </div>

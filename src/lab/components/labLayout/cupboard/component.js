@@ -18,8 +18,13 @@ class ExperimentLab extends React.Component {
             this.setState({ openNum: 0 })
             this.context.soundPlayer.playEffect('closeDrawer')
         } else {
-            this.setState({ openNum: num })
-            this.context.soundPlayer.playEffect('openDrawer')
+            if (!this.props.parentComponent.state.goggles && !this.props.parentComponent.state.coat) {
+                this.setState({ openNum: num })
+                this.context.soundPlayer.playEffect('openDrawer')
+            } else {
+                this.context.soundPlayer.playEffect('error')
+                this.props.parentComponent.setState({ message: "Please wear the labcoat & goggles before starting an experiment." })
+            }
         }
     }
 
@@ -31,7 +36,7 @@ class ExperimentLab extends React.Component {
                 let dId = Number.parseInt(o)
                 this.context.masterItemList[drawer.object_type || 'objects'].map(i => {
                     let oId = (i.container_id || i.tool_id || i.object_item_id || i.substance_id)
-                    if(dId === oId) {
+                    if (dId === oId) {
                         list.push(i)
                     }
                 })
