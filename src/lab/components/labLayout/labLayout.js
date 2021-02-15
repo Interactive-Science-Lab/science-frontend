@@ -36,18 +36,18 @@ class LabLayout extends React.Component {
     }
 
     turnOnLight = () => {
-        if (this.state.light) {
-            if (this.state.goggles && this.state.coat) {
-                this.props.soundPlayer.playEffect('light', "loud");
-                this.setState({ light: !this.state.light })
-            } else {
-                this.props.soundPlayer.playEffect('error');
-                this.setState({ message: "Please replace the coat and goggles before turning off the light." })
-            }
-        } else if (!this.state.light) {
+        // if (this.state.light) {
+        //     if (this.state.goggles && this.state.coat) {
+        //         this.props.soundPlayer.playEffect('light', "loud");
+        //         this.setState({ light: !this.state.light })
+        //     } else {
+        //         this.props.soundPlayer.playEffect('error');
+        //         this.setState({ message: "Please replace the coat and goggles before turning off the light." })
+        //     }
+        // } else if (!this.state.light) {
             this.props.soundPlayer.playEffect('light', "loud");
             this.setState({ light: !this.state.light })
-        }
+        //}
     }
 
     toggleGoggles = (e) => {

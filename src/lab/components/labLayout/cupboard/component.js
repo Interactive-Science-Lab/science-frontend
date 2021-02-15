@@ -18,13 +18,13 @@ class ExperimentLab extends React.Component {
             this.setState({ openNum: 0 })
             this.context.soundPlayer.playEffect('closeDrawer')
         } else {
-            if (!this.props.parentComponent.state.goggles && !this.props.parentComponent.state.coat) {
+            //if (!this.props.parentComponent.state.goggles && !this.props.parentComponent.state.coat) {
                 this.setState({ openNum: num })
                 this.context.soundPlayer.playEffect('openDrawer')
-            } else {
-                this.context.soundPlayer.playEffect('error')
-                this.props.parentComponent.setState({ message: "Please wear the labcoat & goggles before starting an experiment." })
-            }
+            //} else {
+            //    this.context.soundPlayer.playEffect('error')
+            //    this.props.parentComponent.setState({ message: "Please wear the labcoat & goggles before starting an experiment." })
+            //}
         }
     }
 

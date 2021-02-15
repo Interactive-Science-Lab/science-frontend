@@ -21,7 +21,7 @@ class ItemComponentOptions extends React.Component {
             {
                 item.name === "Frog" ?
                     <OptionButton sprite={'chevron-right'} option={'advance-graphic'} text={'Dissect'} property={'progress'} item={this.props.item} /> :
-                    <OptionButton sprite={'chevron-right'} option={'advance-graphic'} text={'Dissect'} property={'progress'} item={this.props.item} />
+                    <OptionButton sprite={'chevron-right'} option={'advance-graphic'} text={'Advance Time'} property={'progress'} item={this.props.item} />
             }
 
 
