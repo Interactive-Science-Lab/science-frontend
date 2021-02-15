@@ -11,21 +11,23 @@ import Examiner from './examiner/component'
 import SoundControls from "./soundControls"
 
 import labSettings from '../../classes/fields'
-import {siteOptions} from '../../../site/siteSettings'
+import { siteOptions } from '../../../site/siteSettings'
 
 class LabLayout extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             message: "",
-            light: false
+            light: false,
+            goggles: true,
+            coat: true
 
         }
     }
 
     componentDidUpdate = async () => {
         if (this.state.message) {
-            setTimeout(() => { this.setState({ message: null }) }, 3000);
+            setTimeout(() => { this.setState({ message: null }) }, 5000);
         }
     }
 
@@ -34,15 +36,31 @@ class LabLayout extends React.Component {
     }
 
     turnOnLight = () => {
-        this.props.soundPlayer.playEffect('light', "loud");
-        this.setState({ light: !this.state.light })
+        // if (this.state.light) {
+        //     if (this.state.goggles && this.state.coat) {
+        //         this.props.soundPlayer.playEffect('light', "loud");
+        //         this.setState({ light: !this.state.light })
+        //     } else {
+        //         this.props.soundPlayer.playEffect('error');
+        //         this.setState({ message: "Please replace the coat and goggles before turning off the light." })
+        //     }
+        // } else if (!this.state.light) {
+            this.props.soundPlayer.playEffect('light', "loud");
+            this.setState({ light: !this.state.light })
+        //}
     }
 
-    removeImage = (e) => {
+    toggleGoggles = (e) => {
         e.preventDefault()
         this.props.soundPlayer.playEffect('click');
-        e.target.remove()
+        this.setState({ goggles: !this.state.goggles })
 
+    }
+
+    toggleCoat = (e) => {
+        e.preventDefault()
+        this.props.soundPlayer.playEffect('click');
+        this.setState({ coat: !this.state.coat })
     }
 
     adminBar = () => {
@@ -78,13 +96,24 @@ class LabLayout extends React.Component {
                     }
 
                     <div id="lab-layout-safety-gear">
-                        <span onClick={this.removeImage}>
-                            <img src="/images/goggles.png" id="lab-layout-goggle-image" />
+                        <span onClick={this.toggleGoggles}>
+                            {
+                                this.state.goggles ?
+                                    <img src="/images/goggles.png" id="lab-layout-goggle-image" /> :
+                                    <span className="fas fa-undo" style={{ color: "#aaa" }} />
+                            }
                         </span>
+
                         <br />
-                        <span onClick={this.removeImage}>
-                            <img src="/images/labcoat.png" id="lab-layout-coat-image" />
+
+                        <span onClick={this.toggleCoat}>
+                            {
+                                this.state.coat ?
+                                    <img src="/images/labcoat.png" id="lab-layout-coat-image" /> :
+                                    <span className="fas fa-undo" style={{ color: "#aaa" }} />
+                            }
                         </span>
+
                     </div>
 
                     <div id="topPart">
@@ -94,7 +123,7 @@ class LabLayout extends React.Component {
                         <Table />
                     </div>
                     <div id="bottomPart">
-                        <Cupboard />
+                        <Cupboard parentComponent={this} />
                     </div>
 
                 </div>
