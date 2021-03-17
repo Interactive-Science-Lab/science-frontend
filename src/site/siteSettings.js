@@ -6,6 +6,8 @@ export const siteOptions = {
     displayFooter: false
 }
 
+console.log( process.env.LABRELEASE )
+
 export const localBeLink = `http://localhost:4001/api` 
 export const liveBeLink = `https://interactivelabscience.herokuapp.com/api` 
 export const liveBeDemoLink = `https://interactivesciencedemo.herokuapp.com/api` 
