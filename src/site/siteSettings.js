@@ -1,4 +1,6 @@
 import React from 'react'
+import env from "react-dotenv";
+
 
 export const siteOptions = {
     backendLive: true,
@@ -6,7 +8,7 @@ export const siteOptions = {
     displayFooter: false
 }
 
-console.log( process.env.LABRELEASE )
+console.log( env.LABRELEASE )
 
 export const localBeLink = `http://localhost:4001/api` 
 export const liveBeLink = `https://interactivelabscience.herokuapp.com/api` 
